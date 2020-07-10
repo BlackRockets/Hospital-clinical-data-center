@@ -1,4 +1,4 @@
-package com.hospitaldatacenter.hospitaldatacenter;
+package com.hospitaldatacenter;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
