@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
     <!--随访进度管理-->
+
 </head>
 <body>
 <div class="container-fluid">
@@ -26,7 +31,7 @@
                         1.科室：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" name="">
+                        <select class="form-control input-sm" v-model="">
                             <option>-请选择-</option>
                             <option>1</option>
                             <option>2</option>
@@ -39,7 +44,7 @@
                         2.随访组：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" name="">
+                        <select class="form-control input-sm" v-model="">
                             <option>-请选择-</option>
                             <option>1</option>
                             <option>2</option>
@@ -52,7 +57,7 @@
                         <div class="col-sm-5" style="margin-top: 5px">
                             3.日期：
                         </div>
-                        <div class='input-group date col-sm-6'style="margin-left: 47%" id='datetimepicker1'>
+                        <div class='input-group date col-sm-6' style="margin-left: 47%" id='datetimepicker1'>
                             <input type='text' class="form-control"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
@@ -60,7 +65,7 @@
                             </span>
                         </div>
                         <div class="col-sm-7" style="text-align: right">~</div>
-                        <div class='input-group date col-sm-6'style="margin-left: 47%" id='datetimepicker2'>
+                        <div class='input-group date col-sm-6' style="margin-left: 47%" id='datetimepicker2'>
                             <input type='text' class="form-control"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
@@ -74,7 +79,7 @@
                         4.住院号：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" name="">
+                        <input type="text" class="form-control input-sm" v-model="">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 5%">
@@ -82,23 +87,127 @@
                         5.姓名：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" name="">
+                        <input type="text" class="form-control input-sm" v-model="">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10%;text-align: center">
-                    <button type="button" class="btn btn-success btn-sm">筛选</button>
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" screen()">
+                        筛选
+                    </button>
                 </div>
             </form>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 navbar-right" style="border-left: 1px solid #ccc">
             <ul class="nav nav-tabs">
-                <li role="presentation"><a href="#">列表视图</a></li>
-                <li role="presentation"><a href="#">日历视图</a></li>
+                <li role="presentation"><a href="#t1" data-toggle="tab">列表视图</a></li>
+                <li role="presentation"><a href="#t2" data-toggle="tab">日历视图</a></li>
             </ul>
+            <div class="tab-content" style="margin-right: 2%;margin-left: 2%">
+                <div id="t1" class="tab-pane fade in active">
+                    <div class="row" style="margin: 2%;">
+                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
+                                v-on:click="haveBeenFollowedUp()">已随访
+                        </button>
+                        <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                                data-dismiss="modal" v-on:click="noFollowedUp()">未随访
+                        </button>
+                    </div>
+                    <div class="row">
+                        <table id="testTable"></table>
+                    </div>
+                </div>
+                <div id="t2" class="tab-pane fade">2</div>
+            </div>
         </div>
     </div>
 </div>
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
 <script type="text/javascript">
+    $("#testTable").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            field: 'id',
+            title: '门诊号/住院号',
+            align: 'center',
+        }, {
+            field: 'name',
+            title: '随访组',
+            align: 'center',
+        }, {
+            field: 'price',
+            title: '姓名',
+            align: 'center',
+        },{
+            field: 'name',
+            title: '性别',
+            align: 'center',
+        },{
+            field: 'age',
+            title: '年龄',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '入组时期',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '下次入组时期',
+            align: 'center',
+        }, {
+            title: '操作',
+            formatter: operateFormatter,
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            id: 1,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 2,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 3,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 4,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 5,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }]
+    });
+
+    function operateFormatter(value, row, index){
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        return result;
+    }
+
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -109,6 +218,12 @@
             locale: moment.locale('zh-cn')
         });
     })
+    function EditViewById(id,view) {
+        console.log(id);
+        console.log(view);
+
+    }
+
 </script>
 </body>
 </html>
