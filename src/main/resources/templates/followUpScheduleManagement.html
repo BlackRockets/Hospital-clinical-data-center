@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <!--随访进度管理-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="page-header" style="text-align: center;margin-top: 0">
+        <h3 style="color: #28a4c9">随访进度管理</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <form>
+                <div class="row">
+                    <div class="col-sm-5" style="margin-top: 5px">
+                        1.科室：
+                    </div>
+                    <div class="col-sm-7">
+                        <select class="form-control input-sm" name="">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5%">
+                    <div class="col-sm-5" style="margin-top: 5px">
+                        2.随访组：
+                    </div>
+                    <div class="col-sm-7">
+                        <select class="form-control input-sm" name="">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5%">
+                    <div class="form-group">
+                        <div class="col-sm-5" style="margin-top: 5px">
+                            3.日期：
+                        </div>
+                        <div class='input-group date col-sm-6'style="margin-left: 47%" id='datetimepicker1'>
+                            <input type='text' class="form-control"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-sm-7" style="text-align: right">~</div>
+                        <div class='input-group date col-sm-6'style="margin-left: 47%" id='datetimepicker2'>
+                            <input type='text' class="form-control"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5%">
+                    <div class="col-sm-5" style="margin-top: 5px">
+                        4.住院号：
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" name="">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5%">
+                    <div class="col-sm-5" style="margin-top: 5px">
+                        5.姓名：
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" name="">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10%;text-align: center">
+                    <button type="button" class="btn btn-success btn-sm">筛选</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10">
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="#">列表视图</a></li>
+                <li role="presentation"><a href="#">日历视图</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+</script>
+</body>
+</html>
