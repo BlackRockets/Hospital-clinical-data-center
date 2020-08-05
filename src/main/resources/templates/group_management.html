@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>数据复核</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+
+    <!--数据复核-->
+
+</head>
+<body>
+    <div class="container" id="box" >
+        <div  style="text-align: center;margin-top: 0">
+            <h3 class="col-md-2"  style="color: #28a4c9">随访组管理</h3>
+            <a href="../templates/new_follow_up_group.html" class="col-md-9" style="color: #ff1b02;margin-top: 30px;text-align: left">新建随访组</a>
+        </div>
+        <form style="color: #0079d7;margin-top: 90px" >
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-4" style="text-align:left">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>负责人：</label>
+                    </div>
+                    <div class="col-md-8" style="text-align:left">
+                        <input type="text" class="form-control" v-model="name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>科室：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-control input-sm" v-model="aa">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>状态：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-control input-sm" v-model="aa">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-8" >
+                    <div class="col-md-2" style="text-align:right">
+                        <label>创建日期：</label>
+                    </div>
+                    <div class='input-group date col-md-3'  id='datetimepicker2'>
+                        <input type='text' class="form-control"/>
+                        <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                    </div>
+                    <p class="col-md-1" style="margin-left: 60px">~</p>
+                    <div class='input-group date col-md-3' style="margin-left: 125px"  id='datetimepicker1'>
+                        <input type='text' class="form-control"/>
+                        <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:center">
+                    <button type="button" class="btn btn-default" v-on:click="add">检索</button>
+                    <button type="button" class="btn btn-default" v-on:click="aaa">清空</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-4">
+                <button type="button" style="margin-left: 50px" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="edit">编辑</button>
+                <button type="button" style="margin-left: 10px" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="deleteData">删除</button>
+            </div>
+            <table id="table"></table>
+        </div>
+    </div>
+
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
+
+
+<script>
+   new Vue({
+       el: '#box',
+       data: {
+           name: '雷电法王',
+       },
+       methods: {
+           edit: function () {
+               var row=$("#table").bootstrapTable('getSelections');
+               console.log(row);
+           },
+           deleteData: function () {
+               var row=$("#table").bootstrapTable('getSelections');
+               console.log(row[0].id);
+           },
+       },
+   })
+</script>
+<script type="text/javascript">
+    $("#table").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            checkbox:true,
+            singleSelect:true
+        },{
+            field: 'id',
+            title: '名称',
+            align: 'center',
+        }, {
+            field: 'name',
+            title: '入组率',
+            align: 'center',
+        }, {
+            field: 'price',
+            title: '负责人',
+            align: 'center',
+        },{
+            field: 'name',
+            title: '状态',
+            align: 'center',
+        },{
+            field: 'age',
+            title: '科室',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '创建日期',
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            id: 1,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 2,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 3,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 4,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 5,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }]
+    });
+
+
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+
+
+</script>
+</body>
+</html>
