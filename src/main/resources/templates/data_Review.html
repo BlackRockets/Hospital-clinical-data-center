@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>数据复核</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <!--数据复核-->
+
+</head>
+<body>
+<div class="container-fluid">
+    <form>
+        <div class="row" style="margin-top: 5px">
+            <div class="col-md-4">
+                <div class="col-md-8" style="text-align:right">
+                    <label for="name">随访组名称：</label>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control input-sm" v-model="">
+                        <option>-请选择-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label for="name">患者：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" id="name"  >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label for="name">数据项：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" id="name"  >
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 5px">
+            <div class="col-md-4">
+                <div class="col-md-8" style="text-align:right">
+                    <label for="name">质疑者：</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="name"  >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label for="name">复核者：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" id="name"  >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label for="name">复核时间：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" id="name" >
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 5px">
+            <div class="col-md-4">
+                <div class="col-md-8" style="text-align:right">
+                    <label for="name">表单名称：</label>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control input-sm" v-model="">
+                        <option>-请选择-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label for="name">状态：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="checkbox">待复核
+                    <input type="checkbox">已修正
+                    <input type="checkbox">撤回
+                </div>
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <button type="button" class="btn btn-default">检索</button>
+                <button type="button" class="btn btn-default">清空</button>
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+        <table id="table"></table>
+    </div>
+
+</div>
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
+<script type="text/javascript">
+    $("#table").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            checkbox:true,
+        },{
+            field: 'id',
+            title: '随访组名称',
+            align: 'center',
+        }, {
+            field: 'name',
+            title: '表单',
+            align: 'center',
+        }, {
+            field: 'price',
+            title: '数据项',
+            align: 'center',
+        },{
+            field: 'name',
+            title: '患者',
+            align: 'center',
+        },{
+            field: 'age',
+            title: '值',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '质疑者',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '复核者',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '状态',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '复核时间',
+            align: 'center',
+        }, {
+            title: '操作',
+            formatter: operateFormatter,
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            id: 1,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 2,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 3,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 4,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 5,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }]
+    });
+
+    function operateFormatter(value, row, index){
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        return result;
+    }
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+    function EditViewById(id,view) {
+        console.log(id);
+        console.log(view);
+
+    }
+
+</script>
+</body>
+</html>
