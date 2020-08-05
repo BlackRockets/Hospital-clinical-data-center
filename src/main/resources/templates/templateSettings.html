@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <!--模板设置-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-top: 1%;margin-left: 2%">
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+    </div>
+    <div class="page-header" style="text-align: center;margin-top: 0">
+        <h3 style="color: #28a4c9">模板设置</h3>
+    </div>
+    <div class="row" style="margin: 1%">
+        <button type="button" class="btn btn-info btn-sm" onclick="">
+            创建模板
+        </button>
+    </div>
+    <div class="row" style="margin: 1%">
+        <table id="testTable"></table>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+
+</script>
+<script type="text/javascript">
+    $("#testTable").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            field: 'id',
+            title: '模板名称',
+            align: 'center',
+        }, {
+            field: 'name',
+            title: '更新日期',
+            align: 'center',
+        }, {
+            field: 'price',
+            title: '更新着者',
+            align: 'center',
+        },{
+            field: 'name',
+            title: '版本号',
+            align: 'center',
+        },{
+            field: 'age',
+            title: '创建日期',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '状态',
+            align: 'center',
+        }, {
+            title: '操作',
+            formatter: operateFormatter,
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            id: 1,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 2,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 3,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 4,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 5,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }]
+    });
+    function operateFormatter(value, row, index) {
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='修改'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='删除'><span class='glyphicon glyphicon-remove-circle'></span></a>";
+        return result;
+    }
+</script>
+
+</body>
+</html>
