@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <!--入组管理-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-top: 1%;margin-left: 2%">
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="#t1" data-toggle="tab">入组范围</a></li>
+        <li role="presentation"><a href="#t2" data-toggle="tab">入组时间</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="t1" >
+            <div class="col-sm-1">
+                <ul class="nav nav-tabs">
+                    <li role="presentation">
+                        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn1')">按科室
+                        </button>
+                        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn2')">按病种
+                        </button>
+                        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn3')">按人员
+                        </button>
+                        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn4')">自定义条件
+                        </button>
+                        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn5')">按结果集
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-11" style="border-left: 2px solid #ccc;height: 500px" >
+                <div class="row" style="margin-left: 2%">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">自动同步新增患者
+                        </label>
+                        <label style="margin-left: 10%">
+                            <input type="checkbox">是否需要确认
+                        </label>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div id="div1" >
+                        <form role="form" style="margin-top: 10%">
+                            <div class="row col-lg-3" style="color: blue">
+                                <div class="col-sm-5" style="margin-top: 5px">
+                                    科室：
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-sm" v-model="modal">
+                                        <option>-请选择-</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-info btn-sm"
+                                        data-dismiss="modal" v-on:click="save()">保存
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="div2" style="display: none">
+                        <form role="form" style="margin-top: 5%">
+                            <div class="row col-lg-4" style="color: blue">
+                                <div class="col-sm-3" style="margin-top: 5px">
+                                    疾病编码
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control input-sm" v-model="">
+                                </div>
+                                <div class="col-sm-3" style="text-align:center">~</div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control input-sm" v-model="">
+                                </div>
+                            </div><br/><br/><br/>
+                            <div class="row col-lg-4" style="color: blue">
+                                <div class="col-sm-3" style="margin-top: 5px">
+                                    疾病名称
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control input-sm" v-model="">
+                                </div>
+
+                            </div>
+                        </form><br/><br/><br/><br/>
+                        <div class="row col-lg-4" style="text-align: center">
+                            <button type="button" class="btn btn-info btn-sm"
+                                    data-dismiss="modal" v-on:click="save()">保存
+                            </button>
+                        </div>
+                    </div>
+                    <div id="div3" style="display: none">
+                        <form role="form" style="margin-top: 2%">
+                            <div class="row col-lg-3" style="color: blue">
+                                <div class="col-sm-5" style="margin-top: 5px">
+                                    医生
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-sm" v-model="modal">
+                                        <option>-请选择-</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div><br/><br/><br/>
+                            <div class="row col-lg-3" style="color: blue">
+                                <div class="col-sm-5" style="margin-top: 5px">
+                                    护士
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-sm" v-model="modal">
+                                        <option>-请选择-</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div><br/><br/><br/>
+                            <div class="row col-lg-3" style="color: blue">
+                                <div class="col-sm-5" style="margin-top: 5px">
+                                    技师
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-sm" v-model="modal">
+                                        <option>-请选择-</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div><br/><br/><br/>
+                            <div class="row col-lg-3" style="color: blue">
+                                <div class="col-sm-5" style="margin-top: 5px">
+                                    药师
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="form-control input-sm" v-model="modal">
+                                        <option>-请选择-</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form><br/><br/><br/>
+                        <div class="row col-lg-4" style="text-align: center">
+                            <button type="button" class="btn btn-info btn-sm"
+                                    data-dismiss="modal" v-on:click="save()">保存
+                            </button>
+                        </div>
+                    </div>
+                    <div id="div4" style="display: none">
+                        4
+                    </div>
+                    <div id="div5" style="display: none">
+                        5
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="t2" >
+            2
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function ch(tag){
+        var div1=document.getElementById("div1");
+        var div2=document.getElementById("div2");
+        var div3=document.getElementById("div3");
+        var div4=document.getElementById("div4");
+        var div5=document.getElementById("div5");
+
+        if(tag=='btn1'){
+            div1.style.display="block";
+            div2.style.display="none";
+            div3.style.display="none";
+            div4.style.display="none";
+            div5.style.display="none";
+        }else if(tag=='btn2'){
+            div1.style.display="none";
+            div2.style.display="block";
+            div3.style.display="none";
+            div4.style.display="none";
+            div5.style.display="none";
+        }else if(tag=='btn3'){
+            div1.style.display="none";
+            div2.style.display="none";
+            div3.style.display="block";
+            div4.style.display="none";
+            div5.style.display="none";
+        }else if(tag=='btn4'){
+            div1.style.display="none";
+            div2.style.display="none";
+            div3.style.display="none";
+            div4.style.display="block";
+            div5.style.display="none";
+        }else if(tag=='btn5'){
+            div1.style.display="none";
+            div2.style.display="none";
+            div3.style.display="none";
+            div4.style.display="none";
+            div5.style.display="block";
+        }
+    }
+
+</script>
+</body>
+</html>
