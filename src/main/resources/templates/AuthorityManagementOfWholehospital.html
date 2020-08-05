@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <!--全院权限管理-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="page-header" style="text-align: center;margin-top: 0">
+        <h3 style="color: #28a4c9">管理科室权限(医务处)</h3>
+    </div>
+    <div class="row">
+        <form>
+            <div class="col-md-6 " >
+                <div class="col-sm-9" style="margin-top: 5px;text-align: right">
+                    科室名称：
+                </div>
+                <div class="col-sm-3" style="text-align: right">
+                    <select class="form-control input-sm" v-model="">
+                        <option>-请选择-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="col-sm-3" style="margin-top: 5px;text-align: right">
+                    人员名称：
+                </div>
+                <div class="col-sm-3" style="text-align: right">
+                    <select class="form-control input-sm" v-model="">
+                        <option>-请选择-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="text-align: center">
+            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" add()">
+                新增
+            </button>
+        </div>
+        <div class="col-md-6" style="text-align: center">
+            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+                检索
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="tab-content" style="margin-right: 2%;margin-left: 2%">
+            <div id="t1" class="tab-pane fade in active">
+                <div class="row">
+                    <table id="testTable"></table>
+                </div>
+            </div>
+            <div id="t2" class="tab-pane fade">2</div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
+<script>
+    $("#testTable").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            field: 'id',
+            title: '序号',
+            align: 'center',
+        }, {
+            field: 'department',
+            title: '科室',
+            align: 'center',
+        }, {
+            field: 'personnel',
+            title: '人员',
+            align: 'center',
+        }, {
+            title: '操作',
+            formatter: operateFormatter,
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            id: 1,
+            department: 'ww',
+            personnel: 55
+        }, {
+            id: 2,
+            department: 'ww',
+            personnel: 55
+        }, {
+            id: 3,
+            department: 'ww',
+            personnel: 55
+        }, {
+            id: 4,
+            department: 'ww',
+            personnel: 55
+        }, {
+            id: 5,
+            department: 'ww',
+            personnel: 55
+        }, {
+            id: 6,
+            department: 'ww',
+            personnel: 55
+        }]
+    });
+
+    function operateFormatter(value, row, index) {
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        return result;
+    }
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+
+    function EditViewById(id, view) {
+        console.log(id);
+        console.log(view);
+
+    }
+</script>
+</body>
+</html>
