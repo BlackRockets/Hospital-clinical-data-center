@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>新建随访组</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <!--数据复核-->
+
+</head>
+<body>
+<div class="container" id="box" >
+    <div class="page-header">
+        <span class="glyphicon glyphicon-chevron-left"><a href="../templates/group_management.html">返回随访组列表</a></span>
+    </div>
+    <form>
+        <form role="form" style="color: #0079d7" >
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-6">
+                    <div class="col-md-8" style="text-align:right">
+                        <label>责任医院：</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control input-sm" v-model="aa">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>责任科室：</label>
+                    </div>
+                    <div class="col-md-4" style="text-align:left">
+                        <select class="form-control input-sm" v-model="aa">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-6">
+                    <div class="col-md-8" style="text-align:right">
+                        <label>负责人：</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" v-model="cc"  >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>级别：</label>
+                    </div>
+                    <div class="col-md-4" style="text-align:left">
+                        <select class="form-control input-sm" v-model="aa">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-12">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>表单名称：</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" v-model="cc"  >
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-6">
+                    <div class="col-md-8" style="text-align:right">
+                        <label>联系电话：</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" v-model="name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>状态：</label>
+                    </div>
+                    <div class="col-md-4" style="text-align:left">
+                        <select class="form-control input-sm" v-model="aa">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-6">
+                    <div class="col-md-8" style="text-align:right">
+                        <label>开始日期：</label>
+                    </div>
+                    <div class='input-group date col-md-4' style="text-align:left" id='datetimepicker1'>
+                        <input type='text' class="form-control"/>
+                        <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>结束日期：</label>
+                    </div>
+                    <div class='input-group date col-md-4' style="text-align:left" id='datetimepicker2'>
+                        <input type='text' class="form-control"/>
+                        <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-6">
+                    <div class="col-md-8" style="text-align:right">
+                        <label>课程编号：</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" v-model="cc"  >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-4" style="text-align:right">
+                        <label  >患者数量：</label>
+                    </div>
+                    <div class="col-md-4" style="text-align:left">
+                        <input type="text" class="form-control" v-model="cc"  >
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-12">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>对照组：</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" v-model="cc"  >
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-12">
+                    <div class="col-md-4" style="text-align:right">
+                        <label>背景：</label>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </form>
+
+    <div class="row">
+        <table id="table"></table>
+    </div>
+</div>
+
+
+
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
+
+
+<script>
+    new Vue({
+        el: '#box',
+        data: {
+            name: '雷电法王',
+        },
+        methods: {
+            retrieval: function () {
+                alert(this.name);
+            }
+        }
+    })
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+</script>
+
+</body>
+</html>
