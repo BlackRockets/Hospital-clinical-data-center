@@ -20,6 +20,9 @@
 </head>
 <body>
 <div class="container-fluid">
+    <div class="row" style="margin-top: 1%;margin-left: 2%">
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="../templates/group_management.html">切换随访组</a>
+    </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
     </div>
@@ -298,11 +301,11 @@
             name: 'ww',
             price: 55
         }, {
-            id: 5,
+            id: 9,
             name: 'ww',
             price: 55
         }, {
-            id: 6,
+            id: 8,
             name: 'ww',
             price: 55
         }]
@@ -312,12 +315,10 @@
         //添加按钮
         var rows = JSON.stringify(row);
         var id = row.id;
-        console.log(id);
         var result = "";
         result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
     }
-
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -336,11 +337,7 @@
             locale: moment.locale('zh-cn')
         });
     })
-    function EditViewById(id,view) {
-        console.log(id);
-        console.log(view);
 
-    }
 
 </script>
 </body>

@@ -176,6 +176,11 @@
 
 
             </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-12" style="text-align: center">
+                    <button type="button" style="text-align: center" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="save">保存</button>
+                </div>
+            </div>
         </form>
     </form>
 
@@ -200,7 +205,7 @@
             name: '雷电法王',
         },
         methods: {
-            retrieval: function () {
+            save: function () {
                 alert(this.name);
             }
         }

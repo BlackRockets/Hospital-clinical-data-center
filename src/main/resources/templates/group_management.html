@@ -142,6 +142,7 @@
             field: 'id',
             title: '名称',
             align: 'center',
+            formatter: openDetails,
         }, {
             field: 'name',
             title: '入组率',
@@ -208,8 +209,13 @@
             id: 6,
             name: 'ww',
             price: 55
-        }]
+        }],
+
     });
+
+    function openDetails(value, row, index){;
+        return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'">'+value+'</a>'].join("");
+    }
 
 
 
