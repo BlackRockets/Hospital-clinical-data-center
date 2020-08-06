@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <!--高级检索-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-top: 1%;margin-left: 2%">
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+    </div>
+    <div class="page-header" style="text-align: center;margin-top: 0">
+        <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
+    </div>
+    <form role="form" style="text-align: center">
+        <p>条件：</p>
+        <div class="form-group" id="form1">
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select style="width: 5%">
+                <option value="">大于</option>
+                <option value="">小于</option>
+                <option value="">等于</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <a style="display: none" id="jia1" onclick="jia('j1')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
+        </div>
+        <div class="form-group" id="form2">
+            <select style="width: 5%">
+                <option value="">并且</option>
+                <option value="">或者</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select style="width: 5%">
+                <option value="">大于</option>
+                <option value="">小于</option>
+                <option value="">等于</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+            <a style="display: none" id="jia2" onclick="jia('j2')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
+        </div>
+        <div class="form-group" id="form3">
+            <select style="width: 5%">
+                <option value="">并且</option>
+                <option value="">或者</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select style="width: 5%">
+                <option value="">大于</option>
+                <option value="">小于</option>
+                <option value="">等于</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+        </div>
+
+    </form>
+    <div class="row" style="margin: 2%">
+        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
+                v-on:click="haveBeenFollowedUp()">编辑
+        </button>
+        <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                data-dismiss="modal" v-on:click="noFollowedUp()">删除
+        </button>
+    </div>
+    <div class="row" style="margin: 2%">
+        <table id="testTable"></table>
+    </div>
+</div>
+<script type="text/javascript">
+    function jian(tag) {
+        var form1=document.getElementById("form1");
+        var form2=document.getElementById("form2");
+        var form3=document.getElementById("form3");
+        var jia1=document.getElementById("jia1");
+        var jia2=document.getElementById("jia2");
+        if(tag=='j3'){
+            form3.style.display='none';
+            jia2.style.display='block';
+        }else if(tag=='j2'){
+            form2.style.display='none';
+            jia1.style.display='block';
+        }
+    }
+    function jia(tag) {
+        var form1=document.getElementById("form1");
+        var form2=document.getElementById("form2");
+        var form3=document.getElementById("form3");
+        var jia1=document.getElementById("jia1");
+        var jia2=document.getElementById("jia2");
+
+        if(tag=='j2'){
+            jia2.style.display='none';
+            form3.style.display='block';
+        }else if(tag=='j1'){
+            jia1.style.display='none';
+            form2.style.display='block';
+        }
+    }
+    $("#testTable").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            field: 'id',
+            title: '门诊号/住院号',
+            align: 'center',
+        }, {
+            field: 'price',
+            title: '姓名',
+            align: 'center',
+        },{
+            field: 'name',
+            title: '性别',
+            align: 'center',
+        },{
+            field: 'age',
+            title: '年龄',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '入组时期',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '下次入组时期',
+            align: 'center',
+        }, {
+            field: 'price',
+            title: '手术日期',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '手术术士',
+            align: 'center',
+        },{
+            field: 'price',
+            title: '手术操作者',
+            align: 'center',
+        },{
+            title: '操作',
+            formatter: operateFormatter,
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            id: 1,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 2,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 3,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 4,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 5,
+            name: 'ww',
+            price: 55
+        }, {
+            id: 6,
+            name: 'ww',
+            price: 55
+        }]
+    });
+    function operateFormatter(value, row, index){
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        return result;
+    }
+</script>
+</body>
+</html>
