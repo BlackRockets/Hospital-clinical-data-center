@@ -27,8 +27,7 @@ public class LaboratoryChecklist implements Serializable {
     /**
      * 白细胞含量
      */
-    private String whiteblood
-    cell
+    private String whitebloodcell;
     /**
      * 血糖
      */
@@ -71,16 +70,12 @@ public class LaboratoryChecklist implements Serializable {
         this.checktime = checktime;
     }
 
-    public String getWhiteblood
-
-    cell() {
-        return whiteblood cell;
+    public String getWhitebloodcell() {
+        return whitebloodcell;
     }
 
-    public void setWhiteblood
-
-    cell(String whiteblood cell) {
-        this.whiteblood cell = whiteblood cell;
+    public void setWhitebloodcell(String whitebloodcell) {
+        this.whitebloodcell = whitebloodcell;
     }
 
     public String getBloodsugar() {
