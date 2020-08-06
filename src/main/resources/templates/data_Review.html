@@ -5,9 +5,9 @@
     <title>数据复核</title>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
-    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 
     <script src="../static/js/moment-with-locales.min.js"></script>
@@ -168,7 +168,7 @@
                      </div>
                  </div>
                  <div class="modal-footer" style="text-align: center">
-                     <button type="button" class="btn btn-primary">
+                     <button type="button" class="btn btn-primary" onclick="save()">
                          保存
                      </button>
                  </div>
@@ -193,12 +193,13 @@
        methods: {
            retrieval: function () {
                alert(this.name);
-           }
+           },
        }
    })
 </script>
 <script type="text/javascript">
     $("#table").bootstrapTable({
+
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
@@ -296,7 +297,8 @@
             id: 6,
             name: 'ww',
             price: 55
-        }]
+        }],
+
     });
 
     function operateFormatter(value, row, index){
@@ -306,6 +308,10 @@
         var result = "";
         result += "<button data-toggle='modal' data-target='#myModal' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></button>";
         return result;
+    }
+
+    function save(){
+        $('#myModal').modal('hide');
     }
 
     $(function () {
@@ -322,6 +328,7 @@
 
 
     }
+
 
 </script>
 </body>
