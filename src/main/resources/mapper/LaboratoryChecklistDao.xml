@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.LaboratoryChecklistDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.LaboratoryChecklist" id="LaboratoryChecklistMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="medicalexaminer" column="medicalExaminer" jdbcType="VARCHAR"/>
+        <result property="departments" column="departments" jdbcType="VARCHAR"/>
+        <result property="checktime" column="checkTime" jdbcType="VARCHAR"/>
+        <result property="whiteblood cell" column="whiteBlood cell" jdbcType="VARCHAR"/>
+        <result property="bloodsugar" column="bloodSugar" jdbcType="VARCHAR"/>
+        <result property="checkname" column="checkName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="LaboratoryChecklistMap">
+        select
+          id, medicalExaminer, departments, checkTime, whiteBlood cell, bloodSugar, checkName
+        from hospital.laboratory_checklist
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LaboratoryChecklistMap">
+        select
+          id, medicalExaminer, departments, checkTime, whiteBlood cell, bloodSugar, checkName
+        from hospital.laboratory_checklist
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="LaboratoryChecklistMap">
+        select
+        id, medicalExaminer, departments, checkTime, whiteBlood cell, bloodSugar, checkName
+        from hospital.laboratory_checklist
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="medicalexaminer != null and medicalexaminer != ''">
+                and medicalExaminer = #{medicalexaminer}
+            </if>
+            <if test="departments != null and departments != ''">
+                and departments = #{departments}
+            </if>
+            <if test="checktime != null and checktime != ''">
+                and checkTime = #{checktime}
+            </if>
+            <if test="whiteblood cell != null and whiteblood cell != ''">
+                and whiteBlood cell = #{whiteblood cell}
+            </if>
+            <if test="bloodsugar != null and bloodsugar != ''">
+                and bloodSugar = #{bloodsugar}
+            </if>
+            <if test="checkname != null and checkname != ''">
+                and checkName = #{checkname}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.laboratory_checklist(medicalExaminer, departments, checkTime, whiteBlood cell, bloodSugar, checkName)
+        values (#{medicalexaminer}, #{departments}, #{checktime}, #{whiteblood cell}, #{bloodsugar}, #{checkname})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.laboratory_checklist
+        <set>
+            <if test="medicalexaminer != null and medicalexaminer != ''">
+                medicalExaminer = #{medicalexaminer},
+            </if>
+            <if test="departments != null and departments != ''">
+                departments = #{departments},
+            </if>
+            <if test="checktime != null and checktime != ''">
+                checkTime = #{checktime},
+            </if>
+            <if test="whiteblood cell != null and whiteblood cell != ''">
+                whiteBlood cell = #{whiteblood cell},
+            </if>
+            <if test="bloodsugar != null and bloodsugar != ''">
+                bloodSugar = #{bloodsugar},
+            </if>
+            <if test="checkname != null and checkname != ''">
+                checkName = #{checkname},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.laboratory_checklist where id = #{id}
+    </delete>
+
+</mapper>

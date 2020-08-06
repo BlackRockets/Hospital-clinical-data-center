@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.ScheduleOfFollowUpGroupDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup" id="ScheduleOfFollowUpGroupMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="followUpGroupId" column="follow_up_group_id" jdbcType="INTEGER"/>
+        <result property="inpatientNumber" column="inpatient_number" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="OTHER"/>
+        <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
+        <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ScheduleOfFollowUpGroupMap">
+        select
+          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+        from hospital.schedule_of_follow_up_group
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ScheduleOfFollowUpGroupMap">
+        select
+          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+        from hospital.schedule_of_follow_up_group
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ScheduleOfFollowUpGroupMap">
+        select
+        id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+        from hospital.schedule_of_follow_up_group
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="followUpGroupId != null">
+                and follow_up_group_id = #{followUpGroupId}
+            </if>
+            <if test="inpatientNumber != null and inpatientNumber != ''">
+                and inpatient_number = #{inpatientNumber}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="groupEntryTime != null and groupEntryTime != ''">
+                and group_entry_time = #{groupEntryTime}
+            </if>
+            <if test="outpatientNumber != null and outpatientNumber != ''">
+                and outpatient_number = #{outpatientNumber}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.schedule_of_follow_up_group(follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number)
+        values (#{followUpGroupId}, #{inpatientNumber}, #{name}, #{sex}, #{age}, #{groupEntryTime}, #{outpatientNumber})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.schedule_of_follow_up_group
+        <set>
+            <if test="followUpGroupId != null">
+                follow_up_group_id = #{followUpGroupId},
+            </if>
+            <if test="inpatientNumber != null and inpatientNumber != ''">
+                inpatient_number = #{inpatientNumber},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="groupEntryTime != null and groupEntryTime != ''">
+                group_entry_time = #{groupEntryTime},
+            </if>
+            <if test="outpatientNumber != null and outpatientNumber != ''">
+                outpatient_number = #{outpatientNumber},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.schedule_of_follow_up_group where id = #{id}
+    </delete>
+
+</mapper>
