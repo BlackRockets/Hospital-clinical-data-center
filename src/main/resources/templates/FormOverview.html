@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,7 +17,7 @@
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
     <script src="../static/js/bootstrap-treeview.js"></script>
-    <!--表单总览-->
+    &lt;!&ndash;表单总览&ndash;&gt;
 </head>
 <style>
     body {
@@ -264,9 +265,9 @@
                         症状：
                     </div>
                     <div class="col-sm-5" style="text-align: left">
-                        <select class="form-control input-sm" v-model="">
+                        <select class="form-control " onchange="selectOn(this)">
                             <option>-请选择-</option>
-                            <option >1</option>
+                            <option>1</option>
                             <option>2</option>
                             <option>3</option>
                         </select>
@@ -530,7 +531,359 @@
              mergeCells(data, "companyTypeName", 1, $('#table'));
 
          }*/
+        function selectOn() {
+
+        }
     </script>
 </div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/js/bootstrap-treeview.js"></script>
+    <!--表单总览-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="page-header" style="text-align: left;margin-top: 0">
+        <h3 style="color: #28a4c9">表单总览</h3>
+    </div>
+    <div class="col-md-2">
+        <table id="tree"></table>
+    </div>
+    <div class="col-md-10" style="border-left: 1px solid #ccc;">
+        <form>
+            <div class="col-md-5 ">
+                <div class="col-sm-6" style="margin-top: 5px;text-align: right">
+                    随访组名称：
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-sm-3" style="margin-top: 5px;text-align: left">
+                    创建日期：
+                </div>
+                <div class="col-sm-6" style="text-align: left">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-5 ">
+                <div class="col-sm-6" style="margin-top: 5px;text-align: right">
+                    模板名称：
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-sm-3" style="margin-top: 5px;text-align: left">
+                    创建者：
+                </div>
+                <div class="col-sm-6" style="text-align: left">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col-sm-6" style="text-align: center">
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" add()">
+                        检索
+                    </button>
+                </div>
+                <div class="col-sm-6" style="text-align: center">
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+                        清空
+                    </button>
+                </div>
+            </div>
+            <div>
+                <div class="tab-content" style="margin-right: 2%;margin-left: 2%">
+                    <div id="t1" class="tab-pane fade in active">
+                        <div class="row">
+                            <table id="testTable"></table>
+                        </div>
+                    </div>
+                    <div id="t2" class="tab-pane fade">2</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
+<script>
+    $("#testTable").bootstrapTable({
+        toolbar: "#toolbar",
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        pageSize: "5",
+        pageList: [10, 20],
+        pagination: true, // 是否分页
+        //sortable: true, // 是否启用排序
+        columns: [{
+            field: 'templateName',
+            title: '模板名称',
+            align: 'center',
+        }, {
+            field: 'followUpGroupName',
+            title: '随访组名',
+            align: 'center',
+        }, {
+            field: 'updateDate',
+            title: '更新日期',
+            align: 'center',
+        }, {
+            field: 'updatedBy',
+            title: '更新者',
+            align: 'center',
+        }, {
+            field: 'versionNumber',
+            title: '版本号',
+            align: 'center',
+        }, {
+            field: 'creator',
+            title: '创建者',
+            align: 'center',
+        }, {
+            field: 'creationDate',
+            title: '创建日期',
+            align: 'center',
+        }, {
+            title: '状态',
+            formatter: operateFormatter,
+            align: 'center',
+        }
+        ], //数据
+        data: [{
+            templateName: 1,
+            followUpGroupName: 'ww',
+            updateDate: 55,
+            updatedBy: 'ss',
+            versionNumber: 12,
+            creator: 'xiaoming',
+            creationDate: 007,
+        }, {
+            templateName: 1,
+            followUpGroupName: 'ww',
+            updateDate: 55,
+            updatedBy: 'ss1',
+            versionNumber: 123,
+            creator: 'xiaoming2',
+            creationDate: 007,
+        }, {
+            templateName: 12,
+            followUpGroupName: 'www',
+            updateDate: 555,
+            updatedBy: 'ss3',
+            versionNumber: 125,
+            creator: 'xiaoming',
+            creationDate: 007,
+        }, {
+            templateName: 12,
+            followUpGroupName: 'www',
+            updateDate: 555,
+            updatedBy: 'ss3',
+            versionNumber: 126,
+            creator: 'xiaoming',
+            creationDate: 007,
+        }, {
+            templateName: 1,
+            followUpGroupName: 'ww',
+            updateDate: 55,
+            updatedBy: 'ss',
+            versionNumber: 12,
+            creator: 'xiaoming',
+            creationDate: 007,
+        }, {
+            templateName: 1,
+            followUpGroupName: 'ww',
+            updateDate: 55,
+            updatedBy: 'ss',
+            versionNumber: 12,
+            creator: 'xiaoming',
+            creationDate: 007,
+        }]
+    });
+
+    function operateFormatter(value, row, index) {
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        return result;
+    }
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+
+    function EditViewById(id, view) {
+        console.log(id);
+        console.log(view);
+
+    }
+    //树形
+    var tree = [
+        {
+            text: "通用模板",
+            id: 1,
+            nodes: [
+                {
+                    text: "基本信息",
+                    id: 2
+                },
+                {
+                    text: "检验套餐",
+                    id: 2,
+                    nodes: [
+                        {
+                            text: "血常规",
+                            id: 3
+                        },
+                        {
+                            text: "血生化",
+                            id: 4
+                        },
+                        {
+                            text: "尿常规",
+                            id: 4
+                        },
+                    ]
+                },
+                {
+                    text: "检查套餐",
+                    id: 5,
+                    nodes: [
+                        {
+                            text: "超声",
+                            id: 3
+                        },
+                        {
+                            text: "核链",
+                            id: 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            text: "内分泌科",
+            id: 6,
+            nodes: [{
+                text: "糖尿病首诊",
+                id: 7
+            }, {
+                text: "甲状腺状况分析",
+                id: 7
+            }]
+        },
+        {
+            text: "肾内科",
+            id: 7,
+            nodes: [{
+                text: "健康评分",
+                id: 7
+            }]
+        },
+        {
+            text: "神经内科",
+            id: 8,
+            nodes: [{
+                text: "评估表",
+                id: 7
+            }]
+        },
+        {
+            text: "新研所",
+            id: 9,
+            nodes: [{
+                text: "高血压评估表",
+                id: 7
+            }, {
+                text: "冠心病评估表",
+                id: 7
+            }]
+        }
+    ];
+    $('#tree').treeview({
+        data: tree,         // 数据源
+        showCheckbox: false,   //是否显示复选框
+        highlightSelected: true,    //是否高亮选中
+        nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+        //nodeIcon: 'glyphicon glyphicon-globe',
+        emptyIcon: '',    //没有子节点的节点图标
+        multiSelect: false,    //多选
+        onNodeChecked: function (event, data) {
+            console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);
+        },
+        onNodeSelected: function (event, data) {
+            console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);
+        }
+    });
+    /* function mergeCells(data,fieldName,colspan,target){
+         //声明一个map计算相同属性值在data对象出现的次数和
+         var sortMap = {};
+         for(var i = 0 ; i < data.length ; i++){
+             for(var prop in data[i]){
+                 if(prop == fieldName){
+                     var key = data[i][prop]
+                     if(sortMap.hasOwnProperty(key)){
+                         sortMap[key] = sortMap[key] * 1 + 1;
+                     } else {
+                         sortMap[key] = 1;
+                     }
+                     break;
+                 }
+             }
+         }
+         for(var prop in sortMap){
+             console.log(prop,sortMap[prop])
+         }
+         var index = 0;
+         for(var prop in sortMap){
+             var count = sortMap[prop] * 1;
+             $(target).bootstrapTable('mergeCells',{index:index, field:fieldName, colspan: colspan, rowspan: count});
+             index += count;
+         }
+     }
+     onLoadSuccess : function() {
+         var data = $('#testTable').bootstrapTable('getData', true);
+         //合并单元格
+         mergeCells(data, "companyTypeName", 1, $('#table'));
+
+     }*/
+</script>
 </body>
 </html>
