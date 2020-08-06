@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.PatientScheduleDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.PatientSchedule" id="PatientScheduleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="groupDetailId" column="group_detail_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="birth" column="birth" jdbcType="VARCHAR"/>
+        <result property="nation" column="nation" jdbcType="VARCHAR"/>
+        <result property="height" column="height" jdbcType="INTEGER"/>
+        <result property="weight" column="weight" jdbcType="INTEGER"/>
+        <result property="whitebloodcell" column="whiteBloodCell" jdbcType="INTEGER"/>
+        <result property="bloodsugar" column="bloodSugar" jdbcType="INTEGER"/>
+        <result property="symptom" column="symptom" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PatientScheduleMap">
+        select
+          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom
+        from hospital.patient_schedule
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientScheduleMap">
+        select
+          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom
+        from hospital.patient_schedule
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PatientScheduleMap">
+        select
+        id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom
+        from hospital.patient_schedule
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="groupDetailId != null">
+                and group_detail_id = #{groupDetailId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="birth != null and birth != ''">
+                and birth = #{birth}
+            </if>
+            <if test="nation != null and nation != ''">
+                and nation = #{nation}
+            </if>
+            <if test="height != null">
+                and height = #{height}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="whitebloodcell != null">
+                and whiteBloodCell = #{whitebloodcell}
+            </if>
+            <if test="bloodsugar != null">
+                and bloodSugar = #{bloodsugar}
+            </if>
+            <if test="symptom != null and symptom != ''">
+                and symptom = #{symptom}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.patient_schedule(group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom)
+        values (#{groupDetailId}, #{name}, #{sex}, #{birth}, #{nation}, #{height}, #{weight}, #{whitebloodcell}, #{bloodsugar}, #{symptom})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.patient_schedule
+        <set>
+            <if test="groupDetailId != null">
+                group_detail_id = #{groupDetailId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="birth != null and birth != ''">
+                birth = #{birth},
+            </if>
+            <if test="nation != null and nation != ''">
+                nation = #{nation},
+            </if>
+            <if test="height != null">
+                height = #{height},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="whitebloodcell != null">
+                whiteBloodCell = #{whitebloodcell},
+            </if>
+            <if test="bloodsugar != null">
+                bloodSugar = #{bloodsugar},
+            </if>
+            <if test="symptom != null and symptom != ''">
+                symptom = #{symptom},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.patient_schedule where id = #{id}
+    </delete>
+
+</mapper>
