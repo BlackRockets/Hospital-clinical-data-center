@@ -14,6 +14,7 @@
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/js/bootstrap-treeview.js"></script>
     <!--术语管理-->
 </head>
 <body>
@@ -21,6 +22,319 @@
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">字典术语项维护(科教处/医务处)</h3>
     </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control input-sm" v-model="">
+                </div>
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">筛选</button>
+            </div>
+            <div class="row" style="margin: 1%">
+                <table id="tree"></table>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div>
+                <div>
+                    <p style="color: blue">提交信息：</p>
+                    <p>名称：移动电话 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型：文本&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：基本信息</p>
+                    <p>创建人：张三 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科室：骨科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：2016-06-01</p>
+                </div>
+                <div style="border-top: 1px solid #ccc;margin-top: 5%;padding-top: 2%">
+                    <p style="color: blue">提交信息：</p>
+                    <div class="col-sm-2">
+                        名称：<input type="text" class="form-control col-sm-4" placeholder="">
+                    </div>
+                    <div class="col-sm-2">
+                        类型：
+                        <select class="form-control input-sm col-sm-4" v-model="">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div >
+                    <div class="col-sm-2">
+                        分类：
+                        <select class="form-control input-sm col-sm-4" v-model="">
+                            <option>-请选择-</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-8" style="margin-top: 2%">
+                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">确定</button>
+                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    var tree = [
+        {
+            text: "全部信息",
+            id: 1,
+            nodes: [
+                {
+                    text: "基本信息",
+                    id: 2,
+                    nodes: [
+                        {
+                            text: "患者唯一标识",
+                            id: 3
+                        },
+                        {
+                            text: "姓名",
+                            id: 4
+                        },
+                        {
+                            text: "性别",
+                            id: 4
+                        },
+                        {
+                            text: "出生日期",
+                            id: 4
+                        },
+                        {
+                            text: "出生地",
+                            id: 4
+                        },
+                        {
+                            text: "文化程度(已审批)",
+                            id: 4
+                        },
+                        {
+                            text: "症状(待审批)",
+                            id: 4
+                        },
+                        {
+                            text: "电子邮件",
+                            id: 4
+                        },
+                        {
+                            text: "ABO血型",
+                            id: 4
+                        },
+                        {
+                            text: "RH血型(待审批)",
+                            id: 4
+                        },
+                        {
+                            text: "联系人",
+                            id: 4,
+                            nodes: [
+                                {
+                                    text: "与患者信息",
+                                    id: 3
+                                },
+                                {
+                                    text: "姓名",
+                                    id: 4
+                                },
+                                {
+                                    text: "性别",
+                                    id: 4
+                                },
+                                {
+                                    text: "住址",
+                                    id: 4
+                                },
+                                {
+                                    text: "电子邮件",
+                                    id: 4
+                                }
+                            ]
+                        },
+                        {
+                            text: "证件",
+                            id: 4,
+                            nodes: [
+                                {
+                                    text: "身份证号",
+                                    id: 3
+                                },
+                                {
+                                    text: "户口簿号",
+                                    id: 4
+                                },
+                                {
+                                    text: "护照号",
+                                    id: 4
+                                },
+                                {
+                                    text: "军官证号",
+                                    id: 4
+                                },
+                                {
+                                    text: "驾驶证号",
+                                    id: 4
+                                },
+                                {
+                                    text: "港澳通行证号",
+                                    id: 4
+                                },
+                                {
+                                    text: "台湾通行证号",
+                                    id: 4
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: "首页 信息",
+                    id: 2,
+                    nodes: [
+                        {
+                            text: "主要诊断",
+                            id: 3
+                        },
+                        {
+                            text: "门(急)诊诊断",
+                            id: 4
+                        },
+                        {
+                            text: "入院方式",
+                            id: 4
+                        },
+                        {
+                            text: "入院时间",
+                            id: 4
+                        },
+                        {
+                            text: "入院科室",
+                            id: 4
+                        },
+                        {
+                            text: "入院诊断",
+                            id: 4
+                        },
+                        {
+                            text: "入院医生",
+                            id: 4
+                        },
+                        {
+                            text: "主治医生",
+                            id: 4
+                        },
+                        {
+                            text: "出院时间",
+                            id: 4
+                        },
+                        {
+                            text: "出院科室",
+                            id: 4
+                        },
+                        {
+                            text: "出院状态",
+                            id: 4
+                        },
+                        {
+                            text: "出院诊断",
+                            id: 4
+                        },
+                        {
+                            text: "出院天数",
+                            id: 4
+                        },
+                        {
+                            text: "离院方式",
+                            id: 4
+                        },
+                        {
+                            text: "是否死亡",
+                            id: 4
+                        }
+                    ]
+                },
+                {
+                    text: "手术信息",
+                    id: 5,
+                    nodes: [
+                        {
+                            text: "手术名称",
+                            id: 3
+                        },
+                        {
+                            text: "手术日期",
+                            id: 4
+                        },
+                        {
+                            text: "手术执行科室",
+                            id: 4
+                        },
+                        {
+                            text: "手术开始时间",
+                            id: 4
+                        },
+                        {
+                            text: "手术结束时间",
+                            id: 4
+                        },
+                        {
+                            text: "手术工作量",
+                            id: 4
+                        },
+                        {
+                            text: "手术部位",
+                            id: 4
+                        },
+                        {
+                            text: "麻醉信息",
+                            id: 4,
+                            nodes: [
+                                {
+                                    text: "麻醉方式",
+                                    id: 3
+                                },
+                                {
+                                    text: "麻醉科室",
+                                    id: 4
+                                },
+                                {
+                                    text: "麻醉准备时间",
+                                    id: 4
+                                },
+                                {
+                                    text: "麻醉开始时间",
+                                    id: 4
+                                },
+                                {
+                                    text: "麻醉结束时间",
+                                    id: 4
+                                },
+                                {
+                                    text: "麻醉工作量",
+                                    id: 4
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+    $('#tree').treeview({
+        data: tree,         // 数据源
+        showCheckbox: true,   //是否显示复选框
+        highlightSelected: true,    //是否高亮选中
+        nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+        //nodeIcon: 'glyphicon glyphicon-globe',
+        emptyIcon: '',    //没有子节点的节点图标
+        multiSelect: false,    //多选
+        onNodeChecked: function (event, data) {
+            console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);
+        },
+        onNodeSelected: function (event, data) {
+            console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);
+        }
+    });
+</script>
 </body>
 </html>
