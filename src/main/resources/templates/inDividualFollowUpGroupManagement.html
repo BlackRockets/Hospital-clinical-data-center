@@ -298,11 +298,11 @@
             name: 'ww',
             price: 55
         }, {
-            id: 5,
+            id: 9,
             name: 'ww',
             price: 55
         }, {
-            id: 6,
+            id: 8,
             name: 'ww',
             price: 55
         }]
@@ -312,12 +312,10 @@
         //添加按钮
         var rows = JSON.stringify(row);
         var id = row.id;
-        console.log(id);
         var result = "";
         result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
     }
-
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -336,11 +334,7 @@
             locale: moment.locale('zh-cn')
         });
     })
-    function EditViewById(id,view) {
-        console.log(id);
-        console.log(view);
 
-    }
 
 </script>
 </body>
