@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 随访组明细表(ScheduleOfFollowUpGroup)表控制层
@@ -34,4 +35,12 @@ public class ScheduleOfFollowUpGroupController {
         return this.scheduleOfFollowUpGroupService.queryById(id);
     }
 
+    /**
+     *@description: 通过随访组id查询数据
+     *@author: zyl
+     */
+    @RequestMapping("selectByFollowUpGroupId")
+    public List<ScheduleOfFollowUpGroup> selectByFollowUpGroupId(Integer followUpGroupId){
+         return  scheduleOfFollowUpGroupService.queryByFollowUpGroupId(followUpGroupId);
+    }
 }

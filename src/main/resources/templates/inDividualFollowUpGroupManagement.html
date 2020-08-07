@@ -253,7 +253,7 @@
     var id = idVal;
     $("#testTable").bootstrapTable({
         method: 'get',
-        url:'/insert',
+        url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
@@ -264,22 +264,22 @@
         //sortable: true, // 是否启用排序
         queryParams: function(params) {
             var param = {};
-            param['id'] = id; // 页码
+            param['followUpGroupId'] = id; // 页码
             return param;
         },
         //对
         columns: [{
             checkbox: true
         },{
-            field: 'id',
+            field: 'inpatientNumber',
             title: '门诊号/住院号',
             align: 'center',
         }, {
-            field: 'price',
+            field: 'name',
             title: '姓名',
             align: 'center',
         },{
-            field: 'name',
+            field: 'sex',
             title: '性别',
             align: 'center',
         },{
@@ -287,7 +287,7 @@
             title: '年龄',
             align: 'center',
         },{
-            field: 'price',
+            field: 'groupEntryTime',
             title: '入组时期',
             align: 'center',
         },{

@@ -45,7 +45,7 @@ public class FollowUpGroupManagementController {
      */
     @RequestMapping("selectAll")
     public List<FollowUpGroupManagement> selectAll(){
-        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAll();
+         List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAll();
         return followUpGroupManagements;
     }
 

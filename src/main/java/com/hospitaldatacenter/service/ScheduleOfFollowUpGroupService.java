@@ -21,6 +21,14 @@ public interface ScheduleOfFollowUpGroupService {
     ScheduleOfFollowUpGroup queryById(Integer id);
 
     /**
+     * 通过随访组id查询数据
+     *
+     * @param followUpGroupId 随访组id
+     * @return 实例对象集合
+     */
+    List<ScheduleOfFollowUpGroup> queryByFollowUpGroupId(Integer followUpGroupId);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置
