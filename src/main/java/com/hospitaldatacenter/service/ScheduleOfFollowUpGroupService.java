@@ -23,11 +23,9 @@ public interface ScheduleOfFollowUpGroupService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
-    List<ScheduleOfFollowUpGroup> queryAllByLimit(int offset, int limit);
+    List<ScheduleOfFollowUpGroup> queryAll(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
 
     /**
      * 新增数据

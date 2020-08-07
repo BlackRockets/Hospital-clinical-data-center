@@ -135,22 +135,30 @@
         uniqueId: "ID",
         pageSize: "5",
         pageList: [10, 20],
+        url: '/scheduleOfFollowUpGroup/selectAll',
+        method: 'post',
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
         columns: [{
             field: 'id',
             title: '门诊号/住院号',
             align: 'center',
+            formatter: function(value, row, index) {
+                return row.outpatientNumber+"/"+row.inpatientNumber;
+            }
         }, {
-            field: 'name',
+            field: 'groupName',
             title: '随访组',
             align: 'center',
+            formatter: function(value, row, index) {
+                return row.followUpGroupManagement.groupName;
+            }
         }, {
-            field: 'price',
+            field: 'name',
             title: '姓名',
             align: 'center',
         },{
-            field: 'name',
+            field: 'sex',
             title: '性别',
             align: 'center',
         },{
@@ -158,44 +166,23 @@
             title: '年龄',
             align: 'center',
         },{
-            field: 'price',
+            field: 'groupEntryTime',
             title: '入组时期',
             align: 'center',
         },{
-            field: 'price',
-            title: '下次入组时期',
+            field: 'dateOfNextFollowUp',
+            title: '下次随访时期',
+            align: 'center',
+        },{
+            field: 'followUpState',
+            title: '状态',
             align: 'center',
         }, {
             title: '操作',
             formatter: operateFormatter,
             align: 'center',
         }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 5,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }]
+        ]
     });
     function operateFormatter(value, row, index){
         //添加按钮

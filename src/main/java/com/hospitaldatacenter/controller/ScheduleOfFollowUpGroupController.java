@@ -1,12 +1,15 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.ScheduleOfFollowUpGroupService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 随访组明细表(ScheduleOfFollowUpGroup)表控制层
@@ -32,6 +35,19 @@ public class ScheduleOfFollowUpGroupController {
     @GetMapping("selectOne")
     public ScheduleOfFollowUpGroup selectOne(Integer id) {
         return this.scheduleOfFollowUpGroupService.queryById(id);
+    }
+    /**
+     * 展示所有
+     *
+     */
+    @ResponseBody
+    @RequestMapping(value = "selectAll")
+    public String selectAll(){
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.queryAll(null);
+        for (ScheduleOfFollowUpGroup scheduleOfFollowUpGroup : scheduleOfFollowUpGroups) {
+            System.out.println(scheduleOfFollowUpGroup);
+        }
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
 }
