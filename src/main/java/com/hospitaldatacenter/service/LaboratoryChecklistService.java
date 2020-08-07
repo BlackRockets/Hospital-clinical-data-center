@@ -5,10 +5,10 @@ import com.hospitaldatacenter.entity.LaboratoryChecklist;
 import java.util.List;
 
 /**
- * (LaboratoryChecklist)表服务接口
+ * 实验室检查表(LaboratoryChecklist)表服务接口
  *
  * @author makejava
- * @since 2020-08-06 17:35:06
+ * @since 2020-08-07 10:35:04
  */
 public interface LaboratoryChecklistService {
 

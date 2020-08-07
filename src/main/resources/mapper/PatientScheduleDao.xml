@@ -11,15 +11,16 @@
         <result property="nation" column="nation" jdbcType="VARCHAR"/>
         <result property="height" column="height" jdbcType="INTEGER"/>
         <result property="weight" column="weight" jdbcType="INTEGER"/>
-        <result property="whitebloodcell" column="whiteBloodCell" jdbcType="INTEGER"/>
-        <result property="bloodsugar" column="bloodSugar" jdbcType="INTEGER"/>
+        <result property="whitebloodcell" column="whiteBloodCell" jdbcType="OTHER"/>
+        <result property="bloodsugar" column="bloodSugar" jdbcType="OTHER"/>
         <result property="symptom" column="symptom" jdbcType="VARCHAR"/>
+        <result property="patientInfoId" column="patient_info_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PatientScheduleMap">
         select
-          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom
+          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom, patient_info_id
         from hospital.patient_schedule
         where id = #{id}
     </select>
@@ -27,7 +28,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PatientScheduleMap">
         select
-          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom
+          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom, patient_info_id
         from hospital.patient_schedule
         limit #{offset}, #{limit}
     </select>
@@ -35,7 +36,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="PatientScheduleMap">
         select
-        id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom
+        id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom,
+        patient_info_id
         from hospital.patient_schedule
         <where>
             <if test="id != null">
@@ -70,6 +72,9 @@
             </if>
             <if test="symptom != null and symptom != ''">
                 and symptom = #{symptom}
+            </if>
+            <if test="patientInfoId != null">
+                and patient_info_id = #{patientInfoId}
             </if>
         </where>
     </select>

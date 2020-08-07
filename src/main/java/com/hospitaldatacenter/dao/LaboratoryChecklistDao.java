@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (LaboratoryChecklist)表数据库访问层
+ * 实验室检查表(LaboratoryChecklist)表数据库访问层
  *
  * @author makejava
- * @since 2020-08-06 17:25:00
+ * @since 2020-08-07 10:35:04
  */
 public interface LaboratoryChecklistDao {
 

@@ -9,7 +9,7 @@ import java.util.List;
  * 随访组明细表(ScheduleOfFollowUpGroup)表数据库访问层
  *
  * @author makejava
- * @since 2020-08-06 17:25:01
+ * @since 2020-08-07 10:31:13
  */
 public interface ScheduleOfFollowUpGroupDao {
 

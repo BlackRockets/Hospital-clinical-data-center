@@ -8,7 +8,7 @@ import java.util.List;
  * 随访组明细表(ScheduleOfFollowUpGroup)表服务接口
  *
  * @author makejava
- * @since 2020-08-06 17:35:07
+ * @since 2020-08-07 10:31:13
  */
 public interface ScheduleOfFollowUpGroupService {
 

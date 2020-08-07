@@ -3,13 +3,13 @@ package com.hospitaldatacenter.entity;
 import java.io.Serializable;
 
 /**
- * (PatientBasicInformation)实体类
+ * 患者基本信息(PatientBasicInformation)实体类
  *
  * @author makejava
- * @since 2020-08-06 17:25:01
+ * @since 2020-08-07 10:31:11
  */
 public class PatientBasicInformation implements Serializable {
-    private static final long serialVersionUID = 821113450176777905L;
+    private static final long serialVersionUID = 256572635564044928L;
 
     private Integer id;
     /**
@@ -35,7 +35,7 @@ public class PatientBasicInformation implements Serializable {
     /**
      * 电话
      */
-    private Integer telephone;
+    private String telephone;
     /**
      * 邮件
      */
@@ -94,11 +94,11 @@ public class PatientBasicInformation implements Serializable {
         this.educationlevel = educationlevel;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

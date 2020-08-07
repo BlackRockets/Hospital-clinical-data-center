@@ -5,10 +5,10 @@ import com.hospitaldatacenter.entity.PatientBasicInformation;
 import java.util.List;
 
 /**
- * (PatientBasicInformation)表服务接口
+ * 患者基本信息(PatientBasicInformation)表服务接口
  *
  * @author makejava
- * @since 2020-08-06 17:35:07
+ * @since 2020-08-07 10:31:11
  */
 public interface PatientBasicInformationService {
 

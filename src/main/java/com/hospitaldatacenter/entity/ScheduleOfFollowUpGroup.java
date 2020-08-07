@@ -6,10 +6,10 @@ import java.io.Serializable;
  * 随访组明细表(ScheduleOfFollowUpGroup)实体类
  *
  * @author makejava
- * @since 2020-08-06 17:25:00
+ * @since 2020-08-07 10:31:13
  */
 public class ScheduleOfFollowUpGroup implements Serializable {
-    private static final long serialVersionUID = -87775423786915782L;
+    private static final long serialVersionUID = -93441326573791410L;
 
     private Integer id;
     /**

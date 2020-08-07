@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * (LaboratoryChecklist)表控制层
+ * 实验室检查表(LaboratoryChecklist)表控制层
  *
  * @author makejava
- * @since 2020-08-06 17:35:06
+ * @since 2020-08-07 10:35:05
  */
 @RestController
 @RequestMapping("laboratoryChecklist")
