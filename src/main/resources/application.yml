@@ -11,3 +11,6 @@ spring:
       suffix: .html
   resources:
     static-locations: classpath:/
+mybatis:
+  type-aliases-package: com.hospitaldatacenter.entity
+  mapper-locations: classpath:mapper/*.xml

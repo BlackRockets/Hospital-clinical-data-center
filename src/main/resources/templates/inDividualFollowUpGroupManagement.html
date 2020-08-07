@@ -246,16 +246,28 @@
     </a>
 </script>
 <script type="text/javascript">
+    var newHref = window.location.href;
+    var num = newHref.indexOf('id=') + 3;
+    var len = newHref.length;
+    var idVal = newHref.substring(num, len);
+    var id = idVal;
     $("#testTable").bootstrapTable({
+        method: 'get',
+        url:'/insert',
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
-        //search : "true",
         uniqueId: "ID",
         pageSize: "5",
         pageList: [5, 10],
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
+        queryParams: function(params) {
+            var param = {};
+            param['id'] = id; // 页码
+            return param;
+        },
+        //对
         columns: [{
             checkbox: true
         },{
