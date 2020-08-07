@@ -101,7 +101,7 @@
                 <div class="col-md-4" style="text-align:right">
                     <label>状态：</label>
                 </div>
-                <div class="col-md-4" style="text-align:left">
+                <div class="col-md-8" style="text-align:left">
                     <input type="checkbox">待复核
                     <input type="checkbox">已修正
                     <input type="checkbox">撤回
@@ -198,126 +198,99 @@
     })
 </script>
 <script type="text/javascript">
-    var InitTable = function (url) {
-        $('#tb_SaleOrder').bootstrapTable("destroy");
+    $(function () {
+        var list = new Array();
+        var name = $("#name").val();
+        list.push(name);
         $("#table").bootstrapTable({
-            url: url,
+            url: '/dataReview/selectAll',
             toolbar: "#toolbar",
-            sidePagination: "true",
             striped: true, // 是否显示行间隔色
             //search : "true",
             uniqueId: "ID",
             pageSize: "5",
             pageList: [10, 20],
             pagination: true, // 是否分页
+            sidePagination: "server",
+            clickToSelect: true, //点击选中
+            queryParamsType: '',
+            queryParams: list,//传递参数（*）
             //sortable: true, // 是否启用排序
             method: 'get',                      //请求方式（*）
-            columns: [{
-                checkbox: true,
-            }, {
-                field: 'id',
-                title: '随访组名称',
-                align: 'center',
-            }, {
-                field: 'name',
-                title: '表单',
-                align: 'center',
-            }, {
-                field: 'price',
-                title: '数据项',
-                align: 'center',
-            }, {
-                field: 'name',
-                title: '患者',
-                align: 'center',
-            }, {
-                field: 'age',
-                title: '值',
-                align: 'center',
-            }, {
-                field: 'price',
-                title: '质疑者',
-                align: 'center',
-            }, {
-                field: 'price',
-                title: '复核者',
-                align: 'center',
-            }, {
-                field: 'price',
-                title: '状态',
-                align: 'center',
-            }, {
-                field: 'price',
-                title: '复核时间',
-                align: 'center',
-            }, {
-                title: '操作',
-                formatter: operateFormatter,
-                align: 'center',
-            }
-            ], //数据
-            data: [{
-                id: 1,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 2,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 3,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 4,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 5,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 6,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 6,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 6,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 6,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 6,
-                name: 'ww',
-                price: 55
-            }, {
-                id: 6,
-                name: 'ww',
-                price: 55
-            }]
+            columns: [
+                {
+                    checkbox: true,
+                }, {
+                    field: 'name',
+                    title: '随访组名称',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return row.ps.name;
+                    }
+                }, {
+                    field: 'form',
+                    title: '表单',
+                    align: 'center',
+                }, {
+                    field: 'dataItem',
+                    title: '数据项',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var s = row.dataItem;
+                        if (s == 1) {
+                            s == "信息";
+                        } else {
+                            s == "22"
+                        }
+                        return s
+                    }
+                }, {
+                    field: 'name',
+                    title: '患者',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return row.sofu.name;
+                    }
+                }, {
+                    field: 'dataValue',
+                    title: '值',
+                    align: 'center',
+                }, {
+                    field: 'price',
+                    title: '质疑者',
+                    align: 'center',
+                }, {
+                    field: 'reviewer',
+                    title: '复核者',
+                    align: 'center',
+                }, {
+                    field: 'state',
+                    title: '状态',
+                    align: 'center',
+                }, {
+                    field: 'reviewerTime',
+                    title: '复核时间',
+                    align: 'center',
+                }, {
+                    title: '操作',
+                    formatter: operateFormatter,
+                    align: 'center',
+                }
+            ]
         });
-        return InitTable
-    };
 
-    function operateFormatter(value, row, index) {
-        //添加按钮
-        var rows = JSON.stringify(row);
-        var id = row.id;
-        var result = "";
-        result += "<button data-toggle='modal' data-target='#myModal' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='修改'><span class='glyphicon glyphicon-zoom-in'></span></button>";
-        return result;
-    }
+        function operateFormatter(value, row, index) {
+            //添加按钮
+            var rows = JSON.stringify(row);
+            var id = row.id;
+            var result = "";
+            result += "<button data-toggle='modal' data-target='#myModal' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='修改'><span class='glyphicon glyphicon-zoom-in'></span></button>";
+            return result;
+        }
+    });
+
 
     $(function () {
-        //初始化
-        url="";
-        InitTable(url);
 
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -330,7 +303,6 @@
     })
 
     function EditViewById(id, view) {
-
 
     }
 
