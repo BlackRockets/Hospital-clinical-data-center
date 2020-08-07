@@ -5,10 +5,10 @@ import com.hospitaldatacenter.entity.PatientSchedule;
 import java.util.List;
 
 /**
- * (PatientSchedule)表服务接口
+ * 患者明细表(PatientSchedule)表服务接口
  *
  * @author makejava
- * @since 2020-08-06 17:35:07
+ * @since 2020-08-07 10:31:12
  */
 public interface PatientScheduleService {
 

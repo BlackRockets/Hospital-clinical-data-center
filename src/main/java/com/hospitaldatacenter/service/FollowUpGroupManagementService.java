@@ -8,7 +8,7 @@ import java.util.List;
  * 随访组管理表(FollowUpGroupManagement)表服务接口
  *
  * @author makejava
- * @since 2020-08-06 17:33:38
+ * @since 2020-08-07 10:31:07
  */
 public interface FollowUpGroupManagementService {
 

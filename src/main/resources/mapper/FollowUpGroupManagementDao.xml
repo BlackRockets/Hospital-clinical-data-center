@@ -13,7 +13,7 @@
         <result property="responsibilityDepartments" column="responsibility_departments" jdbcType="VARCHAR"/>
         <result property="createPeople" column="create_people" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
-        <result property="telephone" column="telephone" jdbcType="INTEGER"/>
+        <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
         <result property="startTime" column="start_time" jdbcType="VARCHAR"/>
         <result property="endTime" column="end_time" jdbcType="VARCHAR"/>
         <result property="courseNumber" column="course_number" jdbcType="VARCHAR"/>
@@ -77,7 +77,7 @@
             <if test="createTime != null and createTime != ''">
                 and create_time = #{createTime}
             </if>
-            <if test="telephone != null">
+            <if test="telephone != null and telephone != ''">
                 and telephone = #{telephone}
             </if>
             <if test="startTime != null and startTime != ''">
@@ -141,7 +141,7 @@
             <if test="createTime != null and createTime != ''">
                 create_time = #{createTime},
             </if>
-            <if test="telephone != null">
+            <if test="telephone != null and telephone != ''">
                 telephone = #{telephone},
             </if>
             <if test="startTime != null and startTime != ''">

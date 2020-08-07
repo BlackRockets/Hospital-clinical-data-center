@@ -6,10 +6,10 @@ import java.io.Serializable;
  * 随访组管理表(FollowUpGroupManagement)实体类
  *
  * @author makejava
- * @since 2020-08-06 17:18:18
+ * @since 2020-08-07 10:31:05
  */
 public class FollowUpGroupManagement implements Serializable {
-    private static final long serialVersionUID = -79292863362118567L;
+    private static final long serialVersionUID = -99614881521124655L;
     /**
      * id
      */
@@ -53,7 +53,7 @@ public class FollowUpGroupManagement implements Serializable {
     /**
      * 联系电话
      */
-    private Integer telephone;
+    private String telephone;
     /**
      * 开始时间
      */
@@ -164,11 +164,11 @@ public class FollowUpGroupManagement implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

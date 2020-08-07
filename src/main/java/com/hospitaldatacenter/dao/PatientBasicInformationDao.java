@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (PatientBasicInformation)表数据库访问层
+ * 患者基本信息(PatientBasicInformation)表数据库访问层
  *
  * @author makejava
- * @since 2020-08-06 17:25:01
+ * @since 2020-08-07 10:31:11
  */
 public interface PatientBasicInformationDao {
 

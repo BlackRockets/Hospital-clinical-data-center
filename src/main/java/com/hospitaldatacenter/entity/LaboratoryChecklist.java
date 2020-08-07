@@ -3,13 +3,13 @@ package com.hospitaldatacenter.entity;
 import java.io.Serializable;
 
 /**
- * (LaboratoryChecklist)实体类
+ * 实验室检查表(LaboratoryChecklist)实体类
  *
  * @author makejava
- * @since 2020-08-06 17:25:00
+ * @since 2020-08-07 10:35:04
  */
 public class LaboratoryChecklist implements Serializable {
-    private static final long serialVersionUID = 329252356322200132L;
+    private static final long serialVersionUID = -43327152834374105L;
 
     private Integer id;
     /**
@@ -27,15 +27,19 @@ public class LaboratoryChecklist implements Serializable {
     /**
      * 白细胞含量
      */
-    private String whitebloodcell;
+    private Object whitebloodcell;
     /**
      * 血糖
      */
-    private String bloodsugar;
+    private Object bloodsugar;
     /**
      * 检查名称
      */
     private String checkname;
+    /**
+     * 患者信息id
+     */
+    private Integer patientInfoId;
 
 
     public Integer getId() {
@@ -70,19 +74,19 @@ public class LaboratoryChecklist implements Serializable {
         this.checktime = checktime;
     }
 
-    public String getWhitebloodcell() {
+    public Object getWhitebloodcell() {
         return whitebloodcell;
     }
 
-    public void setWhitebloodcell(String whitebloodcell) {
+    public void setWhitebloodcell(Object whitebloodcell) {
         this.whitebloodcell = whitebloodcell;
     }
 
-    public String getBloodsugar() {
+    public Object getBloodsugar() {
         return bloodsugar;
     }
 
-    public void setBloodsugar(String bloodsugar) {
+    public void setBloodsugar(Object bloodsugar) {
         this.bloodsugar = bloodsugar;
     }
 
@@ -92,6 +96,14 @@ public class LaboratoryChecklist implements Serializable {
 
     public void setCheckname(String checkname) {
         this.checkname = checkname;
+    }
+
+    public Integer getPatientInfoId() {
+        return patientInfoId;
+    }
+
+    public void setPatientInfoId(Integer patientInfoId) {
+        this.patientInfoId = patientInfoId;
     }
 
 }

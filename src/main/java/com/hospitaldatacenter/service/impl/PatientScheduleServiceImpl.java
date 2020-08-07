@@ -9,10 +9,10 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (PatientSchedule)表服务实现类
+ * 患者明细表(PatientSchedule)表服务实现类
  *
  * @author makejava
- * @since 2020-08-06 17:35:07
+ * @since 2020-08-07 10:31:12
  */
 @Service("patientScheduleService")
 public class PatientScheduleServiceImpl implements PatientScheduleService {

@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * (PatientSchedule)表控制层
+ * 患者明细表(PatientSchedule)表控制层
  *
  * @author makejava
- * @since 2020-08-06 17:35:07
+ * @since 2020-08-07 10:31:13
  */
 @RestController
 @RequestMapping("patientSchedule")

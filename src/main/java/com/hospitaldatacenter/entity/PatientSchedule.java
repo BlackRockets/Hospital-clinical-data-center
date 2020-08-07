@@ -3,13 +3,13 @@ package com.hospitaldatacenter.entity;
 import java.io.Serializable;
 
 /**
- * (PatientSchedule)实体类
+ * 患者明细表(PatientSchedule)实体类
  *
  * @author makejava
- * @since 2020-08-06 17:25:01
+ * @since 2020-08-07 10:31:12
  */
 public class PatientSchedule implements Serializable {
-    private static final long serialVersionUID = 573032999363130250L;
+    private static final long serialVersionUID = -19872829512905186L;
 
     private Integer id;
     /**
@@ -43,15 +43,19 @@ public class PatientSchedule implements Serializable {
     /**
      * 白细胞
      */
-    private Integer whitebloodcell;
+    private Object whitebloodcell;
     /**
      * 血糖
      */
-    private Integer bloodsugar;
+    private Object bloodsugar;
     /**
      * 症状
      */
     private String symptom;
+    /**
+     * 患者基本信息id
+     */
+    private Integer patientInfoId;
 
 
     public Integer getId() {
@@ -118,19 +122,19 @@ public class PatientSchedule implements Serializable {
         this.weight = weight;
     }
 
-    public Integer getWhitebloodcell() {
+    public Object getWhitebloodcell() {
         return whitebloodcell;
     }
 
-    public void setWhitebloodcell(Integer whitebloodcell) {
+    public void setWhitebloodcell(Object whitebloodcell) {
         this.whitebloodcell = whitebloodcell;
     }
 
-    public Integer getBloodsugar() {
+    public Object getBloodsugar() {
         return bloodsugar;
     }
 
-    public void setBloodsugar(Integer bloodsugar) {
+    public void setBloodsugar(Object bloodsugar) {
         this.bloodsugar = bloodsugar;
     }
 
@@ -140,6 +144,14 @@ public class PatientSchedule implements Serializable {
 
     public void setSymptom(String symptom) {
         this.symptom = symptom;
+    }
+
+    public Integer getPatientInfoId() {
+        return patientInfoId;
+    }
+
+    public void setPatientInfoId(Integer patientInfoId) {
+        this.patientInfoId = patientInfoId;
     }
 
 }
