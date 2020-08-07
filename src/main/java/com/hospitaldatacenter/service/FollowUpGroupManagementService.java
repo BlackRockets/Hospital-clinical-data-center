@@ -62,4 +62,16 @@ public interface FollowUpGroupManagementService {
      *
      */
     List<FollowUpGroupManagement> queryAll();
+    /**
+     *
+     *查询所有科室
+     *
+     */
+    List<FollowUpGroupManagement> queryAllDep();
+    /**
+     *
+     *查询所有科随访组
+     *
+     */
+    List<FollowUpGroupManagement> queryAllGroupName();
 }

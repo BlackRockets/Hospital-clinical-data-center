@@ -44,9 +44,6 @@ public class ScheduleOfFollowUpGroupController {
     @RequestMapping(value = "selectAll")
     public String selectAll(){
         List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.queryAll(null);
-        for (ScheduleOfFollowUpGroup scheduleOfFollowUpGroup : scheduleOfFollowUpGroups) {
-            System.out.println(scheduleOfFollowUpGroup);
-        }
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 

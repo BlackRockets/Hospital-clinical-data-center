@@ -25,17 +25,14 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <form>
+            <form id="form">
                 <div class="row">
                     <div class="col-sm-5" style="margin-top: 5px">
                         1.科室：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" v-model="responsibilityDepartments">
+                        <select class="form-control input-sm" id="respons" v-model="responsibilityDepartments">
                             <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
                         </select>
                     </div>
                 </div>
@@ -44,11 +41,8 @@
                         2.随访组：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" v-model="groupName">
+                        <select class="form-control input-sm" id="group" v-model="groupName">
                             <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
                         </select>
                     </div>
                 </div>
@@ -188,7 +182,6 @@
         //添加按钮
         var rows = JSON.stringify(row);
         var id = row.id;
-        console.log(id);
         var result = "";
         result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
@@ -204,11 +197,38 @@
             locale: moment.locale('zh-cn')
         });
     })
-    function EditViewById(id,view) {
-        console.log(id);
-        console.log(view);
 
-    }
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectResponsibilityDep/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#respons').append(datas);
+            }
+        })
+    })
+
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectGroupName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#group').append(datas);
+            }
+        })
+    })
 
 </script>
 </body>

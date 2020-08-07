@@ -179,5 +179,13 @@
     <delete id="deleteById">
         delete from hospital.follow_up_group_management where id = #{id}
     </delete>
+    <!--通过所有科室-->
+    <select id="queryAllDep" resultType="java.lang.String">
+        select distinct responsibility_departments from hospital.follow_up_group_management
+    </select>
+    <!--通过所有随访组-->
+    <select id="queryAllGroupName" resultType="java.lang.String">
+        select distinct group_name from hospital.follow_up_group_management
+    </select>
 
 </mapper>
