@@ -3,6 +3,7 @@ package com.hospitaldatacenter.service.impl;
 import com.hospitaldatacenter.dao.FollowUpGroupManagementDao;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Service("followUpGroupManagementService")
 public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManagementService {
-    @Resource
+    @Autowired
     private FollowUpGroupManagementDao followUpGroupManagementDao;
 
     /**
@@ -75,5 +76,18 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
     @Override
     public boolean deleteById(Integer id) {
         return this.followUpGroupManagementDao.deleteById(id) > 0;
+    }
+
+    /**
+     *
+     *
+     *@description: 查询所有随访组
+     *@author: zyl
+     *
+     */
+    @Override
+    public List<FollowUpGroupManagement> queryAll() {
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementDao.queryAllByPermissions();
+        return followUpGroupManagements;
     }
 }

@@ -27,6 +27,14 @@
         where id = #{id}
     </select>
 
+    <!--查询多个根据随访组id-->
+    <select id="queryByFollowUpGroupId" resultMap="ScheduleOfFollowUpGroupMap">
+        select
+          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+        from hospital.schedule_of_follow_up_group
+        where follow_up_group_id = #{followUpGroupId}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ScheduleOfFollowUpGroupMap">
         select

@@ -31,6 +31,16 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
         return this.scheduleOfFollowUpGroupDao.queryById(id);
     }
 
+
+    /**
+     *@description: 通过随访组id查询数据
+     *@author: zyl
+     */
+    @Override
+    public List<ScheduleOfFollowUpGroup> queryByFollowUpGroupId(Integer followUpGroupId) {
+        return scheduleOfFollowUpGroupDao.queryByFollowUpGroupId(followUpGroupId);
+    }
+
     /**
      * 查询多条数据
      *

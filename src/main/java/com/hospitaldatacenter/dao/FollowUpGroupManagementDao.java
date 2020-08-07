@@ -63,4 +63,14 @@ public interface FollowUpGroupManagementDao {
      */
     int deleteById(Integer id);
 
+    /**
+     *
+     *
+     *@description: 查询所有随访组数据
+     *@author: zyl
+     *@time: ${DATE} ${TIME}
+     *
+     */
+    List<FollowUpGroupManagement> queryAllByPermissions();
+
 }

@@ -41,7 +41,6 @@
                     </div>
                     <div class="col-md-8">
                         <select class="form-control input-sm" v-model="aa">
-                            <option>-请选择-</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -54,7 +53,6 @@
                     </div>
                     <div class="col-md-8">
                         <select class="form-control input-sm" v-model="aa">
-                            <option>-请选择-</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -126,6 +124,7 @@
 </script>
 <script type="text/javascript">
     $("#table").bootstrapTable({
+        url:'/followUpGroupManagement/selectAll',
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
@@ -139,33 +138,33 @@
             checkbox:true,
             singleSelect:true
         },{
-            field: 'id',
+            field: 'groupName',
             title: '名称',
             align: 'center',
             formatter: openDetails,
         }, {
-            field: 'name',
+            field: 'enrolmentRate',
             title: '入组率',
             align: 'center',
         }, {
-            field: 'price',
+            field: 'personInCharge',
             title: '负责人',
             align: 'center',
         },{
-            field: 'name',
+            field: 'state',
             title: '状态',
             align: 'center',
         },{
-            field: 'age',
+            field: 'responsibilityDepartments',
             title: '科室',
             align: 'center',
         },{
-            field: 'price',
+            field: 'createTime',
             title: '创建日期',
             align: 'center',
         }
         ], //数据
-        data: [{
+       /* data: [{
             id: 1,
             name: 'ww',
             price: 55
@@ -210,7 +209,7 @@
             name: 'ww',
             price: 55
         }],
-
+*/
     });
 
     function openDetails(value, row, index){;

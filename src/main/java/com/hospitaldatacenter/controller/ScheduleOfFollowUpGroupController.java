@@ -50,4 +50,12 @@ public class ScheduleOfFollowUpGroupController {
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
+    /**
+     *@description: 通过随访组id查询数据
+     *@author: zyl
+     */
+    @RequestMapping("selectByFollowUpGroupId")
+    public List<ScheduleOfFollowUpGroup> selectByFollowUpGroupId(Integer followUpGroupId){
+         return  scheduleOfFollowUpGroupService.queryByFollowUpGroupId(followUpGroupId);
+    }
 }
