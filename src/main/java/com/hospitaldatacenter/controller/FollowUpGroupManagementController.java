@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 随访组管理表(FollowUpGroupManagement)表控制层
@@ -32,6 +33,20 @@ public class FollowUpGroupManagementController {
     @GetMapping("selectOne")
     public FollowUpGroupManagement selectOne(Integer id) {
         return this.followUpGroupManagementService.queryById(id);
+    }
+
+
+    /**
+     *
+     *
+     *@description: 查询所有的随访组  需求是根据当前用户的权限进行筛选（还未实现）
+     *@author: zyl
+     *
+     */
+    @RequestMapping("selectAll")
+    public List<FollowUpGroupManagement> selectAll(){
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAll();
+        return followUpGroupManagements;
     }
 
 }

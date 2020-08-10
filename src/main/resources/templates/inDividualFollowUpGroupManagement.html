@@ -25,10 +25,10 @@
     </div>
     <div class="page-header" style="margin-left: 1%;margin-top: 0">
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='authorityManagement.html'">权限管理</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">入组管理</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">模板设置</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='theGroupManagement.html'">入组管理</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='templateSettings.html'">模板设置</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">随访规定设定</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">诊疗方案</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='diagnosisAndTreatmentScheme.html'">诊疗方案</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">节假日管理</button>
     </div>
     <div class="row">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="row" style="margin-top: 10%;text-align: center">
                     <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">检索</button>
-                    <a>高级检索</a>
+                    <a href="../templates/advancedSearch.html">高级检索</a>
                 </div>
             </form>
         </div>
@@ -243,16 +243,28 @@
     </a>
 </script>
 <script type="text/javascript">
+    var newHref = window.location.href;
+    var num = newHref.indexOf('id=') + 3;
+    var len = newHref.length;
+    var idVal = newHref.substring(num, len);
+    var id = idVal;
     $("#testTable").bootstrapTable({
+        method: 'get',
+        url:'/insert',
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
-        //search : "true",
         uniqueId: "ID",
         pageSize: "5",
         pageList: [5, 10],
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
+        queryParams: function(params) {
+            var param = {};
+            param['id'] = id; // 页码
+            return param;
+        },
+        //对
         columns: [{
             checkbox: true
         },{

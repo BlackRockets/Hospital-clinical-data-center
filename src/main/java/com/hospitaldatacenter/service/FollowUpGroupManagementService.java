@@ -53,4 +53,13 @@ public interface FollowUpGroupManagementService {
      */
     boolean deleteById(Integer id);
 
+
+    /**
+     *
+     *
+     *@description: 查询所有随访组
+     *@author: zyl
+     *
+     */
+    List<FollowUpGroupManagement> queryAll();
 }
