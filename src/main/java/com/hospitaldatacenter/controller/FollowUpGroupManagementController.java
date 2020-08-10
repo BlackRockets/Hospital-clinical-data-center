@@ -45,7 +45,29 @@ public class FollowUpGroupManagementController {
      */
     @RequestMapping("selectAll")
     public List<FollowUpGroupManagement> selectAll(){
-        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAll();
+         List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAll();
+        return followUpGroupManagements;
+    }
+
+    /**
+     *
+     *查询所有科室
+     *
+     */
+    @RequestMapping("selectResponsibilityDep")
+    public List<FollowUpGroupManagement> selectResponsibilityDep(){
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAllDep();
+        return followUpGroupManagements;
+    }
+
+    /**
+     *
+     *查询所有随访组
+     *
+     */
+    @RequestMapping("selectGroupName")
+    public List<FollowUpGroupManagement> selectGroupName(){
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAllGroupName();
         return followUpGroupManagements;
     }
 

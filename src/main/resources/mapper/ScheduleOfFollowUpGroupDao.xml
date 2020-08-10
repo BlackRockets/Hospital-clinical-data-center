@@ -11,29 +11,44 @@
         <result property="age" column="age" jdbcType="OTHER"/>
         <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
         <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
+        <result property="dateOfNextFollowUp" column="date_of_next_follow_up" jdbcType="VARCHAR"/>
+        <result property="followUpState" column="follow_up_state" jdbcType="VARCHAR"/>
+        <association property="followUpGroupManagement" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ScheduleOfFollowUpGroupMap">
         select
-          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number, date_of_next_follow_up, follow_up_state
         from hospital.schedule_of_follow_up_group
         where id = #{id}
+    </select>
+
+    <!--查询多个根据随访组id-->
+    <select id="queryByFollowUpGroupId" resultMap="ScheduleOfFollowUpGroupMap">
+        select
+          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+        from hospital.schedule_of_follow_up_group
+        where follow_up_group_id = #{followUpGroupId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ScheduleOfFollowUpGroupMap">
         select
-          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
+          id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number, date_of_next_follow_up, follow_up_state
         from hospital.schedule_of_follow_up_group
         limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ScheduleOfFollowUpGroupMap">
-        select
-        id, follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number
-        from hospital.schedule_of_follow_up_group
+        select *
+        from schedule_of_follow_up_group s
+        join follow_up_group_management f
+        on s.follow_up_group_id = f.id
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -59,13 +74,19 @@
             <if test="outpatientNumber != null and outpatientNumber != ''">
                 and outpatient_number = #{outpatientNumber}
             </if>
+            <if test="dateOfNextFollowUp != null and dateOfNextFollowUp != ''">
+                and date_of_next_follow_up = #{dateOfNextFollowUp}
+            </if>
+            <if test="follow_up_state != null and followUpState != ''">
+                and outpatient_number = #{followUpState}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into hospital.schedule_of_follow_up_group(follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number)
-        values (#{followUpGroupId}, #{inpatientNumber}, #{name}, #{sex}, #{age}, #{groupEntryTime}, #{outpatientNumber})
+        insert into hospital.schedule_of_follow_up_group(follow_up_group_id, inpatient_number, name, sex, age, group_entry_time, outpatient_number, date_of_next_follow_up, follow_up_state)
+        values (#{followUpGroupId}, #{inpatientNumber}, #{name}, #{sex}, #{age}, #{groupEntryTime}, #{outpatientNumber}, #{dateOfNextFollowUp}, #{followUpState})
     </insert>
 
     <!--通过主键修改数据-->
@@ -92,6 +113,12 @@
             </if>
             <if test="outpatientNumber != null and outpatientNumber != ''">
                 outpatient_number = #{outpatientNumber},
+            </if>
+            <if test="dateOfNextFollowUp != null and dateOfNextFollowUp != ''">
+                date_of_next_follow_up = #{dateOfNextFollowUp},
+            </if>
+            <if test="followUpState != null and followUpState != ''">
+                follow_up_state = #{followUpState},
             </if>
         </set>
         where id = #{id}

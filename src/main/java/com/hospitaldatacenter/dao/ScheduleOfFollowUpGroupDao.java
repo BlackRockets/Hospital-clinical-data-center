@@ -2,6 +2,7 @@ package com.hospitaldatacenter.dao;
 
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import org.apache.ibatis.annotations.Param;
+import org.omg.CORBA.INTERNAL;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public interface ScheduleOfFollowUpGroupDao {
      * @return 实例对象
      */
     ScheduleOfFollowUpGroup queryById(Integer id);
+
+    /**
+     *@description: 通过随访组id查询
+     *@author: zyl
+     */
+    List<ScheduleOfFollowUpGroup> queryByFollowUpGroupId(Integer followUpGroupId);
+
 
     /**
      * 查询指定行数据

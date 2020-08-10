@@ -40,7 +40,43 @@ public class ScheduleOfFollowUpGroup implements Serializable {
      * 门诊号
      */
     private String outpatientNumber;
+    /**
+     * 下次随访日期
+     */
+    private String dateOfNextFollowUp;
+    /**
+     * 随访状态
+     */
+    private String followUpState;
+    /**
+     * 随访组对象
+     */
+    private FollowUpGroupManagement followUpGroupManagement;
 
+    @Override
+    public String toString() {
+        return "ScheduleOfFollowUpGroup{" +
+                "id=" + id +
+                ", followUpGroupId=" + followUpGroupId +
+                ", inpatientNumber='" + inpatientNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", groupEntryTime='" + groupEntryTime + '\'' +
+                ", outpatientNumber='" + outpatientNumber + '\'' +
+                ", dateOfNextFollowUp='" + dateOfNextFollowUp + '\'' +
+                ", followUpState='" + followUpState + '\'' +
+                ", followUpGroupManagement=" + followUpGroupManagement +
+                '}';
+    }
+
+    public FollowUpGroupManagement getFollowUpGroupManagement() {
+        return followUpGroupManagement;
+    }
+
+    public void setFollowUpGroupManagement(FollowUpGroupManagement followUpGroupManagement) {
+        this.followUpGroupManagement = followUpGroupManagement;
+    }
 
     public Integer getId() {
         return id;
@@ -106,4 +142,19 @@ public class ScheduleOfFollowUpGroup implements Serializable {
         this.outpatientNumber = outpatientNumber;
     }
 
+    public String getDateOfNextFollowUp() {
+        return dateOfNextFollowUp;
+    }
+
+    public void setDateOfNextFollowUp(String dateOfNextFollowUp) {
+        this.dateOfNextFollowUp = dateOfNextFollowUp;
+    }
+
+    public String getFollowUpState() {
+        return followUpState;
+    }
+
+    public void setFollowUpState(String followUpState) {
+        this.followUpState = followUpState;
+    }
 }
