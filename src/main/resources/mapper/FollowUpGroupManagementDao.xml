@@ -63,7 +63,7 @@
                 and enrolment_rate = #{enrolmentRate}
             </if>
             <if test="personInCharge != null and personInCharge != ''">
-                and person_in_charge = #{personInCharge}
+                and person_in_charge like concat('%',#{personInCharge},'%')
             </if>
             <if test="level != null and level != ''">
                 and level = #{level}
@@ -81,17 +81,17 @@
                 and create_people = #{createPeople}
             </if>
             <if test="createTime != null and createTime != ''">
-                and create_time = #{createTime}
+                and create_time between #{startTime} and #{endTime},
             </if>
             <if test="telephone != null and telephone != ''">
                 and telephone = #{telephone}
             </if>
-            <if test="startTime != null and startTime != ''">
+           <!-- <if test="startTime != null and startTime != ''">
                 and start_time = #{startTime}
             </if>
             <if test="endTime != null and endTime != ''">
                 and end_time = #{endTime}
-            </if>
+            </if>-->
             <if test="courseNumber != null and courseNumber != ''">
                 and course_number = #{courseNumber}
             </if>

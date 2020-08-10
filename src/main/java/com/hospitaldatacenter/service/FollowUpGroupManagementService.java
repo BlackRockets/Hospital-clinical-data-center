@@ -35,7 +35,7 @@ public interface FollowUpGroupManagementService {
      * @param followUpGroupManagement 实例对象
      * @return 实例对象
      */
-    FollowUpGroupManagement insert(FollowUpGroupManagement followUpGroupManagement);
+    int insert(String followUpGroupManagement);
 
     /**
      * 修改数据
@@ -43,7 +43,7 @@ public interface FollowUpGroupManagementService {
      * @param followUpGroupManagement 实例对象
      * @return 实例对象
      */
-    FollowUpGroupManagement update(FollowUpGroupManagement followUpGroupManagement);
+    int update(String followUpGroupManagement);
 
     /**
      * 通过主键删除数据
@@ -62,4 +62,22 @@ public interface FollowUpGroupManagementService {
      *
      */
     List<FollowUpGroupManagement> queryAll();
+
+    /**
+     *
+     *
+     *@description: 条件查询所有随访组
+     *@author: zyl
+     *
+     */
+    List<FollowUpGroupManagement> queryAllCondition(String followUpGroupManagement);
+
+    /**
+     *
+     *
+     *@description: 批量删除根据id
+     *@author: zyl
+     *
+     */
+    void deleteById(Integer[] ids);
 }

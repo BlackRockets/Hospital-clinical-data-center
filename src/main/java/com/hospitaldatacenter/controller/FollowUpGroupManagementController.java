@@ -2,9 +2,7 @@ package com.hospitaldatacenter.controller;
 
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -49,4 +47,52 @@ public class FollowUpGroupManagementController {
         return followUpGroupManagements;
     }
 
+    /**
+     *@description:  随访组新增
+     *@author: zyl,produces = {"application/json;charset=utf-8"}
+     */
+    @CrossOrigin
+    @RequestMapping(value = "insert")
+    public int insert(@RequestBody String followUpGroupManagement){
+        int insertRow = followUpGroupManagementService.insert(followUpGroupManagement);
+        return insertRow;
+    }
+
+
+    /**
+     *
+     *
+     *@description: 条件查询所有的随访组
+     *@author: zyl
+     *
+     */
+    @RequestMapping("selectAllCondition")
+    public List<FollowUpGroupManagement> selectAllCondition(@RequestBody String followUpGroupManagement){
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementService.queryAllCondition(followUpGroupManagement);
+        return followUpGroupManagements;
+    }
+
+    /**
+     *
+     *
+     *@description: 批量删除根据id
+     *@author: zyl
+     *
+     */
+    @RequestMapping("deleteById")
+    public void deleteById(@RequestBody Integer[] ids){
+        followUpGroupManagementService.deleteById(ids);
+    }
+
+    /**
+     *
+     *
+     *@description: 更新数据
+     *@author: zyl
+     *
+     */
+    @RequestMapping("updateById")
+    public int updateById(@RequestBody String followUpGroupManagement){
+        return  followUpGroupManagementService.update(followUpGroupManagement);
+    }
 }

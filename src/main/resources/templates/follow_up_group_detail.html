@@ -193,27 +193,38 @@
 
 
 <script>
-    new Vue({
+    var vm = new Vue({
         el: '#box',
-        data(){
-            return{
-                item:{
-                    responsibilityHospital:'',
-                    responsibilityDepartments:'',
-                    personInCharge:'',
-                    level:'',
-                    groupName:'',
-                    createPeople:'',
-                    createTime:'',
-                    telephone:'',
-                    state:'',
-                    startTime:'',
-                    endTime:'',
-                    courseNumber:'',
-                    numberOfPatients:'',
-                    background:''
-                },
-            }
+        data:{
+            item:{
+                responsibilityHospital:'',
+                responsibilityDepartments:'',
+                personInCharge:'sadas',
+                level:'',
+                groupName:'',
+                createPeople:'',
+                createTime:'',
+                telephone:'',
+                state:'',
+                startTime:'',
+                endTime:'',
+                courseNumber:'',
+                numberOfPatients:'',
+                background:'',
+            },
+        },
+        mounted:function(){
+            var item = this.item;
+            var formData = null;
+            var newHref = window.location.href;
+            var num = newHref.indexOf('id=') + 3;
+            var len = newHref.length;
+            var idVal = newHref.substring(num, len);
+            var id = idVal;
+            axios.get('/followUpGroupManagement/selectOne?id='+id)
+                .then(function (response) {
+                    vm.item = response.data;
+                }).catch(function () {});
         },
         methods: {
             save: function (event) {
@@ -222,7 +233,7 @@
                 let formData = this.item;
                 formData.startTime = startTime;
                 formData.endTime = endTime;
-                axios.post('/followUpGroupManagement/insert', formData)
+                axios.post('/followUpGroupManagement/updateById', formData)
                     .then(function (response) {
                         if(response.data == 1){
                             alert("保存成功")
@@ -239,21 +250,6 @@
     })
 
     $(function () {
-       /* var newHref = window.location.href;
-        var num = newHref.indexOf('id=') + 3;
-        var len = newHref.length;
-        var idVal = newHref.substring(num, len);
-        var id = idVal;
-        $.get({
-            url:'',
-            data:{
-                id:id
-            },
-            success:function (data) {
-
-            }
-        })*/
-
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
             locale: moment.locale('zh-cn')

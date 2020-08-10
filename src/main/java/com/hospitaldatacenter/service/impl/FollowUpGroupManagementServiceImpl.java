@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.dao.FollowUpGroupManagementDao;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
@@ -50,9 +51,11 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
      * @return 实例对象
      */
     @Override
-    public FollowUpGroupManagement insert(FollowUpGroupManagement followUpGroupManagement) {
-        this.followUpGroupManagementDao.insert(followUpGroupManagement);
-        return followUpGroupManagement;
+    public int insert(String followUpGroupManagement) {
+        JSON parse = (JSON) JSON.parse(followUpGroupManagement);
+        FollowUpGroupManagement followUpGroupManagement1 = JSON.toJavaObject(parse, FollowUpGroupManagement.class);
+        int insertRow = this.followUpGroupManagementDao.insert(followUpGroupManagement1);
+        return insertRow;
     }
 
     /**
@@ -62,9 +65,10 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
      * @return 实例对象
      */
     @Override
-    public FollowUpGroupManagement update(FollowUpGroupManagement followUpGroupManagement) {
-        this.followUpGroupManagementDao.update(followUpGroupManagement);
-        return this.queryById(followUpGroupManagement.getId());
+    public int update(String followUpGroupManagement) {
+        JSON parse = (JSON) JSON.parse(followUpGroupManagement);
+        FollowUpGroupManagement followUpGroupManagement1 = JSON.toJavaObject(parse, FollowUpGroupManagement.class);
+        return this.followUpGroupManagementDao.update(followUpGroupManagement1);
     }
 
     /**
@@ -89,5 +93,19 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
     public List<FollowUpGroupManagement> queryAll() {
         List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementDao.queryAllByPermissions();
         return followUpGroupManagements;
+    }
+
+    @Override
+    public List<FollowUpGroupManagement> queryAllCondition(String followUpGroupManagement) {
+        JSON parse = (JSON) JSON.parse(followUpGroupManagement);
+        FollowUpGroupManagement followUpGroupManagement1 = JSON.toJavaObject(parse, FollowUpGroupManagement.class);
+        return followUpGroupManagementDao.queryAll(followUpGroupManagement1);
+    }
+
+    @Override
+    public void deleteById(Integer[] ids) {
+        for (int i = 0; i < ids.length; i++) {
+            followUpGroupManagementDao.deleteById(ids[i]);
+        }
     }
 }
