@@ -70,7 +70,7 @@
             <if test="name != null and name != ''">
                 and s.name like CONCAT("%",#{name},"%")
             </if>
-            <if test="groupEntryTime != null and groupEntryTime != ''">
+            <if test="startTime != null and endTime != ''">
                 and s.group_entry_time between #{startTime} and #{endTime}
             </if>
             <if test="outpatientNumber != null and outpatientNumber != ''">

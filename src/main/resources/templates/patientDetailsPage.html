@@ -21,22 +21,22 @@
 <body>
 <div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="">返回</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="../templates/followUpScheduleManagement.html">返回</a>
     </div>
     <div class="col-lg-2">
         <div>
-            <span id="name" v-model="name">刘洋</span>
-            <span id="sex" v-model="sex">男</span>
+            <span>{{item.name}}</span>
+            <span>{{item.sex}}</span>
         </div>
         <div>
-            住院号 <span id="admissionNumber" v-model="inpatientNumber">000000</span>
+            住院号 <span>{{item.scheduleOfFollowUpGroup.inpatientNumber}}</span>
         </div>
         <div>
-            出生日期 <span id="birthday">2020-02-02</span>
+            出生日期 <span>{{item.birth}}</span>
         </div>
         <div>
             <a href="">链接到CDR</a>
-            <a href="">展开其他随访组</a>
+            <a v-on:click="searchRest" data-dismiss="modal" data-toggle="modal" data-target="#myModal2">展开其他随访组</a>
         </div>
         <div>
             <button class="btn-info">选择诊疗方案</button><br/>
@@ -60,7 +60,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><a data-toggle="modal" data-target="#myModal"><span class='glyphicon glyphicon-zoom-in'></span></a></td>
+                    <td><a v-on:click="search" data-dismiss="modal" data-toggle="modal" data-target="#myModal"><span class='glyphicon glyphicon-zoom-in'></span></a></td>
                 </tr>
             </table>
         </div>
@@ -83,16 +83,23 @@
                             <a style="color: #28a4c9" onclick="info()">基本信息</a>
                         </div>
                         <div class="col-sm-3">
-                            唯一标识：<input type="text">
+                            姓名：<input id="name1" type="text" />
                         </div>
                         <div class="col-sm-3">
-                            姓名：<input type="text">
+                            性别：<select id="sex1">
+                            <option value="请选择">请选择</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
                         </div>
                         <div class="col-sm-3">
-                            性别：<input type="text">
+                            出生日期：<input id="birth1" type="text"/>
                         </div>
                         <div class="col-sm-3">
-                            出生日期：<input type="text">
+                            民族：<select id="nation1">
+                            <option value="">请选择</option>
+                            <option value="汉">汉</option>
+                        </select>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 7%">
@@ -100,13 +107,13 @@
                             <p style="color: #28a4c9">体格检查</p>
                         </div>
                         <div class="col-sm-3">
-                            身高：<input type="text">cm
+                            身高：<input type="text" v-model="item.height"/>cm
                         </div>
                         <div class="col-sm-3">
-                            体重：<input type="text">kg
+                            体重：<input type="text" v-model="item.weight"/>kg
                         </div>
                         <div class="col-sm-3">
-                            BMI：<input type="text">
+                            BMI：<input type="text"/>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 7%">
@@ -114,10 +121,10 @@
                             <a style="color: #28a4c9" onclick="inspect()">实验室检查</a>
                         </div>
                         <div class="col-sm-3">
-                            白细胞：<input type="text">mmol/L
+                            白细胞：<input id="bai" type="text">mmol/L
                         </div>
                         <div class="col-sm-3">
-                            血糖：<input type="text">mmol/L
+                            血糖：<input id="xue" type="text">mmol/L
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 7%">
@@ -125,9 +132,11 @@
                             <p style="color: #28a4c9">症状</p>
                         </div>
                         <div class="col-sm-3">
-                            症状：<select>
-                            <option>1</option>
-                            <option>1</option>
+                            症状：<select v-model="item.symptom">
+                            <option value="">请选择</option>
+                            <option value="头疼">头疼</option>
+                            <option value="发热">发热</option>
+                            <option value="肾疼">肾疼</option>
                         </select>
                         </div>
                     </div>
@@ -146,24 +155,24 @@
                 <div>
                     <table class="table">
                         <tr>
-                            <td class="column">订单编号</td>
-                            <td>12121212121212121</td>
+                            <td class="column">姓名</td>
+                            <td id="name">{{item.name}}</td>
                         </tr>
                         <tr>
-                            <td class="column">货物城市</td>
-                            <td>上海</td>
+                            <td class="column">性别</td>
+                            <td id="sex">{{item.sex}}</td>
                         </tr>
                         <tr>
-                            <td class="column">货物运达城市</td>
-                            <td>郑州</td>
+                            <td class="column">出生日期</td>
+                            <td id="birth">{{item.birth}}</td>
                         </tr>
                         <tr>
-                            <td class="column">货物描述</td>
-                            <td>衣服</td>
+                            <td class="column">民族</td>
+                            <td id="nation">{{item.nation}}</td>
                         </tr>
                     </table>
                     <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                            data-dismiss="modal" v-on:click="">确认
+                            data-dismiss="modal" v-on:click="sure">确认
                     </button>
                 </div>
             </div>
@@ -172,7 +181,7 @@
                 <div>
                     <form>
                         <div class="form-group">
-                            科室 <input type="text">
+                            科室 <input type="text" v-model="item.followUpGroupManagement.responsibilityDepartments">
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3" style="margin-top: 5px">
@@ -187,26 +196,28 @@
                             </div>
                             <div class="col-sm-3" style="text-align: right">~</div>
                             <div class='input-group date col-sm-3' id='datetimepicker2'>
-                                <input type='text'id="d2" class="form-control" />
+                                <input type='text'id="d2" class="form-control"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox">首次
-                                <input type="checkbox">末次<br/>
-                                <input type="checkbox">最大值
-                                <input type="checkbox">最小值<br/>
-                                <input type="checkbox">异常值<br/>
+                                <input type="radio" v-model="item.condition" value="1">首次
+                                <input type="radio" v-model="item.condition" value="2">末次<br/>
+                                <input type="radio" v-model="item.condition" value="3">最大值
+                                <input type="radio" v-model="item.condition" value="4">最小值<br/>
                                 <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                                        data-dismiss="modal" v-on:click="">筛选
+                                        data-dismiss="modal" v-on:click="sureSearch">筛选
                                 </button>
                             </div>
                         </div>
-
                     </form>
-                    <table id="testTable"></table>
+                    <table id="formTable">
+                    </table>
+                    <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                            data-dismiss="modal" v-on:click="confirm ">确定
+                    </button>
                 </div>
             </div>
         </div>
@@ -221,7 +232,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table></table>
+                <table id="searchTable">
+
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">
@@ -231,14 +244,213 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<script>
-    urlinfo=window.location.href; //获取当前页面的url
-    len=urlinfo.length;//获取url的长度
-    offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
-    newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
-    newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-    newsid=newsids[1];//得到参数值
-    console.log(newsid)
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="tables">
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#box',
+        data(){
+            return {
+                item:{
+                    name: '',
+                    sex: '',
+                    scheduleOfFollowUpGroup: '',
+                    followUpGroupManagement: '',
+                    birth: '',
+                    nation: '',
+                    condition: '',
+                    height: '',
+                    weight: '',
+                    symptom: ''
+                }
+            }
+        },
+        mounted:function(){
+           var urlinfo=window.location.href; //获取当前页面的url
+            len=urlinfo.length;//获取url的长度
+            var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+            var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+            var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+            var  newsid=newsids[1];//得到参数值
+            axios.get('/patientSchedule/selectOne?id='+newsid)
+                .then(function (response) {
+                    vm.item = response.data;
+                }).catch(function () {});
+        },
+        methods:{
+            search:function () {
+                var dataName=this.item.name;
+                axios.get('/patientSchedule/selectById?name='+dataName)
+                    .then(function (response) {
+                        $("#searchTable").bootstrapTable("load",response.data);
+                    }).catch(function () {});
+            },
+            sure:function () {
+                var name=document.getElementById("name").innerHTML;
+                var sex=document.getElementById("sex").innerHTML;
+                var birth=document.getElementById("birth").innerHTML;
+                var nation=document.getElementById("nation").innerHTML;
+                document.getElementById("name1").value=name;
+                document.getElementById("sex1").value=sex;
+                document.getElementById("birth1").value=birth;
+                document.getElementById("nation1").value=nation;
+            },
+            sureSearch:function () {
+                var dataItem=this.item;
+                var starttime=$("#d1").val();
+                dataItem.scheduleOfFollowUpGroup.startTime=starttime;
+                var endtime=$("#d2").val();
+                dataItem.scheduleOfFollowUpGroup.endTime=endtime;
+                axios
+                    .post('/patientSchedule/selectAllByCondition',dataItem)
+                    .then(function (response) {
+                       $("#formTable").bootstrapTable("load",response.data);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            confirm:function () {
+                var dataItem=this.item;
+                var bai=dataItem.whitebloodcell;
+                var xue=dataItem.bloodsugar;
+                document.getElementById("bai").value=bai;
+                document.getElementById("xue").value=xue;
+            },
+            searchRest:function () {
+                var dataName=this.item.name;
+                console.log(dataName);
+                axios.get('/patientSchedule/selectById?name='+dataName)
+                    .then(function (response) {
+                        $("#tables").bootstrapTable("load",response.data);
+                    }).catch(function () {});
+            }
+        }
+    })
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    })
+    $("#searchTable").bootstrapTable({
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        url: '',
+        method: 'post',
+        columns: [{
+            field: 'id',
+            title: '序号',
+            align: 'center',
+        }, {
+            field: 'dateOfNextFollowUp',
+            title: '随访时间',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.scheduleOfFollowUpGroup.groupEntryTime;
+            }
+        }, {
+            field: 'groupName',
+            title: '随访组',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.followUpGroupManagement.groupName;
+            }
+        }, {
+            field: 'responsibilityDepartments',
+            title: '科室',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.followUpGroupManagement.responsibilityDepartments;
+            }
+        },{
+            field: 'followUpState',
+            title: '随访状态',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.scheduleOfFollowUpGroup.followUpState;
+            }
+        }
+        ]
+    });
+    $("#formTable").bootstrapTable({
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        url: '',
+        method: 'post',
+        columns: [{
+            field: 'id',
+            title: '检查时间',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.scheduleOfFollowUpGroup.groupEntryTime;
+            }
+        }, {
+            field: 'dateOfNextFollowUp',
+            title: '申请科室',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.followUpGroupManagement.responsibilityDepartments;
+            }
+        }, {
+            field: 'whitebloodcell',
+            title: '白细胞',
+            align: 'center',
+        }, {
+            field: 'bloodsugar',
+            title: '血糖',
+            align: 'center',
+        }
+        ]
+    });
+
+    $("#tables").bootstrapTable({
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        url: '',
+        method: 'post',
+        columns: [{
+            field: 'name',
+            title: '姓名',
+            align: 'center',
+        }, {
+            field: 'dateOfNextFollowUp',
+            title: '申请科室',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return row.followUpGroupManagement.responsibilityDepartments;
+            }
+        }, {
+            field: 'whitebloodcell',
+            title: '随访组',
+            align: 'center',
+        }
+        ]
+    });
 
     function info() {
         var tou1=document.getElementById("tou");
