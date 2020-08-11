@@ -42,8 +42,9 @@
                     </div>
                     <div class="col-md-4" style="text-align:left">
                         <select class="form-control input-sm" v-model="item.responsibilityDepartments">
-                            <option>精神病科</option>
-                            <option>脑残科</option>
+                            <option>肿瘤中心</option>
+                            <option>内分泌科</option>
+                            <option>心研所</option>
                         </select>
                     </div>
                 </div>
@@ -108,7 +109,7 @@
                         <label>开始日期：</label>
                     </div>
                     <div class='input-group date col-md-4' style="text-align:left" id='datetimepicker1'>
-                        <input type='text' class="form-control" />
+                        <input type='text' class="form-control" id="datetime1"/>
                         <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -120,7 +121,7 @@
                         <label>结束日期：</label>
                     </div>
                     <div class='input-group date col-md-4' style="text-align:left" id='datetimepicker2'>
-                        <input type='text' class="form-control"/>
+                        <input type='text' class="form-control" id="datetime2"/>
                         <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -193,27 +194,40 @@
 
 
 <script>
-    new Vue({
+    var vm = new Vue({
         el: '#box',
-        data(){
-            return{
-                item:{
-                    responsibilityHospital:'',
-                    responsibilityDepartments:'',
-                    personInCharge:'',
-                    level:'',
-                    groupName:'',
-                    createPeople:'',
-                    createTime:'',
-                    telephone:'',
-                    state:'',
-                    startTime:'',
-                    endTime:'',
-                    courseNumber:'',
-                    numberOfPatients:'',
-                    background:''
-                },
-            }
+        data:{
+            item:{
+                responsibilityHospital:'',
+                responsibilityDepartments:'',
+                personInCharge:'',
+                level:'',
+                groupName:'',
+                createPeople:'',
+                createTime:'',
+                telephone:'',
+                state:'',
+                startTime:'',
+                endTime:'',
+                courseNumber:'',
+                numberOfPatients:'',
+                background:'',
+            },
+        },
+        mounted:function(){
+            var item = this.item;
+            var formData = null;
+            var newHref = window.location.href;
+            var num = newHref.indexOf('id=') + 3;
+            var len = newHref.length;
+            var idVal = newHref.substring(num, len);
+            var id = idVal;
+            axios.get('/followUpGroupManagement/selectOne?id='+id)
+                .then(function (response) {
+                    vm.item = response.data;
+                    $("#datetime1").val(response.data.startTime)
+                    $("#datetime2").val(response.data.endTime);
+                }).catch(function () {});
         },
         methods: {
             save: function (event) {
@@ -222,7 +236,7 @@
                 let formData = this.item;
                 formData.startTime = startTime;
                 formData.endTime = endTime;
-                axios.post('/followUpGroupManagement/insert', formData)
+                axios.post('/followUpGroupManagement/updateById', formData)
                     .then(function (response) {
                         if(response.data == 1){
                             alert("保存成功")
@@ -239,21 +253,6 @@
     })
 
     $(function () {
-       /* var newHref = window.location.href;
-        var num = newHref.indexOf('id=') + 3;
-        var len = newHref.length;
-        var idVal = newHref.substring(num, len);
-        var id = idVal;
-        $.get({
-            url:'',
-            data:{
-                id:id
-            },
-            success:function (data) {
-
-            }
-        })*/
-
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
             locale: moment.locale('zh-cn')

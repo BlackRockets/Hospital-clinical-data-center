@@ -70,5 +70,24 @@ public interface ScheduleOfFollowUpGroupDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param scheduleOfFollowUpGroup 实例对象
+     * @return 对象列表
+     */
+    List<ScheduleOfFollowUpGroup> queryAllByCondition(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
+    /**
+     * 已随访
+     *
+     * @return 对象列表
+     */
+    List<ScheduleOfFollowUpGroup> selectAllByFollowUpState();
+    /**
+     * 未随访
+     *
+     * @return 对象列表
+     */
+    List<ScheduleOfFollowUpGroup> selectAllByNoFollowUpState();
 
 }

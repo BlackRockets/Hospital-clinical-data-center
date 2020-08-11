@@ -13,7 +13,8 @@
         <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
         <result property="dateOfNextFollowUp" column="date_of_next_follow_up" jdbcType="VARCHAR"/>
         <result property="followUpState" column="follow_up_state" jdbcType="VARCHAR"/>
-        <association property="followUpGroupManagement" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
+        <association property="followUpGroupManagement"
+                     javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
             <result property="id" column="id" jdbcType="INTEGER"/>
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
         </association>
@@ -43,42 +44,40 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ScheduleOfFollowUpGroupMap">
+    select *
+    from schedule_of_follow_up_group s
+    join follow_up_group_management f
+    on s.follow_up_group_id = f.id
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllByCondition" resultMap="ScheduleOfFollowUpGroupMap">
         select *
         from schedule_of_follow_up_group s
         join follow_up_group_management f
         on s.follow_up_group_id = f.id
         <where>
-            <if test="id != null">
-                and id = #{id}
+            <if test="followUpGroupManagement.groupName != null and followUpGroupManagement.groupName != ''">
+                and f.group_name like CONCAT("%",#{followUpGroupManagement.groupName},"%")
             </if>
-            <if test="followUpGroupId != null">
-                and follow_up_group_id = #{followUpGroupId}
+            <if test="followUpGroupManagement.responsibilityDepartments != null and followUpGroupManagement.responsibilityDepartments != ''">
+                and f.responsibility_departments like
+                CONCAT("%",#{followUpGroupManagement.responsibilityDepartments},"%")
             </if>
             <if test="inpatientNumber != null and inpatientNumber != ''">
-                and inpatient_number = #{inpatientNumber}
+                and s.inpatient_number like CONCAT("%",#{inpatientNumber},"%")
             </if>
             <if test="name != null and name != ''">
-                and name = #{name}
-            </if>
-            <if test="sex != null and sex != ''">
-                and sex = #{sex}
-            </if>
-            <if test="age != null">
-                and age = #{age}
+                and s.name like CONCAT("%",#{name},"%")
             </if>
             <if test="groupEntryTime != null and groupEntryTime != ''">
-                and group_entry_time = #{groupEntryTime}
+                and s.group_entry_time between #{startTime} and #{endTime}
             </if>
             <if test="outpatientNumber != null and outpatientNumber != ''">
-                and outpatient_number = #{outpatientNumber}
+                and s.outpatient_number like CONCAT("%",#{outpatientNumber},"%")
             </if>
-            <if test="dateOfNextFollowUp != null and dateOfNextFollowUp != ''">
-                and date_of_next_follow_up = #{dateOfNextFollowUp}
-            </if>
-            <if test="follow_up_state != null and followUpState != ''">
-                and outpatient_number = #{followUpState}
+            <if test="followUpState != null and followUpState != ''">
+                and s.follow_up_state like CONCAT("%",#{followUpState},"%")
             </if>
         </where>
     </select>
@@ -128,5 +127,21 @@
     <delete id="deleteById">
         delete from hospital.schedule_of_follow_up_group where id = #{id}
     </delete>
+    <!--已随访-->
+    <select id="selectAllByFollowUpState" resultMap="ScheduleOfFollowUpGroupMap">
+        select *
+        from schedule_of_follow_up_group s
+        join follow_up_group_management f
+        on s.follow_up_group_id = f.id
+        where s.follow_up_state = '已随访'
+    </select>
+    <!--未随访-->
+    <select id="selectAllByNoFollowUpState" resultMap="ScheduleOfFollowUpGroupMap">
+        select *
+        from schedule_of_follow_up_group s
+        join follow_up_group_management f
+        on s.follow_up_group_id = f.id
+        where s.follow_up_state = '未随访'
+    </select>
 
 </mapper>
