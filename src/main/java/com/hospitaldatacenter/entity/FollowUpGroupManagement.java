@@ -1,20 +1,44 @@
 package com.hospitaldatacenter.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 随访组管理表(FollowUpGroupManagement)实体类
  *
  * @author makejava
- * @since 2020-08-11 10:08:47
+ * @since 2020-08-07 10:31:05
  */
 public class FollowUpGroupManagement implements Serializable {
-    private static final long serialVersionUID = 510090322148025583L;
+    private static final long serialVersionUID = -99614881521124655L;
     /**
      * id
      */
     private Integer id;
+
+    @Override
+    public String toString() {
+        return "FollowUpGroupManagement{" +
+                "id=" + id +
+                ", groupName='" + groupName + '\'' +
+                ", enrolmentRate='" + enrolmentRate + '\'' +
+                ", personInCharge='" + personInCharge + '\'' +
+                ", level='" + level + '\'' +
+                ", state='" + state + '\'' +
+                ", responsibilityHospital='" + responsibilityHospital + '\'' +
+                ", responsibilityDepartments='" + responsibilityDepartments + '\'' +
+                ", createPeople='" + createPeople + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", courseNumber='" + courseNumber + '\'' +
+                ", numberOfPatients=" + numberOfPatients +
+                ", background='" + background + '\'' +
+                ", standbyFiled1='" + standbyFiled1 + '\'' +
+                ", standbyFiled2='" + standbyFiled2 + '\'' +
+                '}';
+    }
+
     /**
      * 随访组名称
      */
@@ -50,7 +74,7 @@ public class FollowUpGroupManagement implements Serializable {
     /**
      * 创建日期
      */
-    private Date createTime;
+    private String createTime;
     /**
      * 联系电话
      */
@@ -58,11 +82,11 @@ public class FollowUpGroupManagement implements Serializable {
     /**
      * 开始时间
      */
-    private Date startTime;
+    private String startTime;
     /**
      * 结束时间
      */
-    private Date endTime;
+    private String endTime;
     /**
      * 课题编号
      */
@@ -157,11 +181,11 @@ public class FollowUpGroupManagement implements Serializable {
         this.createPeople = createPeople;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -173,19 +197,19 @@ public class FollowUpGroupManagement implements Serializable {
         this.telephone = telephone;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
