@@ -42,8 +42,9 @@
                     </div>
                     <div class="col-md-4" style="text-align:left">
                         <select class="form-control input-sm" v-model="item.responsibilityDepartments">
-                            <option>精神病科</option>
-                            <option>脑残科</option>
+                            <option>肿瘤中心</option>
+                            <option>内分泌科</option>
+                            <option>心研所</option>
                         </select>
                     </div>
                 </div>
@@ -108,7 +109,7 @@
                         <label>开始日期：</label>
                     </div>
                     <div class='input-group date col-md-4' style="text-align:left" id='datetimepicker1'>
-                        <input type='text' class="form-control" />
+                        <input type='text' class="form-control" id="datetime1"/>
                         <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -120,7 +121,7 @@
                         <label>结束日期：</label>
                     </div>
                     <div class='input-group date col-md-4' style="text-align:left" id='datetimepicker2'>
-                        <input type='text' class="form-control"/>
+                        <input type='text' class="form-control" id="datetime2"/>
                         <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -199,7 +200,7 @@
             item:{
                 responsibilityHospital:'',
                 responsibilityDepartments:'',
-                personInCharge:'sadas',
+                personInCharge:'',
                 level:'',
                 groupName:'',
                 createPeople:'',
@@ -224,6 +225,8 @@
             axios.get('/followUpGroupManagement/selectOne?id='+id)
                 .then(function (response) {
                     vm.item = response.data;
+                    $("#datetime1").val(response.data.startTime)
+                    $("#datetime2").val(response.data.endTime);
                 }).catch(function () {});
         },
         methods: {

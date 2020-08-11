@@ -81,7 +81,7 @@
                 and create_people = #{createPeople}
             </if>
             <if test="createTime != null and createTime != ''">
-                and create_time between #{startTime} and #{endTime},
+                and create_time between #{startTime} and #{endTime}
             </if>
             <if test="telephone != null and telephone != ''">
                 and telephone = #{telephone}

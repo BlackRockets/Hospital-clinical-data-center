@@ -25,7 +25,7 @@
             <h3 class="col-md-2"  style="color: #28a4c9">随访组管理</h3>
             <a href="../templates/new_follow_up_group.html" class="col-md-9" style="color: #ff1b02;margin-top: 30px;text-align: left">新建随访组</a>
         </div>
-        <form style="color: #0079d7;margin-top: 90px" >
+        <form style="color: #0079d7;margin-top: 90px"  id="form">
             <div class="row" style="margin-top: 5px">
                 <div class="col-md-4" style="text-align:left">
                     <div class="col-md-4" style="text-align:right">
@@ -40,10 +40,11 @@
                         <label>科室：</label>
                     </div>
                     <div class="col-md-8">
-                        <select class="form-control input-sm" v-model="responsibilityDepartments">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
+                        <select class="form-control input-sm" v-model="item.responsibilityDepartments">
+                            <option value="">请选择</option>
+                            <option>肿瘤中心</option>
+                            <option>内分泌科</option>
+                            <option>心研所</option>
                         </select>
                     </div>
                 </div>
@@ -52,10 +53,10 @@
                         <label>状态：</label>
                     </div>
                     <div class="col-md-8">
-                        <select class="form-control input-sm" v-model="state">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
+                        <select class="form-control input-sm" v-model="item.state">
+                            <option value="">请选择</option>
+                            <option>开放</option>
+                            <option>关闭</option>
                         </select>
                     </div>
                 </div>
@@ -66,7 +67,7 @@
                         <label>创建日期：</label>
                     </div>
                     <div class='input-group date col-md-3'  id='datetimepicker1'>
-                        <input type='text' class="form-control"/>
+                        <input type='text' class="form-control" />
                         <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -74,7 +75,7 @@
                     </div>
                     <p class="col-md-1" style="margin-left: 60px">~</p>
                     <div class='input-group date col-md-3' style="margin-left: 125px"  id='datetimepicker2'>
-                        <input type='text' class="form-control"/>
+                        <input type='text' class="form-control" />
                         <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -83,7 +84,7 @@
                 </div>
                 <div class="col-md-4" style="text-align:center">
                     <button type="button" class="btn btn-default" v-on:click="retrieval">检索</button>
-                    <button type="button" class="btn btn-default" v-on:click="clear">清空</button>
+                    <button type="reset" class="btn btn-default" onclick="flush()" >清空</button>
                 </div>
             </div>
         </form>
@@ -123,6 +124,7 @@
                var endTime = $("#datetimepicker2").find("input").val();
                let formData = this.item;
                formData.startTime = startTime;
+               formData.createTime = startTime;
                formData.endTime = endTime;
                axios.post('/followUpGroupManagement/selectAllCondition', formData)
                    .then(function (response) {
@@ -130,10 +132,12 @@
                        $("#table").bootstrapTable('load', data);
                    })
                    .catch(function (error) {
-                       if(error.data != 1){
-                           alert("保存失败")
-                       }
+
                    });
+           },
+           clear: function () {
+               var formData = $("#form");
+               formData.find('input:text').val('');
            },
            edit: function () {
                var row=$("#table").bootstrapTable('getSelections');
@@ -205,7 +209,9 @@
         return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'">'+value+'</a>'].join("");
     }
 
-
+ /*   function flush() {
+        document.getElementById("form").reset();
+    }*/
 
     $(function () {
         $('#datetimepicker1').datetimepicker({
