@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <!--患者详细页面-->
+</head>
+<body>
+<div class="container-fluid" id="box">
+    <div class="row" style="margin-top: 1%;margin-left: 2%">
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="">返回</a>
+    </div>
+    <div class="col-lg-2">
+        <div>
+            <span id="name" v-model="name">刘洋</span>
+            <span id="sex" v-model="sex">男</span>
+        </div>
+        <div>
+            住院号 <span id="admissionNumber" v-model="inpatientNumber">000000</span>
+        </div>
+        <div>
+            出生日期 <span id="birthday">2020-02-02</span>
+        </div>
+        <div>
+            <a href="">链接到CDR</a>
+            <a href="">展开其他随访组</a>
+        </div>
+        <div>
+            <button class="btn-info">选择诊疗方案</button><br/>
+            <a href="">诊疗方案1</a>
+            <a href="">诊疗方案2</a>
+        </div>
+    </div>
+    <div class="col-lg-10">
+        <div>随访进度及计划</div>
+        <div>
+            <table class="table">
+                <tr style="text-align: center">
+                    <th>基本信息</th>
+                    <th>体格检查</th>
+                    <th>实验室检查</th>
+                    <th>随访信心表</th>
+                    <th>查看完整随访计划</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a data-toggle="modal" data-target="#myModal"><span class='glyphicon glyphicon-zoom-in'></span></a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-8" style="margin-top: 0">
+            <div class="row" style="margin: 1%">
+                <button type="button" class="btn btn-info btn-sm" onclick="">
+                    保存
+                </button>
+                <button type="button" class="btn btn-info btn-sm" onclick="">
+                    删除
+                </button>
+                <button type="button" class="btn btn-info btn-sm" onclick="">
+                    履历
+                </button>
+            </div>
+            <div class="row">
+                <form role="form" style="margin: 1%">
+                    <div class="form-group" style="margin-top: 1%">
+                        <div class="page-header" style="text-align: center;margin-top: 0">
+                            <a style="color: #28a4c9" onclick="info()">基本信息</a>
+                        </div>
+                        <div class="col-sm-3">
+                            唯一标识：<input type="text">
+                        </div>
+                        <div class="col-sm-3">
+                            姓名：<input type="text">
+                        </div>
+                        <div class="col-sm-3">
+                            性别：<input type="text">
+                        </div>
+                        <div class="col-sm-3">
+                            出生日期：<input type="text">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 7%">
+                        <div class="page-header" style="text-align: center;margin-top: 12%">
+                            <p style="color: #28a4c9">体格检查</p>
+                        </div>
+                        <div class="col-sm-3">
+                            身高：<input type="text">cm
+                        </div>
+                        <div class="col-sm-3">
+                            体重：<input type="text">kg
+                        </div>
+                        <div class="col-sm-3">
+                            BMI：<input type="text">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 7%">
+                        <div class="page-header" style="text-align: center;margin-top: 12%">
+                            <a style="color: #28a4c9" onclick="inspect()">实验室检查</a>
+                        </div>
+                        <div class="col-sm-3">
+                            白细胞：<input type="text">mmol/L
+                        </div>
+                        <div class="col-sm-3">
+                            血糖：<input type="text">mmol/L
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 7%">
+                        <div class="page-header" style="text-align: center;margin-top: 12%">
+                            <p style="color: #28a4c9">症状</p>
+                        </div>
+                        <div class="col-sm-3">
+                            症状：<select>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <p>原始数据</p>
+            <div id="tou" style="display: block">
+                <div style="color: #28a4c9">基本信息</div>
+                <div style="color: #28a4c9">体格检查</div>
+                <div style="color: #28a4c9">实验室检查</div>
+            </div>
+            <div id="xinxi" style="display: none">
+                <p style="color: #28a4c9">基本信息</p>
+                <div>
+                    <table class="table">
+                        <tr>
+                            <td class="column">订单编号</td>
+                            <td>12121212121212121</td>
+                        </tr>
+                        <tr>
+                            <td class="column">货物城市</td>
+                            <td>上海</td>
+                        </tr>
+                        <tr>
+                            <td class="column">货物运达城市</td>
+                            <td>郑州</td>
+                        </tr>
+                        <tr>
+                            <td class="column">货物描述</td>
+                            <td>衣服</td>
+                        </tr>
+                    </table>
+                    <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                            data-dismiss="modal" v-on:click="">确认
+                    </button>
+                </div>
+            </div>
+            <div id="shiyanshi" style="display: none">
+                <p style="color: #28a4c9">实验室检查</p>
+                <div>
+                    <form>
+                        <div class="form-group">
+                            科室 <input type="text">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3" style="margin-top: 5px">
+                                时间
+                            </div>
+                            <div class='input-group date col-sm-3'  id='datetimepicker1'>
+                                <input type='text' id="d1" class="form-control"/>
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                            </div>
+                            <div class="col-sm-3" style="text-align: right">~</div>
+                            <div class='input-group date col-sm-3' id='datetimepicker2'>
+                                <input type='text'id="d2" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox">首次
+                                <input type="checkbox">末次<br/>
+                                <input type="checkbox">最大值
+                                <input type="checkbox">最小值<br/>
+                                <input type="checkbox">异常值<br/>
+                                <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                                        data-dismiss="modal" v-on:click="">筛选
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <table id="testTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <table></table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">
+                    导出excel
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script>
+    urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    newsid=newsids[1];//得到参数值
+    console.log(newsid)
+
+    function info() {
+        var tou1=document.getElementById("tou");
+        var xinxi1=document.getElementById("xinxi");
+        var shiyanshi=document.getElementById("shiyanshi");
+        tou1.style.display="none";
+        xinxi1.style.display="block";
+        shiyanshi.style.display="none";
+    }
+    function inspect() {
+        var tou1=document.getElementById("tou");
+        var xinxi1=document.getElementById("xinxi");
+        var shiyanshi=document.getElementById("shiyanshi");
+        tou1.style.display="none";
+        xinxi1.style.display="none";
+        shiyanshi.style.display="block";
+    }
+</script>
+</body>
+</html>

@@ -7,12 +7,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
-
-
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
+
     <script src="../static/js/moment-with-locales.min.js"></script>
-    <script src="../static/js/bootstrap-datetimepicker.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
@@ -54,7 +53,7 @@
                             3.日期：
                         </div>
                         <div class='input-group date col-sm-6' style="margin-left: 47%" id='datetimepicker1'>
-                            <input type='text' id="d1" class="form-control"  readonly="readonly"/>
+                            <input type='text' id="d1" class="form-control"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -62,7 +61,7 @@
                         </div>
                         <div class="col-sm-7" style="text-align: right">~</div>
                         <div class='input-group date col-sm-6' style="margin-left: 47%" id='datetimepicker2'>
-                            <input type='text'id="d2" class="form-control"  readonly="readonly"/>
+                            <input type='text'id="d2" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -102,10 +101,10 @@
                 <div id="t1" class="tab-pane fade in active">
                     <div class="row" style="margin: 2%;">
                         <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
-                                v-on:click="haveBeenFollowedUp()">已随访
+                                v-on:click="haveBeenFollowedUp">已随访
                         </button>
                         <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                                data-dismiss="modal" v-on:click="noFollowedUp()">未随访
+                                data-dismiss="modal" v-on:click="noFollowedUp">未随访
                         </button>
                     </div>
                     <div class="row">
@@ -118,9 +117,7 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a v-on:click="preview()">
-        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
-    </a>
+
 </script>
 <script type="text/javascript">
     new Vue({
@@ -140,15 +137,38 @@
         methods:{
             save: function () {
                var dataItem=this.item;
-                console.log(this.item);
+                var starttime=$("#d1").val();
+                dataItem.startTime=starttime;
+                var endtime=$("#d2").val();
+                dataItem.endTime=endtime;
                 axios
-                    .get('/scheduleOfFollowUpGroup/selectAll',dataItem)
+                    .post('/scheduleOfFollowUpGroup/selectAllByCondition',dataItem)
                     .then(function (response) {
-                        console.log(response);
+                        $("#testTable").bootstrapTable("load",response.data);
                     })
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                 });
+            },
+            haveBeenFollowedUp: function () {
+                axios
+                    .post('/scheduleOfFollowUpGroup/selectAllByFollowUpState')
+                    .then(function (response) {
+                        $("#testTable").bootstrapTable("load",response.data);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            noFollowedUp: function () {
+                axios
+                    .post('/scheduleOfFollowUpGroup/selectAllByNoFollowUpState')
+                    .then(function (response) {
+                        $("#testTable").bootstrapTable("load",response.data);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
             }
         }
     })
@@ -216,7 +236,8 @@
         var rows = JSON.stringify(row);
         var id = row.id;
         var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        console.log(id);
+        result += "<a href='../templates/patientDetailsPage.html?id="+id+"' class='btn btn-xs green'  title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
     }
 
@@ -261,6 +282,7 @@
                 $('#group').append(datas);
             }
         })
+
     })
 
 </script>

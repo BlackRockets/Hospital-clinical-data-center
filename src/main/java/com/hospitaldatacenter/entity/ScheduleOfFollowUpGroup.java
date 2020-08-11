@@ -76,6 +76,8 @@ public class ScheduleOfFollowUpGroup implements Serializable {
                 ", outpatientNumber='" + outpatientNumber + '\'' +
                 ", dateOfNextFollowUp='" + dateOfNextFollowUp + '\'' +
                 ", followUpState='" + followUpState + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 ", followUpGroupManagement=" + followUpGroupManagement +
                 '}';
     }
