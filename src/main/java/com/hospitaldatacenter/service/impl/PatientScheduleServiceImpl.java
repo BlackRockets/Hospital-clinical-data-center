@@ -1,7 +1,10 @@
 package com.hospitaldatacenter.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.PatientScheduleDao;
+import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.PatientSchedule;
+import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.PatientScheduleService;
 import org.springframework.stereotype.Service;
 
@@ -75,5 +78,41 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
     @Override
     public boolean deleteById(Integer id) {
         return this.patientScheduleDao.deleteById(id) > 0;
+    }
+    /**
+     * 通过id查询
+     *
+     * @return 影响行数
+     */
+    @Override
+    public List<PatientSchedule> selectByName(String name) {
+        List<PatientSchedule> patientSchedules = patientScheduleDao.selectByName(name);
+        return patientSchedules;
+    }
+    /**
+     * 通过条件查询
+     *
+     * @return 影响行数
+     */
+    @Override
+    public List<PatientSchedule> selectAllByCondition(String  dataItem) {
+        List<PatientSchedule> patientSchedules=null;
+        PatientSchedule pat = JSONObject.parseObject(dataItem, PatientSchedule.class);
+        ScheduleOfFollowUpGroup sch = JSONObject.parseObject(dataItem, ScheduleOfFollowUpGroup.class);
+        FollowUpGroupManagement fol = JSONObject.parseObject(dataItem, FollowUpGroupManagement.class);
+        pat.setFollowUpGroupManagement(fol);
+        pat.setScheduleOfFollowUpGroup(sch);
+        System.out.println(pat);
+        if ("1".equals(pat.getCondition())){
+            patientSchedules = patientScheduleDao.selectAllByCondition(pat);
+        }else if ("2".equals(pat.getCondition())){
+            patientSchedules = patientScheduleDao.selectAllByConditionEnd(pat);
+        }else if ("3".equals(pat.getCondition())){
+            patientSchedules = patientScheduleDao.selectAllByConditionMax(pat);
+        }else if ("4".equals(pat.getCondition())){
+            patientSchedules = patientScheduleDao.selectAllByConditionMin(pat);
+        }
+        System.out.println("--------------------"+patientSchedules);
+        return patientSchedules;
     }
 }

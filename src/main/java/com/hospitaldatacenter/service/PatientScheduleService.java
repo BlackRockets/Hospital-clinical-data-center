@@ -52,5 +52,19 @@ public interface PatientScheduleService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+    /**
+     * 通过id查询
+     *
+     * @return 影响行数
+     */
+    List<PatientSchedule> selectByName(String name);
+    /**
+     * 通过条件查询
+     *首次
+     * @return 影响行数
+     */
+
+    List<PatientSchedule> selectAllByCondition(String patientSchedule);
+
 
 }

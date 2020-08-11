@@ -57,6 +57,56 @@ public class PatientSchedule implements Serializable {
      */
     private Integer patientInfoId;
 
+    private String  condition;
+
+    @Override
+    public String toString() {
+        return "PatientSchedule{" +
+                "id=" + id +
+                ", groupDetailId=" + groupDetailId +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birth='" + birth + '\'' +
+                ", nation='" + nation + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", whitebloodcell=" + whitebloodcell +
+                ", bloodsugar=" + bloodsugar +
+                ", symptom='" + symptom + '\'' +
+                ", patientInfoId=" + patientInfoId +
+                ", condition='" + condition + '\'' +
+                ", followUpGroupManagement=" + followUpGroupManagement +
+                ", scheduleOfFollowUpGroup=" + scheduleOfFollowUpGroup +
+                '}';
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    private FollowUpGroupManagement followUpGroupManagement;
+
+    private ScheduleOfFollowUpGroup scheduleOfFollowUpGroup;
+
+    public ScheduleOfFollowUpGroup getScheduleOfFollowUpGroup() {
+        return scheduleOfFollowUpGroup;
+    }
+
+    public void setScheduleOfFollowUpGroup(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
+        this.scheduleOfFollowUpGroup = scheduleOfFollowUpGroup;
+    }
+
+    public FollowUpGroupManagement getFollowUpGroupManagement() {
+        return followUpGroupManagement;
+    }
+
+    public void setFollowUpGroupManagement(FollowUpGroupManagement followUpGroupManagement) {
+        this.followUpGroupManagement = followUpGroupManagement;
+    }
 
     public Integer getId() {
         return id;

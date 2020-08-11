@@ -1,12 +1,13 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.entity.PatientSchedule;
+import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.PatientScheduleService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 患者明细表(PatientSchedule)表控制层
@@ -32,6 +33,19 @@ public class PatientScheduleController {
     @GetMapping("selectOne")
     public PatientSchedule selectOne(Integer id) {
         return this.patientScheduleService.queryById(id);
+    }
+
+    @RequestMapping("selectById")
+    public List<PatientSchedule> selectById(String name) {
+        List<PatientSchedule> patientSchedules = patientScheduleService.selectByName(name);
+        return patientSchedules;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "selectAllByCondition")
+    public String selectAllByCondition(@RequestBody(required = false) String dataItem){
+        List<PatientSchedule> scheduleOfFollowUpGroups = patientScheduleService.selectAllByCondition(dataItem);
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
 }
