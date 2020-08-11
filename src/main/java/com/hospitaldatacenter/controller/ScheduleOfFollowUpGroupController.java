@@ -1,10 +1,11 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.ScheduleOfFollowUpGroupService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,9 +31,21 @@ public class ScheduleOfFollowUpGroupController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
+    @ResponseBody
+    @RequestMapping(value = "selectById")
     public ScheduleOfFollowUpGroup selectOne(Integer id) {
-        return this.scheduleOfFollowUpGroupService.queryById(id);
+        System.out.println(id);
+        return null;
+    }
+    /**
+     * 展示所有
+     *无条件
+     */
+    @ResponseBody
+    @RequestMapping(value = "selectAll")
+    public String selectAll(){
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.queryAll(null);
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
     /**
@@ -42,5 +55,34 @@ public class ScheduleOfFollowUpGroupController {
     @RequestMapping("selectByFollowUpGroupId")
     public List<ScheduleOfFollowUpGroup> selectByFollowUpGroupId(Integer followUpGroupId){
          return  scheduleOfFollowUpGroupService.queryByFollowUpGroupId(followUpGroupId);
+    }
+
+    /**
+     * 展示所有
+     *条件查询
+     */
+    @ResponseBody
+    @RequestMapping(value = "selectAllByCondition")
+    public String selectAllByCondition(@RequestBody(required = false) String dataItem){
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.queryAllByCondition(dataItem);
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
+    }
+    /**
+     *已随访
+     */
+    @ResponseBody
+    @RequestMapping(value = "selectAllByFollowUpState")
+    public String selectAllByFollowUpState(@RequestBody(required = false) String status){
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.selectAllByFollowUpState();
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
+    }
+    /**
+     *未随访
+     */
+    @ResponseBody
+    @RequestMapping(value = "selectAllByNoFollowUpState")
+    public String selectAllByNoFollowUpState(@RequestBody(required = false) String status){
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.selectAllByNoFollowUpState();
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 }

@@ -1,8 +1,11 @@
 package com.hospitaldatacenter.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.ScheduleOfFollowUpGroupDao;
+import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.ScheduleOfFollowUpGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +17,9 @@ import java.util.List;
  * @author makejava
  * @since 2020-08-07 10:31:13
  */
-@Service("scheduleOfFollowUpGroupService")
+@Service
 public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGroupService {
-    @Resource
+    @Autowired
     private ScheduleOfFollowUpGroupDao scheduleOfFollowUpGroupDao;
 
     /**
@@ -43,13 +46,12 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+
      * @return 对象列表
      */
     @Override
-    public List<ScheduleOfFollowUpGroup> queryAllByLimit(int offset, int limit) {
-        return this.scheduleOfFollowUpGroupDao.queryAllByLimit(offset, limit);
+    public List<ScheduleOfFollowUpGroup> queryAll(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
+       return this.scheduleOfFollowUpGroupDao.queryAll(scheduleOfFollowUpGroup);
     }
 
     /**
@@ -85,5 +87,32 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
     @Override
     public boolean deleteById(Integer id) {
         return this.scheduleOfFollowUpGroupDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param scheduleOfFollowUpGroup 实例对象
+     * @return 对象列表
+     */
+    @Override
+    public List<ScheduleOfFollowUpGroup> queryAllByCondition(String dataItem) {
+        ScheduleOfFollowUpGroup sch = JSONObject.parseObject(dataItem, ScheduleOfFollowUpGroup.class);
+        FollowUpGroupManagement fol = JSONObject.parseObject(dataItem, FollowUpGroupManagement.class);
+        sch.setFollowUpGroupManagement(fol);
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupDao.queryAllByCondition(sch);
+        return scheduleOfFollowUpGroups;
+    }
+
+    @Override
+    public List<ScheduleOfFollowUpGroup> selectAllByFollowUpState() {
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupDao.selectAllByFollowUpState();
+        return scheduleOfFollowUpGroups;
+    }
+
+    @Override
+    public List<ScheduleOfFollowUpGroup> selectAllByNoFollowUpState() {
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupDao.selectAllByNoFollowUpState();
+        return scheduleOfFollowUpGroups;
     }
 }

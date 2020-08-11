@@ -15,11 +15,12 @@
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <!--随访进度管理-->
 
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="box">
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">随访进度管理</h3>
     </div>
@@ -31,11 +32,8 @@
                         1.科室：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" v-model="responsibilityDepartments">
+                        <select class="form-control input-sm" id="respons" v-model="item.responsibilityDepartments">
                             <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
                         </select>
                     </div>
                 </div>
@@ -44,11 +42,8 @@
                         2.随访组：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" v-model="groupName">
+                        <select class="form-control input-sm" id="group" v-model="item.groupName">
                             <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
                         </select>
                     </div>
                 </div>
@@ -58,7 +53,7 @@
                             3.日期：
                         </div>
                         <div class='input-group date col-sm-6' style="margin-left: 47%" id='datetimepicker1'>
-                            <input type='text' class="form-control"/>
+                            <input type='text' id="d1" class="form-control"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -66,7 +61,7 @@
                         </div>
                         <div class="col-sm-7" style="text-align: right">~</div>
                         <div class='input-group date col-sm-6' style="margin-left: 47%" id='datetimepicker2'>
-                            <input type='text' class="form-control"/>
+                            <input type='text'id="d2" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -79,7 +74,7 @@
                         4.住院号：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" v-model="">
+                        <input type="text" class="form-control input-sm" v-model="item.inpatientNumber">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 5%">
@@ -87,11 +82,11 @@
                         5.姓名：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" v-model="">
+                        <input type="text" class="form-control input-sm" v-model="item.name">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10%;text-align: center">
-                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" screen()">
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="save">
                         筛选
                     </button>
                 </div>
@@ -106,10 +101,10 @@
                 <div id="t1" class="tab-pane fade in active">
                     <div class="row" style="margin: 2%;">
                         <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
-                                v-on:click="haveBeenFollowedUp()">已随访
+                                v-on:click="haveBeenFollowedUp">已随访
                         </button>
                         <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                                data-dismiss="modal" v-on:click="noFollowedUp()">未随访
+                                data-dismiss="modal" v-on:click="noFollowedUp">未随访
                         </button>
                     </div>
                     <div class="row">
@@ -122,11 +117,63 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a v-on:click="preview()">
-        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
-    </a>
+
 </script>
 <script type="text/javascript">
+    new Vue({
+        el: '#box',
+        data(){
+            return {
+                item: {
+                    responsibilityDepartments: '',
+                    groupName: '',
+                    startTime: '',
+                    endTime: '',
+                    inpatientNumber: '',
+                    name: '',
+                }
+            }
+        },
+        methods:{
+            save: function () {
+               var dataItem=this.item;
+                var starttime=$("#d1").val();
+                dataItem.startTime=starttime;
+                var endtime=$("#d2").val();
+                dataItem.endTime=endtime;
+                axios
+                    .post('/scheduleOfFollowUpGroup/selectAllByCondition',dataItem)
+                    .then(function (response) {
+                        $("#testTable").bootstrapTable("load",response.data);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                });
+            },
+            haveBeenFollowedUp: function () {
+                axios
+                    .post('/scheduleOfFollowUpGroup/selectAllByFollowUpState')
+                    .then(function (response) {
+                        $("#testTable").bootstrapTable("load",response.data);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            noFollowedUp: function () {
+                axios
+                    .post('/scheduleOfFollowUpGroup/selectAllByNoFollowUpState')
+                    .then(function (response) {
+                        $("#testTable").bootstrapTable("load",response.data);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            }
+        }
+    })
+
+
     $("#testTable").bootstrapTable({
         toolbar: "#toolbar",
         sidePagination: "true",
@@ -135,22 +182,30 @@
         uniqueId: "ID",
         pageSize: "5",
         pageList: [10, 20],
+        url: '/scheduleOfFollowUpGroup/selectAll',
+        method: 'post',
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
         columns: [{
             field: 'id',
             title: '门诊号/住院号',
             align: 'center',
+            formatter: function(value, row, index) {
+                return row.outpatientNumber+"/"+row.inpatientNumber;
+            }
         }, {
-            field: 'name',
+            field: 'groupName',
             title: '随访组',
             align: 'center',
+            formatter: function(value, row, index) {
+                return row.followUpGroupManagement.groupName;
+            }
         }, {
-            field: 'price',
+            field: 'name',
             title: '姓名',
             align: 'center',
         },{
-            field: 'name',
+            field: 'sex',
             title: '性别',
             align: 'center',
         },{
@@ -158,52 +213,31 @@
             title: '年龄',
             align: 'center',
         },{
-            field: 'price',
+            field: 'groupEntryTime',
             title: '入组时期',
             align: 'center',
         },{
-            field: 'price',
-            title: '下次入组时期',
+            field: 'dateOfNextFollowUp',
+            title: '下次随访时期',
+            align: 'center',
+        },{
+            field: 'followUpState',
+            title: '状态',
             align: 'center',
         }, {
             title: '操作',
             formatter: operateFormatter,
             align: 'center',
         }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 5,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }]
+        ]
     });
     function operateFormatter(value, row, index){
         //添加按钮
         var rows = JSON.stringify(row);
         var id = row.id;
-        console.log(id);
         var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        console.log(id);
+        result += "<a href='../templates/patientDetailsPage.html?id="+id+"' class='btn btn-xs green'  title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
     }
 
@@ -217,11 +251,39 @@
             locale: moment.locale('zh-cn')
         });
     })
-    function EditViewById(id,view) {
-        console.log(id);
-        console.log(view);
 
-    }
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectResponsibilityDep/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#respons').append(datas);
+            }
+        })
+    })
+
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectGroupName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#group').append(datas);
+            }
+        })
+
+    })
 
 </script>
 </body>

@@ -40,7 +40,71 @@ public class ScheduleOfFollowUpGroup implements Serializable {
      * 门诊号
      */
     private String outpatientNumber;
+    /**
+     * 下次随访日期
+     */
+    private String dateOfNextFollowUp;
+    /**
+     * 随访状态
+     */
+    private String followUpState;
+    /**
+     * 筛选条件
+     * 开始时间
+     */
+    private String startTime;
+    /**
+     * 筛选条件
+     * 结束时间
+     */
+    private String endTime;
+    /**
+     * 随访组对象
+     */
+    private FollowUpGroupManagement followUpGroupManagement;
 
+    @Override
+    public String toString() {
+        return "ScheduleOfFollowUpGroup{" +
+                "id=" + id +
+                ", followUpGroupId=" + followUpGroupId +
+                ", inpatientNumber='" + inpatientNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", groupEntryTime='" + groupEntryTime + '\'' +
+                ", outpatientNumber='" + outpatientNumber + '\'' +
+                ", dateOfNextFollowUp='" + dateOfNextFollowUp + '\'' +
+                ", followUpState='" + followUpState + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", followUpGroupManagement=" + followUpGroupManagement +
+                '}';
+    }
+
+    public FollowUpGroupManagement getFollowUpGroupManagement() {
+        return followUpGroupManagement;
+    }
+
+    public void setFollowUpGroupManagement(FollowUpGroupManagement followUpGroupManagement) {
+        this.followUpGroupManagement = followUpGroupManagement;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public Integer getId() {
         return id;
@@ -106,4 +170,19 @@ public class ScheduleOfFollowUpGroup implements Serializable {
         this.outpatientNumber = outpatientNumber;
     }
 
+    public String getDateOfNextFollowUp() {
+        return dateOfNextFollowUp;
+    }
+
+    public void setDateOfNextFollowUp(String dateOfNextFollowUp) {
+        this.dateOfNextFollowUp = dateOfNextFollowUp;
+    }
+
+    public String getFollowUpState() {
+        return followUpState;
+    }
+
+    public void setFollowUpState(String followUpState) {
+        this.followUpState = followUpState;
+    }
 }

@@ -14,6 +14,31 @@ public class FollowUpGroupManagement implements Serializable {
      * id
      */
     private Integer id;
+
+    @Override
+    public String toString() {
+        return "FollowUpGroupManagement{" +
+                "id=" + id +
+                ", groupName='" + groupName + '\'' +
+                ", enrolmentRate='" + enrolmentRate + '\'' +
+                ", personInCharge='" + personInCharge + '\'' +
+                ", level='" + level + '\'' +
+                ", state='" + state + '\'' +
+                ", responsibilityHospital='" + responsibilityHospital + '\'' +
+                ", responsibilityDepartments='" + responsibilityDepartments + '\'' +
+                ", createPeople='" + createPeople + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", courseNumber='" + courseNumber + '\'' +
+                ", numberOfPatients=" + numberOfPatients +
+                ", background='" + background + '\'' +
+                ", standbyFiled1='" + standbyFiled1 + '\'' +
+                ", standbyFiled2='" + standbyFiled2 + '\'' +
+                '}';
+    }
+
     /**
      * 随访组名称
      */

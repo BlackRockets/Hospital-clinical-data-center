@@ -108,4 +108,20 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
             followUpGroupManagementDao.deleteById(ids[i]);
         }
     }
+    /**
+     *
+     *查询所有科室
+     *
+     */
+    @Override
+    public List<FollowUpGroupManagement> queryAllDep() {
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementDao.queryAllDep();
+        return followUpGroupManagements;
+    }
+
+    @Override
+    public List<FollowUpGroupManagement> queryAllGroupName() {
+        List<FollowUpGroupManagement> followUpGroupManagements = followUpGroupManagementDao.queryAllGroupName();
+        return followUpGroupManagements;
+    }
 }
