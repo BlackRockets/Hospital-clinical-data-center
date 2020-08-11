@@ -34,7 +34,7 @@ public class DataReview implements Serializable {
     /**
      * 状态(1：待复核；2：已修正；3：已撤回)
      */
-    private Integer state;
+    private Integer reviewState;
     /**
      * 数据项
      */
@@ -60,6 +60,11 @@ public class DataReview implements Serializable {
     /**
      * 修改意见
      */
+
+    private Integer limit;
+
+    private Integer pageNumber;
+
     private String revisionComments;
 
     private PatientSchedule ps;
@@ -108,14 +113,6 @@ public class DataReview implements Serializable {
         this.reviewerTime = reviewerTime;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
     public String getDataItem() {
         return dataItem;
     }
@@ -138,6 +135,14 @@ public class DataReview implements Serializable {
 
     public void setForm(Integer form) {
         this.form = form;
+    }
+
+    public Integer getReviewState() {
+        return reviewState;
+    }
+
+    public void setReviewState(Integer reviewState) {
+        this.reviewState = reviewState;
     }
 
     public static long getSerialVersionUID() {
@@ -191,5 +196,21 @@ public class DataReview implements Serializable {
 
     public void setFugm(FollowUpGroupManagement fugm) {
         this.fugm = fugm;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }

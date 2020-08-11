@@ -34,11 +34,10 @@ public class DataReviewController {
      *
      */
     @ResponseBody
-    @GetMapping("selectAll")
+    @GetMapping(value = "selectAll",produces = {"application/json;charset=utf-8"})
     public List<DataReview> selectAll(DataReview dataReview, PatientSchedule ps, FollowUpGroupManagement fugm) {
         dataReview.setPs(ps);
         dataReview.setFugm(fugm);
-
         List<DataReview> dataReviews = dataReviewService.findAllDataReviewService(dataReview);
         return dataReviews;
     }

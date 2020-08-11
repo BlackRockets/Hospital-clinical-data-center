@@ -8,7 +8,7 @@
         <result property="patientId" column="patient_Id" jdbcType="INTEGER"/>
         <result property="reviewer" column="reviewer" jdbcType="VARCHAR"/>
         <result property="reviewerTime" column="reviewer_time" jdbcType="TIMESTAMP"/>
-        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="reviewState" column="review_state" jdbcType="INTEGER"/>
         <result property="dataItem" column="data_item" jdbcType="VARCHAR"/>
         <result property="dataValue" column="data_value" jdbcType="INTEGER"/>
         <result property="form" column="form" jdbcType="INTEGER"/>
@@ -52,14 +52,17 @@
         select *
         from data_review d,follow_up_group_management f,patient_schedule p
         where d.follow_up_group_Id=f.id and d.patient_Id=p.id
-        <!-- <if test="reviewerTime != null and ">
-             and reviewer_time = #{reviewerTime}
-         </if>-->
+        <if test="reviewerTime != null and reviewerTime != '' ">
+            and reviewer_time = #{reviewerTime}
+        </if>
+        <if test="fugm.groupName != null and  fugm.groupName!= ''">
+            and f.group_name like CONCAT("%",#{fugm.groupName},"%")
+        </if>
+        <if test="ps.name != null and  ps.name!= ''">
+            and p.name like CONCAT("%",#{ps.name},"%")
+        </if>
         <if test="reviewer != null and reviewer != ''">
             and reviewer like CONCAT("%",#{reviewer},"%")
-        </if>
-        <if test="state != null and state != ''">
-            and state = #{state}
         </if>
         <if test="dataItem != null and dataItem != ''">
             and data_item like CONCAT("%",#{dataItem},"%")
@@ -70,11 +73,8 @@
         <if test="form != null and form !='' ">
             and form = #{form}
         </if>
-        <if test="ps.name != null and  ps.name!= ''">
-            and p.name like CONCAT("%",#{ps.name},"%")
-        </if>
-        <if test="fugm.groupName != null and  fugm.groupName!= ''">
-            and f.group_name like CONCAT("%",#{fugm.groupName},"%")
+        <if test="reviewState != null and reviewState !='' ">
+            and review_state = #{reviewState}
         </if>
     </select>
 

@@ -9,15 +9,12 @@
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
-
     <!--数据复核-->
-
 </head>
 <body>
 <div class="container" id="box">
@@ -28,7 +25,9 @@
                     <label>随访组名称：</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" name="groupName">
+                    <select class="form-control input-sm" name="groupName" id="groupName">
+                        <option value="">-请选择-</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-4">
@@ -70,7 +69,7 @@
                     <label>复核时间：</label>
                 </div>
                 <div class='input-group date col-sm-4' style="text-align:left" id='datetimepicker1'>
-                    <input type='text' name="" class="form-control"/>
+                    <input type='text' name="reviewerTime" class="form-control"/>
                     <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -96,9 +95,9 @@
                     <label>状态：</label>
                 </div>
                 <div class="col-md-8" style="text-align:left">
-                    <input type="checkbox" name="state">待复核
-                    <input type="checkbox" name="state">已修正
-                    <input type="checkbox" name="state">撤回
+                    <input type="checkbox" name="reviewState" value="1">待复核
+                    <input type="checkbox" name="reviewState" value="2">已修正
+                    <input type="checkbox" name="reviewState" value="3">撤回
                 </div>
             </div>
             <div class="col-md-4" style="text-align:center">
@@ -185,24 +184,21 @@
         <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
     </a>
 </script>
-
-
-<script>
-</script>
 <script type="text/javascript">
     $(function () {
         $("#table").bootstrapTable({
             url: '/dataReview/selectAll',
             toolbar: "#toolbar",
             striped: true, // 是否显示行间隔色
-            //search : "true",
             uniqueId: "ID",
             pageSize: "5",
-            pageList: [10, 20],
+            pageList: [5, 10, 15, 20],
             pagination: true, // 是否分页
-            sidePagination: "server",
+            sidePagination: "true",
             clickToSelect: true, //点击选中
-            queryParamsType: '',
+            showRefresh: "true",
+            showToggle: "true",
+            showColumns: "true",
             queryParams: queryParams,//传递参数（*）
             //sortable: true, // 是否启用排序
             method: 'get',                      //请求方式（*）
@@ -254,15 +250,15 @@
                     title: '复核者',
                     align: 'center',
                 }, {
-                    field: 'state',
+                    field: 'reviewState',
                     title: '状态',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        if (row.state == "1") {
+                        if (row.reviewState == "1") {
                             value = "待复核";
-                        } else if (row.state == "2") {
+                        } else if (row.reviewState == "2") {
                             value = "已修正";
-                        } else if (row.state == "3") {
+                        } else if (row.reviewState == "3") {
                             value = "撤回";
                         }
                         return value;
@@ -272,7 +268,7 @@
                     title: '复核时间',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        return value.substring(0,10);
+                        return value.substring(0, 10);
                     }
                 }, {
                     title: '操作',
@@ -291,7 +287,8 @@
     });
 
     function queryParams(params) {
-        var temp = $("#myform").serializeArray();
+        var temp = $("#myform").serialize();
+        console.log(temp);
         return temp;
     }
 
@@ -301,7 +298,6 @@
     }
 
     $(function () {
-
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
             locale: moment.locale('zh-cn')
@@ -317,9 +313,8 @@
         var data1 = JSON.parse(data);//转Json 对象
         $("#id").val(data1[index].id);
         $("#doubter").val(data1[index].doubter);
-        $("#proposedTime").val(data1[index].proposedTime.substring(0,10));
+        $("#proposedTime").val(data1[index].proposedTime.substring(0, 10));
         $("#myModal").modal('show')
-
     }
 
     function save() {
@@ -348,6 +343,21 @@
         formComponent.find('input:text').val('');
     }
 
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectGroupName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#groupName').append(datas);
+            }
+        })
+    })
 </script>
 </body>
 </html>
