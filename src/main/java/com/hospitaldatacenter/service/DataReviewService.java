@@ -3,6 +3,7 @@ package com.hospitaldatacenter.service;
 import com.hospitaldatacenter.entity.DataReview;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +13,6 @@ import java.util.List;
  * @since 2020-08-07 14:11:54
  */
 public interface DataReviewService {
-    List<DataReview> findAllDataReviewService(DataReview dataReview);
+    List<DataReview> findAllDataReviewService(DataReview dataReview,Date reviewerTime1);
     int update(DataReview dataReview);
 }

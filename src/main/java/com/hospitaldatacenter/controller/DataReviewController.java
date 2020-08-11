@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,10 +38,19 @@ public class DataReviewController {
      */
     @ResponseBody
     @GetMapping(value = "selectAll",produces = {"application/json;charset=utf-8"})
-    public List<DataReview> selectAll(DataReview dataReview, PatientSchedule ps, FollowUpGroupManagement fugm) {
+    public List<DataReview> selectAll(String reviewerTime1, DataReview dataReview, PatientSchedule ps, FollowUpGroupManagement fugm) {
         dataReview.setPs(ps);
         dataReview.setFugm(fugm);
-        List<DataReview> dataReviews = dataReviewService.findAllDataReviewService(dataReview);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date reviewerTime2= null;
+        try {
+            reviewerTime2 = format.parse(reviewerTime1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(reviewerTime2);
+        List<DataReview> dataReviews = dataReviewService.findAllDataReviewService(dataReview,reviewerTime2);
         return dataReviews;
     }
     @ResponseBody

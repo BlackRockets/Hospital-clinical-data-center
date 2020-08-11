@@ -18,7 +18,7 @@
         <association property="ps" javaType="com.hospitaldatacenter.entity.PatientSchedule">
             <result property="name" column="name" jdbcType="VARCHAR"/>
         </association>
-        <association property="fugm">
+        <association property="fugm" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
         </association>
         <association property="sofu" javaType="com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup">
@@ -52,29 +52,29 @@
         select *
         from data_review d,follow_up_group_management f,patient_schedule p
         where d.follow_up_group_Id=f.id and d.patient_Id=p.id
-        <if test="reviewerTime != null and reviewerTime != '' ">
-            and reviewer_time = #{reviewerTime}
+        <if test="reviewerTime1 != null  ">
+            and DATE_FORMAT(reviewer_time,'%Y-%m-%d') = DATE_FORMAT(#{reviewerTime1},'%Y-%m-%d')
         </if>
-        <if test="fugm.groupName != null and  fugm.groupName!= ''">
-            and f.group_name like CONCAT("%",#{fugm.groupName},"%")
+        <if test="dataReview.fugm.groupName != null and dataReview.fugm.groupName!= ''">
+            and f.group_name like CONCAT("%",#{dataReview.fugm.groupName},"%")
         </if>
-        <if test="ps.name != null and  ps.name!= ''">
-            and p.name like CONCAT("%",#{ps.name},"%")
+        <if test="dataReview.ps.name != null and  dataReview.ps.name!= ''">
+            and p.name like CONCAT("%",#{dataReview.ps.name},"%")
         </if>
-        <if test="reviewer != null and reviewer != ''">
-            and reviewer like CONCAT("%",#{reviewer},"%")
+        <if test="dataReview.reviewer != null and dataReview.reviewer != ''">
+            and reviewer like CONCAT("%",#{dataReview.reviewer},"%")
         </if>
-        <if test="dataItem != null and dataItem != ''">
-            and data_item like CONCAT("%",#{dataItem},"%")
+        <if test="dataReview.dataItem != null and dataReview.dataItem != ''">
+            and data_item like CONCAT("%",#{dataReview.dataItem},"%")
         </if>
-        <if test="doubter != null and doubter != ''">
-            and doubter like CONCAT("%",#{doubter},"%")
+        <if test="dataReview.doubter != null and dataReview.doubter != ''">
+            and doubter like CONCAT("%",#{dataReview.doubter},"%")
         </if>
-        <if test="form != null and form !='' ">
-            and form = #{form}
+        <if test="dataReview.form != null and dataReview.form !='' ">
+            and form = #{dataReview.form}
         </if>
-        <if test="reviewState != null and reviewState !='' ">
-            and review_state = #{reviewState}
+        <if test="dataReview.reviewState != null and dataReview.reviewState !='' ">
+            and review_state = #{dataReview.reviewState}
         </if>
     </select>
 

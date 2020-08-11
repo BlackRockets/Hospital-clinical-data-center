@@ -69,7 +69,7 @@
                     <label>复核时间：</label>
                 </div>
                 <div class='input-group date col-sm-4' style="text-align:left" id='datetimepicker1'>
-                    <input type='text' name="reviewerTime" class="form-control"/>
+                    <input type='text' name="reviewerTime1" class="form-control date form_datetime"/>
                     <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -307,7 +307,7 @@
             locale: moment.locale('zh-cn')
         });
     })
-
+    //回显
     function EditViewById(row, index) {
         var data = JSON.stringify($("#table").bootstrapTable('getData'));//获取全部数据
         var data1 = JSON.parse(data);//转Json 对象

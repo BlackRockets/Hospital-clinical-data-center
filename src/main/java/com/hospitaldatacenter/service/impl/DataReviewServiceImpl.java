@@ -6,6 +6,7 @@ import com.hospitaldatacenter.service.DataReviewService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,8 +79,8 @@ public class DataReviewServiceImpl implements DataReviewService {
     }*/
 
     @Override
-    public List<DataReview> findAllDataReviewService(DataReview dataReview) {
-        return dataReviewDao.queryAll(dataReview);
+    public List<DataReview> findAllDataReviewService(DataReview dataReview,Date reviewerTime1) {
+        return dataReviewDao.queryAll(dataReview,reviewerTime1);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.hospitaldatacenter.entity.DataReview;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public interface DataReviewDao {
      * @param dataReview 实例对象
      * @return 对象列表
      */
-    List<DataReview> queryAll(DataReview dataReview);
+    List<DataReview> queryAll(DataReview dataReview,@Param("reviewerTime1") Date reviewerTime1);
 
     /**
      * 新增数据
