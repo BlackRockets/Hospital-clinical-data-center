@@ -41,15 +41,15 @@ public interface ScheduleOfFollowUpGroupService {
      * @param scheduleOfFollowUpGroup 实例对象
      * @return 实例对象
      */
-    ScheduleOfFollowUpGroup insert(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
+    int insert(String scheduleOfFollowUpGroup);
 
     /**
      * 修改数据
      *
      * @param scheduleOfFollowUpGroup 实例对象
-     * @return 实例对象
+     * @return
      */
-    ScheduleOfFollowUpGroup update(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
+    int update(String scheduleOfFollowUpGroup);
 
     /**
      * 通过主键删除数据
@@ -57,7 +57,7 @@ public interface ScheduleOfFollowUpGroupService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer id);
+    void deleteById(Integer[] ids);
     /**
      * 通过实体作为筛选条件查询
      *
@@ -65,6 +65,14 @@ public interface ScheduleOfFollowUpGroupService {
      * @return 对象列表
      */
     List<ScheduleOfFollowUpGroup> queryAllByCondition(String scheduleOfFollowUpGroup);
+
+
+    /**
+     *@description: 添加随访组成员
+     *@author: zyl
+     */
+    List<ScheduleOfFollowUpGroup> queryByCondition(String scheduleOfFollowUpGroup);
+
     /**
      * 已随访
      *

@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.ScheduleOfFollowUpGroupDao;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,21 +64,26 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
      * @return 实例对象
      */
     @Override
-    public ScheduleOfFollowUpGroup insert(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
-        this.scheduleOfFollowUpGroupDao.insert(scheduleOfFollowUpGroup);
-        return scheduleOfFollowUpGroup;
+    public int insert(String scheduleOfFollowUpGroup) {
+        JSON parse = (JSON) JSON.parse(scheduleOfFollowUpGroup);
+        ScheduleOfFollowUpGroup scheduleOfFollowUpGroup1 = JSON.toJavaObject(parse, ScheduleOfFollowUpGroup.class);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(new Date());
+        scheduleOfFollowUpGroup1.setGroupEntryTime(format);
+        return this.scheduleOfFollowUpGroupDao.insert(scheduleOfFollowUpGroup1);
     }
 
     /**
      * 修改数据
      *
      * @param scheduleOfFollowUpGroup 实例对象
-     * @return 实例对象
+     * @return
      */
     @Override
-    public ScheduleOfFollowUpGroup update(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
-        this.scheduleOfFollowUpGroupDao.update(scheduleOfFollowUpGroup);
-        return this.queryById(scheduleOfFollowUpGroup.getId());
+    public int update(String scheduleOfFollowUpGroup) {
+        JSON parse = (JSON) JSON.parse(scheduleOfFollowUpGroup);
+        ScheduleOfFollowUpGroup scheduleOfFollowUpGroup1 = JSON.toJavaObject(parse, ScheduleOfFollowUpGroup.class);
+        return this.scheduleOfFollowUpGroupDao.update(scheduleOfFollowUpGroup1);
     }
 
     /**
@@ -85,8 +93,10 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer id) {
-        return this.scheduleOfFollowUpGroupDao.deleteById(id) > 0;
+    public void deleteById(Integer[] ids) {
+        for (int i = 0; i < ids.length; i++) {
+            this.scheduleOfFollowUpGroupDao.deleteById(ids[i]);
+        }
     }
 
     /**
@@ -102,6 +112,12 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
         sch.setFollowUpGroupManagement(fol);
         List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupDao.queryAllByCondition(sch);
         return scheduleOfFollowUpGroups;
+    }
+
+    @Override
+    public List<ScheduleOfFollowUpGroup> queryByCondition(String scheduleOfFollowUpGroup) {
+        ScheduleOfFollowUpGroup fol = JSONObject.parseObject(scheduleOfFollowUpGroup, ScheduleOfFollowUpGroup.class);
+        return scheduleOfFollowUpGroupDao.queryByCondition(fol);
     }
 
     @Override
