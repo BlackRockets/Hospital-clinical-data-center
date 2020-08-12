@@ -52,7 +52,7 @@
         select *
         from data_review d,follow_up_group_management f,patient_schedule p
         where d.follow_up_group_Id=f.id and d.patient_Id=p.id
-        <if test="reviewerTime1 != null  ">
+        <if test="reviewerTime1 != null ">
             and DATE_FORMAT(reviewer_time,'%Y-%m-%d') = DATE_FORMAT(#{reviewerTime1},'%Y-%m-%d')
         </if>
         <if test="dataReview.fugm.groupName != null and dataReview.fugm.groupName!= ''">

@@ -49,7 +49,6 @@ public class DataReviewController {
             e.printStackTrace();
         }
 
-        System.out.println(reviewerTime2);
         List<DataReview> dataReviews = dataReviewService.findAllDataReviewService(dataReview,reviewerTime2);
         return dataReviews;
     }
