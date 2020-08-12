@@ -45,12 +45,14 @@
         padding: 50px;
         background: white;
     }
-    .vw{
+
+    .vw {
         width: 80vw;
         height: 5vw;
-        border:10px solid #000;
+        border: 10px solid #000;
     }
-    .vi{
+
+    .vi {
         width: 10vw;
         height: 32vw;
     }
@@ -72,24 +74,6 @@
         </button>
     </div>
     <div class="col-lg-2">
-        <!--<div id="Test1">
-            <div class="row" style="margin-top: 5px">
-                <div class="col-md-8" style="text-align: right;margin-left: 6px">
-                    <input type="text" class="form-control" placeholder="">
-                </div>
-                <div class="col-md-1" style="text-align: left">
-                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
-                        筛选
-                    </button>
-                </div>
-            </div>
-            <table id="tree" style="margin-left: 5px;display: none"></table>
-            <div style="text-align: center">
-                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
-                    确定
-                </button>
-            </div>
-        </div>-->
         <div id="test2" style="display: none">
             <div class="col-md-12" style="text-align: left">
                 基本
@@ -201,7 +185,7 @@
                 </button>
             </div>
         </div>
-        <div id="test" >
+        <div id="test">
             <div class="row" style="margin-top: 5px">
                 <div class="col-md-6" style="text-align: right">
                     姓名:
@@ -229,15 +213,59 @@
                     </button>
                 </div>
             </div>
+            <div class="form-group" id="form1">
+                <div class="col-md-6" style="text-align: right">
+                    <a onclick="jian('j1')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                </div>
+                <div class="col-md-6" style="text-align: left">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="form-group" id="form2">
+                <div class="col-md-6" style="text-align: right">
+                    <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                </div>
+                <div class="col-md-6" style="text-align: left">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="form-group" id="form3">
+                <div class="col-md-6" style="text-align: right">
+                    <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                </div>
+                <div class="col-md-6" style="text-align: left">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="form-group" id="form4">
+                <div class="col-md-6" style="text-align: right">
+                    <a onclick="jian('j4')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                </div>
+                <div class="col-md-6" style="text-align: left">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="form-group" id="form5">
+                <div class="col-md-6" style="text-align: right">
+                    <a id="jia" onclick="jia('ja1')"><span class="glyphicon glyphicon-plus-sign"style="color: lawngreen"></span></a>
+                </div>
+                <div class="col-md-6" style="text-align: left">
+                    <button type="button" class="btn btn-link" data-dismiss="modal" onclick="selectTerm()">
+                        合并术语
+                    </button>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6" style="text-align: right">
-                    性别:
+                    来源:
                 </div>
                 <div class="col-md-6" style="text-align: left">
                     <select class="form-control input-sm" v-model="">
                         <option>-请选择-</option>
-                        <option>男</option>
-                        <option>女</option>
+                        <option>手工录入</option>
+                        <option>移动app</option>
+                        <option>网页</option>
+                        <option>微信</option>
                     </select>
                 </div>
             </div>
@@ -254,9 +282,14 @@
                     </select>
                 </div>
             </div>
+            <div class="row" style="text-align: center">
+                <button type="button" class="btn btn-primary" onclick="selectTerm()">
+                    添加至节点数
+                </button>
+            </div>
         </div>
     </div>
-    <div class="col-lg-10" >
+    <div class="col-lg-10">
         <form>
             <div style="text-align: left">
                 <h1 style="color: #1b6d85;font-size: 20px">|基本信息</h1>
@@ -348,7 +381,7 @@
             <div style="text-align: left">
                 <h1 style="color: #1b6d85;font-size: 20px">|实验室检查</h1>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="vw" style="border: #3e8f3e">
                     <div class="row">
                         <div class="col-md-6">
@@ -398,6 +431,41 @@
         </form>
     </div>
     <script>
+        function jian(tag) {
+            var form1=document.getElementById("form1");
+            var form2=document.getElementById("form2");
+            var form3=document.getElementById("form3");
+            var form4=document.getElementById("form4");
+
+            if(tag=='j3'){
+                form3.style.display='none';
+                jia2.style.display='block';
+            }else if(tag=='j2'){
+                form2.style.display='none';
+                jia1.style.display='block';
+            }else if(tag=='j4'){
+                form4.style.display='none';
+                jia4.style.display='block';
+            }else if(tag=='j1'){
+                form1.style.display='none';
+                jia3.style.display='block';
+            }
+        }
+        function jia(tag) {
+            var form1=document.getElementById("form1");
+            var form2=document.getElementById("form2");
+            var form3=document.getElementById("form3");
+            var form4=document.getElementById("form4");
+            var jia1=document.getElementById("jia1");
+
+            if(tag=='j2'){
+                jia2.style.display='none';
+                form3.style.display='block';
+            }else if(tag=='j1'){
+                jia1.style.display='none';
+                form2.style.display='block';
+            }
+        }
         $("#testTable").bootstrapTable({
             toolbar: "#toolbar",
             sidePagination: "true",
@@ -449,7 +517,7 @@
                 updatedBy: 'ss',
                 versionNumber: 12,
                 creator: 'xiaoming',
-                creationDate: 007,
+                creationDate: 007
             }, {
                 templateName: 1,
                 followUpGroupName: 'ww',
@@ -654,7 +722,7 @@
 
          }*/
         function selectTerm() {
-            window.open('ListOfTerms.html','_blank','width=600,height=400,top=200,left=500,menubar=no,toolbar=no')
+            window.open('ListOfTerms.html', '_blank', 'width=600,height=400,top=200,left=500,menubar=no,toolbar=no')
         }
     </script>
 </div>

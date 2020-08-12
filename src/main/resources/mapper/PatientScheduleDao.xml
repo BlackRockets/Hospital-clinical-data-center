@@ -15,14 +15,28 @@
         <result property="bloodsugar" column="bloodSugar" jdbcType="OTHER"/>
         <result property="symptom" column="symptom" jdbcType="VARCHAR"/>
         <result property="patientInfoId" column="patient_info_id" jdbcType="INTEGER"/>
+        <association property="scheduleOfFollowUpGroup"
+                     javaType="com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="inpatientNumber" column="inpatient_number" jdbcType="VARCHAR"/>
+            <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
+            <result property="followUpState" column="follow_up_state" jdbcType="VARCHAR"/>
+        </association>
+        <association property="followUpGroupManagement"
+                     javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+            <result property="responsibilityDepartments" column="responsibility_departments" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PatientScheduleMap">
-        select
-          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom, patient_info_id
-        from hospital.patient_schedule
-        where id = #{id}
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s
+        on p.patient_info_id = s.id
+        where p.patient_info_id = #{id}
     </select>
 
     <!--查询指定行数据-->
@@ -127,5 +141,87 @@
     <delete id="deleteById">
         delete from hospital.patient_schedule where id = #{id}
     </delete>
+
+    <!--通过id查询-->
+    <select id="selectByName" resultMap="PatientScheduleMap">
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s on p.patient_info_id = s.id
+        join follow_up_group_management f on p.group_detail_id = f.id
+        where p.name = #{name}
+    </select>
+
+    <!--通过条件查询  首次-->
+    <select id="selectAllByCondition" resultMap="PatientScheduleMap">
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s on p.patient_info_id = s.id
+        join follow_up_group_management f on p.group_detail_id = f.id
+        <where>
+            <if test="followUpGroupManagement.responsibilityDepartments != null and followUpGroupManagement.responsibilityDepartments != ''">
+                and f.responsibility_departments = #{followUpGroupManagement.responsibilityDepartments}
+            </if>
+            <if test="scheduleOfFollowUpGroup.startTime != null and scheduleOfFollowUpGroup.endTime != null">
+                and s.group_entry_time between #{scheduleOfFollowUpGroup.startTime} and #{scheduleOfFollowUpGroup.endTime}
+            </if>
+            and p.name = #{name}
+        </where>
+        order by s.group_entry_time
+        limit 1
+    </select>
+    <!--通过条件查询  末次-->
+    <select id="selectAllByConditionEnd" resultMap="PatientScheduleMap">
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s on p.patient_info_id = s.id
+        join follow_up_group_management f on p.group_detail_id = f.id
+        <where>
+            <if test="followUpGroupManagement.responsibilityDepartments != null and followUpGroupManagement.responsibilityDepartments != ''">
+                and f.responsibility_departments = #{followUpGroupManagement.responsibilityDepartments}
+            </if>
+            <if test="scheduleOfFollowUpGroup.startTime != null and scheduleOfFollowUpGroup.endTime != null">
+                and s.group_entry_time between #{scheduleOfFollowUpGroup.startTime} and #{scheduleOfFollowUpGroup.endTime}
+            </if>
+            and p.name = #{name}
+        </where>
+        order by s.group_entry_time desc
+        limit 1
+    </select>
+    <!--通过条件查询  最大值-->
+    <select id="selectAllByConditionMax" resultMap="PatientScheduleMap">
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s on p.patient_info_id = s.id
+        join follow_up_group_management f on p.group_detail_id = f.id
+        <where>
+            <if test="followUpGroupManagement.responsibilityDepartments != null and followUpGroupManagement.responsibilityDepartments != ''">
+                and f.responsibility_departments = #{followUpGroupManagement.responsibilityDepartments}
+            </if>
+            <if test="scheduleOfFollowUpGroup.startTime != null and scheduleOfFollowUpGroup.endTime != null">
+                and s.group_entry_time between #{scheduleOfFollowUpGroup.startTime} and #{scheduleOfFollowUpGroup.endTime}
+            </if>
+            and p.name = #{name}
+        </where>
+        order by p.whiteBloodCell,p.bloodSugar
+        limit 1
+    </select>
+    <!--通过条件查询  最小值-->
+    <select id="selectAllByConditionMin" resultMap="PatientScheduleMap">
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s on p.patient_info_id = s.id
+        join follow_up_group_management f on p.group_detail_id = f.id
+        <where>
+            <if test="followUpGroupManagement.responsibilityDepartments != null and followUpGroupManagement.responsibilityDepartments != ''">
+                and f.responsibility_departments = #{followUpGroupManagement.responsibilityDepartments}
+            </if>
+            <if test="scheduleOfFollowUpGroup.startTime != null and scheduleOfFollowUpGroup.endTime != null">
+                and s.group_entry_time between #{scheduleOfFollowUpGroup.startTime} and #{scheduleOfFollowUpGroup.endTime}
+            </if>
+            and p.name = #{name}
+        </where>
+        order by p.whiteBloodCell,p.bloodSugar desc
+        limit 1
+    </select>
 
 </mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.DataReviewDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.DataReview" id="DataReviewMap">
+        <result property="id" column="Id" jdbcType="INTEGER"/>
+        <result property="followUpGroupId" column="follow_up_group_Id" jdbcType="INTEGER"/>
+        <result property="patientId" column="patient_Id" jdbcType="INTEGER"/>
+        <result property="reviewer" column="reviewer" jdbcType="VARCHAR"/>
+        <result property="reviewerTime" column="reviewer_time" jdbcType="TIMESTAMP"/>
+        <result property="reviewState" column="review_state" jdbcType="INTEGER"/>
+        <result property="dataItem" column="data_item" jdbcType="VARCHAR"/>
+        <result property="dataValue" column="data_value" jdbcType="INTEGER"/>
+        <result property="form" column="form" jdbcType="INTEGER"/>
+        <result property="doubter" column="doubter" jdbcType="INTEGER"/>
+        <result property="proposedTime" column="proposed_time" jdbcType="INTEGER"/>
+        <result property="revisionComments" column="revision_comments" jdbcType="INTEGER"/>
+        <association property="ps" javaType="com.hospitaldatacenter.entity.PatientSchedule">
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="fugm" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
+            <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="sofu" javaType="com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup">
+            <result property="inpatientNumber" column="inpatient_number" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="OTHER"/>
+            <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
+            <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DataReviewMap">
+        select
+          Id, follow_up_group_Id, patient_Id, reviewer, reviewer_time, state, data_item, data_value, form
+        from hospital.data_review
+        where Id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DataReviewMap">
+        select
+          Id, follow_up_group_Id, patient_Id, reviewer, reviewer_time, state, data_item, data_value, form
+        from hospital.data_review
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DataReviewMap">
+        select *
+        from data_review d,follow_up_group_management f,patient_schedule p
+        where d.follow_up_group_Id=f.id and d.patient_Id=p.id
+        <if test="reviewerTime1 != null ">
+            and DATE_FORMAT(reviewer_time,'%Y-%m-%d') = DATE_FORMAT(#{reviewerTime1},'%Y-%m-%d')
+        </if>
+        <if test="dataReview.fugm.groupName != null and dataReview.fugm.groupName!= ''">
+            and f.group_name like CONCAT("%",#{dataReview.fugm.groupName},"%")
+        </if>
+        <if test="dataReview.ps.name != null and  dataReview.ps.name!= ''">
+            and p.name like CONCAT("%",#{dataReview.ps.name},"%")
+        </if>
+        <if test="dataReview.reviewer != null and dataReview.reviewer != ''">
+            and reviewer like CONCAT("%",#{dataReview.reviewer},"%")
+        </if>
+        <if test="dataReview.dataItem != null and dataReview.dataItem != ''">
+            and data_item like CONCAT("%",#{dataReview.dataItem},"%")
+        </if>
+        <if test="dataReview.doubter != null and dataReview.doubter != ''">
+            and doubter like CONCAT("%",#{dataReview.doubter},"%")
+        </if>
+        <if test="dataReview.form != null and dataReview.form !='' ">
+            and form = #{dataReview.form}
+        </if>
+        <if test="dataReview.reviewState != null and dataReview.reviewState !='' ">
+            and review_state = #{dataReview.reviewState}
+        </if>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.data_review(follow_up_group_Id, patient_Id, reviewer, reviewer_time, state, data_item, data_value, form)
+        values (#{followUpGroupId}, #{patientId}, #{reviewer}, #{reviewerTime}, #{state}, #{dataItem}, #{dataValue}, #{form})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.data_review
+        <set>
+            <if test="dataValue != null and dataValue!= ''">
+                data_value = #{dataValue},
+            </if>
+            <if test="revisionComments != null and revisionComments!= ''">
+                revision_comments = #{revisionComments},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.data_review where Id = #{id}
+    </delete>
+
+</mapper>

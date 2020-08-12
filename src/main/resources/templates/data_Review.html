@@ -5,176 +5,178 @@
     <title>数据复核</title>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
-
     <!--数据复核-->
-
 </head>
 <body>
-    <div class="container" id="box" >
-        <form role="form" style="color: #0079d7" >
-            <div class="row" style="margin-top: 5px">
-                <div class="col-md-4">
-                    <div class="col-md-8" style="text-align:right">
-                        <label>随访组名称：</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-control input-sm" v-model="aa">
-                            <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </div>
+<div class="container" id="box">
+    <form role="form" style="color: #0079d7" id="myform">
+        <div class="row" style="margin-top: 5px">
+            <div class="col-md-4">
+                <div class="col-md-8" style="text-align:right">
+                    <label>随访组名称：</label>
                 </div>
                 <div class="col-md-4">
-                    <div class="col-md-4" style="text-align:right">
-                        <label>患者：</label>
-                    </div>
-                    <div class="col-md-4" style="text-align:left">
-                        <input type="text" class="form-control" v-model="name">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-4" style="text-align:right">
-                        <label>数据项：</label>
-                    </div>
-                    <div class="col-md-4" style="text-align:left">
-                        <input type="text" class="form-control" v-model="bb"  >
-                    </div>
+                    <select class="form-control input-sm" name="groupName" id="groupName">
+                        <option value="">-请选择-</option>
+                    </select>
                 </div>
             </div>
-            <div class="row" style="margin-top: 5px">
-                <div class="col-md-4">
-                    <div class="col-md-8" style="text-align:right">
-                        <label>质疑者：</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" v-model="cc"  >
-                    </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label>患者：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" name="name">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label>数据项：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" name="dataItem">
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 5px">
+            <div class="col-md-4">
+                <div class="col-md-8" style="text-align:right">
+                    <label>质疑者：</label>
                 </div>
                 <div class="col-md-4">
-                    <div class="col-md-4" style="text-align:right">
-                        <label>复核者：</label>
-                    </div>
-                    <div class="col-md-4" style="text-align:left">
-                        <input type="text" class="form-control" v-model="dd" >
-                    </div>
+                    <input type="text" class="form-control" name="doubter">
                 </div>
-                <div class="col-md-4">
-                    <div class="col-md-4" style="text-align:right">
-                        <label>复核时间：</label>
-                    </div>
-                    <div class='input-group date col-sm-4' style="text-align:left" id='datetimepicker1'>
-                        <input type='text' class="form-control"/>
-                        <span class="input-group-addon">
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label>复核者：</label>
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <input type="text" class="form-control" name="reviewer">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label>复核时间：</label>
+                </div>
+                <div class='input-group date col-sm-4' style="text-align:left" id='datetimepicker1'>
+                    <input type='text' name="reviewerTime1" class="form-control"/>
+                    <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
-                    </div>
                 </div>
             </div>
-            <div class="row" style="margin-top: 5px">
-                <div class="col-md-4">
-                    <div class="col-md-8" style="text-align:right">
-                        <label  >表单名称：</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-control input-sm" v-model="ee">
-                            <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-4" style="text-align:right">
-                        <label  >状态：</label>
-                    </div>
-                    <div class="col-md-4" style="text-align:left">
-                        <input type="checkbox">待复核
-                        <input type="checkbox">已修正
-                        <input type="checkbox">撤回
-                    </div>
-                </div>
-                <div class="col-md-4" style="text-align:center">
-                    <button type="button" class="btn btn-default" v-on:click="retrieval">检索</button>
-                    <button type="button" class="btn btn-default" v-on:click="aaa">清空</button>
-                </div>
-            </div>
-
-        </form>
-        <div class="row">
-            <table id="table"></table>
         </div>
+        <div class="row" style="margin-top: 5px">
+            <div class="col-md-4">
+                <div class="col-md-8" style="text-align:right">
+                    <label>表单名称：</label>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control input-sm" name="form">
+                        <option value="">-请选择-</option>
+                        <option value="1">基本信息</option>
+                        <option value="2">检查信息</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4" style="text-align:right">
+                    <label>状态：</label>
+                </div>
+                <div class="col-md-8" style="text-align:left">
+                    <input type="checkbox" name="reviewState" value="1">待复核
+                    <input type="checkbox" name="reviewState" value="2">已修正
+                    <input type="checkbox" name="reviewState" value="3">撤回
+                </div>
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <button type="button" class="btn btn-default" onclick="retrieval()">检索</button>
+                <button type="button" class="btn btn-default" onclick="empty()">清空</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <table id="table"></table>
     </div>
+</div>
 
-    <!-- 模态框（Modal） -->
-     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                         &times;
-                     </button>
-                     <h4 class="modal-title" id="myModalLabel">
-                         复核明细
-                     </h4>
-                 </div>
-                 <div class="modal-body" style="height: 300px">
-                     <div  class="row" style="margin-top: 5px">
-                         <div class="col-sm-6">
-                             <div class="col-md-6"  >
-                                 <label>提出人：</label>
-                             </div>
-                             <span>随访员1</span>
-                         </div>
-                         <div class="col-sm-6">
-                             <div class="col-md-6"  >
-                                 <label>提出时间：</label>
-                             </div>
-                             <span>2020.09.24 </span>
-                         </div>
-                     </div>
-                     <div  class="row" style="margin-top: 5px">
-                         <div class="col-md-12">
-                             <div class="col-md-2">
-                                 <label>修改为：</label>
-                             </div>
-                             <div class="col-sm-10">
-                                 <input type="text" class="form-control input-sm" v-model="">
-                             </div>
-                         </div>
-                     </div>
-                     <div  class="row" style="margin-top: 5px">
-                         <div class="col-md-12">
-                             <div class="col-md-2">
-                                 <label>修改意见：</label>
-                             </div>
-                             <div class="col-sm-10">
-                                 <textarea class="form-control" rows="9"></textarea>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="modal-footer" style="text-align: center">
-                     <button type="button" class="btn btn-primary" onclick="save()">
-                         保存
-                     </button>
-                 </div>
-             </div><!-- /.modal-content -->
-         </div><!-- /.modal -->
-     </div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    复核明细
+                </h4>
+            </div>
+            <div class="modal-body" style="height: 300px">
+                <div class="row" style="margin-top: 5px">
+                    <div class="col-sm-6">
+                        <div class="col-md-6">
+                            <label>提出人：</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-sm" id="doubter" name="doubter" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col-md-6">
+                            <label>提出时间:</label>
+                        </div>
+                        <div class="col-md-6" style="text-align: left">
+                            <input type="text" class="form-control input-sm" id="proposedTime" name="proposedTime"
+                                   readonly>
+                        </div>
+                    </div>
+                </div>
+                <form id="myform2">
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <label>修改为：</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control input-sm" id="id" name="id"
+                                       style="display: none">
+                                <input type="text" class="form-control input-sm" id="dataValue" name="dataValue">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <label>修改意见：</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control input-sm" id="revisionComments"
+                                       name="revisionComments">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" onclick="save()">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 
 <script type="text/html" id="barDemo">
@@ -182,136 +184,117 @@
         <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
     </a>
 </script>
-
-
-<script>
-   new Vue({
-       el: '#box',
-       data: {
-           name: '雷电法王',
-       },
-       methods: {
-           retrieval: function () {
-               alert(this.name);
-           },
-       }
-   })
-</script>
 <script type="text/javascript">
-    $("#table").bootstrapTable({
+    $(function () {
+        $("#table").bootstrapTable({
+            url: '/dataReview/selectAll',
+            toolbar: "#toolbar",
+            striped: true, // 是否显示行间隔色
+            uniqueId: "ID",
+            pageSize: "5",
+            pageList: [5, 10, 15, 20],
+            pagination: true, // 是否分页
+            sidePagination: "true",
+            clickToSelect: true, //点击选中
+            showRefresh: "true",
+            showToggle: "true",
+            showColumns: "true",
+            queryParams: queryParams,//传递参数（*）
+            //sortable: true, // 是否启用排序
+            method: 'get',                      //请求方式（*）
+            columns: [
+                {
+                    checkbox: true,
+                }, {
+                    field: 'groupName',
+                    title: '随访组名称',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return row.fugm.groupName;
+                    }
+                }, {
+                    field: 'form',
+                    title: '表单',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        if (row.form == "1") {
+                            value = "基本信息";
+                        } else {
+                            value = "检验检查";
+                        }
+                        return value;
 
-        toolbar: "#toolbar",
-        sidePagination: "true",
-        striped: true, // 是否显示行间隔色
-        //search : "true",
-        uniqueId: "ID",
-        pageSize: "5",
-        pageList: [10, 20],
-        pagination: true, // 是否分页
-        //sortable: true, // 是否启用排序
-        columns: [{
-            checkbox:true,
-        },{
-            field: 'id',
-            title: '随访组名称',
-            align: 'center',
-        }, {
-            field: 'name',
-            title: '表单',
-            align: 'center',
-        }, {
-            field: 'price',
-            title: '数据项',
-            align: 'center',
-        },{
-            field: 'name',
-            title: '患者',
-            align: 'center',
-        },{
-            field: 'age',
-            title: '值',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '质疑者',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '复核者',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '状态',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '复核时间',
-            align: 'center',
-        }, {
-            title: '操作',
-            formatter: operateFormatter,
-            align: 'center',
+                    }
+                }, {
+                    field: 'dataItem',
+                    title: '数据项',
+                    align: 'center',
+
+                }, {
+                    field: 'name',
+                    title: '患者',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return row.ps.name;
+                    }
+                }, {
+                    field: 'dataValue',
+                    title: '值',
+                    align: 'center',
+                }, {
+                    field: 'doubter',
+                    title: '质疑者',
+                    align: 'center',
+                }, {
+                    field: 'reviewer',
+                    title: '复核者',
+                    align: 'center',
+                }, {
+                    field: 'reviewState',
+                    title: '状态',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        if (row.reviewState == "1") {
+                            value = "待复核";
+                        } else if (row.reviewState == "2") {
+                            value = "已修正";
+                        } else if (row.reviewState == "3") {
+                            value = "撤回";
+                        }
+                        return value;
+                    }
+                }, {
+                    field: 'reviewerTime',
+                    title: '复核时间',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return value.substring(0, 10);
+                    }
+                }, {
+                    title: '操作',
+                    formatter: operateFormatter,
+                    align: 'center',
+                }]
+        });
+
+        function operateFormatter(value, row, index) {
+            var id = index;
+            var data = JSON.stringify(row);
+            var result = "";
+            result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改'><span class='glyphicon glyphicon-zoom-in'></span></button>";
+            return result;
         }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 5,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }],
-
     });
 
-    function operateFormatter(value, row, index){
-        //添加按钮
-        var rows = JSON.stringify(row);
-        var id = row.id;
-        var result = "";
-        result += "<button data-toggle='modal' data-target='#myModal' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></button>";
-        return result;
+    function queryParams(params) {
+        var temp = $("#myform").serialize();
+        console.log(temp);
+        return temp;
     }
 
-    function save(){
-        $('#myModal').modal('hide');
+    //检索
+    function retrieval() {
+        $("#table").bootstrapTable('refresh');
     }
 
     $(function () {
@@ -324,12 +307,57 @@
             locale: moment.locale('zh-cn')
         });
     })
-    function EditViewById(id,view) {
-
-
+    //回显
+    function EditViewById(row, index) {
+        var data = JSON.stringify($("#table").bootstrapTable('getData'));//获取全部数据
+        var data1 = JSON.parse(data);//转Json 对象
+        $("#id").val(data1[index].id);
+        $("#doubter").val(data1[index].doubter);
+        $("#proposedTime").val(data1[index].proposedTime.substring(0, 10));
+        $("#myModal").modal('show')
     }
 
+    function save() {
+        var param = $("#myform2").serializeArray();
+        param.push
+        $.ajax({
+            url: '/dataReview/update',
+            method: 'get',
+            data: param,
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("修改成功");
+                    history.go(0)
+                } else {
+                    alert("修改失败");
+                    history.go(0)
+                }
+            }
+        })
+    }
 
+    //清空/重置
+    function empty() {
+        var formComponent = $('#myform');
+        formComponent.find('input:text').val('');
+    }
+
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectGroupName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#groupName').append(datas);
+            }
+        })
+    })
 </script>
 </body>
 </html>

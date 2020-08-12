@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/js/bootstrap-treeview.js"></script>
+    <!-- 术语列表-->
+</head>
+<style>
+    .vi {
+        width: 50vw;
+        height: 20vw;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="page-header" style="text-align: center;margin-top: 0">
+        <h3 style="color: #28a4c9">术语字典选择</h3>
+    </div>
+
+        <div style="text-align: right;width: 25%">
+            <select class="form-control input-sm" id="selectThis">
+                <option>-症状-</option>
+                <option >1</option>
+                <option >2</option>
+                <option >3</option>
+            </select>
+        </div>
+        <div style="text-align: left">
+            <h1 style="font-size: 15px">术语详情</h1>
+        </div>
+    <form>
+        <div id="t1" class="vi;tab-pane fade in active" style="text-align: center">
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">头痛
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">头晕
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">发热
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">咳嗽
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">胸闷
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">胸痛
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">呕吐
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">心衰
+            </div>
+        </div>
+        <div id="t2" class="vi;tab-pane fade" style="text-align: center">
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">头痛2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">头晕2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">发热2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">咳嗽2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">胸闷2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">胸痛2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">呕吐2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">心衰2
+            </div>
+        </div>
+        <div id="t3" class="vi;tab-pane fade" style="text-align: center">
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">头痛2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">头晕2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">发热2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">咳嗽2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">胸闷2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">胸痛2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">呕吐2
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <input type="checkbox" name="wz" value="是">心衰2
+            </div>
+        </div>
+
+    </form>
+</div>
+<script>
+  $(function(){
+      $("#selectThis").change(function () {
+          
+      })
+  })
+</script>
+</body>
+</html>

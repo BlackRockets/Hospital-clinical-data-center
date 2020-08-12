@@ -62,5 +62,42 @@ public interface PatientScheduleDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+    /**
+     * 通过id查询
+     *
+     * @return 影响行数
+     */
+    List<PatientSchedule> selectByName(String name);
+    /**
+     * 通过条件查询
+     *
+     * @return 影响行数
+     */
+
+    List<PatientSchedule> selectAllByCondition(PatientSchedule patientSchedule);
+    /**
+     * 通过条件查询
+     *末次
+     * @return 影响行数
+     * @param patientSchedule
+     */
+
+    List<PatientSchedule> selectAllByConditionEnd(PatientSchedule patientSchedule);
+    /**
+     * 通过条件查询
+     *最大值
+     * @return 影响行数
+     * @param patientSchedule
+     */
+
+    List<PatientSchedule> selectAllByConditionMax(PatientSchedule patientSchedule);
+    /**
+     * 通过条件查询
+     *最小值
+     * @return 影响行数
+     * @param patientSchedule
+     */
+
+    List<PatientSchedule> selectAllByConditionMin(PatientSchedule patientSchedule);
 
 }
