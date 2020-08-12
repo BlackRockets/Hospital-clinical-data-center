@@ -15,10 +15,11 @@
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <!--诊疗方案-->
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
         <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
     </div>
@@ -26,15 +27,160 @@
         <h3 style="color: #28a4c9">诊疗方案</h3>
     </div>
     <div class="col-lg-1">
-        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn1')">按科室
+        <ul>
+            <li v-for="(s,i) in list" >dd</li>
+                <!--<div v-for="s in list" style="width: 100px;height: 40px;text-align:center;background-color: blue;color: #ffffff;">{{s.id}}</div>-->
+        </ul>
+        <!--<button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn1')">诊疗方案1
         </button>
-        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn2')">按病种
-        </button>
+        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn2')">诊疗方案2
+        </button>-->
+        <div style="margin-top: 30%;text-align: center">
+            <a onclick="ch('a')"><span style="color: green" class="glyphicon glyphicon-plus-sign"></span></a>
+        </div>
     </div>
     <div class="col-lg-11" style="border-left: 2px solid #ccc;height: 600px">
-
+       <!-- <div id="diagnosis1" style="display: block">
+            <table class="table table-bordered">
+                <tr>
+                    <td style="width: 100px">1.用药</td>
+                    <td>1.降糖药 2.降压药 3.利尿剂
+                    </td>
+                </tr>
+                <tr>
+                    <td>2.检验</td>
+                    <td>1.血常规 2.尿常规</td>
+                </tr>
+                <tr>
+                    <td>3.检查</td>
+                    <td>1.胸外科CT</td>
+                </tr>
+                <tr>
+                    <td>4.治疗</td>
+                    <td>治疗方案说明</td>
+                </tr>
+                <tr>
+                    <td>5.手术</td>
+                    <td>手术术式说明</td>
+                </tr>
+                <tr>
+                    <td>6.通知</td>
+                    <td>通知明细</td>
+                </tr>
+            </table>
+        </div>
+        <div id="diagnosis2" style="display: none">
+            <table class="table table-bordered">
+                <tr>
+                    <td style="width: 100px">1.用药</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2.检验</td>
+                    <td>1.血常规 2.尿常规</td>
+                </tr>
+                <tr>
+                    <td>3.检查</td>
+                    <td>1.B超</td>
+                </tr>
+                <tr>
+                    <td>4.治疗</td>
+                    <td>治疗方案说明</td>
+                </tr>
+                <tr>
+                    <td>5.手术</td>
+                    <td>手术术式说明</td>
+                </tr>
+                <tr>
+                    <td>6.通知</td>
+                    <td>通知明细</td>
+                </tr>
+            </table>
+        </div>-->
+        <div id="diagnosis3" style="display: none">
+            <table class="table table-bordered">
+                <tr>
+                    <td style="width: 100px">1.用药</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2.检验</td>
+                    <td contentEditable="true">
+                </tr>
+                <tr>
+                    <td>3.检查</td>
+                    <td contentEditable="true">
+                </tr>
+                <tr>
+                    <td>4.治疗</td>
+                    <td contentEditable="true">
+                </tr>
+                <tr>
+                    <td>5.手术</td>
+                    <td contentEditable="true">
+                </tr>
+                <tr>
+                    <td>6.通知</td>
+                    <td contentEditable="true">
+                </tr>
+            </table>
+        </div>
     </div>
 
 </div>
+<script type="text/javascript">
+    /*$(function () {
+        $.ajax({
+            url: '/diagnosisAndTreatmentScheme/selectAllId',
+            type: 'json',
+            success:function (res) {
+                var result = "";
+                for(var i=0;i<res.length;i++){
+                    result+="<button type='button' style='margin-top: 20%' class='btn-info' v-on:click='ch'>诊疗方案"+res[i].id+"</button>";
+                }
+                var but = document.getElementById("but");
+                but.innerHTML=result;
+
+            }
+        })
+    })*/
+
+
+    new Vue({
+        el: '#box',
+        data(){
+            return {
+                list: null
+            }
+        },
+        mounted:function(){
+            axios.get('/diagnosisAndTreatmentScheme/selectAllId')
+                .then(function (response) {
+                    this.list = response.data;
+                    console.log(this.list);
+                }).catch(function () {});
+        },
+    })
+    /*function ch(tag) {
+        var diagnosis1 = document.getElementById("diagnosis1");
+        var diagnosis2 = document.getElementById("diagnosis2");
+        var diagnosis3 = document.getElementById("diagnosis3");
+        if(tag == "btn1"){
+            diagnosis1.style.display="block";
+            diagnosis2.style.display="none";
+            diagnosis3.style.display="none";
+        }else if(tag == "btn2"){
+            diagnosis1.style.display="none";
+            diagnosis3.style.display="none";
+            diagnosis2.style.display="block";
+        }else if(tag == "a"){
+            diagnosis1.style.display="none";
+            diagnosis2.style.display="none";
+            diagnosis3.style.display="block";
+        }
+    }*/
+</script>
 </body>
 </html>

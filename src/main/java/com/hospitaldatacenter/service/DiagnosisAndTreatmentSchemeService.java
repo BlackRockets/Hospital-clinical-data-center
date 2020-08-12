@@ -52,5 +52,11 @@ public interface DiagnosisAndTreatmentSchemeService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+    /**
+     * 查询所有id
+     *
+     * @return 对象列表
+     */
+    List<DiagnosisAndTreatmentScheme> queryAllId();
 
 }

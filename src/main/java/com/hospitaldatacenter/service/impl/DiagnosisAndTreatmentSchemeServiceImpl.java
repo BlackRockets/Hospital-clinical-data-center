@@ -76,4 +76,10 @@ public class DiagnosisAndTreatmentSchemeServiceImpl implements DiagnosisAndTreat
     public boolean deleteById(Integer id) {
         return this.diagnosisAndTreatmentSchemeDao.deleteById(id) > 0;
     }
+
+    @Override
+    public List<DiagnosisAndTreatmentScheme> queryAllId() {
+        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeDao.queryAll();
+        return diagnosisAndTreatmentSchemes;
+    }
 }
