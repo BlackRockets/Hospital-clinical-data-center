@@ -115,6 +115,12 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
     }
 
     @Override
+    public List<ScheduleOfFollowUpGroup> queryByCondition(String scheduleOfFollowUpGroup) {
+        ScheduleOfFollowUpGroup fol = JSONObject.parseObject(scheduleOfFollowUpGroup, ScheduleOfFollowUpGroup.class);
+        return scheduleOfFollowUpGroupDao.queryByCondition(fol);
+    }
+
+    @Override
     public List<ScheduleOfFollowUpGroup> selectAllByFollowUpState() {
         List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupDao.selectAllByFollowUpState();
         return scheduleOfFollowUpGroups;

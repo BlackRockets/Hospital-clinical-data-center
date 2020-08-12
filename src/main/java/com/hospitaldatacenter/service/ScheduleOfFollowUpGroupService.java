@@ -65,6 +65,14 @@ public interface ScheduleOfFollowUpGroupService {
      * @return 对象列表
      */
     List<ScheduleOfFollowUpGroup> queryAllByCondition(String scheduleOfFollowUpGroup);
+
+
+    /**
+     *@description: 添加随访组成员
+     *@author: zyl
+     */
+    List<ScheduleOfFollowUpGroup> queryByCondition(String scheduleOfFollowUpGroup);
+
     /**
      * 已随访
      *

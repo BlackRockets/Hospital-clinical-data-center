@@ -112,4 +112,13 @@ public class ScheduleOfFollowUpGroupController {
     public int updateScheduleOfFollowUpGroup(@RequestBody String scheduleOfFollowUpGroup){
         return scheduleOfFollowUpGroupService.update(scheduleOfFollowUpGroup);
     }
+
+    /**
+     *@description:  更新随访组成员
+     *@author: zyl
+     */
+    @RequestMapping("selectByCondition")
+    public List<ScheduleOfFollowUpGroup> selectByCondition(@RequestBody String scheduleOfFollowUpGroup){
+        return scheduleOfFollowUpGroupService.queryByCondition(scheduleOfFollowUpGroup);
+    }
 }

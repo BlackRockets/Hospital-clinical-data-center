@@ -77,6 +77,15 @@ public interface ScheduleOfFollowUpGroupDao {
      * @return 对象列表
      */
     List<ScheduleOfFollowUpGroup> queryAllByCondition(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
+
+    /**
+     *
+     *
+     *@description: 单表条件查询
+     *@author: zyl
+     *
+     */
+    List<ScheduleOfFollowUpGroup> queryByCondition(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
     /**
      * 已随访
      *

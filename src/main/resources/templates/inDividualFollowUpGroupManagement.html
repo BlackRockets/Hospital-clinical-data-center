@@ -42,7 +42,7 @@
                         门诊号：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" >
+                        <input type="text" class="form-control input-sm" v-model="item.outpatientNumber">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 5%">
@@ -50,7 +50,7 @@
                         住院号：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" >
+                        <input type="text" class="form-control input-sm" v-model="item.inpatientNumber">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 5%">
@@ -80,11 +80,10 @@
                         性别：
                     </div>
                     <div class="col-sm-7">
-                        <select class="form-control input-sm" >
+                        <select class="form-control input-sm" v-model="item.sex">
                             <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
+                            <option>男</option>
+                            <option>女</option>
                         </select>
                     </div>
                 </div>
@@ -93,11 +92,11 @@
                         姓名：
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control input-sm" >
+                        <input type="text" class="form-control input-sm" v-model="item.name">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10%;text-align: center">
-                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen">检索</button>
+                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="retrieval">检索</button>
                     <a href="../templates/advancedSearch.html">高级检索</a>
                 </div>
             </form>
@@ -329,7 +328,14 @@
 
     new Vue({
         el:'#app',
-        data:{},
+        data:{
+            item:{
+                inpatientNumber:'',
+                outpatientNumber:'',
+                name:'',
+                sex:'',
+            },
+        },
         methods:{
             deleteRow:function () {
                 var row=$("#testTable").bootstrapTable('getSelections');
@@ -353,6 +359,18 @@
                 $("#outpatientNumber").val(row[0].outpatientNumber);
                 $("#sex").val(row[0].sex);
             },
+
+            retrieval:function () {
+                var forData = this.item;
+                axios.post('/scheduleOfFollowUpGroup/selectByCondition',forData)
+                    .then(function (res) {
+                        var data = res.data;
+                        $('#testTable').bootstrapTable('load',data);
+                    })
+                    .catch(function (err) {
+
+                    });
+            }
 
         }
     })
