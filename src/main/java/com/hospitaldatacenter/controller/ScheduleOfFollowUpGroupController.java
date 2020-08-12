@@ -85,4 +85,31 @@ public class ScheduleOfFollowUpGroupController {
         List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.selectAllByNoFollowUpState();
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
+
+    /**
+     *@description: 添加随访组成员
+     *@author: zyl
+     */
+    @RequestMapping("newAddScheduleOfFollowUpGroup")
+    public int newAddScheduleOfFollowUpGroup(@RequestBody String scheduleOfFollowUpGroup){
+        return  scheduleOfFollowUpGroupService.insert(scheduleOfFollowUpGroup);
+    }
+
+    /**
+     *@description: 删除随访组成员
+     *@author: zyl
+     */
+    @RequestMapping("deleteScheduleOfFollowUpGroup")
+    public void deleteScheduleOfFollowUpGroup(@RequestBody Integer[] ids){
+          scheduleOfFollowUpGroupService.deleteById(ids);
+    }
+
+    /**
+     *@description:  更新随访组成员
+     *@author: zyl
+     */
+    @RequestMapping("updateScheduleOfFollowUpGroup")
+    public int updateScheduleOfFollowUpGroup(@RequestBody String scheduleOfFollowUpGroup){
+        return scheduleOfFollowUpGroupService.update(scheduleOfFollowUpGroup);
+    }
 }
