@@ -125,6 +125,7 @@
     $("#testTable").bootstrapTable({
         toolbar: "#toolbar",
         sidePagination: "true",
+        url: '/user/selectAll',
         striped: true, // 是否显示行间隔色
         //search : "true",
         uniqueId: "ID",
@@ -157,50 +158,8 @@
             title: '科室',
             align: 'center',
         }
-        ], //数据
-        data: [{
-            Id: 1,
-            name: 'ww',
-            sex: 55,
-            phone: 'ss',
-            email: 12,
-            department: 'xiaoming'
-        }, {
-            Id: 1,
-            name: 'ww',
-            sex: 55,
-            phone: 'ss',
-            email: 12,
-            department: 'xiaoming'
-        }, {
-            Id: 1,
-            name: 'ww',
-            sex: 55,
-            phone: 'ss',
-            email: 12,
-            department: 'xiaoming'
-        }, {
-            Id: 1,
-            name: 'ww',
-            sex: 55,
-            phone: 'ss',
-            email: 12,
-            department: 'xiaoming'
-        }, {
-            Id: 1,
-            name: 'ww',
-            sex: 55,
-            phone: 'ss',
-            email: 12,
-            department: 'xiaoming'
-        }, {
-            Id: 1,
-            name: 'ww',
-            sex: 55,
-            phone: 'ss',
-            email: 12,
-            department: 'xiaoming'
-        }]
+        ]//数据
+
     });
 
     $(function () {

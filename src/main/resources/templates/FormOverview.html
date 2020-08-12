@@ -27,13 +27,15 @@
         <table id="tree"></table>
     </div>
     <div class="col-md-10" style="border-left: 1px solid #ccc;">
-        <form>
+        <form id="myform">
             <div class="col-md-5 ">
                 <div class="col-sm-6" style="margin-top: 5px;text-align: right">
                     随访组名称：
                 </div>
                 <div class="col-sm-6" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <select class="form-control input-sm" name="groupName" id="groupName">
+                        <option value="">-请选择-</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-5">
@@ -41,21 +43,22 @@
                     创建日期：
                 </div>
                 <div class="col-md-9" style="text-align: left">
-                        <div class='input-group date col-sm-12' style="margin-left: 47%;text-align: left" id='datetimepicker1'>
-                            <input type='text' id="d1" class="form-control"/>
-                            <span class="input-group-addon">
+                    <div class='input-group date col-sm-12' style="margin-left: 47%;text-align: left"
+                         id='datetimepicker1'>
+                        <input type='text' name="creationDate1" class="form-control"/>
+                        <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
 
-                        </div>
-                        <div class='input-group date col-sm-12' style="margin-left: 47%" id='datetimepicker2'>
-                            <input type='text' id="d2" class="form-control"/>
-                            <span class="input-group-addon">
+                    </div>
+                    <div class='input-group date col-sm-12' style="margin-left: 47%" id='datetimepicker2'>
+                        <input type='text' name="creationDate2" class="form-control"/>
+                        <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
-                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-5 ">
@@ -63,7 +66,7 @@
                     模板名称：
                 </div>
                 <div class="col-sm-6" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" name="templateName" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-md-5">
@@ -71,17 +74,17 @@
                     创建者：
                 </div>
                 <div class="col-sm-6" style="text-align: left">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" name="creator" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="col-sm-6" style="text-align: center">
-                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" add()">
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick="find()">
                         检索
                     </button>
                 </div>
                 <div class="col-sm-6" style="text-align: center">
-                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick="empty()">
                         清空
                     </button>
                 </div>
@@ -106,27 +109,47 @@
 </script>
 <script>
     $("#testTable").bootstrapTable({
+        url: '/template/selectAll',
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
         //search : "true",
         uniqueId: "ID",
         pageSize: "5",
-        pageList: [10, 20],
+        showToggle: false,
+        pageList: [5, 10, 15, 20],
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
+        queryParams: queryParams,//传递参数（*）
+        onLoadSuccess: function () {//当所有数据被加载时触发处理函数
+            var data = $('#testTable').bootstrapTable('getData', true);
+            mergeCells(data, 'templateName', 1, $('#testTable'));
+            mergeCells(data, 'groupName', 1, $('#testTable'));
+        },
+        onPageChange: function () {//当页面更改页码或页面大小时触发
+            var data = $('#testTable').bootstrapTable('getData', true);
+            mergeCells(data, 'templateName', 1, $('#testTable'));
+            mergeCells(data, 'groupName', 1, $('#testTable'));
+        },
+        method: 'get',
         columns: [{
             field: 'templateName',
             title: '模板名称',
             align: 'center',
         }, {
-            field: 'followUpGroupName',
+            field: 'groupName',
             title: '随访组名',
             align: 'center',
+            formatter: function (value, row, index) {
+                return row.fm.groupName;
+            }
         }, {
             field: 'updateDate',
             title: '更新日期',
             align: 'center',
+            formatter: function (value, row, index) {
+                return value.substring(0, 10);
+            }
         }, {
             field: 'updatedBy',
             title: '更新者',
@@ -143,71 +166,55 @@
             field: 'creationDate',
             title: '创建日期',
             align: 'center',
+            formatter: function (value, row, index) {
+                return value.substring(0, 10);
+            }
         }, {
+            field: 'templateState',
             title: '状态',
-            formatter: operateFormatter,
             align: 'center',
-        }
-        ], //数据
-        data: [{
-            templateName: 1,
-            followUpGroupName: 'ww',
-            updateDate: 55,
-            updatedBy: 'ss',
-            versionNumber: 12,
-            creator: 'xiaoming',
-            creationDate: 007,
-        }, {
-            templateName: 1,
-            followUpGroupName: 'ww',
-            updateDate: 55,
-            updatedBy: 'ss1',
-            versionNumber: 123,
-            creator: 'xiaoming2',
-            creationDate: 007,
-        }, {
-            templateName: 12,
-            followUpGroupName: 'www',
-            updateDate: 555,
-            updatedBy: 'ss3',
-            versionNumber: 125,
-            creator: 'xiaoming',
-            creationDate: 007,
-        }, {
-            templateName: 12,
-            followUpGroupName: 'www',
-            updateDate: 555,
-            updatedBy: 'ss3',
-            versionNumber: 126,
-            creator: 'xiaoming',
-            creationDate: 007,
-        }, {
-            templateName: 1,
-            followUpGroupName: 'ww',
-            updateDate: 55,
-            updatedBy: 'ss',
-            versionNumber: 12,
-            creator: 'xiaoming',
-            creationDate: 007,
-        }, {
-            templateName: 1,
-            followUpGroupName: 'ww',
-            updateDate: 55,
-            updatedBy: 'ss',
-            versionNumber: 12,
-            creator: 'xiaoming',
-            creationDate: 007,
+            formatter: openDetails,
+            /*formatter: function (value, row, index) {
+                if (row.templateState == "1") {
+                    value = "当前版本"
+                } else if (row.templateState == "2") {
+                    value = "未发布"
+                } else {
+                    value = "已发布"
+                }
+                return value;
+            }*/
         }]
+
     });
 
-    function operateFormatter(value, row, index) {
-        //添加按钮
-        var rows = JSON.stringify(row);
-        var id = row.id;
-        console.log(id);
-        var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
-        return result;
+    function mergeCells(data, fieldName, colspan, target) {
+        //声明一个map计算相同属性值在data对象出现的次数和
+        var sortMap = {};
+        for (var i = 0; i < data.length; i++) {
+            for (var prop in data[i]) {
+                if (prop == fieldName) {
+                    var key = data[i][prop] //fieldName的value
+                    if (sortMap.hasOwnProperty(key)) {
+                        sortMap[key] = sortMap[key] * 1 + 1;
+                    } else {
+                        sortMap[key] = 1;
+                    }
+                    break;
+                }
+            }
+        }
+        var index = 0;
+        for (var prop in sortMap) {
+            var count = sortMap[prop] * 1;
+            $(target).bootstrapTable('mergeCells', {index: index, field: fieldName, colspan: colspan, rowspan: count});
+            index += count;
+        }
+    }
+
+
+    function openDetails(value, row, index) {
+        return ['<a href="../templates/templateDesign.html?id=' + row.id + '">' + value + '</a>'].join("");
     }
 
     $(function () {
@@ -327,14 +334,29 @@
             console.log("id = " + data.id);
         }
     });
-    /* function mergeCells(data,fieldName,colspan,target){
+
+    function queryParams(params) {
+        var temp = $("#myform").serialize();
+        return temp;
+    }
+
+    function find() {
+        $("#testTable").bootstrapTable('refresh');
+    }
+
+    function empty() {
+        var formComponent = $('#myform');
+        formComponent.find('input:text').val('');
+    }
+
+    /* function mergeCells(data, fieldName, colspan, target) {
          //声明一个map计算相同属性值在data对象出现的次数和
          var sortMap = {};
-         for(var i = 0 ; i < data.length ; i++){
-             for(var prop in data[i]){
-                 if(prop == fieldName){
+         for (var i = 0; i < data.length; i++) {
+             for (var prop in data[i]) {
+                 if (prop == fieldName) {
                      var key = data[i][prop]
-                     if(sortMap.hasOwnProperty(key)){
+                     if (sortMap.hasOwnProperty(key)) {
                          sortMap[key] = sortMap[key] * 1 + 1;
                      } else {
                          sortMap[key] = 1;
@@ -343,22 +365,38 @@
                  }
              }
          }
-         for(var prop in sortMap){
-             console.log(prop,sortMap[prop])
+         for (var prop in sortMap) {
+             console.log(prop, sortMap[prop])
          }
          var index = 0;
-         for(var prop in sortMap){
+         for (var prop in sortMap) {
              var count = sortMap[prop] * 1;
-             $(target).bootstrapTable('mergeCells',{index:index, field:fieldName, colspan: colspan, rowspan: count});
+             $(target).bootstrapTable('mergeCells', {index: index, field: fieldName, colspan: colspan, rowspan: count});
              index += count;
          }
      }
-     onLoadSuccess : function() {
+
+     onLoadSuccess : function () {
          var data = $('#testTable').bootstrapTable('getData', true);
          //合并单元格
          mergeCells(data, "companyTypeName", 1, $('#table'));
 
      }*/
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/followUpGroupManagement/selectGroupName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#groupName').append(datas);
+            }
+        })
+    })
 </script>
 </body>
 </html>
