@@ -10,6 +10,20 @@ import java.io.Serializable;
  */
 public class DiagnosisAndTreatmentScheme implements Serializable {
     private static final long serialVersionUID = -67987860381293002L;
+
+    @Override
+    public String toString() {
+        return "DiagnosisAndTreatmentScheme{" +
+                "id=" + id +
+                ", pharmacy='" + pharmacy + '\'' +
+                ", checkout='" + checkout + '\'' +
+                ", examine='" + examine + '\'' +
+                ", treat='" + treat + '\'' +
+                ", operation='" + operation + '\'' +
+                ", inform='" + inform + '\'' +
+                '}';
+    }
+
     /**
      * id
      */

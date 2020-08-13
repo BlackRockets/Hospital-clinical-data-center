@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.TemplateDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.Template" id="TemplateMap">
+        <result property="templateId" column="template_id" jdbcType="INTEGER"/>
+        <result property="followUpGroupId" column="follow_up_group_id" jdbcType="INTEGER"/>
+        <result property="templateName" column="template_name" jdbcType="VARCHAR"/>
+        <result property="creationDate" column="creation_date" jdbcType="TIMESTAMP"/>
+        <result property="creator" column="creator" jdbcType="VARCHAR"/>
+        <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+        <result property="updatedBy" column="updated_by" jdbcType="VARCHAR"/>
+        <result property="versionNumber" column="version_number" jdbcType="VARCHAR"/>
+        <result property="templateState" column="template_state" jdbcType="INTEGER"/>
+        <association property="fm" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
+            <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--查询单个-->
+   <!-- <select id="queryById" resultMap="TemplateMap">
+        select
+          template_id, follow_up_group_id, template_name, creation_date, creator, update_date, updated_by, version_number, template_state
+        from hospital.template
+        where  = #{}
+    </select>-->
+
+    <!--查询指定行数据-->
+    <!--<select id="queryAllByLimit" resultMap="TemplateMap">
+        select
+          template_id, follow_up_group_id, template_name, creation_date, creator, update_date, updated_by, version_number, template_state
+        from hospital.template
+        limit #{offset}, #{limit}
+    </select>-->
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TemplateMap">
+        select t.*,f.group_name
+        from template t,follow_up_group_management f where t.follow_up_group_id=f.id
+            <if test="groupName != null and groupName != ''">
+                and f.group_name like  CONCAT("%",#{groupName},"%")
+            </if>
+            <if test="templateName != null and templateName != ''">
+                and template_name like  CONCAT("%",#{templateName},"%")
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator like  CONCAT("%",#{creator},"%")
+            </if>
+            <if test="creationDate1 != null and creationDate2 != null ">
+                and DATE_FORMAT(creation_date,'%Y-%m-%d') between DATE_FORMAT(#{creationDate1},'%Y-%m-%d') and DATE_FORMAT(#{creationDate2},'%Y-%m-%d')
+            </if>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into hospital.template(template_id, follow_up_group_id, template_name, creation_date, creator, update_date, updated_by, version_number, template_state)
+        values (#{templateId}, #{followUpGroupId}, #{templateName}, #{creationDate}, #{creator}, #{updateDate}, #{updatedBy}, #{versionNumber}, #{templateState})
+    </insert>
+
+    <!--通过主键修改数据-->
+   <!-- <update id="update">
+        update hospital.template
+        <set>
+            <if test="templateId != null">
+                template_id = #{templateId},
+            </if>
+            <if test="followUpGroupId != null">
+                follow_up_group_id = #{followUpGroupId},
+            </if>
+            <if test="templateName != null and templateName != ''">
+                template_name = #{templateName},
+            </if>
+            <if test="creationDate != null">
+                creation_date = #{creationDate},
+            </if>
+            <if test="creator != null and creator != ''">
+                creator = #{creator},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy},
+            </if>
+            <if test="versionNumber != null and versionNumber != ''">
+                version_number = #{versionNumber},
+            </if>
+            <if test="templateState != null">
+                template_state = #{templateState},
+            </if>
+        </set>
+        where = #{}
+    </update>-->
+
+    <!--&lt;!&ndash;通过主键删除&ndash;&gt;
+    <delete id="deleteById">
+        delete from hospital.template where  = #{}
+    </delete>-->
+
+</mapper>

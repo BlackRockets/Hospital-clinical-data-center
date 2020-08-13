@@ -33,29 +33,6 @@
         select
         id, pharmacy, checkout, examine, treat, operation, inform
         from hospital.diagnosis_and_treatment_scheme
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="pharmacy != null and pharmacy != ''">
-                and pharmacy = #{pharmacy}
-            </if>
-            <if test="checkout != null and checkout != ''">
-                and checkout = #{checkout}
-            </if>
-            <if test="examine != null and examine != ''">
-                and examine = #{examine}
-            </if>
-            <if test="treat != null and treat != ''">
-                and treat = #{treat}
-            </if>
-            <if test="operation != null and operation != ''">
-                and operation = #{operation}
-            </if>
-            <if test="inform != null and inform != ''">
-                and inform = #{inform}
-            </if>
-        </where>
     </select>
 
     <!--新增所有列-->

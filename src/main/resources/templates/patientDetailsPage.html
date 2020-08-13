@@ -40,8 +40,8 @@
         </div>
         <div>
             <button class="btn-info">选择诊疗方案</button><br/>
-            <a href="">诊疗方案1</a>
-            <a href="">诊疗方案2</a>
+            <a v-on:click="searchOne" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>
+            <a href="../templates/a.html">诊疗方案2</a>
         </div>
     </div>
     <div class="col-lg-10">
@@ -259,6 +259,22 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="diagTable">
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</div>
 <script type="text/javascript">
     var vm = new Vue({
         el: '#box',
@@ -336,6 +352,13 @@
                 axios.get('/patientSchedule/selectById?name='+dataName)
                     .then(function (response) {
                         $("#tables").bootstrapTable("load",response.data);
+                    }).catch(function () {});
+            },
+            searchOne:function () {
+                axios.get('/diagnosisAndTreatmentScheme/selectOne?id='+2)
+                    .then(function (response) {
+                        console.log(response.data);
+                        $("#diagTable").bootstrapTable("load",response.data);
                     }).catch(function () {});
             }
         }
@@ -425,7 +448,6 @@
         }
         ]
     });
-
     $("#tables").bootstrapTable({
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
@@ -451,7 +473,40 @@
         }
         ]
     });
-
+    $("#diagTable").bootstrapTable({
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        url: '',
+        method: 'post',
+        columns: [{
+            field: 'pharmacy',
+            title: '用药',
+            align: 'center',
+        }, {
+            field: 'checkout',
+            title: '检验',
+            align: 'center',
+        }, {
+            field: 'examine',
+            title: '检查',
+            align: 'center',
+        }, {
+            field: 'treat',
+            title: '治疗',
+            align: 'center',
+        },{
+            field: 'operation',
+            title: '手术',
+            align: 'center',
+        },{
+            field: 'inform',
+            title: '通知',
+            align: 'center',
+        }
+        ]
+    });
     function info() {
         var tou1=document.getElementById("tou");
         var xinxi1=document.getElementById("xinxi");

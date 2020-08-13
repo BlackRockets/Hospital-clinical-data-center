@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 诊疗方案(DiagnosisAndTreatmentScheme)表控制层
@@ -31,7 +32,18 @@ public class DiagnosisAndTreatmentSchemeController {
      */
     @GetMapping("selectOne")
     public DiagnosisAndTreatmentScheme selectOne(Integer id) {
-        return this.diagnosisAndTreatmentSchemeService.queryById(id);
+        System.out.println(id);
+        DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme = diagnosisAndTreatmentSchemeService.queryById(id);
+        System.out.println(diagnosisAndTreatmentScheme);
+        return diagnosisAndTreatmentScheme;
+    }
+    @RequestMapping("selectAllId")
+    public List<DiagnosisAndTreatmentScheme> selectAllId(){
+        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeService.queryAllId();
+        for (DiagnosisAndTreatmentScheme scheme : diagnosisAndTreatmentSchemes) {
+            System.out.println(scheme);
+        }
+        return diagnosisAndTreatmentSchemes;
     }
 
 }
