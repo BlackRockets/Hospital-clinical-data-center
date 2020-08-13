@@ -1,25 +1,25 @@
 package com.hospitaldatacenter.dao;
 
-import com.hospitaldatacenter.entity.User;
+import com.hospitaldatacenter.entity.Departments;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (User)表数据库访问层
+ * (Departments)表数据库访问层
  *
  * @author makejava
- * @since 2020-08-12 15:56:15
+ * @since 2020-08-13 09:11:33
  */
-public interface UserDao {
+public interface DepartmentsDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param userId 主键
+     * @param id 主键
      * @return 实例对象
      */
-    User queryById(Integer userId);
+    Departments queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -28,41 +28,41 @@ public interface UserDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<User> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Departments> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
-
-    List<User> queryDepartments();
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param user 实例对象
+     * @param departments 实例对象
      * @return 对象列表
      */
-    List<User> queryAll(User user);
+    List<Departments> queryAll(Departments departments);
 
     /**
      * 新增数据
      *
-     * @param user 实例对象
+     * @param departments 实例对象
      * @return 影响行数
      */
-    int insert(User user);
+    int insert(Departments departments);
 
     /**
      * 修改数据
      *
-     * @param user 实例对象
+     * @param departments 实例对象
      * @return 影响行数
      */
-    int update(User user);
+    int update(Departments departments);
 
     /**
      * 通过主键删除数据
      *
-     * @param userId 主键
+     * @param id 主键
      * @return 影响行数
      */
-    int delete(Integer userId);
+    int deleteById(Integer id);
+
+    List<Departments> queryDepartments();
 
 }

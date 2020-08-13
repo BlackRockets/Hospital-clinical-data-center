@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.service.impl;
 
+import com.hospitaldatacenter.dao.DepartmentsDao;
 import com.hospitaldatacenter.dao.UserDao;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private DepartmentsDao departmentsDao;
+
     /**
      * 通过ID查询单条数据
      *
@@ -33,14 +37,13 @@ public class UserServiceImpl implements UserService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
     @Override
-    public List<User> queryAll() {
-        return this.userDao.queryAll();
+    public List<User> queryAll(User user) {
+        return this.userDao.queryAll(user);
     }
+
 
     /**
      * 新增数据
@@ -49,9 +52,9 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public User insert(User user) {
-        this.userDao.insert(user);
-        return user;
+    public int insert(User user) {
+        return userDao.insert(user);
+
     }
 
     /**
@@ -61,9 +64,8 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public User update(User user) {
-        this.userDao.update(user);
-        return this.queryById(user.getUserId());
+    public int update(User user) {
+        return userDao.update(user);
     }
 
     /**
@@ -73,7 +75,8 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer userId) {
-        return this.userDao.deleteById(userId) > 0;
+    public int delete(Integer userId) {
+
+        return this.userDao.delete(userId);
     }
 }

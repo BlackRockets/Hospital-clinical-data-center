@@ -25,7 +25,9 @@ public interface UserService {
      *
      * @return 对象列表
      */
-    List<User> queryAll();
+    List<User> queryAll(User user);
+
+
 
     /**
      * 新增数据
@@ -33,7 +35,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    User insert(User user);
+    int insert(User user);
 
     /**
      * 修改数据
@@ -41,7 +43,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    User update(User user);
+    int update(User user);
 
     /**
      * 通过主键删除数据
@@ -49,6 +51,6 @@ public interface UserService {
      * @param userId 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer userId);
+    int delete(Integer userId);
 
 }

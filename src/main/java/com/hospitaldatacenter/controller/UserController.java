@@ -1,5 +1,7 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,33 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 通过主键查询单条数据
-     *
+     * 添加单条数据
      */
-    @GetMapping("selectAll")
     @ResponseBody
-    public List<User> selectAll() {
-        List<User> users=userService.queryAll();
+    @GetMapping("insert")
+    public String insert(User user) {
+        int i = userService.insert(user);
+        return JSON.toJSONString(i);
+    }
+
+    @ResponseBody
+    @GetMapping("selectAll")
+    public List<User> selectAll(User user, Departments departments) {
+        user.setDepartments(departments);
+        List<User> users = userService.queryAll(user);
         return users;
     }
 
+    @ResponseBody
+    @GetMapping("update")
+    public String update(User user) {
+        int i = userService.update(user);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("delete")
+    public String delete(Integer id) {
+       int i= userService.delete(id);
+       return JSON.toJSONString(i);
+    }
 }

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
@@ -22,14 +21,14 @@
     <div class="page-header" style="text-align: left;margin-top: 0">
         <h3 style="color: #28a4c9">用户管理</h3>
     </div>
-    <form >
-        <div class="row" >
+    <form id="myform">
+        <div class="row">
             <div class="col-md-3">
                 <div class="col-sm-4" style="margin-top: 5px;text-align: right">
                     用户ID：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" name="userId" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-md-3">
@@ -37,7 +36,7 @@
                     姓名：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" name="name" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-md-3">
@@ -45,7 +44,11 @@
                     性别：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <select typeof="text" class="form-control input-sm" name="">
+                        <option value="">-请选择-</option>
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-3">
@@ -53,7 +56,7 @@
                     电话：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" class="form-control" name="phone" placeholder="">
                 </div>
             </div>
         </div>
@@ -63,7 +66,7 @@
                     邮箱：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" name="email" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-md-3">
@@ -71,7 +74,7 @@
                     密码：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" name="password" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-md-3">
@@ -79,32 +82,29 @@
                     科室：
                 </div>
                 <div class="col-sm-8" style="text-align: right">
-                    <select class="form-control input-sm" v-model="">
-                        <option>-请选择-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control input-sm" name="departmentsName" id="departmentsName">
+                        <option value="">-请选择-</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6" style="text-align: center">
-                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" add()">
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#mymodel1">
                     新增
                 </button>
-                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
-                    修改
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#mymodel1">
+                    编辑
                 </button>
-                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal"  onclick=" del()">
                     删除
                 </button>
             </div>
             <div class="col-sm-6" style="text-align: center">
-                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick=" find()">
                     检索
                 </button>
-                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick=" empty()">
                     清空
                 </button>
             </div>
@@ -121,46 +121,379 @@
         </div>
     </form>
 </div>
+<!--新增-->
+<div class="modal fade" id="mymodel1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">
+                    新增用户
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top: 5px">
+                    <form id="myform2">
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>姓名：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>密码：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" name="password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label>性别：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control input-sm" name="sex">
+                                        <option value="">-请选择-</option>
+                                        <option value="1">男</option>
+                                        <option value="0">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label>电话：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" name="phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>邮箱：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" name="email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>科室：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control input-sm" name="departmentId">
+                                        <option value="">-请选择-</option>
+                                        <option value="1">脑瘤中心</option>
+                                        <option value="2">内分泌</option>
+                                        <option value="3">男科</option>
+                                        <option value="4">妇科</option>
+                                        <option value="5">儿科</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                    <button type="button" class="btn btn-primary" onclick="save1()">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改用户
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top: 5px">
+                    <form id="myform3">
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>姓名：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" id="name" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>密码：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" id="password" name="password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label>性别：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control input-sm" id="sex" name="sex">
+                                        <option value="">-请选择-</option>
+                                        <option value="1">男</option>
+                                        <option value="0">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label>电话：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" id="phone" name="phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px">
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>邮箱：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" id="email" name="email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-sm-4">
+                                    <label>科室：</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control input-sm" id="departmentId" name="departmentId">
+                                        <option value="">-请选择-</option>
+                                        <option value="1">脑瘤中心</option>
+                                        <option value="2">内分泌</option>
+                                        <option value="3">男科</option>
+                                        <option value="4">妇科</option>
+                                        <option value="5">儿科</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" onclick="save2()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<button data-toggle='modal' class='btn btn-xs green' data-target='#myModal'>編輯</button>
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
 <script>
-    $("#testTable").bootstrapTable({
-        toolbar: "#toolbar",
-        sidePagination: "true",
-        url: '/user/selectAll',
-        striped: true, // 是否显示行间隔色
-        //search : "true",
-        uniqueId: "ID",
-        pageSize: "5",
-        pageList: [10, 20],
-        pagination: true, // 是否分页
-        //sortable: true, // 是否启用排序
-        columns: [{
-            field: 'Id',
-            title: '用户ID',
-            align: 'center',
-        }, {
-            field: 'name',
-            title: '用户姓名',
-            align: 'center',
-        }, {
-            field: 'sex',
-            title: '性别',
-            align: 'center',
-        }, {
-            field: 'phone',
-            title: '电话',
-            align: 'center',
-        }, {
-            field: 'email',
-            title: '邮箱',
-            align: 'center',
-        }, {
-            field: 'department',
-            title: '科室',
-            align: 'center',
-        }
-        ]//数据
+    $(function () {
+        $("#testTable").bootstrapTable({
+            url: '/user/selectAll',
+            toolbar: "#toolbar",
+            striped: true, // 是否显示行间隔色
+            uniqueId: "ID",
+            pageSize: "5",
+            pageList: [10, 20],
+            sidePagination: "true",
+            pagination: true, // 是否分页
+            clickToSelect: true, //点击选中
+            showRefresh: "true",
+            showToggle: "true",
+            showColumns: "true",
+            queryParams: queryParams,//传递参数（*）
+            method: 'get',
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'userId',
+                title: '用户ID',
+                align: 'center',
+            }, {
+                field: 'name',
+                title: '用户姓名',
+                align: 'center',
+            }, {
+                field: 'sex',
+                title: '性别',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    if (row.sex == "0") {
+                        value = "女"
+                    } else if (row.sex == "1") {
+                        value = "男"
+                    }
+                    return value;
+                }
+            }, {
+                field: 'phone',
+                title: '电话',
+                align: 'center',
+            }, {
+                field: 'email',
+                title: '邮箱',
+                align: 'center',
+            }, {
+                field: 'departmentsName',
+                title: '科室',
+                align: 'center',
+                formatter: function (value, row) {
+                    return row.departments.departmentsName
+                }
+            }, {
+                title: '操作',
+                formatter: operateFormatter,
+                align: 'center',
+            }]
+        });
 
+        function operateFormatter(value, row, index) {
+            var id = index;
+            var data = JSON.stringify(row);
+            var result = "";
+            result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改' >编辑</button>";
+            result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改' >删除</button>";
+            return result;
+        }
     });
+
+
+    //获取参数
+    function queryParams(params) {
+        var temp = $("#myform").serialize();
+        console.log(temp);
+        return temp;
+    }
+
+    //检索
+    function find() {
+        $("#testTable").bootstrapTable('refresh');
+    }
+
+    //清空/重置
+    function empty() {
+        var formComponent = $('#myform');
+        formComponent.find('input:text').val('');
+    }
+
+    //新增
+    function save1() {
+        var param = $("#myform2").serializeArray();
+        param.push
+        console.log(param);
+        $.ajax({
+            url: '/user/insert',
+            method: 'get',
+            data: param,
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("新增成功");
+                    history.go(0)
+                } else {
+                    alert("新增失败");
+                    history.go(0)
+                }
+            }
+        })
+    }
+
+    //新增
+    function save2() {
+        var param = $("#myform3").serializeArray();
+        param.push
+        console.log(param);
+        $.ajax({
+            url: '/user/update',
+            method: 'get',
+            data: param,
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("修改成功");
+                    history.go(0)
+                } else {
+                    alert("修改失败");
+                    history.go(0)
+                }
+            }
+        })
+    }
+    function del(){
+        var tid;// 声明一个tid
+        // $("#table").bootstrapTable('getSelections');为bootstrapTable自带的，所以说一定要使用bootstrapTable显示表格,#table：为table的id
+        var rows = $("#testTable").bootstrapTable('getSelections');
+        if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+            alert("请先选择要删除的记录!");
+            return;
+        }
+        if ((rows.length >= 2)) {
+            alert("请先选择一条记录!");
+            return;
+        } else {
+            $(rows).each(function () {// 通过获得别选中的来进行遍历
+                tid = this.userId;// cid为获得到的整条数据中的一列
+            });
+
+        }
+        /*var arrays = new Array();// 声明一个数组
+        $(rows).each(function () {// 通过获得别选中的来进行遍历
+            arrays.push(this.tid);// cid为获得到的整条数据中的一列
+        });
+        tids = arrays.join(','); // 获得要删除的id*/
+        $.ajax({
+            url: '/user/delete',
+            method: 'post',
+            data:{
+                id:tid,
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("删除成功");
+                    history.go(0)
+                } else {
+                    alert("删除失败");
+                    history.go(0)
+                }
+            }
+        })
+    }
+    //回显
+    function EditViewById(row, index) {
+        var data = JSON.stringify($("#testTable").bootstrapTable('getData'));//获取全部数据
+        var data1 = JSON.parse(data);//转Json 对象
+        $("#name").val(data1[index].name);
+        $("#password").val(data1[index].password);
+        $("#sex").val(data1[index].sex);
+        $("#phone").val(data1[index].phone);
+        $("#email").val(data1[index].email);
+        $("#departmentId").val(data1[index].departmentId);
+        $("#myModal").modal('show')
+    }
 
     $(function () {
         $('#datetimepicker1').datetimepicker({
@@ -171,8 +504,22 @@
             format: 'YYYY-MM-DD',
             locale: moment.locale('zh-cn')
         });
-    })
-
+    });
+    /*$(function () {
+        $.ajax({
+            type: 'post',
+            url: '/departments/selectDepartments/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#departmentsName').append(datas)
+            }
+        })
+    })*/
 </script>
 </body>
 </html>

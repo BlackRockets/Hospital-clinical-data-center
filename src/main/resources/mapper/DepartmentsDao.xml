@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.DepartmentsDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.Departments" id="DepartmentsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DepartmentsMap">
+        select
+          id, departments_name, parent_id
+        from hospital.departments
+        where id = #{id}
+    </select>
+    <select id="queryDepartments" resultMap="DepartmentsMap">
+        select departments_name  from departments
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DepartmentsMap">
+        select
+          id, departments_name, parent_id
+        from hospital.departments
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DepartmentsMap">
+        select
+        id, departments_name, parent_id
+        from hospital.departments
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="departmentsName != null and departmentsName != ''">
+                and departments_name = #{departmentsName}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.departments(departments_name, parent_id)
+        values (#{departmentsName}, #{parentId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.departments
+        <set>
+            <if test="departmentsName != null and departmentsName != ''">
+                departments_name = #{departmentsName},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.departments where id = #{id}
+    </delete>
+
+</mapper>

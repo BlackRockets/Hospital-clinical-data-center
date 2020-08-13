@@ -39,6 +39,8 @@ public class User implements Serializable {
      */
     private String email;
 
+    private Departments departments;
+
 
     public Integer getUserId() {
         return userId;
@@ -96,4 +98,15 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Departments getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Departments departments) {
+        this.departments = departments;
+    }
 }
