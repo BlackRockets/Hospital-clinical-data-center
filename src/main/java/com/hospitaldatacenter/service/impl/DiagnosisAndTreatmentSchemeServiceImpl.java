@@ -49,9 +49,9 @@ public class DiagnosisAndTreatmentSchemeServiceImpl implements DiagnosisAndTreat
      * @return 实例对象
      */
     @Override
-    public DiagnosisAndTreatmentScheme insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme) {
-        this.diagnosisAndTreatmentSchemeDao.insert(diagnosisAndTreatmentScheme);
-        return diagnosisAndTreatmentScheme;
+    public int insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme) {
+        int insert = diagnosisAndTreatmentSchemeDao.insert(diagnosisAndTreatmentScheme);
+        return insert;
     }
 
     /**

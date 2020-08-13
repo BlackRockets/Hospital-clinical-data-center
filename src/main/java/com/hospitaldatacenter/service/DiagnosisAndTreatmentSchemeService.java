@@ -35,7 +35,7 @@ public interface DiagnosisAndTreatmentSchemeService {
      * @param diagnosisAndTreatmentScheme 实例对象
      * @return 实例对象
      */
-    DiagnosisAndTreatmentScheme insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme);
+    int insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme);
 
     /**
      * 修改数据

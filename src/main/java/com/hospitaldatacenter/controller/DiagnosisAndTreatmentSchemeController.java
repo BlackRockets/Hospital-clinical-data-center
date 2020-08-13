@@ -1,12 +1,15 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.entity.DiagnosisAndTreatmentScheme;
 import com.hospitaldatacenter.service.DiagnosisAndTreatmentSchemeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,19 +34,29 @@ public class DiagnosisAndTreatmentSchemeController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public DiagnosisAndTreatmentScheme selectOne(Integer id) {
-        System.out.println(id);
+    public List<DiagnosisAndTreatmentScheme> selectOne(Integer id) {
         DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme = diagnosisAndTreatmentSchemeService.queryById(id);
-        System.out.println(diagnosisAndTreatmentScheme);
-        return diagnosisAndTreatmentScheme;
+        String s = JSON.toJSONString(diagnosisAndTreatmentScheme);
+        ArrayList<DiagnosisAndTreatmentScheme> list = new ArrayList<>();
+        list.add(diagnosisAndTreatmentScheme);
+        return list;
     }
     @RequestMapping("selectAllId")
     public List<DiagnosisAndTreatmentScheme> selectAllId(){
         List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeService.queryAllId();
-        for (DiagnosisAndTreatmentScheme scheme : diagnosisAndTreatmentSchemes) {
-            System.out.println(scheme);
-        }
         return diagnosisAndTreatmentSchemes;
+    }
+    @RequestMapping("save")
+    public int save(@RequestParam("pharmacy")String pharmacy,@RequestParam("checkout")String checkout,@RequestParam("examine")String examine,@RequestParam("treat")String treat,@RequestParam("operation")String operation,@RequestParam("inform")String inform){
+        DiagnosisAndTreatmentScheme diag = new DiagnosisAndTreatmentScheme();
+        diag.setCheckout(checkout);
+        diag.setExamine(examine);
+        diag.setInform(inform);
+        diag.setOperation(operation);
+        diag.setPharmacy(pharmacy);
+        diag.setTreat(treat);
+        int insert = diagnosisAndTreatmentSchemeService.insert(diag);
+        return insert;
     }
 
 }
