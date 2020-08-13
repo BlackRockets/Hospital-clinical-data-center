@@ -127,6 +127,22 @@ public class Template implements Serializable {
         this.templateState = templateState;
     }
 
+    @Override
+    public String toString() {
+        return "Template{" +
+                "templateId=" + templateId +
+                ", followUpGroupId=" + followUpGroupId +
+                ", templateName='" + templateName + '\'' +
+                ", creationDate=" + creationDate +
+                ", creator='" + creator + '\'' +
+                ", updateDate=" + updateDate +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", versionNumber='" + versionNumber + '\'' +
+                ", templateState=" + templateState +
+                ", fm=" + fm +
+                '}';
+    }
+
     public FollowUpGroupManagement getFm() {
         return fm;
     }

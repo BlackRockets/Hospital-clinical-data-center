@@ -15,10 +15,11 @@
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <!--模板设置-->
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
         <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
     </div>
@@ -38,71 +39,68 @@
 
 </script>
 <script type="text/javascript">
+
+    new Vue({
+        el: '#box',
+        data:{
+        },
+        mounted:function(){
+            axios.post('/template/selectAllNoCondition')
+                .then(function (response) {
+                    console.log(response.data);
+                    $("#testTable").bootstrapTable("load",response.data);
+                }).catch(function () {});
+        }
+        })
+
     $("#testTable").bootstrapTable({
-        toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
-        //search : "true",
+        url: '',
         uniqueId: "ID",
         pageSize: "5",
         pageList: [10, 20],
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
         columns: [{
-            field: 'id',
+            field: 'templateName',
             title: '模板名称',
             align: 'center',
         }, {
-            field: 'name',
+            field: 'creationDate',
             title: '更新日期',
             align: 'center',
+            formatter: function (value, row, index) {
+                return value.substring(0, 10);
+            }
         }, {
-            field: 'price',
+            field: 'updatedBy',
             title: '更新者',
             align: 'center',
         },{
-            field: 'name',
+            field: 'versionNumber',
             title: '版本号',
             align: 'center',
         },{
-            field: 'age',
+            field: 'creationDate',
             title: '创建日期',
             align: 'center',
+            formatter: function (value, row, index) {
+                return value.substring(0, 10);
+            }
         },{
-            field: 'price',
+            field: 'templateState',
             title: '状态',
             align: 'center',
+            formatter: function (value, row, index) {
+                return value;
+            }
         }, {
             title: '操作',
             formatter: operateFormatter,
             align: 'center',
         }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 5,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }]
+        ]
     });
     function operateFormatter(value, row, index) {
         //添加按钮

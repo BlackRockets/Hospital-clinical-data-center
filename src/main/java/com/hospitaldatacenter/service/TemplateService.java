@@ -53,5 +53,11 @@ public interface TemplateService {
      * @return 是否成功
      */
     boolean deleteById();
+    /**
+     * 通过主键删除数据
+     *
+     * @return 影响行数
+     */
+    List<Template> selectAllNoCondition();
 
 }

@@ -51,6 +51,12 @@
             </if>
     </select>
 
+    <select id="selectAllNoCondition" resultMap="TemplateMap">
+        select t.*,f.group_name
+        from template t,follow_up_group_management f
+        where t.follow_up_group_id=f.id
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="" useGeneratedKeys="true">
         insert into hospital.template(template_id, follow_up_group_id, template_name, creation_date, creator, update_date, updated_by, version_number, template_state)

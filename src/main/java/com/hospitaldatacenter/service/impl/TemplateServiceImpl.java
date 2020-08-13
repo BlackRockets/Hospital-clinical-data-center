@@ -70,4 +70,10 @@ public class TemplateServiceImpl implements TemplateService {
     public boolean deleteById() {
         return this.templateDao.deleteById() > 0;
     }
+
+    @Override
+    public List<Template> selectAllNoCondition() {
+        List<Template> templates = templateDao.selectAllNoCondition();
+        return templates;
+    }
 }
