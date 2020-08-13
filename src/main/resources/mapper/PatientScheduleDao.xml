@@ -29,6 +29,11 @@
             <result property="responsibilityDepartments" column="responsibility_departments" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
+    <resultMap type="com.hospitaldatacenter.entity.Departments" id="departmentsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+    </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PatientScheduleMap">
@@ -223,5 +228,10 @@
         order by p.whiteBloodCell,p.bloodSugar desc
         limit 1
     </select>
+    <select id="selectAllDepartments" resultMap="departmentsMap">
+        select * from  departments
+    </select>
+
+
 
 </mapper>

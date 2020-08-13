@@ -2,6 +2,7 @@ package com.hospitaldatacenter.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.PatientScheduleDao;
+import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
@@ -114,5 +115,10 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
         }
         System.out.println("--------------------"+patientSchedules);
         return patientSchedules;
+    }
+
+    @Override
+    public List<Departments> queryAllDepartments() {
+        return patientScheduleDao.selectAllDepartments();
     }
 }

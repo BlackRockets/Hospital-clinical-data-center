@@ -1,6 +1,7 @@
 package com.hospitaldatacenter.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.PatientScheduleService;
@@ -46,6 +47,12 @@ public class PatientScheduleController {
     public String selectAllByCondition(@RequestBody(required = false) String dataItem){
         List<PatientSchedule> scheduleOfFollowUpGroups = patientScheduleService.selectAllByCondition(dataItem);
         return JSON.toJSONString(scheduleOfFollowUpGroups);
+    }
+
+
+    @RequestMapping(value = "findAllDepartments")
+    public List<Departments>  findAllDepartments(){
+        return patientScheduleService.queryAllDepartments();
     }
 
 }
