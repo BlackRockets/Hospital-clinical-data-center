@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.dao;
 
+import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import org.apache.ibatis.annotations.Param;
 import org.omg.CORBA.INTERNAL;
@@ -98,5 +99,11 @@ public interface ScheduleOfFollowUpGroupDao {
      * @return 对象列表
      */
     List<ScheduleOfFollowUpGroup> selectAllByNoFollowUpState();
+
+    /**
+     *@description:  添加根据所在科室id查询所有患者信息到随访明细
+     *@author: zyl
+     */
+    int insertPatientSchedule(PatientSchedule patientSchedule);
 
 }

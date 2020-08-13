@@ -35,7 +35,7 @@ public interface DiagnosisAndTreatmentSchemeService {
      * @param diagnosisAndTreatmentScheme 实例对象
      * @return 实例对象
      */
-    DiagnosisAndTreatmentScheme insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme);
+    int insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme);
 
     /**
      * 修改数据
@@ -52,5 +52,11 @@ public interface DiagnosisAndTreatmentSchemeService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+    /**
+     * 查询所有id
+     *
+     * @return 对象列表
+     */
+    List<DiagnosisAndTreatmentScheme> queryAllId();
 
 }

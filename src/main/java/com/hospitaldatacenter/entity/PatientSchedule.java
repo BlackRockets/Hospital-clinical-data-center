@@ -17,6 +17,10 @@ public class PatientSchedule implements Serializable {
      */
     private Integer groupDetailId;
     /**
+     * 随访组id
+     */
+    private Integer followUpGroupId;
+    /**
      * 姓名
      */
     private String name;
@@ -58,6 +62,122 @@ public class PatientSchedule implements Serializable {
     private Integer patientInfoId;
 
     private String  condition;
+    /**
+     * 疾病名称
+     */
+    private String diseaseName;
+    /**
+     * 疾病代码
+     */
+    private String diseaseCode;
+    /**
+     * 疾病代码1
+     */
+    private String diseaseCode1;
+    /**
+     * 疾病代码2
+     */
+    private String diseaseCode2;
+    /**
+     * 所在科室id
+     */
+    private Integer departmentsId;
+    /**
+     * 住院号
+     */
+    private Integer inpatientNumber;
+    /**
+     * 门诊号
+     */
+    private Integer outpatientNumber;
+    /**
+     * 入组日期
+     */
+    private String groupEntryTime;
+    /**
+     * 随访状态
+     */
+    private String followUpState;
+
+    public String getDiseaseCode1() {
+        return diseaseCode1;
+    }
+
+    public void setDiseaseCode1(String diseaseCode1) {
+        this.diseaseCode1 = diseaseCode1;
+    }
+
+    public String getDiseaseCode2() {
+        return diseaseCode2;
+    }
+
+    public void setDiseaseCode2(String diseaseCode2) {
+        this.diseaseCode2 = diseaseCode2;
+    }
+
+    public Integer getFollowUpGroupId() {
+        return followUpGroupId;
+    }
+
+    public void setFollowUpGroupId(Integer followUpGroupId) {
+        this.followUpGroupId = followUpGroupId;
+    }
+
+    public String getFollowUpState() {
+        return followUpState;
+    }
+
+    public void setFollowUpState(String followUpState) {
+        this.followUpState = followUpState;
+    }
+
+    public String getGroupEntryTime() {
+        return groupEntryTime;
+    }
+
+    public void setGroupEntryTime(String groupEntryTime) {
+        this.groupEntryTime = groupEntryTime;
+    }
+
+    public Integer getInpatientNumber() {
+        return inpatientNumber;
+    }
+
+    public void setInpatientNumber(Integer inpatientNumber) {
+        this.inpatientNumber = inpatientNumber;
+    }
+
+    public Integer getOutpatientNumber() {
+        return outpatientNumber;
+    }
+
+    public void setOutpatientNumber(Integer outpatientNumber) {
+        this.outpatientNumber = outpatientNumber;
+    }
+
+    public String getDiseaseName() {
+        return diseaseName;
+    }
+
+    public void setDiseaseName(String diseaseName) {
+        this.diseaseName = diseaseName;
+    }
+
+    public String getDiseaseCode() {
+        return diseaseCode;
+    }
+
+    public void setDiseaseCode(String diseaseCode) {
+        this.diseaseCode = diseaseCode;
+    }
+
+    public Integer getDepartmentsId() {
+        return departmentsId;
+    }
+
+    public void setDepartmentsId(Integer departmentsId) {
+        this.departmentsId = departmentsId;
+    }
 
     @Override
     public String toString() {

@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.service;
 
+import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 
 import java.util.List;
@@ -85,6 +86,12 @@ public interface ScheduleOfFollowUpGroupService {
      * @return 对象列表
      */
     List<ScheduleOfFollowUpGroup> selectAllByNoFollowUpState();
+
+    /**
+     *@description: 添加所在科室id查询所有患者信息
+     *@author: zyl
+     */
+    void addQueryAllDepartmentsByDepartmentsId(String patientSchedule);
 
 
 }

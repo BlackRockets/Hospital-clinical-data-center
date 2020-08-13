@@ -3,6 +3,7 @@ package com.hospitaldatacenter.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
+import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.ScheduleOfFollowUpGroupService;
 import org.springframework.web.bind.annotation.*;
@@ -120,5 +121,14 @@ public class ScheduleOfFollowUpGroupController {
     @RequestMapping("selectByCondition")
     public List<ScheduleOfFollowUpGroup> selectByCondition(@RequestBody String scheduleOfFollowUpGroup){
         return scheduleOfFollowUpGroupService.queryByCondition(scheduleOfFollowUpGroup);
+    }
+
+    /**
+     *@description: 按科室入组
+     *@author: zyl
+     */
+    @RequestMapping("findAllDepartmentsByDepartmentsId")
+    public void findAllDepartmentsByDepartmentsId(@RequestBody String patientSchedule) {
+        scheduleOfFollowUpGroupService.addQueryAllDepartmentsByDepartmentsId(patientSchedule);
     }
 }

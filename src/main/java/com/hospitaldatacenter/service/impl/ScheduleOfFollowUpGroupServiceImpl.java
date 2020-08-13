@@ -2,8 +2,10 @@ package com.hospitaldatacenter.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.hospitaldatacenter.dao.PatientScheduleDao;
 import com.hospitaldatacenter.dao.ScheduleOfFollowUpGroupDao;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
+import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.ScheduleOfFollowUpGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ import java.util.List;
 public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGroupService {
     @Autowired
     private ScheduleOfFollowUpGroupDao scheduleOfFollowUpGroupDao;
+    @Resource
+    private PatientScheduleDao patientScheduleDao;
 
     /**
      * 通过ID查询单条数据
@@ -130,5 +134,23 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
     public List<ScheduleOfFollowUpGroup> selectAllByNoFollowUpState() {
         List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupDao.selectAllByNoFollowUpState();
         return scheduleOfFollowUpGroups;
+    }
+
+
+
+    @Override
+    public void addQueryAllDepartmentsByDepartmentsId(String patientSchedule) {
+        PatientSchedule patientSchedule1 = JSONObject.parseObject(patientSchedule, PatientSchedule.class);
+        Integer id = patientSchedule1.getId();
+
+        List<PatientSchedule> patientSchedules = patientScheduleDao.selectAllDepartmentsByDepartmentsId(patientSchedule1);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(new Date());
+        for (PatientSchedule patientSchedule2 : patientSchedules) {
+            patientSchedule2.setGroupEntryTime(format);
+            patientSchedule2.setFollowUpState("未随访");
+            patientSchedule2.setFollowUpGroupId(id);
+            scheduleOfFollowUpGroupDao.insertPatientSchedule(patientSchedule2);
+        }
     }
 }

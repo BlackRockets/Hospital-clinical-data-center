@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.service;
 
+import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.PatientSchedule;
 
 import java.util.List;
@@ -66,5 +67,12 @@ public interface PatientScheduleService {
 
     List<PatientSchedule> selectAllByCondition(String patientSchedule);
 
+
+    /**
+     *
+     * @return 所有科室
+     */
+
+    List<Departments> queryAllDepartments();
 
 }

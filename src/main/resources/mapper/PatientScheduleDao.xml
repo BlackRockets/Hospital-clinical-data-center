@@ -15,6 +15,11 @@
         <result property="bloodsugar" column="bloodSugar" jdbcType="OTHER"/>
         <result property="symptom" column="symptom" jdbcType="VARCHAR"/>
         <result property="patientInfoId" column="patient_info_id" jdbcType="INTEGER"/>
+        <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
+        <result property="diseaseCode" column="disease_code" jdbcType="VARCHAR"/>
+        <result property="departmentsId" column="departments_id" jdbcType="INTEGER"/>
+        <result property="inpatientNumber" column="inpatient_number" jdbcType="VARCHAR"/>
+        <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
         <association property="scheduleOfFollowUpGroup"
                      javaType="com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup">
             <result property="id" column="id" jdbcType="INTEGER"/>
@@ -28,6 +33,11 @@
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
             <result property="responsibilityDepartments" column="responsibility_departments" jdbcType="VARCHAR"/>
         </association>
+    </resultMap>
+    <resultMap type="com.hospitaldatacenter.entity.Departments" id="departmentsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -45,6 +55,24 @@
           id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom, patient_info_id
         from hospital.patient_schedule
         limit #{offset}, #{limit}
+    </select>
+
+    <!--根据所在科室id查询所有患者信息-->
+    <select id="selectAllDepartmentsByDepartmentsId" resultMap="PatientScheduleMap">
+        select
+          id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom, patient_info_id,disease_name,disease_code,departments_id,inpatient_number,outpatient_number
+        from hospital.patient_schedule
+        <where>
+            <if test="departmentsId != null and departmentsId != '' ">
+                departments_id = #{departmentsId}
+            </if>
+            <if test="diseaseName != null and diseaseName != '' ">
+                and disease_name = #{diseaseName}
+            </if>
+            <if test="diseaseCode1 != null and diseaseCode1 != '' and diseaseCode2 != null and diseaseCode2 != '' ">
+                and disease_code between #{diseaseCode1} and #{diseaseCode2}
+            </if>
+        </where>
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -223,5 +251,10 @@
         order by p.whiteBloodCell,p.bloodSugar desc
         limit 1
     </select>
+    <select id="selectAllDepartments" resultMap="departmentsMap">
+        select * from  departments
+    </select>
+
+
 
 </mapper>

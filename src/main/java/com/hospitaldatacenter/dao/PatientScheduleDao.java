@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.dao;
 
+import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.PatientSchedule;
 import org.apache.ibatis.annotations.Param;
 
@@ -99,5 +100,17 @@ public interface PatientScheduleDao {
      */
 
     List<PatientSchedule> selectAllByConditionMin(PatientSchedule patientSchedule);
+
+    /**
+     *@description:  查询所有科室
+     *@author: zyl
+     */
+    List<Departments> selectAllDepartments();
+
+    /**
+     *@description:  根据所在科室id查询所有患者信息
+     *@author: zyl
+     */
+    List<PatientSchedule> selectAllDepartmentsByDepartmentsId(PatientSchedule patientSchedule);
 
 }

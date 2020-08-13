@@ -40,7 +40,7 @@ public interface DataReviewDao {
      * @param dataReview 实例对象
      * @return 对象列表
      */
-    List<DataReview> queryAll(DataReview dataReview,@Param("reviewerTime1") Date reviewerTime1);
+    List<DataReview> queryAll(@Param("dataReview")DataReview dataReview,@Param("reviewerTime1") Date reviewerTime1);
 
     /**
      * 新增数据
