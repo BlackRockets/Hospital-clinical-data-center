@@ -49,10 +49,15 @@ public class PatientScheduleController {
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
-
+    /**
+     *@description:查询所有科室
+     *@author: zyl
+     */
     @RequestMapping(value = "findAllDepartments")
     public List<Departments>  findAllDepartments(){
         return patientScheduleService.queryAllDepartments();
     }
+
+
 
 }

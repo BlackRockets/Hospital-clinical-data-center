@@ -106,4 +106,11 @@ public interface PatientScheduleDao {
      *@author: zyl
      */
     List<Departments> selectAllDepartments();
+
+    /**
+     *@description:  根据所在科室id查询所有患者信息
+     *@author: zyl
+     */
+    List<PatientSchedule> selectAllDepartmentsByDepartmentsId(PatientSchedule patientSchedule);
+
 }

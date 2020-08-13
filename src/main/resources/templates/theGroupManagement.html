@@ -20,7 +20,7 @@
 <body>
 <div class="container-fluid" id="app">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returnFollowGroup()">返回随访组</a>
     </div>
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="#t1" data-toggle="tab">入组范围</a></li>
@@ -63,8 +63,8 @@
                                     科室：
                                 </div>
                                 <div class="col-sm-7" >
-                                    <select class="form-control input-sm"  v-model='department_id'>
-                                        <option>-请选择-</option>
+                                    <select class="form-control input-sm"  v-model='item.departmentsId'>
+                                        <option value="">-请选择-</option>
                                         <option v-for="(department,index) in departments" :value="department.id">{{department.departmentsName}}</option>
                                     </select>
                                 </div>
@@ -82,27 +82,27 @@
                                 <div class="col-sm-3" style="margin-top: 5px">
                                     疾病编码
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control input-sm" >
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control input-sm" v-model="item.diseaseCode1">
                                 </div>
-                                <div class="col-sm-3" style="text-align:center">~</div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control input-sm" >
+                                <div class="col-sm-1" style="text-align:center">~</div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control input-sm" v-model="item.diseaseCode2">
                                 </div>
                             </div><br/><br/><br/>
                             <div class="row col-lg-4" style="color: blue">
                                 <div class="col-sm-3" style="margin-top: 5px">
                                     疾病名称
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control input-sm" >
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control input-sm" v-model="item.diseaseName">
                                 </div>
 
                             </div>
                         </form><br/><br/><br/><br/>
                         <div class="row col-lg-4" style="text-align: center">
                             <button type="button" class="btn btn-info btn-sm"
-                                    data-dismiss="modal" v-on:click="save()">保存
+                                    data-dismiss="modal" v-on:click="save">保存
                             </button>
                         </div>
                     </div>
@@ -182,10 +182,20 @@
     </div>
 </div>
 <script>
+    var newHref = window.location.href;
+    var num = newHref.indexOf('id=') + 3;
+    var len = newHref.length;
+    var idVal = newHref.substring(num, len);
+    var id = idVal;
     var vm = new Vue({
         el:'#app',
         data:{
-            department_id:'',
+            item:{
+                departmentsId:'',
+                diseaseCode1:'',
+                diseaseCode2:'',
+                diseaseName:'',
+            },
             departments:[],
         },
         mounted:function(){
@@ -196,12 +206,24 @@
         },
         methods:{
             save() {
+                var formData = this.item;
+                formData.id = id;
+                axios.post('/scheduleOfFollowUpGroup/findAllDepartmentsByDepartmentsId',formData)
+                    .then(function (res) {
+                        alert("保存成功")
+                    })
+                    .catch(function (err) {
 
+                    });
             }
         }
     })
 </script>
 <script type="text/javascript">
+
+    function returnFollowGroup(){
+        window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
+    }
     function ch(tag){
         var div1=document.getElementById("div1");
         var div2=document.getElementById("div2");
