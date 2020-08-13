@@ -37,8 +37,53 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into hospital.diagnosis_and_treatment_scheme(pharmacy, checkout, examine, treat, operation, inform)
-        values (#{pharmacy}, #{checkout}, #{examine}, #{treat}, #{operation}, #{inform})
+        insert into diagnosis_and_treatment_scheme
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            ID,
+        </if>
+        <if test="pharmacy != null">
+            pharmacy,
+        </if>
+        <if test="checkout != null">
+            checkout,
+        </if>
+        <if test="examine != null">
+            examine,
+        </if>
+        <if test="treat != null">
+            treat,
+        </if>
+        <if test="operation != null">
+            operation,
+        </if>
+        <if test="inform != null">
+            inform,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            #{id,jdbcType=INTEGER},
+        </if>
+        <if test="pharmacy != null">
+            #{pharmacy,jdbcType=VARCHAR},
+        </if>
+        <if test="checkout != null">
+            #{checkout,jdbcType=VARCHAR},
+        </if>
+        <if test="examine != null">
+            #{examine,jdbcType=VARCHAR},
+        </if>
+        <if test="treat != null">
+            #{treat,jdbcType=VARCHAR},
+        </if>
+        <if test="operation != null">
+            #{operation,jdbcType=VARCHAR},
+        </if>
+        <if test="inform != null">
+            #{inform,jdbcType=VARCHAR},
+        </if>
+        </trim>
     </insert>
 
     <!--通过主键修改数据-->

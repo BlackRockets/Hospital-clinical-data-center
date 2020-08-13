@@ -40,8 +40,9 @@
         </div>
         <div>
             <button class="btn-info">选择诊疗方案</button><br/>
+            <!--<a onclick="searchOne()" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>-->
             <a v-on:click="searchOne" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>
-            <a href="../templates/a.html">诊疗方案2</a>
+            <a v-on:click="searchTwo" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案2</a>
         </div>
     </div>
     <div class="col-lg-10">
@@ -268,7 +269,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="diagTable">
+                <table id="tableA">
                 </table>
             </div>
         </div><!-- /.modal-content -->
@@ -355,10 +356,16 @@
                     }).catch(function () {});
             },
             searchOne:function () {
-                axios.get('/diagnosisAndTreatmentScheme/selectOne?id='+2)
+                axios.get('/diagnosisAndTreatmentScheme/selectOne?id='+1)
                     .then(function (response) {
                         console.log(response.data);
-                        $("#diagTable").bootstrapTable("load",response.data);
+                        $("#tableA").bootstrapTable("load",response.data);
+                    }).catch(function () {});
+            },
+            searchTwo:function () {
+                axios.get('/diagnosisAndTreatmentScheme/selectOne?id='+2)
+                    .then(function (response) {
+                        $("#tableA").bootstrapTable("load",response.data);
                     }).catch(function () {});
             }
         }
@@ -473,7 +480,7 @@
         }
         ]
     });
-    $("#diagTable").bootstrapTable({
+    $("#tableA").bootstrapTable({
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
         //search : "true",
@@ -483,30 +490,36 @@
         columns: [{
             field: 'pharmacy',
             title: '用药',
-            align: 'center',
+            align: 'center'
         }, {
             field: 'checkout',
             title: '检验',
-            align: 'center',
+            align: 'center'
         }, {
             field: 'examine',
             title: '检查',
-            align: 'center',
+            align: 'center'
         }, {
             field: 'treat',
             title: '治疗',
-            align: 'center',
+            align: 'center'
         },{
             field: 'operation',
             title: '手术',
-            align: 'center',
+            align: 'center'
         },{
             field: 'inform',
             title: '通知',
-            align: 'center',
+            align: 'center'
         }
         ]
     });
+   /* function getParams(param) {
+        return 1;
+    }
+    function searchOne() {
+        $("#diagTable").bootstrapTable("refresh")
+    }*/
     function info() {
         var tou1=document.getElementById("tou");
         var xinxi1=document.getElementById("xinxi");

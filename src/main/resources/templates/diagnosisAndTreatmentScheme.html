@@ -27,142 +27,160 @@
         <h3 style="color: #28a4c9">诊疗方案</h3>
     </div>
     <div class="col-lg-1">
-        <ul>
-            <li v-for="(s,i) in list" >dd</li>
-                <!--<div v-for="s in list" style="width: 100px;height: 40px;text-align:center;background-color: blue;color: #ffffff;">{{s.id}}</div>-->
-        </ul>
-        <!--<button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn1')">诊疗方案1
-        </button>
-        <button type="button" style="margin-top: 20%" class="btn-info" onclick="ch('btn2')">诊疗方案2
-        </button>-->
+        <table id="tables"></table>
         <div style="margin-top: 30%;text-align: center">
-            <a onclick="ch('a')"><span style="color: green" class="glyphicon glyphicon-plus-sign"></span></a>
+            <a onclick="add()"><span style="color: green" class="glyphicon glyphicon-plus-sign"></span></a>
         </div>
     </div>
     <div class="col-lg-11" style="border-left: 2px solid #ccc;height: 600px">
-       <!-- <div id="diagnosis1" style="display: block">
+        <div id="diagnosis1" style="display: block">
             <table class="table table-bordered">
                 <tr>
                     <td style="width: 100px">1.用药</td>
-                    <td>1.降糖药 2.降压药 3.利尿剂
-                    </td>
+                    <td id="td1"></td>
                 </tr>
                 <tr>
                     <td>2.检验</td>
-                    <td>1.血常规 2.尿常规</td>
+                    <td id="td2">
                 </tr>
                 <tr>
-                    <td>3.检查</td>
-                    <td>1.胸外科CT</td>
+                    <td>3.检查</td><!--contentEditable="true"-->
+                    <td id="td3">
                 </tr>
                 <tr>
                     <td>4.治疗</td>
-                    <td>治疗方案说明</td>
+                    <td id="td4">
                 </tr>
                 <tr>
                     <td>5.手术</td>
-                    <td>手术术式说明</td>
+                    <td id="td5">
                 </tr>
                 <tr>
                     <td>6.通知</td>
-                    <td>通知明细</td>
+                    <td id="td6">
                 </tr>
             </table>
         </div>
-        <div id="diagnosis2" style="display: none">
+        <div id="diagnosis2" style="display: none;">
             <table class="table table-bordered">
                 <tr>
                     <td style="width: 100px">1.用药</td>
-                    <td>
-                    </td>
+                    <td id="tds1" contentEditable="true"></td>
                 </tr>
                 <tr>
                     <td>2.检验</td>
-                    <td>1.血常规 2.尿常规</td>
+                    <td id="tds2" contentEditable="true">
                 </tr>
                 <tr>
-                    <td>3.检查</td>
-                    <td>1.B超</td>
-                </tr>
-                <tr>
-                    <td>4.治疗</td>
-                    <td>治疗方案说明</td>
-                </tr>
-                <tr>
-                    <td>5.手术</td>
-                    <td>手术术式说明</td>
-                </tr>
-                <tr>
-                    <td>6.通知</td>
-                    <td>通知明细</td>
-                </tr>
-            </table>
-        </div>-->
-        <div id="diagnosis3" style="display: none">
-            <table class="table table-bordered">
-                <tr>
-                    <td style="width: 100px">1.用药</td>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2.检验</td>
-                    <td contentEditable="true">
-                </tr>
-                <tr>
-                    <td>3.检查</td>
-                    <td contentEditable="true">
+                    <td>3.检查</td><!--contentEditable="true"-->
+                    <td id="tds3" contentEditable="true">
                 </tr>
                 <tr>
                     <td>4.治疗</td>
-                    <td contentEditable="true">
+                    <td id="tds4" contentEditable="true">
                 </tr>
                 <tr>
                     <td>5.手术</td>
-                    <td contentEditable="true">
+                    <td id="tds5" contentEditable="true">
                 </tr>
                 <tr>
                     <td>6.通知</td>
-                    <td contentEditable="true">
+                    <td id="tds6" contentEditable="true">
                 </tr>
             </table>
+            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                    data-dismiss="modal" onclick="save()">保存
+            </button>
         </div>
     </div>
 
 </div>
 <script type="text/javascript">
-    /*$(function () {
-        $.ajax({
-            url: '/diagnosisAndTreatmentScheme/selectAllId',
-            type: 'json',
-            success:function (res) {
-                var result = "";
-                for(var i=0;i<res.length;i++){
-                    result+="<button type='button' style='margin-top: 20%' class='btn-info' v-on:click='ch'>诊疗方案"+res[i].id+"</button>";
-                }
-                var but = document.getElementById("but");
-                but.innerHTML=result;
+    $(function () {
+       ch(1);
+    })
 
+    $("#tables").bootstrapTable({
+        sidePagination: "true",
+        striped: true, // 是否显示行间隔色
+        //search : "true",
+        uniqueId: "ID",
+        url: '/diagnosisAndTreatmentScheme/selectAllId',
+        method: 'post',
+        columns: [{
+            field: 'id',
+            title: '诊疗方案',
+            align: 'center',
+            width:50,
+            formatter: function(value, row, index) {
+                return '<button type="button" style="width: 70px;height: 40px;" class="btn-info" onclick="ch('+row.id+')">方案'+row.id+'</button>';
+            }
+        }
+        ]
+    });
+
+    function ch(id) {
+        $.ajax({
+            url: '/diagnosisAndTreatmentScheme/selectOne?id='+id,
+            method: '',
+            success:function (res) {
+                document.getElementById("diagnosis1").style.display='block';
+                document.getElementById("diagnosis2").style.display='none';
+                $("#td1").html(res[0].pharmacy);
+                $("#td2").html(res[0].checkout);
+                $("#td3").html(res[0].examine);
+                $("#td4").html(res[0].treat);
+                $("#td5").html(res[0].operation);
+                $("#td6").html(res[0].inform);
             }
         })
-    })*/
+    }
+    function add() {
+        console.log(3);
+        document.getElementById("diagnosis1").style.display='none';
+        document.getElementById("diagnosis2").style.display='block';
 
-
-    new Vue({
-        el: '#box',
-        data(){
-            return {
-                list: null
+    }
+    function save() {
+        var val1 = document.getElementById("tds1").innerText;
+        var val2 = document.getElementById("tds2").innerText;
+        var val3 = document.getElementById("tds3").innerText;
+        var val4 = document.getElementById("tds4").innerText;
+        var val5 = document.getElementById("tds5").innerText;
+        var val6 = document.getElementById("tds6").innerText;
+        $.ajax({
+            url: '/diagnosisAndTreatmentScheme/save',
+            dataType:"JSON",
+            data: {
+                "pharmacy": val1,
+                "checkout": val2,
+                "examine": val3,
+                "treat": val4,
+                "operation": val5,
+                "inform": val6,
+            },
+            success:function (res) {
+                $("#tables").bootstrapTable("refresh");
             }
+        })
+    }
+   /* new Vue({
+        el: '#box',
+        data:{
         },
-        mounted:function(){
-            axios.get('/diagnosisAndTreatmentScheme/selectAllId')
-                .then(function (response) {
-                    this.list = response.data;
-                    console.log(this.list);
-                }).catch(function () {});
-        },
-    })
+        methods:{
+            save:function(){
+
+
+                /!*axios.get('/diagnosisAndTreatmentScheme/selectAllId')
+                    .then(function (response) {
+                        $("#tables").bootstrapTable("load",response.data);
+                        console.log(response.data);
+                    }).catch(function () {});*!/
+            }
+        }
+
+    })*/
     /*function ch(tag) {
         var diagnosis1 = document.getElementById("diagnosis1");
         var diagnosis2 = document.getElementById("diagnosis2");

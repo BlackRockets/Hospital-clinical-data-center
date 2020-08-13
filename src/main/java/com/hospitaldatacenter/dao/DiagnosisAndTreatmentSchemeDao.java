@@ -62,4 +62,6 @@ public interface DiagnosisAndTreatmentSchemeDao {
      */
     int deleteById(Integer id);
 
+
+
 }
