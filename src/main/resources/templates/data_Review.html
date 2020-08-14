@@ -279,7 +279,8 @@
             var id = index;
             var data = JSON.stringify(row);
             var result = "";
-            result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改'><span class='glyphicon glyphicon-zoom-in'></span></button>";
+            result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改'>" +
+                "<span class='glyphicon glyphicon-zoom-in'></span></button>";
             return result;
         }
     });

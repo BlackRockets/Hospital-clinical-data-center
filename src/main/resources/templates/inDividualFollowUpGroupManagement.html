@@ -353,6 +353,7 @@
             },
             edit:function () {
                 var row=$("#testTable").bootstrapTable('getSelections');
+                console.log(row);
                 $("#id").val(row[0].id);
                 $("#inpatientNumber").val(row[0].inpatientNumber);
                 $("#name").val(row[0].name);

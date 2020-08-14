@@ -1,7 +1,10 @@
 package com.hospitaldatacenter.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.DepartmentsDao;
 import com.hospitaldatacenter.dao.UserDao;
+import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
 import org.springframework.stereotype.Service;
@@ -64,8 +67,10 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public int update(User user) {
-        return userDao.update(user);
+    public int update(String user) {
+        JSON parse = (JSON) JSON.parse(user);
+        User user1=JSON.toJavaObject(parse, User.class);
+        return this.userDao.update(user1);
     }
 
     /**
@@ -75,7 +80,7 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     @Override
-    public int delete(Integer userId) {
+    public int delete(Integer[] userId) {
 
         return this.userDao.delete(userId);
     }
