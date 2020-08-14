@@ -34,28 +34,31 @@ public class DataReviewController {
 
     /**
      * 查询所有数据
-     *
      */
     @ResponseBody
-    @GetMapping(value = "selectAll",produces = {"application/json;charset=utf-8"})
+    @GetMapping(value = "selectAll", produces = {"application/json;charset=utf-8"})
     public List<DataReview> selectAll(String reviewerTime1, DataReview dataReview, PatientSchedule ps, FollowUpGroupManagement fugm) {
         dataReview.setPs(ps);
         dataReview.setFugm(fugm);
+        Date reviewerTime2 = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date reviewerTime2= null;
-        try {
-            reviewerTime2 = format.parse(reviewerTime1);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (reviewerTime1 == null) {
+            reviewerTime2 = null;
+        } else {
+            try {
+                reviewerTime2 = format.parse(reviewerTime1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-
-        List<DataReview> dataReviews = dataReviewService.findAllDataReviewService(dataReview,reviewerTime2);
+        List<DataReview> dataReviews = dataReviewService.findAllDataReviewService(dataReview, reviewerTime2);
         return dataReviews;
     }
+
     @ResponseBody
     @GetMapping("update")
-    public String update(DataReview dataReview){
-        int i=dataReviewService.update(dataReview);
+    public String update(DataReview dataReview) {
+        int i = dataReviewService.update(dataReview);
         return JSON.toJSONString(i);
     }
 }

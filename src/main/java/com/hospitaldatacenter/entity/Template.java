@@ -46,6 +46,12 @@ public class Template implements Serializable {
     /**
      * 状态(1:当前版本；2：未发布；3：已发布)
      */
+    /**
+     * 随访组Id
+     */
+
+    private Integer patientDetailsId;
+
     private Integer templateState;
 
     private FollowUpGroupManagement fm;
@@ -125,6 +131,16 @@ public class Template implements Serializable {
 
     public void setTemplateState(Integer templateState) {
         this.templateState = templateState;
+    }
+
+
+
+    public Integer getPatientDetailsId() {
+        return patientDetailsId;
+    }
+
+    public void setPatientDetailsId(Integer patientDetailsId) {
+        this.patientDetailsId = patientDetailsId;
     }
 
     @Override
