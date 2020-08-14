@@ -377,10 +377,16 @@
 </script>
 <script type="text/javascript">
     var newHref = window.location.href;
-    var num = newHref.indexOf('id=') + 3;
-    var len = newHref.length;
-    var idVal = newHref.substring(num, len);
+    var num1 = newHref.indexOf('id=') + 3;
+    var num2 = newHref.indexOf('&');
+    var idVal = newHref.substring(num1, num2);
     var id = idVal;
+
+    var num3 = newHref.indexOf('groupName=') + 10;
+    var len = newHref.length;
+    var groupName = newHref.substring(num3, len);
+    var s = decodeURI(groupName);
+    $('h3').html(s);
     $("#testTable").bootstrapTable({
         method: 'get',
         url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',

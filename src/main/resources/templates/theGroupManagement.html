@@ -168,6 +168,12 @@
                         <div class="col-lg-9">
                             <div id="div">
                             </div>
+
+                        </div>
+                        <div class="row" style="margin-left: 700px">
+                            <button type="button" class="btn btn-info btn-sm"
+                                    data-dismiss="modal" v-on:click="saveByDefinition">保存
+                            </button>
                         </div>
                     </div>
                     <div id="div5" style="display: none">
@@ -228,6 +234,18 @@
 
                     });
             },
+            saveByDefinition() {
+                var formData = {};
+                formData.name = $("#name").val();
+                formData.id = id;
+                axios.post('/scheduleOfFollowUpGroup/findAllDepartmentsByDepartmentsId',formData)
+                    .then(function (res) {
+                        alert("保存成功")
+                    })
+                    .catch(function (err) {
+
+                    });
+            },
         }
     })
 </script>
@@ -239,15 +257,18 @@
             nodes: [
                 {
                     text: "患者唯一标识",
-                    id: 3
+                    id: 3,
+                    href:'id'
                 },
                 {
                     text: "姓名",
-                    id: 4
+                    id: 4,
+                    href:'name'
                 },
                 {
                     text: "性别",
-                    id: 4
+                    id: 4,
+                    href:'sex'
                 },
                 {
                     text: "出生日期",
@@ -495,7 +516,7 @@
         for(var i=0;i<treeview.length;i++){
             result+="<div class=\"col-lg-6\" style=\"margin-top: 2%\">\n" +
                 "                                    <label>"+treeview[i].text+"</label>\n" +
-                "                                    <input type=\"text\">\n" +
+                "                                    <input type=\"text\"  id="+treeview[i].href+">\n" +
                 "                                </div>";
             $("#div").html(result);
         }
