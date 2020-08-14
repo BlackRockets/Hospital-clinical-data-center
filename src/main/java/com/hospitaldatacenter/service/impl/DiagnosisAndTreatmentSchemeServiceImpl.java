@@ -26,8 +26,8 @@ public class DiagnosisAndTreatmentSchemeServiceImpl implements DiagnosisAndTreat
      * @return 实例对象
      */
     @Override
-    public DiagnosisAndTreatmentScheme queryById(Integer id) {
-        return this.diagnosisAndTreatmentSchemeDao.queryById(id);
+    public DiagnosisAndTreatmentScheme queryById(Integer id,Integer groupId) {
+        return this.diagnosisAndTreatmentSchemeDao.queryById(id,groupId);
     }
 
     /**
@@ -50,6 +50,8 @@ public class DiagnosisAndTreatmentSchemeServiceImpl implements DiagnosisAndTreat
      */
     @Override
     public int insert(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme) {
+        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeDao.queryAll(diagnosisAndTreatmentScheme.getFollowUpGroupId());
+        diagnosisAndTreatmentScheme.setDiagId(diagnosisAndTreatmentSchemes.size()+1);
         int insert = diagnosisAndTreatmentSchemeDao.insert(diagnosisAndTreatmentScheme);
         return insert;
     }
@@ -63,7 +65,7 @@ public class DiagnosisAndTreatmentSchemeServiceImpl implements DiagnosisAndTreat
     @Override
     public DiagnosisAndTreatmentScheme update(DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme) {
         this.diagnosisAndTreatmentSchemeDao.update(diagnosisAndTreatmentScheme);
-        return this.queryById(diagnosisAndTreatmentScheme.getId());
+        return null;
     }
 
     /**
@@ -78,8 +80,8 @@ public class DiagnosisAndTreatmentSchemeServiceImpl implements DiagnosisAndTreat
     }
 
     @Override
-    public List<DiagnosisAndTreatmentScheme> queryAllId() {
-        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeDao.queryAll();
+    public List<DiagnosisAndTreatmentScheme> queryAllId(Integer groupId) {
+        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeDao.queryAll(groupId);
         return diagnosisAndTreatmentSchemes;
     }
 }

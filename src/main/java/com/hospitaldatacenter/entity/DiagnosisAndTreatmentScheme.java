@@ -11,19 +11,6 @@ import java.io.Serializable;
 public class DiagnosisAndTreatmentScheme implements Serializable {
     private static final long serialVersionUID = -67987860381293002L;
 
-    @Override
-    public String toString() {
-        return "DiagnosisAndTreatmentScheme{" +
-                "id=" + id +
-                ", pharmacy='" + pharmacy + '\'' +
-                ", checkout='" + checkout + '\'' +
-                ", examine='" + examine + '\'' +
-                ", treat='" + treat + '\'' +
-                ", operation='" + operation + '\'' +
-                ", inform='" + inform + '\'' +
-                '}';
-    }
-
     /**
      * id
      */
@@ -52,7 +39,45 @@ public class DiagnosisAndTreatmentScheme implements Serializable {
      * 通知
      */
     private String inform;
+    /**
+     * 随访组id
+     */
+    private int followUpGroupId;
+    /**
+     * 方案标识
+     */
+    private int diagId;
 
+    @Override
+    public String toString() {
+        return "DiagnosisAndTreatmentScheme{" +
+                "id=" + id +
+                ", pharmacy='" + pharmacy + '\'' +
+                ", checkout='" + checkout + '\'' +
+                ", examine='" + examine + '\'' +
+                ", treat='" + treat + '\'' +
+                ", operation='" + operation + '\'' +
+                ", inform='" + inform + '\'' +
+                ", followUpGroupId=" + followUpGroupId +
+                ", diagId=" + diagId +
+                '}';
+    }
+
+    public int getDiagId() {
+        return diagId;
+    }
+
+    public void setDiagId(int diagId) {
+        this.diagId = diagId;
+    }
+
+    public int getFollowUpGroupId() {
+        return followUpGroupId;
+    }
+
+    public void setFollowUpGroupId(int followUpGroupId) {
+        this.followUpGroupId = followUpGroupId;
+    }
 
     public Integer getId() {
         return id;

@@ -96,8 +96,14 @@
 
 </div>
 <script type="text/javascript">
+    var urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var  newsid=newsids[1];//得到参数值
     $(function () {
-       ch(1);
+       ch(1,newsid);
     })
 
     $("#tables").bootstrapTable({
@@ -105,7 +111,7 @@
         striped: true, // 是否显示行间隔色
         //search : "true",
         uniqueId: "ID",
-        url: '/diagnosisAndTreatmentScheme/selectAllId',
+        url: '/diagnosisAndTreatmentScheme/selectAllId?groupId='+newsid,
         method: 'post',
         columns: [{
             field: 'id',
@@ -113,15 +119,17 @@
             align: 'center',
             width:50,
             formatter: function(value, row, index) {
-                return '<button type="button" style="width: 70px;height: 40px;" class="btn-info" onclick="ch('+row.id+')">方案'+row.id+'</button>';
+                console.log(index)
+                var diagId=index+1;
+                return '<button type="button" style="width: 70px;height: 40px;" class="btn-info" onclick="ch('+diagId+','+newsid+')">方案'+diagId+'</button>';
             }
         }
         ]
     });
 
-    function ch(id) {
+    function ch(id,newsid) {
         $.ajax({
-            url: '/diagnosisAndTreatmentScheme/selectOne?id='+id,
+            url: '/diagnosisAndTreatmentScheme/selectOne?id='+id+'&&groupId='+newsid,
             method: '',
             success:function (res) {
                 document.getElementById("diagnosis1").style.display='block';
@@ -157,6 +165,7 @@
                 "treat": val4,
                 "operation": val5,
                 "inform": val6,
+                "groupId": newsid
             },
             success:function (res) {
                 $("#tables").bootstrapTable("refresh");
