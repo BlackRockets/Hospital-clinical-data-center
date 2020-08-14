@@ -10,14 +10,16 @@
         <result property="treat" column="treat" jdbcType="VARCHAR"/>
         <result property="operation" column="operation" jdbcType="VARCHAR"/>
         <result property="inform" column="inform" jdbcType="VARCHAR"/>
+        <result property="followUpGroupId" column="follow_up_group_id" jdbcType="INTEGER"/>
+        <result property="diagId" column="diag_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DiagnosisAndTreatmentSchemeMap">
         select
-          id, pharmacy, checkout, examine, treat, operation, inform
+          id, pharmacy, checkout, examine, treat, operation, inform, follow_up_group_id, diag_id
         from hospital.diagnosis_and_treatment_scheme
-        where id = #{id}
+        where diag_id = #{id} and follow_up_group_id = #{groupId}
     </select>
 
     <!--查询指定行数据-->
@@ -31,58 +33,71 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="DiagnosisAndTreatmentSchemeMap">
         select
-        id, pharmacy, checkout, examine, treat, operation, inform
+        id, pharmacy, checkout, examine, treat, operation, inform, follow_up_group_id, diag_id
         from hospital.diagnosis_and_treatment_scheme
+        where follow_up_group_id = #{groupId}
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into diagnosis_and_treatment_scheme
         <trim prefix="(" suffix=")" suffixOverrides=",">
-        <if test="id != null">
-            ID,
-        </if>
-        <if test="pharmacy != null">
-            pharmacy,
-        </if>
-        <if test="checkout != null">
-            checkout,
-        </if>
-        <if test="examine != null">
-            examine,
-        </if>
-        <if test="treat != null">
-            treat,
-        </if>
-        <if test="operation != null">
-            operation,
-        </if>
-        <if test="inform != null">
-            inform,
-        </if>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="pharmacy != null">
+                pharmacy,
+            </if>
+            <if test="checkout != null">
+                checkout,
+            </if>
+            <if test="examine != null">
+                examine,
+            </if>
+            <if test="treat != null">
+                treat,
+            </if>
+            <if test="operation != null">
+                operation,
+            </if>
+            <if test="inform != null">
+                inform,
+            </if>
+            <if test="followUpGroupId != null">
+                follow_up_group_id,
+            </if>
+            <if test="diagId != null">
+                diag_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-        <if test="id != null">
-            #{id,jdbcType=INTEGER},
-        </if>
-        <if test="pharmacy != null">
-            #{pharmacy,jdbcType=VARCHAR},
-        </if>
-        <if test="checkout != null">
-            #{checkout,jdbcType=VARCHAR},
-        </if>
-        <if test="examine != null">
-            #{examine,jdbcType=VARCHAR},
-        </if>
-        <if test="treat != null">
-            #{treat,jdbcType=VARCHAR},
-        </if>
-        <if test="operation != null">
-            #{operation,jdbcType=VARCHAR},
-        </if>
-        <if test="inform != null">
-            #{inform,jdbcType=VARCHAR},
-        </if>
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="pharmacy != null">
+                #{pharmacy,jdbcType=VARCHAR},
+            </if>
+            <if test="checkout != null">
+                #{checkout,jdbcType=VARCHAR},
+            </if>
+            <if test="examine != null">
+                #{examine,jdbcType=VARCHAR},
+            </if>
+            <if test="treat != null">
+                #{treat,jdbcType=VARCHAR},
+            </if>
+            <if test="operation != null">
+                #{operation,jdbcType=VARCHAR},
+            </if>
+            <if test="inform != null">
+                #{inform,jdbcType=VARCHAR},
+            </if>
+            <if test="followUpGroupId != null">
+                #{followUpGroupId,jdbcType=VARCHAR},
+            </if>
+            <if test="diagId != null">
+                #{diagId,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
 

@@ -31,7 +31,7 @@
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="groupEntry()">入组管理</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='templateSettings.html'">模板设置</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">随访规定设定</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='diagnosisAndTreatmentScheme.html'">诊疗方案</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="diag()">诊疗方案</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">节假日管理</button>
     </div>
     <div class="row">
@@ -463,6 +463,11 @@
     function groupEntry() {
         window.location.href="theGroupManagement.html?id="+id;
     }
+
+    function diag() {
+        window.location.href="diagnosisAndTreatmentScheme.html?id="+id;
+    }
+
     function operateFormatter(value, row, index){
         //添加按钮
         var rows = JSON.stringify(row);
