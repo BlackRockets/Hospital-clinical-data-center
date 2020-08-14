@@ -2,6 +2,7 @@ package com.hospitaldatacenter.dao;
 
 import com.hospitaldatacenter.entity.DiagnosisAndTreatmentScheme;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface DiagnosisAndTreatmentSchemeDao {
      * @param id 主键
      * @return 实例对象
      */
-    DiagnosisAndTreatmentScheme queryById(Integer id);
+    DiagnosisAndTreatmentScheme queryById(@Param("id") Integer id, @Param("groupId")Integer groupId);
 
     /**
      * 查询指定行数据
@@ -36,7 +37,7 @@ public interface DiagnosisAndTreatmentSchemeDao {
      *
      * @return 对象列表
      */
-    List<DiagnosisAndTreatmentScheme> queryAll();
+    List<DiagnosisAndTreatmentScheme> queryAll(Integer groupId);
 
     /**
      * 新增数据

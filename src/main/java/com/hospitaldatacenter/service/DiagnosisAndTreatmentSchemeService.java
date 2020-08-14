@@ -18,7 +18,7 @@ public interface DiagnosisAndTreatmentSchemeService {
      * @param id 主键
      * @return 实例对象
      */
-    DiagnosisAndTreatmentScheme queryById(Integer id);
+    DiagnosisAndTreatmentScheme queryById(Integer id,Integer groupId);
 
     /**
      * 查询多条数据
@@ -57,6 +57,6 @@ public interface DiagnosisAndTreatmentSchemeService {
      *
      * @return 对象列表
      */
-    List<DiagnosisAndTreatmentScheme> queryAllId();
+    List<DiagnosisAndTreatmentScheme> queryAllId(Integer groupId);
 
 }

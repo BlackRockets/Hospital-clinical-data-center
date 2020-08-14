@@ -34,20 +34,23 @@ public class DiagnosisAndTreatmentSchemeController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public List<DiagnosisAndTreatmentScheme> selectOne(Integer id) {
-        DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme = diagnosisAndTreatmentSchemeService.queryById(id);
+    public List<DiagnosisAndTreatmentScheme> selectOne(@RequestParam("id") Integer id,@RequestParam("groupId")Integer groupId) {
+        System.out.println(id+"=============="+groupId);
+
+        DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme = diagnosisAndTreatmentSchemeService.queryById(id,groupId);
         String s = JSON.toJSONString(diagnosisAndTreatmentScheme);
         ArrayList<DiagnosisAndTreatmentScheme> list = new ArrayList<>();
         list.add(diagnosisAndTreatmentScheme);
         return list;
     }
     @RequestMapping("selectAllId")
-    public List<DiagnosisAndTreatmentScheme> selectAllId(){
-        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeService.queryAllId();
+    public List<DiagnosisAndTreatmentScheme> selectAllId(Integer groupId){
+        System.out.println(groupId);
+        List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeService.queryAllId(groupId);
         return diagnosisAndTreatmentSchemes;
     }
     @RequestMapping("save")
-    public int save(@RequestParam("pharmacy")String pharmacy,@RequestParam("checkout")String checkout,@RequestParam("examine")String examine,@RequestParam("treat")String treat,@RequestParam("operation")String operation,@RequestParam("inform")String inform){
+    public int save(@RequestParam("pharmacy")String pharmacy,@RequestParam("checkout")String checkout,@RequestParam("examine")String examine,@RequestParam("treat")String treat,@RequestParam("operation")String operation,@RequestParam("inform")String inform,@RequestParam("groupId")Integer groupId){
         DiagnosisAndTreatmentScheme diag = new DiagnosisAndTreatmentScheme();
         diag.setCheckout(checkout);
         diag.setExamine(examine);
@@ -55,6 +58,7 @@ public class DiagnosisAndTreatmentSchemeController {
         diag.setOperation(operation);
         diag.setPharmacy(pharmacy);
         diag.setTreat(treat);
+        diag.setFollowUpGroupId(groupId);
         int insert = diagnosisAndTreatmentSchemeService.insert(diag);
         return insert;
     }
