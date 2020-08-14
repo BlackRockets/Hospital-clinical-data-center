@@ -15,6 +15,7 @@
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/js/bootstrap-treeview.js"></script>
     <!--入组管理-->
 </head>
 <body>
@@ -113,11 +114,9 @@
                                     医生
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.doctorId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userDoctor" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div><br/><br/><br/>
@@ -126,11 +125,9 @@
                                     护士
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.nurseId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userNurse" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div><br/><br/><br/>
@@ -139,11 +136,9 @@
                                     技师
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.technicianId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userTechnician" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div><br/><br/><br/>
@@ -152,23 +147,28 @@
                                     药师
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.pharmacistId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userPharmacist" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div>
                         </form><br/><br/><br/>
                         <div class="row col-lg-4" style="text-align: center">
                             <button type="button" class="btn btn-info btn-sm"
-                                    data-dismiss="modal" v-on:click="save()">保存
+                                    data-dismiss="modal" v-on:click="save">保存
                             </button>
                         </div>
                     </div>
                     <div id="div4" style="display: none">
-                        4
+                        <div class="col-lg-3">
+                            <table id="tree"></table>
+                            <button onclick="btn()" class="btn-info">确认选择</button>
+                        </div>
+                        <div class="col-lg-9">
+                            <div id="div">
+                            </div>
+                        </div>
                     </div>
                     <div id="div5" style="display: none">
                         5
@@ -182,6 +182,7 @@
     </div>
 </div>
 <script>
+
     var newHref = window.location.href;
     var num = newHref.indexOf('id=') + 3;
     var len = newHref.length;
@@ -195,13 +196,24 @@
                 diseaseCode1:'',
                 diseaseCode2:'',
                 diseaseName:'',
+                doctorId:'',
+                nurseId:'',
+                technicianId:'',
+                pharmacistId:'',
             },
             departments:[],
+            occupationPeople:{
+
+            },
         },
         mounted:function(){
             axios.get('/patientSchedule/findAllDepartments')
                 .then(function (response) {
                     vm.departments = response.data;
+                }).catch(function () {});
+            axios.get('/user/findAllPeopleByOccupation')
+                .then(function (response) {
+                    vm.occupationPeople = response.data;
                 }).catch(function () {});
         },
         methods:{
@@ -215,11 +227,279 @@
                     .catch(function (err) {
 
                     });
-            }
+            },
         }
     })
 </script>
 <script type="text/javascript">
+    var tree = [
+        {
+            text: "基本信息",
+            id: 2,
+            nodes: [
+                {
+                    text: "患者唯一标识",
+                    id: 3
+                },
+                {
+                    text: "姓名",
+                    id: 4
+                },
+                {
+                    text: "性别",
+                    id: 4
+                },
+                {
+                    text: "出生日期",
+                    id: 4
+                },
+                {
+                    text: "出生地",
+                    id: 4
+                },
+                {
+                    text: "文化程度(已审批)",
+                    id: 4
+                },
+                {
+                    text: "症状(待审批)",
+                    id: 4
+                },
+                {
+                    text: "电子邮件",
+                    id: 4
+                },
+                {
+                    text: "ABO血型",
+                    id: 4
+                },
+                {
+                    text: "RH血型(待审批)",
+                    id: 4
+                },
+                {
+                    text: "联系人",
+                    id: 4,
+                    nodes: [
+                        {
+                            text: "与患者信息",
+                            id: 3
+                        },
+                        {
+                            text: "姓名",
+                            id: 4
+                        },
+                        {
+                            text: "性别",
+                            id: 4
+                        },
+                        {
+                            text: "住址",
+                            id: 4
+                        },
+                        {
+                            text: "电子邮件",
+                            id: 4
+                        }
+                    ]
+                },
+                {
+                    text: "证件",
+                    id: 4,
+                    nodes: [
+                        {
+                            text: "身份证号",
+                            id: 3
+                        },
+                        {
+                            text: "户口簿号",
+                            id: 4
+                        },
+                        {
+                            text: "护照号",
+                            id: 4
+                        },
+                        {
+                            text: "军官证号",
+                            id: 4
+                        },
+                        {
+                            text: "驾驶证号",
+                            id: 4
+                        },
+                        {
+                            text: "港澳通行证号",
+                            id: 4
+                        },
+                        {
+                            text: "台湾通行证号",
+                            id: 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            text: "首页信息",
+            id: 2,
+            nodes: [
+                {
+                    text: "主要诊断",
+                    id: 3
+                },
+                {
+                    text: "门(急)诊诊断",
+                    id: 4
+                },
+                {
+                    text: "入院方式",
+                    id: 4
+                },
+                {
+                    text: "入院时间",
+                    id: 4
+                },
+                {
+                    text: "入院科室",
+                    id: 4
+                },
+                {
+                    text: "入院诊断",
+                    id: 4
+                },
+                {
+                    text: "入院医生",
+                    id: 4
+                },
+                {
+                    text: "主治医生",
+                    id: 4
+                },
+                {
+                    text: "出院时间",
+                    id: 4
+                },
+                {
+                    text: "出院科室",
+                    id: 4
+                },
+                {
+                    text: "出院状态",
+                    id: 4
+                },
+                {
+                    text: "出院诊断",
+                    id: 4
+                },
+                {
+                    text: "出院天数",
+                    id: 4
+                },
+                {
+                    text: "离院方式",
+                    id: 4
+                },
+                {
+                    text: "是否死亡",
+                    id: 4
+                }
+            ]
+        },
+        {
+            text: "手术信息",
+            id: 5,
+            nodes: [
+                {
+                    text: "手术名称",
+                    id: 3
+                },
+                {
+                    text: "手术日期",
+                    id: 4
+                },
+                {
+                    text: "手术执行科室",
+                    id: 4
+                },
+                {
+                    text: "手术开始时间",
+                    id: 4
+                },
+                {
+                    text: "手术结束时间",
+                    id: 4
+                },
+                {
+                    text: "手术工作量",
+                    id: 4
+                },
+                {
+                    text: "手术部位",
+                    id: 4
+                },
+                {
+                    text: "麻醉信息",
+                    id: 4,
+                    nodes: [
+                        {
+                            text: "麻醉方式",
+                            id: 3
+                        },
+                        {
+                            text: "麻醉科室",
+                            id: 4
+                        },
+                        {
+                            text: "麻醉准备时间",
+                            id: 4
+                        },
+                        {
+                            text: "麻醉开始时间",
+                            id: 4
+                        },
+                        {
+                            text: "麻醉结束时间",
+                            id: 4
+                        },
+                        {
+                            text: "麻醉工作量",
+                            id: 4
+                        }
+                    ]
+                }
+            ]
+
+        }
+    ];
+    $('#tree').treeview({
+        data: tree,         // 数据源
+        showCheckbox: true,   //是否显示复选框
+        highlightSelected: true,    //是否高亮选中
+        multiSelect: false, //多选
+        onNodeChecked: function (event, data) {
+
+            //console.log("nodeId = " + data.nodeId);
+            //console.log("id = " + data.text);
+            //console.log("data=" + data);
+        },
+        onNodeSelected: function (event, data) {
+           /* console.log(1)
+            console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);*/
+        }
+    });
+
+    function btn() {
+        var treeview = $('#tree').treeview('getChecked');
+        var result="";
+        for(var i=0;i<treeview.length;i++){
+            result+="<div class=\"col-lg-6\" style=\"margin-top: 2%\">\n" +
+                "                                    <label>"+treeview[i].text+"</label>\n" +
+                "                                    <input type=\"text\">\n" +
+                "                                </div>";
+            $("#div").html(result);
+        }
+    }
 
     function returnFollowGroup(){
         window.location.href="inDividualFollowUpGroupManagement.html?id="+id;

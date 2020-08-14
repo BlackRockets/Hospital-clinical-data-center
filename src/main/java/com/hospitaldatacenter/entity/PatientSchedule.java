@@ -98,6 +98,54 @@ public class PatientSchedule implements Serializable {
      * 随访状态
      */
     private String followUpState;
+    /**
+     * 医生id
+     */
+    private Integer doctorId;
+    /**
+     * 护士id
+     */
+    private Integer nurseId;
+    /**
+     * 技师id
+     */
+    private Integer technicianId;
+    /**
+     * 药师id
+     */
+    private Integer pharmacistId;
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Integer getNurseId() {
+        return nurseId;
+    }
+
+    public void setNurseId(Integer nurseId) {
+        this.nurseId = nurseId;
+    }
+
+    public Integer getTechnicianId() {
+        return technicianId;
+    }
+
+    public void setTechnicianId(Integer technicianId) {
+        this.technicianId = technicianId;
+    }
+
+    public Integer getPharmacistId() {
+        return pharmacistId;
+    }
+
+    public void setPharmacistId(Integer pharmacistId) {
+        this.pharmacistId = pharmacistId;
+    }
 
     public String getDiseaseCode1() {
         return diseaseCode1;

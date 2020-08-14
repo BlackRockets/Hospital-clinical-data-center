@@ -124,7 +124,7 @@ public class ScheduleOfFollowUpGroupController {
     }
 
     /**
-     *@description: 按科室入组
+     *@description: 按不同条件入组
      *@author: zyl
      */
     @RequestMapping("findAllDepartmentsByDepartmentsId")

@@ -2,6 +2,8 @@ package com.hospitaldatacenter.service;
 
 import com.hospitaldatacenter.entity.User;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -53,4 +55,10 @@ public interface UserService {
      */
     int delete(Integer[] userId);
 
+    /**
+     *@description:  查询四种职业的人
+     *@author: zyl
+     * @return
+     */
+    HashMap<String, ArrayList<User>> selectAllPeopleByOccupation();
 }
