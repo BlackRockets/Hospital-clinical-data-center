@@ -7,6 +7,8 @@ import com.hospitaldatacenter.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -78,5 +80,19 @@ public class UserServiceImpl implements UserService {
     public int delete(Integer userId) {
 
         return this.userDao.delete(userId);
+    }
+
+    @Override
+    public HashMap<String, ArrayList<User>> selectAllPeopleByOccupation() {
+        List<User> users = userDao.selectUserByDoctor();
+        List<User> users1 = userDao.selectUserByNurse();
+        List<User> users2 = userDao.selectUserByTechnician();
+        List<User> users3 = userDao.selectUserByPharmacist();
+        HashMap<String, ArrayList<User>> map = new HashMap<>();
+        map.put("userDoctor", (ArrayList<User>) users);
+        map.put("userNurse", (ArrayList<User>) users1);
+        map.put("userTechnician", (ArrayList<User>) users2);
+        map.put("userPharmacist", (ArrayList<User>) users3);
+        return map;
     }
 }

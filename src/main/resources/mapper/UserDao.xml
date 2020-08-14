@@ -10,6 +10,8 @@
         <result property="sex" column="sex" jdbcType="INTEGER"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="occupationId" column="occupation_id" jdbcType="INTEGER"/>
         <association property="departments" javaType="com.hospitaldatacenter.entity.Departments">
             <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
         </association>
@@ -21,6 +23,42 @@
           user_id, department_id, name, password, sex, phone, email
         from hospital.user
         where user_id = #{userId}
+    </select>
+
+    <!--查询（医生）-->
+    <select id="selectUserByDoctor" resultMap="UserMap">
+        select
+          user_id, department_id, name, password, sex, phone, email , salt, occupation_id
+        FROM hospital.USER u
+	    INNER JOIN occupation o ON u.occupation_id = o.id
+        WHERE o.occupation='医生'
+    </select>
+
+    <!--查询（护士）-->
+    <select id="selectUserByNurse" resultMap="UserMap">
+        select
+          user_id, department_id, name, password, sex, phone, email , salt, occupation_id
+        FROM hospital.USER u
+	    INNER JOIN occupation o ON u.occupation_id = o.id
+        WHERE o.occupation='护士'
+    </select>
+
+    <!--查询（技师）-->
+    <select id="selectUserByTechnician" resultMap="UserMap">
+        select
+          user_id, department_id, name, password, sex, phone, email , salt, occupation_id
+        FROM hospital.USER u
+	    INNER JOIN occupation o ON u.occupation_id = o.id
+        WHERE o.occupation='技师'
+    </select>
+
+    <!--查询（药师）-->
+    <select id="selectUserByPharmacist" resultMap="UserMap">
+        select
+          user_id, department_id, name, password, sex, phone, email, salt, occupation_id
+        FROM hospital.USER u
+	    INNER JOIN occupation o ON u.occupation_id = o.id
+        WHERE o.occupation='药师'
     </select>
 
     <!--查询指定行数据-->

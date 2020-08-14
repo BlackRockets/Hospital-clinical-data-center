@@ -65,4 +65,27 @@ public interface UserDao {
      */
     int delete(Integer userId);
 
+    /**
+     *@description:  查询（医生）职业的人
+     *@author: zyl
+     */
+    List<User> selectUserByDoctor();
+
+    /**
+     *@description:  查询（护士）职业的人
+     *@author: zyl
+     */
+    List<User> selectUserByNurse();
+
+    /**
+     *@description:  查询（技师）职业的人
+     *@author: zyl
+     */
+    List<User> selectUserByTechnician();
+
+    /**
+     *@description:  查询（药师）职业的人
+     *@author: zyl
+     */
+    List<User> selectUserByPharmacist();
 }

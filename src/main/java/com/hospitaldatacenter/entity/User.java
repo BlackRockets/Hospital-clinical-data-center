@@ -38,9 +38,32 @@ public class User implements Serializable {
      * 邮箱
      */
     private String email;
+    /**
+     * 盐
+     */
+    private String salt;
+    /**
+     * 职业
+     */
+    private Integer occupationId;
 
     private Departments departments;
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Integer getOccupationId() {
+        return occupationId;
+    }
+
+    public void setOccupationId(Integer occupationId) {
+        this.occupationId = occupationId;
+    }
 
     public Integer getUserId() {
         return userId;

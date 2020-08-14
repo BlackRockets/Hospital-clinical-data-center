@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (User)表控制层
@@ -54,5 +57,12 @@ public class UserController {
     public String delete(Integer id) {
        int i= userService.delete(id);
        return JSON.toJSONString(i);
+    }
+
+    @ResponseBody
+    @RequestMapping("findAllPeopleByOccupation")
+    public Map<String, ArrayList<User>> findAllPeopleByOccupation() {
+        HashMap<String, ArrayList<User>> map = userService.selectAllPeopleByOccupation();
+        return map;
     }
 }

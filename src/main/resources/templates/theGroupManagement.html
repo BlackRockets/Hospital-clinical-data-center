@@ -113,11 +113,9 @@
                                     医生
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.doctorId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userDoctor" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div><br/><br/><br/>
@@ -126,11 +124,9 @@
                                     护士
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.nurseId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userNurse" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div><br/><br/><br/>
@@ -139,11 +135,9 @@
                                     技师
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.technicianId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userTechnician" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div><br/><br/><br/>
@@ -152,18 +146,16 @@
                                     药师
                                 </div>
                                 <div class="col-sm-7">
-                                    <select class="form-control input-sm" >
+                                    <select class="form-control input-sm" v-model='item.pharmacistId'>
                                         <option>-请选择-</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option v-for="user in occupationPeople.userPharmacist" :value="user.userId">{{user.name}}</option>
                                     </select>
                                 </div>
                             </div>
                         </form><br/><br/><br/>
                         <div class="row col-lg-4" style="text-align: center">
                             <button type="button" class="btn btn-info btn-sm"
-                                    data-dismiss="modal" v-on:click="save()">保存
+                                    data-dismiss="modal" v-on:click="save">保存
                             </button>
                         </div>
                     </div>
@@ -195,13 +187,24 @@
                 diseaseCode1:'',
                 diseaseCode2:'',
                 diseaseName:'',
+                doctorId:'',
+                nurseId:'',
+                technicianId:'',
+                pharmacistId:'',
             },
             departments:[],
+            occupationPeople:{
+
+            },
         },
         mounted:function(){
             axios.get('/patientSchedule/findAllDepartments')
                 .then(function (response) {
                     vm.departments = response.data;
+                }).catch(function () {});
+            axios.get('/user/findAllPeopleByOccupation')
+                .then(function (response) {
+                    vm.occupationPeople = response.data;
                 }).catch(function () {});
         },
         methods:{
@@ -215,7 +218,7 @@
                     .catch(function (err) {
 
                     });
-            }
+            },
         }
     })
 </script>

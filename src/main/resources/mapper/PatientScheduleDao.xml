@@ -57,7 +57,7 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!--根据所在科室id查询所有患者信息-->
+    <!--根据不同条件查询所有患者信息-->
     <select id="selectAllDepartmentsByDepartmentsId" resultMap="PatientScheduleMap">
         select
           id, group_detail_id, name, sex, birth, nation, height, weight, whiteBloodCell, bloodSugar, symptom, patient_info_id,disease_name,disease_code,departments_id,inpatient_number,outpatient_number
@@ -71,6 +71,18 @@
             </if>
             <if test="diseaseCode1 != null and diseaseCode1 != '' and diseaseCode2 != null and diseaseCode2 != '' ">
                 and disease_code between #{diseaseCode1} and #{diseaseCode2}
+            </if>
+            <if test="doctorId != null and doctorId != '' ">
+                or doctor_Id = #{doctorId}
+            </if>
+            <if test="nurseId != null and nurseId != '' ">
+                or nurse_Id = #{nurseId}
+            </if>
+            <if test="technicianId != null and technicianId != '' ">
+                or technician_Id = #{technicianId}
+            </if>
+            <if test="pharmacistId != null and pharmacistId != '' ">
+                or pharmacist_Id = #{pharmacistId}
             </if>
         </where>
     </select>
