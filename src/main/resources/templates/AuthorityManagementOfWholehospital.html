@@ -23,17 +23,19 @@
         <h3 style="color: #28a4c9">管理科室权限(医务处)</h3>
     </div>
     <div class="row">
-        <form>
+        <form id="myform">
             <div class="col-md-6 " >
                 <div class="col-sm-9" style="margin-top: 5px;text-align: right">
                     科室名称：
                 </div>
                 <div class="col-sm-3" style="text-align: right">
-                    <select class="form-control input-sm" v-model="">
-                        <option>-请选择-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control input-sm" name="departmentId" >
+                        <option value="">-请选择-</option>
+                        <option value="1">脑瘤中心</option>
+                        <option value="2">内分泌</option>
+                        <option value="3">男科</option>
+                        <option value="4">妇科</option>
+                        <option value="5">儿科</option>
                     </select>
                 </div>
             </div>
@@ -42,11 +44,8 @@
                     人员名称：
                 </div>
                 <div class="col-sm-3" style="text-align: right">
-                    <select class="form-control input-sm" v-model="">
-                        <option>-请选择-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control input-sm" name="personName" id="personName">
+                        <option value="">-请选择-</option>
                     </select>
                 </div>
             </div>
@@ -54,12 +53,12 @@
     </div>
     <div class="row">
         <div class="col-md-6" style="text-align: center">
-            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" add()">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
                 新增
             </button>
         </div>
         <div class="col-md-6" style="text-align: center">
-            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick=" find()">
                 检索
             </button>
         </div>
@@ -75,6 +74,56 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    新增科室权限
+                </h4>
+            </div>
+            <div class="modal-body" style="height: 100px">
+                <form id="myform1">
+                <div class="row" style="margin-top: 5px">
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <label>科室名称：</label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control input-sm" name="departmentId" >
+                                <option value="">-请选择-</option>
+                                <option value="1">脑瘤中心</option>
+                                <option value="2">内分泌</option>
+                                <option value="3">男科</option>
+                                <option value="4">妇科</option>
+                                <option value="5">儿科</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <label>人员名称:</label>
+                        </div>
+                        <div class="col-md-6" style="text-align: left">
+                            <select class="form-control input-sm" name="personName" id="personName1">
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" onclick="save()">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <script type="text/html" id="barDemo">
     <a v-on:click="preview()">
         <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
@@ -83,6 +132,7 @@
 <script>
     $("#testTable").bootstrapTable({
         toolbar: "#toolbar",
+        url:'/permission/selectAll',
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
         //search : "true",
@@ -90,50 +140,32 @@
         pageSize: "5",
         pageList: [10, 20],
         pagination: true, // 是否分页
+        queryParams: queryParams,//传递参数（*）
         //sortable: true, // 是否启用排序
         columns: [{
             field: 'id',
             title: '序号',
             align: 'center',
         }, {
-            field: 'department',
+            field: 'departmentsName',
             title: '科室',
             align: 'center',
+            formatter: function (value, row, index) {
+                return row.departments.departmentsName;
+            }
         }, {
-            field: 'personnel',
+            field: 'personName',
             title: '人员',
             align: 'center',
+            formatter: function (value, row, index) {
+                return row.hp.personName;
+            }
         }, {
             title: '操作',
             formatter: operateFormatter,
             align: 'center',
         }
-        ], //数据
-        data: [{
-            id: 1,
-            department: 'ww',
-            personnel: 55
-        }, {
-            id: 2,
-            department: 'ww',
-            personnel: 55
-        }, {
-            id: 3,
-            department: 'ww',
-            personnel: 55
-        }, {
-            id: 4,
-            department: 'ww',
-            personnel: 55
-        }, {
-            id: 5,
-            department: 'ww',
-            personnel: 55
-        }, {
-            id: 6,
-            department: 'ww',
-            personnel: 55
-        }]
+        ]
     });
 
     function operateFormatter(value, row, index) {
@@ -162,6 +194,61 @@
         console.log(view);
 
     }
+    function queryParams(params) {
+        var temp = $("#myform").serialize();
+        console.log(temp);
+        return temp;
+    }
+    //检索
+    function find() {
+        $("#testTable").bootstrapTable('refresh');
+
+    }
+    function save(){
+        var param = $("#myform1").serializeArray();
+        param.push
+        var personName=param[1].value;
+            $.ajax({
+                type: 'post',
+                url: '/hospitalPerson/selectOneByName?personName='+personName,
+                data: null,
+                dataType: 'json',
+                success:function (data) {
+
+                }
+        });
+        $.ajax({
+            url: '/permission/insert',
+            method: 'post',
+            data: param,
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("新增成功");
+                    history.go(0)
+                } else {
+                    alert("新增失败");
+                    history.go(0)
+                }
+            }
+        })
+    }
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/hospitalPerson/selectOneByName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#personName').append(datas);
+                $('#personName1').append(datas);
+            }
+        })
+    })
 </script>
 </body>
 </html>

@@ -45,7 +45,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    int update(User user);
+    int update(String user);
 
     /**
      * 通过主键删除数据
@@ -53,7 +53,7 @@ public interface UserService {
      * @param userId 主键
      * @return 是否成功
      */
-    int delete(Integer userId);
+    int delete(Integer[] userId);
 
     /**
      *@description:  查询四种职业的人

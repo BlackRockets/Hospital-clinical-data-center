@@ -12,6 +12,7 @@
         <result property="updatedBy" column="updated_by" jdbcType="VARCHAR"/>
         <result property="versionNumber" column="version_number" jdbcType="VARCHAR"/>
         <result property="templateState" column="template_state" jdbcType="INTEGER"/>
+        <result property="patientDetailsId" column="patient_details_id" jdbcType="INTEGER"/>
         <association property="fm" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
         </association>

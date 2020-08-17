@@ -114,7 +114,7 @@
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
         //search : "true",
-        uniqueId: "ID",
+        uniqueId: "templateId",
         pageSize: "5",
         showToggle: false,
         pageList: [5, 10, 15, 20],
@@ -214,9 +214,9 @@
 
 
     function openDetails(value, row, index) {
-        return ['<a href="../templates/templateDesign.html?id=' + row.id + '">' + value + '</a>'].join("");
+        console.log(row);
+        return ['<a href="../templates/templateDesign.html?id=' + row.patientDetailsId + '">' + value + '</a>'].join("");
     }
-
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',

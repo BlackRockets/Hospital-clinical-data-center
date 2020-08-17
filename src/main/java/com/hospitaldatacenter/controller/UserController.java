@@ -32,14 +32,14 @@ public class UserController {
      * 添加单条数据
      */
     @ResponseBody
-    @GetMapping("insert")
+    @RequestMapping("insert")
     public String insert(User user) {
         int i = userService.insert(user);
         return JSON.toJSONString(i);
     }
 
     @ResponseBody
-    @GetMapping("selectAll")
+    @RequestMapping("selectAll")
     public List<User> selectAll(User user, Departments departments) {
         user.setDepartments(departments);
         List<User> users = userService.queryAll(user);
@@ -47,15 +47,14 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("update")
-    public String update(User user) {
-        int i = userService.update(user);
-        return JSON.toJSONString(i);
+    @RequestMapping(value = "update",produces = {"application/json;charset=utf-8"})
+    public int update(@RequestBody String user) {
+       return userService.update(user);
     }
     @ResponseBody
     @RequestMapping("delete")
-    public String delete(Integer id) {
-       int i= userService.delete(id);
+    public String delete(Integer[] ids) {
+       int i= userService.delete(ids);
        return JSON.toJSONString(i);
     }
 

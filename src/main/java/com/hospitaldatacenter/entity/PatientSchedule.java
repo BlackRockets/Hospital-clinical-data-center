@@ -113,7 +113,12 @@ public class PatientSchedule implements Serializable {
     /**
      * 药师id
      */
+
     private Integer pharmacistId;
+    /**
+     * 白细胞
+     */
+    private Double whiteBloodCell;
 
     public Integer getDoctorId() {
         return doctorId;

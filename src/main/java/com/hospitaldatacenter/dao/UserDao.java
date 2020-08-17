@@ -59,11 +59,10 @@ public interface UserDao {
 
     /**
      * 通过主键删除数据
-     *
-     * @param userId 主键
+
      * @return 影响行数
      */
-    int delete(Integer userId);
+    int delete(Integer[] list);
 
     /**
      *@description:  查询（医生）职业的人
