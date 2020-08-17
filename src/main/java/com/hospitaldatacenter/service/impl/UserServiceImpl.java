@@ -100,4 +100,9 @@ public class UserServiceImpl implements UserService {
         map.put("userPharmacist", (ArrayList<User>) users3);
         return map;
     }
+
+    @Override
+    public User queryUserByUserName(String name) {
+        return userDao.getUserByName(name);
+    }
 }

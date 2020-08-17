@@ -21,6 +21,8 @@ public interface HospitalPersonDao {
      */
     List<HospitalPerson> queryByName();
 
+    String queryName(@Param("personName") String personName);
+
     /**
      * 查询指定行数据
      *

@@ -18,7 +18,9 @@ public interface HospitalPersonService {
      * @param 主键
      * @return 实例对象
      */
-   List<HospitalPerson>  queryByName();
+    List<HospitalPerson> queryByName();
+
+    String queryName(String personName);
 
     /**
      * 查询多条数据

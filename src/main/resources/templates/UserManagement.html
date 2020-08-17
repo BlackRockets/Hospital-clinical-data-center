@@ -418,28 +418,6 @@
         })
     }
 
-
-    /*//新增
-        function save2() {
-            var param = $("#myform3").serializeArray();
-            param.push
-            console.log(param);
-            $.ajax({
-                url: '/user/update',
-                method: 'post',
-                data: param,
-                dataType: 'json',
-                success: function (result) {
-                    if (result == 1) {
-                        alert("修改成功");
-                        history.go(0)
-                    } else {
-                        alert("修改失败");
-                        history.go(0)
-                    }
-                }
-            })
-        }*/
     function del() {
         // $("#table").bootstrapTable('getSelections');为bootstrapTable自带的，所以说一定要使用bootstrapTable显示表格,#table：为table的id
         var rows = $("#testTable").bootstrapTable('getSelections');

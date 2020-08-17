@@ -27,7 +27,6 @@ public class HospitalPersonController {
     /**
      * 通过主键查询单条数据
      *
-     *
      * @return 单条数据
      */
     @ResponseBody
@@ -37,4 +36,10 @@ public class HospitalPersonController {
         return hospitalPersonList;
     }
 
+    @ResponseBody
+    @RequestMapping("selectOneName")
+    public String selectOneName(String personName) {
+        String id = hospitalPersonService.queryName(personName);
+        return id;
+    }
 }

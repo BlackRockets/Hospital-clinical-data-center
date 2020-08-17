@@ -1,6 +1,7 @@
 package com.hospitaldatacenter.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * (User)实体类
@@ -48,6 +49,9 @@ public class User implements Serializable {
     private Integer occupationId;
 
     private Departments departments;
+
+    private Set<Role> role;
+
 
     public String getSalt() {
         return salt;
@@ -131,5 +135,32 @@ public class User implements Serializable {
 
     public void setDepartments(Departments departments) {
         this.departments = departments;
+    }
+
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
+    public String getCredentialsSalt() {
+        return name + salt + salt;
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", departmentId=" + departmentId +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", sex=" + sex +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", salt='" + salt + '\'' +
+                ", occupationId=" + occupationId +
+                ", departments=" + departments +
+                ", role=" + role +
+                '}';
     }
 }

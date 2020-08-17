@@ -30,6 +30,11 @@ public class HospitalPersonServiceImpl implements HospitalPersonService {
         return this.hospitalPersonDao.queryByName();
     }
 
+    @Override
+    public String queryName(String personName) {
+        return this.hospitalPersonDao.queryName(personName);
+    }
+
     /**
      * 查询多条数据
      *

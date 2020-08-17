@@ -30,6 +30,8 @@ public class PermissionServiceImpl implements PermissionService {
         return this.permissionDao.queryById(id);
     }
 
+
+
     /**
      * 查询多条数据
      *
@@ -49,8 +51,9 @@ public class PermissionServiceImpl implements PermissionService {
      * @return 实例对象
      */
     @Override
-    public int insert(Permission permission) {
-        return permissionDao.insert(permission);
+    public int insert(String departmentId,String personId) {
+
+        return permissionDao.insert(departmentId,personId);
     }
 
     /**
@@ -60,9 +63,18 @@ public class PermissionServiceImpl implements PermissionService {
      * @return 实例对象
      */
     @Override
-    public Permission update(Permission permission) {
-        this.permissionDao.update(permission);
-        return this.queryById(permission.getId());
+    public int update(Integer id, String departmentId,String personId) {
+        return permissionDao.update(id,departmentId,personId);
+    }
+
+    @Override
+    public int delete(Integer[] ids) {
+        return permissionDao.delete(ids);
+    }
+
+    @Override
+    public List<String> queryPermissionNameByUserName(String name) {
+        return permissionDao.queryPermissionNameByUserName(name);
     }
 
     /**
@@ -71,8 +83,5 @@ public class PermissionServiceImpl implements PermissionService {
      * @param id 主键
      * @return 是否成功
      */
-    @Override
-    public boolean deleteById(Integer id) {
-        return this.permissionDao.deleteById(id) > 0;
-    }
+
 }

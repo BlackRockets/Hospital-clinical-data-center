@@ -13,7 +13,10 @@
             <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
-
+    <!--<select id="queryPermissionNameByUserName" resultMap="PermissionMap">
+        select departmentsName from user u,permission p,departments d where
+         p.department_id=d.id and p.
+    </select>-->
     <!--查询单个-->
     <select id="queryById" resultMap="PermissionMap">
         select
@@ -47,8 +50,8 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into hospital.permission(department_id, person_id)
+    <insert id="insert"  >
+        insert into permission(department_id, person_id)
         values (#{departmentId}, #{personId})
     </insert>
 
@@ -67,8 +70,11 @@
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from hospital.permission where id = #{id}
+    <delete id="delete" parameterType="java.util.List">
+        delete from hospital.permission where id in
+        <foreach  collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
     </delete>
 
 </mapper>

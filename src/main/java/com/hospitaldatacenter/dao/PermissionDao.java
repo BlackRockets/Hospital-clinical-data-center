@@ -45,7 +45,7 @@ public interface PermissionDao {
      * @param permission 实例对象
      * @return 影响行数
      */
-    int insert(Permission permission);
+    int insert(@Param("departmentId") String departmentId,@Param("personId") String personId);
 
     /**
      * 修改数据
@@ -53,7 +53,7 @@ public interface PermissionDao {
      * @param permission 实例对象
      * @return 影响行数
      */
-    int update(Permission permission);
+    int update(@Param("id")Integer id, @Param("departmentId") String departmentId,@Param("personId") String personId);
 
     /**
      * 通过主键删除数据
@@ -61,6 +61,8 @@ public interface PermissionDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Integer id);
+    int delete(Integer[] list);
+
+    List<String> queryPermissionNameByUserName(@Param("name") String name);
 
 }

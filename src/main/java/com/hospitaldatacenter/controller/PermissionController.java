@@ -39,9 +39,20 @@ public class PermissionController {
     }
     @ResponseBody
     @RequestMapping("insert")
-     public String insert(Permission permission){
-        System.out.println(permission.getDepartmentId());
-        int i=permissionService.insert(permission);
+     public String insert(String departmentId,String personId){
+        int i=permissionService.insert(departmentId,personId);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("update")
+    public String update(Integer id,String departmentId,String personId){
+        int i=permissionService.update(id,departmentId,personId);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("delete")
+    public String delete(Integer[] ids) {
+        int i = permissionService.delete(ids);
         return JSON.toJSONString(i);
     }
 }

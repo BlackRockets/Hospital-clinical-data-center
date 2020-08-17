@@ -61,4 +61,6 @@ public interface UserService {
      * @return
      */
     HashMap<String, ArrayList<User>> selectAllPeopleByOccupation();
+
+    User queryUserByUserName(String name);
 }

@@ -14,7 +14,12 @@
         from hospital.hospital_person
 
     </select>
+    <select id="queryName" resultType="java.lang.String">
+        select distinct
+         id
+        from hospital.hospital_person where person_name = #{personName}
 
+    </select>
 
 
 </mapper>

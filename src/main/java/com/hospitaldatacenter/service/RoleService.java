@@ -1,17 +1,16 @@
 package com.hospitaldatacenter.service;
 
-import com.hospitaldatacenter.entity.Permission;
-import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
+import com.hospitaldatacenter.entity.Role;
 
 import java.util.List;
 
 /**
- * (Permission)表服务接口
+ * (Role)表服务接口
  *
  * @author makejava
- * @since 2020-08-14 16:27:58
+ * @since 2020-08-17 16:21:01
  */
-public interface PermissionService {
+public interface RoleService {
 
     /**
      * 通过ID查询单条数据
@@ -19,7 +18,7 @@ public interface PermissionService {
      * @param id 主键
      * @return 实例对象
      */
-    Permission queryById(Integer id);
+    Role queryById(Integer id);
 
     /**
      * 查询多条数据
@@ -28,23 +27,23 @@ public interface PermissionService {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<Permission> queryAll(Permission permission);
+    List<Role> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param permission 实例对象
+     * @param role 实例对象
      * @return 实例对象
      */
-    int insert(String departmentId,String personId);
+    Role insert(Role role);
 
     /**
      * 修改数据
      *
-     * @param permission 实例对象
+     * @param role 实例对象
      * @return 实例对象
      */
-    int update(Integer id,String departmentId,String personId);
+    Role update(Role role);
 
     /**
      * 通过主键删除数据
@@ -52,8 +51,8 @@ public interface PermissionService {
      * @param id 主键
      * @return 是否成功
      */
-    int delete(Integer[] ids);
+    boolean deleteById(Integer id);
 
-    List<String> queryPermissionNameByUserName(String name);
+    List<String> queryRoleNameByUsername(String name);
 
 }
