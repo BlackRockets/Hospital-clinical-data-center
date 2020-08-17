@@ -2,7 +2,7 @@
 <html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>数据复核</title>
+    <title>分组管理</title>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
 
-    <!--数据复核-->
+    <!--分组管理-->
 
 </head>
 <body>
@@ -206,7 +206,7 @@
     });
 
     function openDetails(value, row, index){;
-        return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'">'+value+'</a>'].join("");
+        return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'&groupName='+row.groupName+'">'+value+'</a>'].join("");
     }
 
  /*   function flush() {

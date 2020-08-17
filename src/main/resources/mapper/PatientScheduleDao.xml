@@ -84,6 +84,9 @@
             <if test="pharmacistId != null and pharmacistId != '' ">
                 or pharmacist_Id = #{pharmacistId}
             </if>
+            <if test="name != null and name != '' ">
+                and name = #{name}
+            </if>
         </where>
     </select>
 
