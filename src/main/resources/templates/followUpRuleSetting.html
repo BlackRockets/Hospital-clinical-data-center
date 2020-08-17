@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
     <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-    <!--诊疗方案-->
+    <!--随访规则设定-->
 </head>
 <body>
 <div class="container-fluid" id="box">
@@ -26,142 +26,317 @@
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">随访规则设定</h3>
     </div>
-    <div class="col-lg-1">
-        <table id="tables"></table>
+    <div class="col-lg-2">
+        <div>
+            <div style="text-align: center;background-color: #fff5e7">
+                随访规则
+            </div>
+
+            <div v-on:click="qieHuan(ruleSet.id)" v-for="ruleSet in ruleSets"  id="div"  style="height: 120px;background-color: #fff5e7;margin-top: 10px;padding-left: 20px;padding-top: 10px">
+                <div style="display: none" >id{{ruleSet.id}}</div>
+                <div>随访规则{{ruleSet.rulemark}}</div>
+                <div>事件：{{ruleSet.conditions}}{{ruleSet.things}}</div>
+                <div>起始时间：{{ruleSet.startTime}}</div>
+                <div>间隔时间：{{ruleSet.intervaltime}},共：{{ruleSet.count}}次</div>
+                <div>提前{{ruleSet.inadvance}}天通知</div>
+            </div>
+
+
+        </div>
         <div style="margin-top: 30%;text-align: center">
             <a onclick="add()"><span style="color: green" class="glyphicon glyphicon-plus-sign"></span></a>
         </div>
     </div>
-    <div class="col-lg-11" style="border-left: 2px solid #ccc;height: 600px">
+    <div class="col-lg-10" style="border-left: 2px solid #ccc;height: 600px">
         <div id="diagnosis1" style="display: block">
-            <table class="table table-bordered">
-                <tr>
-                    <td style="width: 100px">1.用药</td>
-                    <td id="td1"></td>
-                </tr>
-                <tr>
-                    <td>2.检验</td>
-                    <td id="td2">
-                </tr>
-                <tr>
-                    <td>3.检查</td><!--contentEditable="true"-->
-                    <td id="td3">
-                </tr>
-                <tr>
-                    <td>4.治疗</td>
-                    <td id="td4">
-                </tr>
-                <tr>
-                    <td>5.手术</td>
-                    <td id="td5">
-                </tr>
-                <tr>
-                    <td>6.通知</td>
-                    <td id="td6">
-                </tr>
-            </table>
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>基准事件：</label>
+                </div>
+                <div class="col-md-6">
+                    <label v-if="ruleSets[0].things === '门诊'"><input name="Fruit" type="radio" value=""/>门诊 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>门诊 </label>
+
+                    <label v-if="ruleSets[0].things === '入院'"><input name="Fruit" checked type="radio" value="" />入院 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>入院 </label>
+
+
+                    <label v-if="ruleSets[0].things === '出院'"><input name="Fruit" checked type="radio" value="" />出院 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>出院 </label>
+
+                    <label v-if="ruleSets[0].things === '手术'"><input name="Fruit" checked type="radio" value="" />手术 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>手术 </label>
+
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>筛选条件：</label>
+                </div>
+                <div class="col-md-6">
+                    <label v-if="ruleSets[0].conditions === '本院'"><input name="Fruit1" type="radio" value=""/>本院 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>本院 </label>
+
+                    <label v-if="ruleSets[0].conditions === '本科室'"><input name="Fruit1" checked type="radio" value="" />本科室 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>本科室 </label>
+
+
+                    <label v-if="ruleSets[0].conditions === '首次'"><input name="Fruit1" checked type="radio" value="" />首次 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>首次 </label>
+
+                    <label v-if="ruleSets[0].conditions === '末次'"><input name="Fruit1" checked type="radio" value="" />末次 </label>
+                    <label v-else><input name="Fruit" type="radio" value=""/>末次 </label>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>起始：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6"  type="text" class="form-control"   v-model="ruleSets[0].startTime" >
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>间隔：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6"  type="text" class="form-control"   v-model="ruleSets[0].intervaltime" >
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>持续：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6" type="text" class="form-control"  v-model="ruleSets[0].count" >
+                    <span>次</span>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>提前：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6" type="text" class="form-control" v-model="ruleSets[0].inadvance">
+                    <span>天自动通知</span>
+                </div>
+            </div>
         </div>
-        <div id="diagnosis2" style="display: none;">
-            <table class="table table-bordered">
-                <tr>
-                    <td style="width: 100px">1.用药</td>
-                    <td id="tds1" contentEditable="true"></td>
-                </tr>
-                <tr>
-                    <td>2.检验</td>
-                    <td id="tds2" contentEditable="true">
-                </tr>
-                <tr>
-                    <td>3.检查</td><!--contentEditable="true"-->
-                    <td id="tds3" contentEditable="true">
-                </tr>
-                <tr>
-                    <td>4.治疗</td>
-                    <td id="tds4" contentEditable="true">
-                </tr>
-                <tr>
-                    <td>5.手术</td>
-                    <td id="tds5" contentEditable="true">
-                </tr>
-                <tr>
-                    <td>6.通知</td>
-                    <td id="tds6" contentEditable="true">
-                </tr>
-            </table>
-            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                    data-dismiss="modal" onclick="save()">保存
-            </button>
+        <div id="diagnosis2" style="display: none">
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>基准事件：</label>
+                </div>
+                <div class="col-md-6">
+                    <label v-if="singleRule[0].things === '门诊'"><input name="Fruit" type="radio" value=""/>门诊 </label>
+                    <label v-else><input name="Frui2" type="radio" value=""/>门诊 </label>
+
+                    <label v-if="singleRule[0].things === '入院'"><input name="Fruit" checked type="radio" value="" />入院 </label>
+                    <label v-else><input name="Frui2" type="radio" value=""/>入院 </label>
+
+
+                    <label v-if="singleRule[0].things === '出院'"><input name="Fruit" checked type="radio" value="" />出院 </label>
+                    <label v-else><input name="Frui2" type="radio" value=""/>出院 </label>
+
+                    <label v-if="singleRule[0].things === '手术'"><input name="Fruit" checked type="radio" value="" />手术 </label>
+                    <label v-else><input name="Frui2" type="radio" value=""/>手术 </label>
+
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>筛选条件：</label>
+                </div>
+                <div class="col-md-6">
+                    <label v-if="singleRule[0].conditions === '本院'"><input name="Fruit1" type="radio" value=""/>本院 </label>
+                    <label v-else><input name="Frui3" type="radio" value=""/>本院 </label>
+
+                    <label v-if="singleRule[0].conditions === '本科室'"><input name="Fruit1" checked type="radio" value="" />本科室 </label>
+                    <label v-else><input name="Frui3" type="radio" value=""/>本科室 </label>
+
+
+                    <label v-if="singleRule[0].conditions === '首次'"><input name="Fruit1" checked type="radio" value="" />首次 </label>
+                    <label v-else><input name="Frui3" type="radio" value=""/>首次 </label>
+
+                    <label v-if="singleRule[0].conditions === '末次'"><input name="Fruit1" checked type="radio" value="" />末次 </label>
+                    <label v-else><input name="Frui3" type="radio" value=""/>末次 </label>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>起始：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6"  type="text" class="form-control"   v-model="singleRule[0].startTime" >
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>间隔：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6"  type="text" class="form-control"   v-model="singleRule[0].intervaltime" >
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>持续：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6" type="text" class="form-control"  v-model="singleRule[0].count" >
+                    <span>次</span>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>提前：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6" type="text" class="form-control" v-model="singleRule[0].inadvance">
+                    <span>天自动通知</span>
+                </div>
+            </div>
+        </div>
+        <div id="diagnosis3" style="display: none;">
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>基准事件：</label>
+                </div>
+                <div class="col-md-6">
+                    <label><input name="Frui4" type="radio" value="门诊"/>门诊 </label>
+                    <label><input name="Frui4" type="radio" value="入院"/>入院 </label>
+                    <label><input name="Frui4" type="radio" value="出院"/>出院 </label>
+                    <label><input name="Frui4" type="radio" value="手术"/>手术 </label>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>筛选条件：</label>
+                </div>
+                <div class="col-md-6">
+                    <label><input name="Frui5" type="radio" value="本院"/>本院 </label>
+                    <label><input name="Frui5" type="radio" value="本科室"/>本科室 </label>
+                    <label><input name="Frui5" type="radio" value="首次"/>首次 </label>
+                    <label><input name="Frui5" type="radio" value="末次"/>末次 </label>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>起始：</label>
+                </div>
+                <div class='input-group date col-md-3'  id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>间隔：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6"  type="text" class="form-control"   v-model="item.intervaltime" >
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left;margin-top: 20px">
+                <div class="col-md-4" style="text-align:right">
+                    <label>持续：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6" type="text" class="form-control"  v-model="item.count" >
+                    <span>次</span>
+                </div>
+            </div>
+            <div class="col-md-6" style="text-align: left">
+                <div class="col-md-4" style="text-align:right">
+                    <label>提前：</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="col-md-6" type="text" class="form-control" v-model="item.inadvance">
+                    <span>天自动通知</span>
+                </div>
+            </div>
+            <div class="col-md-12" >
+                <button type="button" style="margin-left: 500px; margin-top: 200px" class="btn btn-success btn-sm"
+                        data-dismiss="modal" v-on:click="save">保存
+                </button>
+            </div>
+
         </div>
     </div>
 
 </div>
 <script type="text/javascript">
+    var urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var  newsid=newsids[1];//得到参数值
+    var vm = new Vue({
+        el:'#box',
+        data:{
+            item:{
+                intervaltime:'',
+                count:'',
+                inadvance:'',
+            },
+            ruleSets:[{"things":""}],
+            singleRule:[{"things":""}],
+        },
+        mounted:function () {
+            var formData = this.item;
+            formData.followupgorupid = newsid;
+            axios.post('/followUpRules/findByFollowUpGroupId',formData)
+                .then(function (response) {
+                    vm.ruleSets=response.data;
+                }).catch(function () {});
+        },
+        methods:{
+            qieHuan:function (id) {
+                var formData = this.item;
+                formData.id = id;
+                axios.post('/followUpRules/findByFollowUpGroupId',formData)
+                    .then(function (response) {
+                        document.getElementById("diagnosis1").style.display='none';
+                        document.getElementById("diagnosis2").style.display='block';
+                        document.getElementById("diagnosis3").style.display='none';
+                        vm.singleRule=response.data;
+                    }).catch(function () {});
+            },
+            save:function () {
+                var val1 = $('input[name="Frui4"]:checked').val();
+                var val2 = $('input[name="Frui5"]:checked').val();
+                var startTime = $("#datetimepicker1").find("input").val();
+                var formData = this.item;
+                formData.things=val1;
+                formData.conditions=val2;
+                formData.startTime=startTime;
+                axios.post('/followUpRules/newFollowUpRule',formData)
+                    .then(function (response) {
+                        alert("保存成功");
+                        location.reload();
+                        window.location.replace(urlinfo);
+                    }).catch(function () {});
+            }
+
+        },
+
+    })
     $(function () {
-       ch(1);
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
     })
 
-    $("#tables").bootstrapTable({
-        sidePagination: "true",
-        striped: true, // 是否显示行间隔色
-        //search : "true",
-        uniqueId: "ID",
-        url: '/diagnosisAndTreatmentScheme/selectAllId',
-        method: 'post',
-        columns: [{
-            field: 'id',
-            title: '诊疗方案',
-            align: 'center',
-            width:50,
-            formatter: function(value, row, index) {
-                return '<button type="button" style="width: 70px;height: 40px;" class="btn-info" onclick="ch('+row.id+')">方案'+row.id+'</button>';
-            }
-        }
-        ]
-    });
-
-    function ch(id) {
-        $.ajax({
-            url: '/diagnosisAndTreatmentScheme/selectOne?id='+id,
-            method: '',
-            success:function (res) {
-                document.getElementById("diagnosis1").style.display='block';
-                document.getElementById("diagnosis2").style.display='none';
-                $("#td1").html(res[0].pharmacy);
-                $("#td2").html(res[0].checkout);
-                $("#td3").html(res[0].examine);
-                $("#td4").html(res[0].treat);
-                $("#td5").html(res[0].operation);
-                $("#td6").html(res[0].inform);
-            }
-        })
-    }
     function add() {
         document.getElementById("diagnosis1").style.display='none';
-        document.getElementById("diagnosis2").style.display='block';
-
-    }
-    function save() {
-        var val1 = document.getElementById("tds1").innerText;
-        var val2 = document.getElementById("tds2").innerText;
-        var val3 = document.getElementById("tds3").innerText;
-        var val4 = document.getElementById("tds4").innerText;
-        var val5 = document.getElementById("tds5").innerText;
-        var val6 = document.getElementById("tds6").innerText;
-        $.ajax({
-            url: '/diagnosisAndTreatmentScheme/save',
-            dataType:"JSON",
-            data: {
-                "pharmacy": val1,
-                "checkout": val2,
-                "examine": val3,
-                "treat": val4,
-                "operation": val5,
-                "inform": val6,
-            },
-            success:function (res) {
-                $("#tables").bootstrapTable("refresh");
-            }
-        })
+        document.getElementById("diagnosis2").style.display='none';
+        document.getElementById("diagnosis3").style.display='block';
     }
 
 </script>
