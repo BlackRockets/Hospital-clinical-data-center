@@ -45,7 +45,7 @@ public class shiroConfig {
         filterChainDefinitionMap.put("/**", "authc");
 
         //直接访问http://localhost:9090/  shiro会进行验证有没有登录，没有登录跳转到login.html 登录页面
-        shiroFilterFactoryBean.setLoginUrl("/goLogin");
+        shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
 
