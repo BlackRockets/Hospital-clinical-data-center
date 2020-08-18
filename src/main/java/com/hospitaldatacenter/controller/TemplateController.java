@@ -53,8 +53,8 @@ public class TemplateController {
 
     @ResponseBody
     @RequestMapping("selectAllNoCondition")
-    public List<Template> selectAllNoCondition(){
-        List<Template> templates = templateService.selectAllNoCondition();
+    public List<Template> selectAllNoCondition(Integer groupId){
+        List<Template> templates = templateService.selectAllNoCondition(groupId);
         return templates;
     }
 

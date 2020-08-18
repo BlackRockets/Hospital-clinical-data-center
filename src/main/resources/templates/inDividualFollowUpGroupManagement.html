@@ -29,7 +29,7 @@
     <div class="page-header" style="margin-left: 1%;margin-top: 0">
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='authorityManagement.html'">权限管理</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="groupEntry()">入组管理</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='templateSettings.html'">模板设置</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="template()">模板设置</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">随访规定设定</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="diag()">诊疗方案</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">节假日管理</button>
@@ -461,6 +461,9 @@
 
     function diag() {
         window.location.href="diagnosisAndTreatmentScheme.html?id="+id;
+    }
+    function template() {
+        window.location.href="templateSettings.html?id="+id;
     }
 
     function operateFormatter(value, row, index){
