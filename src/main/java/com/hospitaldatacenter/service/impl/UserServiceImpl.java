@@ -20,7 +20,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-08-12 15:56:16
  */
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
