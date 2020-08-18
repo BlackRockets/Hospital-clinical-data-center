@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
     @RequestMapping(value = "/login")
-    public String login(){
+    public String login() {
         return "/login";
     }
 
     @RequestMapping(value = "/err")
-    public String err(){
+    public String err() {
         return "/err";
     }
 
     @RequestMapping(value = "/subLogin")
-    public String subLogin(User user){
+    public String subLogin(User user) {
         Subject subject = SecurityUtils.getSubject();
 
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getName(),user.getPassword());
-        try{
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getName(), user.getPassword());
+        try {
             subject.login(token);
-        }catch (AuthenticationException e){
+        } catch (AuthenticationException e) {
             e.printStackTrace();
             return e.getMessage();
         }
@@ -39,8 +39,8 @@ public class LoginController {
     @RequiresRoles(value = "admin")
     @RequestMapping(value = "/test")
     @ResponseBody
-    public String test(){
-        return  "123";
+    public String test() {
+        return "123";
     }
 
 }

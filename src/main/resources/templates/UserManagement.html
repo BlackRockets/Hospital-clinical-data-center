@@ -324,19 +324,16 @@
     $(function () {
         $("#testTable").bootstrapTable({
             url: '/user/selectAll',
-            toolbar: "#toolbar",
+            sidePagination: "true",
             striped: true, // 是否显示行间隔色
-            uniqueId: "userId",
+            //search : "true",
+            uniqueId: "ID",
             pageSize: "5",
             pageList: [10, 20],
-            sidePagination: "true",
             pagination: true, // 是否分页
-            clickToSelect: true, //点击选中
-            showRefresh: "true",
-            showToggle: "true",
-            showColumns: "true",
             queryParams: queryParams,//传递参数（*）
-            method: 'post',
+            clickToSelect: true, //点击选中
+            //sortable: true, // 是否启用排序
             columns: [{
                 checkbox: true
             }, {
@@ -381,13 +378,14 @@
 
 
     //获取参数
-    function queryParams(params) {
+    function queryParams() {
         var temp = $("#myform").serialize();
         return temp;
     }
 
     //检索
     function find() {
+
         $("#testTable").bootstrapTable('refresh');
     }
 
@@ -452,7 +450,7 @@
         })
     }
 
-    //回显
+
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
