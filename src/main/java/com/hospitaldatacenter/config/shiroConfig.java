@@ -1,7 +1,8 @@
-package com.hospitaldatacenter;
+package com.hospitaldatacenter.config;
 
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -9,47 +10,42 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
 public class shiroConfig {
+
     // 创建自定义 realm
     @Bean
-    public EnceladusShiroRealm myShiroRealm() {
-        EnceladusShiroRealm myShiroRealm = new EnceladusShiroRealm();
-        return myShiroRealm;
+    public EnchiladasShirRealm myRealm() {
+        EnchiladasShirRealm myRealm = new EnchiladasShirRealm();
+        return myRealm;
     }
 
     // 创建 SecurityManager 对象
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(myRealm());
         return securityManager;
     }
 
+
     // Filter工厂，设置对应的过滤条件和跳转条件
-    @Bean
+    @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String, String> map = new HashMap<>();
-        // 登出
-        map.put("/logout", "logout");
-        // 对所有用户认证
-        map.put("/**", "authc");
-        // 对登录跳转接口进行释放
-        map.put("/subLogin", "anon");
-        map.put("/err", "anon");
-        // 登录
-        // 注意：这里配置的 /login 是指到 @RequestMapping(value="/login")中的 /login
-        shiroFilterFactoryBean.setLoginUrl("/login");
-        // 首页
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+         /* 过滤链定义，从上向下顺序执行，一般将 / ** 放在最为下边:这是一个坑呢，一不小心代码就不好使了;
+          authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
+        /*filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");*/
         // 错误页面，认证不通过跳转
-        shiroFilterFactoryBean.setUnauthorizedUrl("/err");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+        //shiroFilterFactoryBean.setUnauthorizedUrl("/err");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
@@ -67,11 +63,5 @@ public class shiroConfig {
         DefaultAdvisorAutoProxyCreator app = new DefaultAdvisorAutoProxyCreator();
         app.setProxyTargetClass(true);
         return app;
-    }
-    // 自定义异常捕获注册
-    @Bean
-    public HandlerExceptionResolver solver(){
-        HandlerExceptionResolver handlerExceptionResolver = new MyExceptionResolver();
-        return handlerExceptionResolver;
     }
 }

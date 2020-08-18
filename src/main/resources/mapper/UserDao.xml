@@ -17,7 +17,7 @@
         </association>
     </resultMap>
     <select id="getUserByName" resultMap="UserMap">
-        select password from user where name=#{name}
+        select * from user where name=#{name}
     </select>
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">

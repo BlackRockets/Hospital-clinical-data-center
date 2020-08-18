@@ -1,10 +1,11 @@
-package com.hospitaldatacenter;
+package com.hospitaldatacenter.config;
 
 
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.PermissionService;
 import com.hospitaldatacenter.service.RoleService;
 import com.hospitaldatacenter.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,21 +17,23 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
+import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class EnceladusShiroRealm extends AuthorizingRealm {
-    @Autowired
+public class EnchiladasShirRealm extends AuthorizingRealm {
+    @Resource
     private UserService userService;
-    @Autowired
+    @Resource
     private PermissionService permissionService;
-    @Autowired
+    @Resource
     private RoleService roleService;
 
-    // 角色权限和对应权限添加
+    // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // 获取登录用户名
@@ -48,7 +51,7 @@ public class EnceladusShiroRealm extends AuthorizingRealm {
     }
 
     // 根据用户名字从数据库中获取当前用户的权限数据
-    private Set<String> getPermissionsByUserName(String name) {
+    public Set<String> getPermissionsByUserName(String name) {
         List<String> list = permissionService.queryPermissionNameByUserName(name);
         if( list != null ){
             Set<String> sets = new HashSet<>(list);
@@ -59,7 +62,7 @@ public class EnceladusShiroRealm extends AuthorizingRealm {
     }
 
     // 根据用户名字从数据库中获取当前用户的角色数据
-    private Set<String> getRolesByUsername(String name) {
+    public Set<String> getRolesByUsername(String name) {
         List<String> list = roleService.queryRoleNameByUsername(name);
         if( list != null ){
             Set<String> sets = new HashSet<>(list);
@@ -75,16 +78,19 @@ public class EnceladusShiroRealm extends AuthorizingRealm {
         // 1.从主体传过来的信息中获取用户名
         String userName = (String)authenticationToken.getPrincipal();
         // 2.通过用户名到数据库获取凭证
-        String password = getPasswordByUserName(userName);
-        if( password == null ){
-            return  null;
+        User user = userService.queryUserByUserName(userName);
+        if(user != null){
+            // 把当前用户存到 Session 中
+            SecurityUtils.getSubject().getSession().setAttribute("user", user);
+            SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getName(),user.getPassword(),getName());
+            return simpleAuthenticationInfo;
+        }else{
+            return null;
         }
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(userName,password,"myShiroRealm");
-        return simpleAuthenticationInfo;
     }
 
     // 通过用户名从数据库中获取当前用户的密码
-    private String getPasswordByUserName(String name) {
+    public String getPasswordByUserName(String name) {
         User user = userService.queryUserByUserName(name);
         if( user != null ){
             return user.getPassword();
