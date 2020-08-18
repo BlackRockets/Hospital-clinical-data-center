@@ -144,9 +144,11 @@ public class User implements Serializable {
     public void setRole(Set<Role> role) {
         this.role = role;
     }
+
     public String getCredentialsSalt() {
         return name + salt + salt;
     }
+
     @Override
     public String toString() {
         return "User{" +

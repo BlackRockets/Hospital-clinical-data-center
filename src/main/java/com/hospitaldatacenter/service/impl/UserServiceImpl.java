@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int update(String user) {
         JSON parse = (JSON) JSON.parse(user);
-        User user1=JSON.toJavaObject(parse, User.class);
+        User user1 = JSON.toJavaObject(parse, User.class);
         return this.userDao.update(user1);
     }
 

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.TermApprovalDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.TermApproval" id="TermApprovalMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="followUpGroupId" column="follow_up_group_id" jdbcType="INTEGER"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+        <result property="classification" column="classification" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="submitter" column="submitter" jdbcType="VARCHAR"/>
+        <result property="submissionTime" column="submission_time" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TermApprovalMap">
+        select
+          id, follow_up_group_id, department_id, classification, name, submitter, submission_time, state
+        from hospital.term_approval
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TermApprovalMap">
+        select
+          id, follow_up_group_id, department_id, classification, name, submitter, submission_time, state
+        from hospital.term_approval
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TermApprovalMap">
+        select
+        id, follow_up_group_id, department_id, classification, name, submitter, submission_time, state
+        from hospital.term_approval
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="followUpGroupId != null">
+                and follow_up_group_id = #{followUpGroupId}
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
+            </if>
+            <if test="classification != null and classification != ''">
+                and classification = #{classification}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="submitter != null and submitter != ''">
+                and submitter = #{submitter}
+            </if>
+            <if test="submissionTime != null">
+                and submission_time = #{submissionTime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.term_approval(follow_up_group_id, department_id, classification, name, submitter, submission_time, state)
+        values (#{followUpGroupId}, #{departmentId}, #{classification}, #{name}, #{submitter}, #{submissionTime}, #{state})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.term_approval
+        <set>
+            <if test="followUpGroupId != null">
+                follow_up_group_id = #{followUpGroupId},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="classification != null and classification != ''">
+                classification = #{classification},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="submitter != null and submitter != ''">
+                submitter = #{submitter},
+            </if>
+            <if test="submissionTime != null">
+                submission_time = #{submissionTime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.term_approval where id = #{id}
+    </delete>
+
+</mapper>

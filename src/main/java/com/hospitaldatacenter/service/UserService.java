@@ -30,7 +30,6 @@ public interface UserService {
     List<User> queryAll(User user);
 
 
-
     /**
      * 新增数据
      *
@@ -56,9 +55,9 @@ public interface UserService {
     int delete(Integer[] userId);
 
     /**
-     *@description:  查询四种职业的人
-     *@author: zyl
      * @return
+     * @description: 查询四种职业的人
+     * @author: zyl
      */
     HashMap<String, ArrayList<User>> selectAllPeopleByOccupation();
 
