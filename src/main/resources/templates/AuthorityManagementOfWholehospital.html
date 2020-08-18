@@ -233,6 +233,7 @@
             }
             ]
         });
+
         function operateFormatter(value, row, index) {
             var id = index;
             var data = JSON.stringify(row);
@@ -281,6 +282,7 @@
         $("#testTable").bootstrapTable('refresh');
 
     };
+
     //新增
     function save() {
         var param = $("#myform1").serializeArray();
@@ -316,12 +318,13 @@
 
 
     };
+
     //修改
     function save2() {
         var param = $("#myform2").serializeArray();
         console.log(param);
         var departmentId = param[0].value;
-        var id=param[1].value;
+        var id = param[1].value;
         var personName = param[2].value;
         $.ajax({
             type: 'post',
@@ -332,7 +335,7 @@
                     url: '/permission/update',
                     method: 'post',
                     data: {
-                        id:id,
+                        id: id,
                         personId: personId,
                         departmentId: departmentId
                     },
@@ -404,6 +407,7 @@
             }
         })
     };
+
     //回显
     function EditViewById(row, index) {
         var data = JSON.stringify($("#testTable").bootstrapTable('getData'));//获取全部数据
