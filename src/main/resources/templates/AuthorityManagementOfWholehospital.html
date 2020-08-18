@@ -18,48 +18,51 @@
     <!--全院权限管理-->
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="app">
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">管理科室权限(医务处)</h3>
     </div>
     <div class="row">
-        <form>
-            <div class="col-md-6 " >
+        <form id="myform">
+            <div class="col-md-6 ">
                 <div class="col-sm-9" style="margin-top: 5px;text-align: right">
                     科室名称：
                 </div>
                 <div class="col-sm-3" style="text-align: right">
-                    <select class="form-control input-sm" v-model="">
-                        <option>-请选择-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control input-sm" name="departmentId">
+                        <option value="">-请选择-</option>
+                        <option value="1">脑瘤中心</option>
+                        <option value="2">内分泌</option>
+                        <option value="3">男科</option>
+                        <option value="4">妇科</option>
+                        <option value="5">儿科</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-6" >
+            <div class="col-md-6">
                 <div class="col-sm-3" style="margin-top: 5px;text-align: right">
                     人员名称：
                 </div>
                 <div class="col-sm-3" style="text-align: right">
-                    <select class="form-control input-sm" v-model="">
-                        <option>-请选择-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control input-sm" name="personName" id="personName">
+                        <option value="">-请选择-</option>
                     </select>
+
                 </div>
             </div>
         </form>
     </div>
     <div class="row">
         <div class="col-md-6" style="text-align: center">
-            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" add()">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
                 新增
+            </button>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" onclick=" del()">
+                删除
             </button>
         </div>
         <div class="col-md-6" style="text-align: center">
-            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click=" find()">
+            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick=" find()">
                 检索
             </button>
         </div>
@@ -75,40 +78,169 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    新增科室权限
+                </h4>
+            </div>
+            <div class="modal-body" style="height: 100px">
+                <form id="myform1">
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+                                <label>科室名称：</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control input-sm" name="departmentId">
+                                    <option value="">-请选择-</option>
+                                    <option value="1">脑瘤中心</option>
+                                    <option value="2">内分泌</option>
+                                    <option value="3">男科</option>
+                                    <option value="4">妇科</option>
+                                    <option value="5">儿科</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+                                <label>人员名称:</label>
+                            </div>
+                            <div class="col-md-6" style="text-align: left">
+                                <select class="form-control input-sm" name="personName" id="personName1">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" onclick="save()">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div class="modal fade" id="myModel2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">
+                    修改科室权限
+                </h4>
+            </div>
+            <div class="modal-body" style="height: 100px">
+                <form id="myform2">
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+                                <label>科室名称：</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control input-sm" id="departmentId" name="departmentId">
+                                    <option value="">-请选择-</option>
+                                    <option value="1">脑瘤中心</option>
+                                    <option value="2">内分泌</option>
+                                    <option value="3">男科</option>
+                                    <option value="4">妇科</option>
+                                    <option value="5">儿科</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="display: none">
+                            <div class="col-sm-4">
+                                <label>id：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" id="id" name="id" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+                                <label>人员名称:</label>
+                            </div>
+                            <div class="col-md-6" style="text-align: left">
+                                <select class="form-control input-sm" name="personName" id="personName2">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" onclick="save2()">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <script type="text/html" id="barDemo">
     <a v-on:click="preview()">
         <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
     </a>
 </script>
 <script>
-    $("#testTable").bootstrapTable({
-        toolbar: "#toolbar",
-        sidePagination: "true",
-        striped: true, // 是否显示行间隔色
-        //search : "true",
-        uniqueId: "ID",
-        pageSize: "5",
-        pageList: [10, 20],
-        pagination: true, // 是否分页
-        //sortable: true, // 是否启用排序
-        columns: [{
-            field: 'id',
-            title: '序号',
-            align: 'center',
-        }, {
-            field: 'department',
-            title: '科室',
-            align: 'center',
-        }, {
-            field: 'personnel',
-            title: '人员',
-            align: 'center',
-        }, {
-            title: '操作',
-            formatter: operateFormatter,
-            align: 'center',
+    $(function () {
+        $("#testTable").bootstrapTable({
+            toolbar: "#toolbar",
+            url: '/permission/selectAll',
+            sidePagination: "true",
+            striped: true, // 是否显示行间隔色
+            //search : "true",
+            uniqueId: "ID",
+            pageSize: "5",
+            pageList: [10, 20],
+            pagination: true, // 是否分页
+            queryParams: queryParams,//传递参数（*）
+            clickToSelect: true, //点击选中
+            //sortable: true, // 是否启用排序
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'id',
+                title: '序号',
+                align: 'center',
+            }, {
+                field: 'departmentsName',
+                title: '科室',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return row.departments.departmentsName;
+                }
+            }, {
+                field: 'personName',
+                title: '人员',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return row.hp.personName;
+                }
+            }, {
+                title: '操作',
+                formatter: operateFormatter,
+                align: 'center',
+            }
+            ]
+        });
+        function operateFormatter(value, row, index) {
+            var id = index;
+            var data = JSON.stringify(row);
+            var result = "";
+            result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改'>" +
+                "<span class='glyphicon glyphicon-zoom-in'></span></button>";
+            return result;
         }
-        ]
     });
 
     function operateFormatter(value, row, index) {
@@ -119,7 +251,7 @@
         var result = "";
         result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
-    }
+    };
 
     $(function () {
         $('#datetimepicker1').datetimepicker({
@@ -130,13 +262,159 @@
             format: 'YYYY-MM-DD',
             locale: moment.locale('zh-cn')
         });
-    })
+    });
 
     function EditViewById(id, view) {
         console.log(id);
         console.log(view);
 
+    };
+
+    function queryParams(params) {
+        var temp = $("#myform").serialize();
+        console.log(temp);
+        return temp;
+    };
+
+    //检索
+    function find() {
+        $("#testTable").bootstrapTable('refresh');
+
+    };
+    //新增
+    function save() {
+        var param = $("#myform1").serializeArray();
+        var departmentId = param[0].value;
+        console.log(departmentId);
+        var personName = param[1].value;
+        $.ajax({
+            type: 'post',
+            url: '/hospitalPerson/selectOneName?personName=' + personName,
+            dataType: 'json',
+            success: function (personId) {
+                $.ajax({
+                    url: '/permission/insert',
+                    method: 'post',
+                    data: {
+                        personId: personId,
+                        departmentId: departmentId
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result == 1) {
+                            alert("新增成功");
+                            history.go(0)
+                        } else {
+                            alert("新增失败");
+                            history.go(0)
+                        }
+                    }
+                })
+            }
+
+        });
+
+
+    };
+    //修改
+    function save2() {
+        var param = $("#myform2").serializeArray();
+        console.log(param);
+        var departmentId = param[0].value;
+        var id=param[1].value;
+        var personName = param[2].value;
+        $.ajax({
+            type: 'post',
+            url: '/hospitalPerson/selectOneName?personName=' + personName,
+            dataType: 'json',
+            success: function (personId) {
+                $.ajax({
+                    url: '/permission/update',
+                    method: 'post',
+                    data: {
+                        id:id,
+                        personId: personId,
+                        departmentId: departmentId
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result == 1) {
+                            alert("修改成功");
+                            history.go(0)
+                        } else {
+                            alert("修改失败");
+                            history.go(0)
+                        }
+                    }
+                })
+            }
+
+        });
+
+
+    };
+
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/hospitalPerson/selectOneByName/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#personName').append(datas);
+                $('#personName1').append(datas);
+                $('#personName2').append(datas);
+            }
+        })
+    });
+
+    function del() {
+        // $("#table").bootstrapTable('getSelections');为bootstrapTable自带的，所以说一定要使用bootstrapTable显示表格,#table：为table的id
+        var rows = $("#testTable").bootstrapTable('getSelections');
+        if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+            alert("请先选择要删除的记录!");
+            return;
+        } else {
+            var arrays = new Array();// 声明一个数组
+            $(rows).each(function () {// 通过获得别选中的来进行遍历
+                arrays.push(this.id);// cid为获得到的整条数据中的一列
+            });
+            ids = arrays.join(','); // 获得要删除的id
+
+        }
+        $.ajax({
+            url: '/permission/delete',
+            method: 'post',
+            data: {
+                ids: ids,
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("删除成功");
+                    history.go(0)
+                } else {
+                    alert("删除失败");
+                    history.go(0)
+                }
+            }
+        })
+    };
+    //回显
+    function EditViewById(row, index) {
+        var data = JSON.stringify($("#testTable").bootstrapTable('getData'));//获取全部数据
+        var data1 = JSON.parse(data);//转Json 对象
+        console.log(data1);
+        $("#id").val(data1[index].id);
+        $("#departmentId").val(data1[index].departmentId);
+        $("#personName2").val(data1[index].hp.personName);
+        $("#myModel2").modal('show')
     }
+
 </script>
 </body>
 </html>

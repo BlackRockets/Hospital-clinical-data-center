@@ -27,16 +27,17 @@
         <h3 style="color: #28a4c9">模板设计</h3>
     </div>
     <div class="row" style="margin: 1%">
-        <button type="button" class="btn btn-info btn-sm" onclick="">
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa3">
             引用模板
         </button>
     </div>
     <div>
         <div class="col-lg-2">
-            <div class="row" style="margin: 1%;display:none;">
+            <div id="d1" class="row" style="margin: 1%;display:block;">
                 <table id="tree"></table>
+                <button onclick="btn()" class="btn-info">确认选择</button>
             </div>
-            <div class="row">
+            <div id="d2" class="row" style="display: none">
                 <form role="form">
                    <div class="form-group">
                        名称
@@ -80,6 +81,71 @@
                     </div>
                 </form>
             </div>
+            <div id="d3" class="row" style="display: none">
+                <form role="form">
+                    <div class="form-group">
+                        名称
+                        <input type="text" value="症状">
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">是否可填
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">是否可搜索
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox">是否隐私项
+                    </div>
+                    <div class="form-group">
+                        内容
+                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModal">
+                            选择术语
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                            <input type="text" value="头痛">
+                        </div>
+                        <div>
+                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                            <input type="text" value="发热">
+                        </div>
+                        <div>
+                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+                            <input type="text" value="胸闷">
+                        </div>
+                        <div>
+                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-plus-sign" style="color: red"></span></a>
+                            <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
+                                合并术语
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        来源
+                        <select>
+                            <option value="">请选择</option>
+                            <option value="">手工录入</option>
+                            <option value="">移动APP</option>
+                            <option value="">网页</option>
+                            <option value="">微信</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        分类
+                        <select>
+                            <option value="">请选择</option>
+                            <option value="">症状</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button"  data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
+                            添加至树节点
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col-lg-10" style="border-left: 1px solid #ccc;">
             <div class="row" style="margin: 1%">
@@ -97,29 +163,46 @@
                 </button>
             </div>
             <div class="row">
-                <form role="form" style="margin: 1%">
-                    <div class="form-group" style="margin-top: 1%">
-                        <div class="page-header" style="text-align: center;margin-top: 0">
-                            <p style="color: #28a4c9">基本信息</p>
+                <form id="forms" role="form" style="margin: 1%">
+                    <div id="p1" class="page-header" style="text-align: center;margin-top: 5%;">
+                        <p style="color: #28a4c9"><a onclick="inform()">基本信息</a></p>
+                    </div>
+                    <div id="r1" style="padding-bottom: 2%">
+                        <div class="col-sm-3">
+                            性别：<select>
+                            <option value="请选择">请选择</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
                         </div>
                         <div class="col-sm-3">
-                            唯一标识：<input type="text">
+                            民族：<select>
+                            <option value="请选择">请选择</option>
+                            <option value="汉族">汉族</option>
+                            <option value="满族">满族</option>
+                            <option value="朝鲜族">朝鲜族</option>
+                        </select>
                         </div>
                         <div class="col-sm-3">
                             姓名：<input type="text">
                         </div>
                         <div class="col-sm-3">
-                            性别：<input type="text">
-                        </div>
-                        <div class="col-sm-3">
                             出生日期：<input type="text">
                         </div>
-
                     </div>
-                    <div class="form-group" style="margin-top: 7%">
-                        <div class="page-header" style="text-align: center;margin-top: 0">
-                            <p style="color: #28a4c9">体格检查</p>
-                        </div>
+                    <div id="p5" class="page-header" style="text-align: center;margin-top: 5%;display: none">
+                        <p style="color: #28a4c9"><a onclick="inform()">首页信息</a></p>
+                    </div>
+                    <div id="r5" style="padding-bottom: 2%">
+                    </div>
+                    <div id="p6" class="page-header" style="text-align: center;margin-top: 5%;display: none">
+                        <p style="color: #28a4c9"><a onclick="inform()">手术信息</a></p>
+                    </div>
+                    <div id="r6" style="padding-bottom: 2%"></div>
+                    <div id="p2" class="page-header" style="text-align: center;margin-top: 5%;">
+                        <p style="color: #28a4c9">体格检查</p>
+                    </div>
+                    <div id="r2" style="padding-bottom: 2%">
                         <div class="col-sm-3">
                             身高：<input type="text">cm
                         </div>
@@ -130,10 +213,10 @@
                             BMI：<input type="text">
                         </div>
                     </div>
-                    <div class="form-group" style="margin-top: 7%">
-                        <div class="page-header" style="text-align: center;margin-top: 0">
-                            <p style="color: #28a4c9">实验室检查</p>
-                        </div>
+                    <div id="p3" class="page-header" style="text-align: center;margin-top: 5%;">
+                        <p style="color: #28a4c9"><a onclick="inspect()">实验室检查</a></p>
+                    </div>
+                    <div id="r3" style="padding-bottom: 2%">
                         <div class="col-sm-3">
                             白细胞：<input type="text">mmol/L
                         </div>
@@ -141,19 +224,72 @@
                             血糖：<input type="text">mmol/L
                         </div>
                     </div>
-                    <div class="form-group" style="margin-top: 7%">
-                        <div class="page-header" style="text-align: center;margin-top: 0">
-                            <p style="color: #28a4c9">症状</p>
-                        </div>
+                    <div id="p4" class="page-header" style="text-align: center;margin-top: 7%;">
+                        <p style="color: #28a4c9"><a onclick="symptoms()">症状</a></p>
+                    </div>
+                    <div id="r4" style="padding-bottom: 2%">
                         <div class="col-sm-3">
                             症状：<select>
-                            <option>1</option>
-                            <option>1</option>
+                            <option value="">请选择</option>
+                            <option value="头痛">头痛</option>
+                            <option value="发热">发热</option>
+                            <option value="头晕">头晕</option>
+                            <option value="咳嗽">咳嗽</option>
+                            <option value="胸闷">胸闷</option>
+                            <option value="胸痛">胸痛</option>
+                            <option value="呕吐">呕吐</option>
+                            <option value="心衰">心衰</option>
                         </select>
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModa3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="page-header" style="text-align: center;margin-top: 0">
+                <h3 style="color: blue">通用模板选择</h3>
+            </div>
+            <form role="form" id="testForm">
+                <div class="form-group" style="text-align: center">
+                    <input type="checkbox" value="1">基本信息
+                    <div id="infroms" class="form-group" style="margin-top: 1%;display: none">
+
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <input type="checkbox" value="2">体格检查
+                    <div id="physique" class="form-group" style="margin-top: 7%;display: none">
+
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <input type="checkbox" value="3">实验室检查
+                    <div id="laboratory" class="form-group" style="margin-top: 7%;display: none">
+
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <input type="checkbox" value="4">症状
+                    <div id="zheng" class="form-group" style="margin-top: 7%;display: none">
+
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <button type="button" class="btn btn-info btn-sm"  data-dismiss="modal" aria-hidden="true" onclick="merge()">
+                        确定合并
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -166,120 +302,116 @@
     var  newsid=newsids[1];//得到参数值
     console.log(newsid);
 
-
-
-
-
     var tree = [
         {
             text: "基本信息",
-            id: 2,
+            id: 1,
             nodes: [
                 {
-                    text: "患者唯一标识",
-                    id: 3
+                    text: "唯一标识",
+                    id: 2
                 },
                 {
                     text: "姓名",
-                    id: 4
+                    id: 12
                 },
                 {
                     text: "性别",
-                    id: 4
+                    id: 12
                 },
                 {
                     text: "出生日期",
-                    id: 4
+                    id: 12
                 },
                 {
                     text: "出生地",
-                    id: 4
+                    id: 2
                 },
                 {
-                    text: "文化程度(已审批)",
-                    id: 4
+                    text: "文化程度",
+                    id: 2
                 },
                 {
                     text: "症状(待审批)",
-                    id: 4
+                    id: 2
                 },
                 {
                     text: "电子邮件",
-                    id: 4
+                    id: 2
                 },
                 {
                     text: "ABO血型",
-                    id: 4
+                    id: 2
                 },
                 {
                     text: "RH血型(待审批)",
-                    id: 4
+                    id: 2
                 },
                 {
                     text: "联系人",
-                    id: 4,
+                    id: 2,
                     nodes: [
                         {
                             text: "与患者信息",
-                            id: 3
+                            id: 2
                         },
                         {
                             text: "姓名",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "性别",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "住址",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "电子邮件",
-                            id: 4
+                            id: 2
                         }
                     ]
                 },
                 {
                     text: "证件",
-                    id: 4,
+                    id: 2,
                     nodes: [
                         {
                             text: "身份证号",
-                            id: 3
+                            id: 2
                         },
                         {
                             text: "户口簿号",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "护照号",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "军官证号",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "驾驶证号",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "港澳通行证号",
-                            id: 4
+                            id: 2
                         },
                         {
                             text: "台湾通行证号",
-                            id: 4
+                            id: 2
                         }
                     ]
                 }
             ]
         },
         {
-            text: "首页 信息",
-            id: 2,
+            text: "首页信息",
+            id: 1,
             nodes: [
                 {
                     text: "主要诊断",
@@ -287,69 +419,69 @@
                 },
                 {
                     text: "门(急)诊诊断",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "入院方式",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "入院时间",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "入院科室",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "入院诊断",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "入院医生",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "主治医生",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "出院时间",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "出院科室",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "出院状态",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "出院诊断",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "出院天数",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "离院方式",
-                    id: 4
+                    id: 3
                 },
                 {
                     text: "是否死亡",
-                    id: 4
+                    id: 3
                 }
             ]
         },
         {
             text: "手术信息",
-            id: 5,
+            id: 1,
             nodes: [
                 {
                     text: "手术名称",
-                    id: 3
+                    id: 4
                 },
                 {
                     text: "手术日期",
@@ -381,7 +513,7 @@
                     nodes: [
                         {
                             text: "麻醉方式",
-                            id: 3
+                            id: 4
                         },
                         {
                             text: "麻醉科室",
@@ -423,6 +555,71 @@
             console.log("id = " + data.id);
         }
     });
+
+    function inform() {
+        document.getElementById("d1").style.display="block";
+        document.getElementById("d2").style.display="none";
+        document.getElementById("d3").style.display="none";
+    }
+    function inspect() {
+        document.getElementById("d1").style.display="none";
+        document.getElementById("d2").style.display="block";
+        document.getElementById("d3").style.display="none";
+    }
+    function symptoms() {
+        document.getElementById("d1").style.display="none";
+        document.getElementById("d2").style.display="none";
+        document.getElementById("d3").style.display="block";
+    }
+    
+    function merge() {
+        $.each($('#testForm input:checkbox'),function(){
+            if(this.checked){
+               if($(this).val()==1){
+                   document.getElementById("p1").style.display="block";
+                   var html = $("#infroms").html();
+                   $("#r1").html(html)
+               }else if($(this).val()==2){
+                   document.getElementById("p2").style.display="block";
+                   var html = $("#physique").html();
+                   $("#r2").html(html)
+               }else if($(this).val()==3){
+                   document.getElementById("p3").style.display="block";
+                   var html = $("#laboratory").html();
+                   $("#r3").html(html)
+               }else if($(this).val()==4){
+                   document.getElementById("p4").style.display="block";
+                   var html = $("#zheng").html();
+                   $("#r4").html(html)
+               }
+            }
+        })
+
+    }
+    function btn() {
+        var treeview = $('#tree').treeview('getChecked');
+        var html1 = document.getElementById("r1").innerHTML;
+        var html5 = "";
+        var html6 = "";
+        for(var i=0;i<treeview.length;i++){
+            if(treeview[i].id==12){
+                html1+="";
+                $("#r1").html(html1);
+            }else if(treeview[i].id==2){
+                document.getElementById("p1").style.display="block";
+                html1+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                $("#r1").html(html1);
+            }else if(treeview[i].id==3){
+                document.getElementById("p5").style.display="block";
+                html5+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                $("#r5").html(html5);
+            }else if(treeview[i].id==4){
+                document.getElementById("p6").style.display="block";
+                html6+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                $("#r6").html(html6);
+            }
+        }
+    }
 </script>
 </body>
 </html>

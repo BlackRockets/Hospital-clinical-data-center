@@ -87,4 +87,6 @@ public interface UserDao {
      *@author: zyl
      */
     List<User> selectUserByPharmacist();
+
+    User getUserByName(String name);
 }

@@ -30,7 +30,7 @@
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="javascrtpt:window.location.href='authorityManagement.html'">权限管理</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="groupEntry()">入组管理</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="template()">模板设置</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">随访规定设定</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="ruleSetting()">随访规定设定</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="diag()">诊疗方案</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">节假日管理</button>
     </div>
@@ -378,10 +378,16 @@
 </script>
 <script type="text/javascript">
     var newHref = window.location.href;
-    var num = newHref.indexOf('id=') + 3;
-    var len = newHref.length;
-    var idVal = newHref.substring(num, len);
+    var num1 = newHref.indexOf('id=') + 3;
+    var num2 = newHref.indexOf('&');
+    var idVal = newHref.substring(num1, num2);
     var id = idVal;
+
+    var num3 = newHref.indexOf('groupName=') + 10;
+    var len = newHref.length;
+    var groupName = newHref.substring(num3, len);
+    var s = decodeURI(groupName);
+    $('h3').html(s);
     $("#testTable").bootstrapTable({
         method: 'get',
         url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',
@@ -464,6 +470,10 @@
     }
     function template() {
         window.location.href="templateSettings.html?id="+id;
+    }
+
+    function ruleSetting() {
+        window.location.href="followUpRuleSetting.html?id="+id;
     }
 
     function operateFormatter(value, row, index){

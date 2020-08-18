@@ -47,15 +47,16 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "update",produces = {"application/json;charset=utf-8"})
+    @RequestMapping(value = "update", produces = {"application/json;charset=utf-8"})
     public int update(@RequestBody String user) {
-       return userService.update(user);
+        return userService.update(user);
     }
+
     @ResponseBody
     @RequestMapping("delete")
     public String delete(Integer[] ids) {
-       int i= userService.delete(ids);
-       return JSON.toJSONString(i);
+        int i = userService.delete(ids);
+        return JSON.toJSONString(i);
     }
 
     @ResponseBody

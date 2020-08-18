@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.FollowUpRulesDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.FollowUpRules" id="FollowUpRulesMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="followupgorupid" column="followUpGorupId" jdbcType="INTEGER"/>
+        <result property="things" column="things" jdbcType="VARCHAR"/>
+        <result property="conditions" column="conditions" jdbcType="VARCHAR"/>
+        <result property="startTime" column="start_Time" jdbcType="VARCHAR"/>
+        <result property="intervaltime" column="intervalTime" jdbcType="VARCHAR"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="inadvance" column="inAdvance" jdbcType="INTEGER"/>
+        <result property="rulemark" column="ruleMark" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryByFollowUpGroupId" resultMap="FollowUpRulesMap">
+        select
+          id, followUpGorupId, things, conditions, start_Time, intervalTime, count, inAdvance, ruleMark
+        from hospital.follow_up_rules
+        <where>
+            <if test="followupgorupid != null and followupgorupid != ''">
+                followUpGorupId = #{followupgorupid}
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FollowUpRulesMap">
+        select
+          id, followUpGorupId, things, conditions, start_Time, intervalTime, count, inAdvance, ruleMark
+        from hospital.follow_up_rules
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="FollowUpRulesMap">
+        select
+        id, followUpGorupId, things, conditions, start_Time, intervalTime, count, inAdvance, ruleMark
+        from hospital.follow_up_rules
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="followupgorupid != null">
+                and followUpGorupId = #{followupgorupid}
+            </if>
+            <if test="things != null and things != ''">
+                and things = #{things}
+            </if>
+            <if test="conditions != null and conditions != ''">
+                and conditions = #{conditions}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and start_Time = #{startTime}
+            </if>
+            <if test="intervaltime != null and intervaltime != ''">
+                and intervalTime = #{intervaltime}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+            <if test="inadvance != null">
+                and inAdvance = #{inadvance}
+            </if>
+            <if test="rulemark != null">
+                and ruleMark = #{rulemark}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into hospital.follow_up_rules(followUpGorupId, things, conditions, start_Time, intervalTime, count, inAdvance, ruleMark)
+        values (#{followupgorupid}, #{things}, #{conditions}, #{startTime}, #{intervaltime}, #{count}, #{inadvance}, #{rulemark})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hospital.follow_up_rules
+        <set>
+            <if test="followupgorupid != null">
+                followUpGorupId = #{followupgorupid},
+            </if>
+            <if test="things != null and things != ''">
+                things = #{things},
+            </if>
+            <if test="conditions != null and conditions != ''">
+                conditions = #{conditions},
+            </if>
+            <if test="startTime != null and startTime != ''">
+                start_Time = #{startTime},
+            </if>
+            <if test="intervaltime != null and intervaltime != ''">
+                intervalTime = #{intervaltime},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="inadvance != null">
+                inAdvance = #{inadvance},
+            </if>
+            <if test="rulemark != null">
+                ruleMark = #{rulemark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hospital.follow_up_rules where id = #{id}
+    </delete>
+
+</mapper>

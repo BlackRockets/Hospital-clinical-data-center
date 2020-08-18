@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospitaldatacenter.dao.HospitalPersonDao">
+
+    <resultMap type="com.hospitaldatacenter.entity.HospitalPerson" id="HospitalPersonMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="personName" column="person_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryByName" resultType="java.lang.String">
+        select distinct
+         person_name
+        from hospital.hospital_person
+
+    </select>
+    <select id="queryName" resultType="java.lang.String">
+        select distinct
+         id
+        from hospital.hospital_person where person_name = #{personName}
+
+    </select>
+
+
+</mapper>
