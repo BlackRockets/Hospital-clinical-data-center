@@ -36,7 +36,7 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        // 获取登录用户名
+        /*// 获取登录用户名
         String name = (String)principalCollection.getPrimaryPrincipal();
         // 查询用户的角色信息
         Set<String> roles = getRolesByUsername(name);
@@ -45,8 +45,9 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
         // 设置用户的角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.setRoles(roles);
-        simpleAuthorizationInfo.setStringPermissions(permissions);
-
+        simpleAuthorizationInfo.setStringPermissions(permissions);*/
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+       /* simpleAuthorizationInfo.addStringPermission("user:addUser");*/
         return simpleAuthorizationInfo;
     }
 

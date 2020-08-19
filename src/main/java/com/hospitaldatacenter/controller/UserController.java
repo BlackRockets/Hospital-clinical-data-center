@@ -91,6 +91,8 @@ public class UserController {
         try{
             // 开始认证，这一步会跳到我们自定义的 Realm 中
             subject.login(token);
+
+            System.out.println(subject.isPermitted("user:addUser"));
             request.getSession().setAttribute("user", user);
             return "success";
         }catch(Exception e){
