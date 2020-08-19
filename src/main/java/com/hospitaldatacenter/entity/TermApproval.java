@@ -40,10 +40,18 @@ public class TermApproval implements Serializable {
      * 提交时间
      */
     private Date submissionTime;
+
+    private String createTime;
     /**
      * 审批状态(0:未审批；1：通过；2：拒绝)
      */
     private Integer state;
+
+    private String type;
+
+    private FollowUpGroupManagement fugm;
+
+    private Departments departments;
 
 
     public Integer getId() {
@@ -110,4 +118,40 @@ public class TermApproval implements Serializable {
         this.state = state;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public FollowUpGroupManagement getFugm() {
+        return fugm;
+    }
+
+    public void setFugm(FollowUpGroupManagement fugm) {
+        this.fugm = fugm;
+    }
+
+    public Departments getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Departments departments) {
+        this.departments = departments;
+    }
+
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 }

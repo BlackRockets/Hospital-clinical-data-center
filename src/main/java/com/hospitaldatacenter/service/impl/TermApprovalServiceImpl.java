@@ -23,24 +23,21 @@ public class TermApprovalServiceImpl implements TermApprovalService {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
      * @return 实例对象
      */
     @Override
-    public TermApproval queryById(Integer id) {
-        return this.termApprovalDao.queryById(id);
+    public TermApproval queryOne(String name) {
+        return this.termApprovalDao.queryOne(name);
     }
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
     @Override
-    public List<TermApproval> queryAllByLimit(int offset, int limit) {
-        return this.termApprovalDao.queryAllByLimit(offset, limit);
+    public List<TermApproval> queryAll() {
+        return this.termApprovalDao.queryAll();
     }
 
     /**
@@ -62,9 +59,9 @@ public class TermApprovalServiceImpl implements TermApprovalService {
      * @return 实例对象
      */
     @Override
-    public TermApproval update(TermApproval termApproval) {
-        this.termApprovalDao.update(termApproval);
-        return this.queryById(termApproval.getId());
+    public int update(TermApproval termApproval) {
+
+       return termApprovalDao.update(termApproval);
     }
 
     /**
@@ -77,4 +74,15 @@ public class TermApprovalServiceImpl implements TermApprovalService {
     public boolean deleteById(Integer id) {
         return this.termApprovalDao.deleteById(id) > 0;
     }
+
+    @Override
+    public List<TermApproval> selectClassification() {
+        return termApprovalDao.selectClassification();
+    }
+
+    @Override
+    public List<TermApproval> selectType() {
+        return termApprovalDao.selectType();
+    }
+
 }

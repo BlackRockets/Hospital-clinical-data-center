@@ -26,9 +26,12 @@
         <div class="col-lg-2">
             <div class="form-group">
                 <div class="col-lg-6">
-                    <input type="text" class="form-control input-sm" v-model="">
+                    <input type="text" class="form-control input-sm" name="name">
                 </div>
-                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">筛选</button>
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="screen()">筛选</button>
+                <div class="col-lg-6"  style="text-align: right">
+                    <button onclick="btn()" class="btn-info">确认选择</button>
+                </div>
             </div>
             <div class="row" style="margin: 1%">
                 <table id="tree"></table>
@@ -36,41 +39,109 @@
         </div>
         <div class="col-lg-10">
             <div>
-                <div>
-                    <p style="color: blue">提交信息：</p>
-                    <p>名称：移动电话 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型：文本&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：基本信息</p>
-                    <p>创建人：张三 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科室：骨科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：2016-06-01</p>
-                </div>
-                <div style="border-top: 1px solid #ccc;margin-top: 5%;padding-top: 2%">
-                    <p style="color: blue">提交信息：</p>
-                    <div class="col-sm-2">
-                        名称：<input type="text" class="form-control col-sm-4" placeholder="">
+                <form id="myform">
+                    <div>
+                        <p style="color: blue">提交信息：</p>
+                        <div class="col-md-4">
+                            <div class="col-md-3" style="text-align:left">
+                                名称:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="name" id="name" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-3" style="text-align:left">
+                                类型:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="type" id="type" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-3" style="text-align:left">
+                                分类:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="classification" id="classification"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-3" style="text-align:left">
+                                创建人:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="submitter" id="submitter" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-3" style="text-align:left">
+                                科室:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="departmentsName" id="departmentsName"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-3" style="text-align:left">
+                                创建时间:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="time" id="time" readonly>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        类型：
-                        <select class="form-control input-sm col-sm-4" v-model="">
-                            <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </div >
-                    <div class="col-sm-2">
-                        分类：
-                        <select class="form-control input-sm col-sm-4" v-model="">
-                            <option>-请选择-</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                </form>
+                <form id="form">
+                    <div style="border-top: 1px solid #ccc;margin-top: 7%;padding-top: 5%">
+                        <p style="color: blue">修改为：</p>
+                        <div class="col-md-4" style="display: none">
+                            <div class="col-md-3" style="text-align:left">
+                                id:
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control col-sm-4" name="id" id="id">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            名称：<input type="text" class="form-control col-sm-4" name="name">
+                        </div>
+                        <div class="col-sm-2">
+                            类型：
+                            <select class="form-control input-sm col-sm-4" name="type" id="type1">
+                                <option>-请选择-</option>
+                                <option>文本1</option>
+                                <option>文本2</option>
+                                <option>文本3</option>
+                                <option>文本4</option>
+                                <option>文本5</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            分类：
+                            <select class="form-control input-sm col-sm-4" name="classification">
+                                <option>-请选择-</option>
+                                <option>基本信息</option>
+                                <option>症状</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-8" style="margin-top: 2%">
+                            <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick=" confirm()">
+                                确定
+                            </button>
+                            <button type="button" class="btn btn-info btn-sm" data-dismiss="modal"
+                                   onclick="cancel()">取消
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-lg-8" style="margin-top: 2%">
-                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">确定</button>
-                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click=" screen()">取消</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <table id="table"></table>
     </div>
 </div>
 <script type="text/javascript">
@@ -93,93 +164,93 @@
                         },
                         {
                             text: "性别",
-                            id: 4
+                            id: 5
                         },
                         {
                             text: "出生日期",
-                            id: 4
+                            id: 6
                         },
                         {
                             text: "出生地",
-                            id: 4
+                            id: 7
                         },
                         {
                             text: "文化程度(已审批)",
-                            id: 4
+                            id: 8
                         },
                         {
                             text: "症状(待审批)",
-                            id: 4
+                            id: 9
                         },
                         {
                             text: "电子邮件",
-                            id: 4
+                            id: 10
                         },
                         {
                             text: "ABO血型",
-                            id: 4
+                            id: 11
                         },
                         {
                             text: "RH血型(待审批)",
-                            id: 4
+                            id: 12
                         },
                         {
                             text: "联系人",
-                            id: 4,
+                            id: 13,
                             nodes: [
                                 {
                                     text: "与患者信息",
-                                    id: 3
+                                    id: 14
                                 },
                                 {
                                     text: "姓名",
-                                    id: 4
+                                    id: 15
                                 },
                                 {
                                     text: "性别",
-                                    id: 4
+                                    id: 16
                                 },
                                 {
                                     text: "住址",
-                                    id: 4
+                                    id: 17
                                 },
                                 {
                                     text: "电子邮件",
-                                    id: 4
+                                    id: 18
                                 }
                             ]
                         },
                         {
                             text: "证件",
-                            id: 4,
+                            id: 19,
                             nodes: [
                                 {
                                     text: "身份证号",
-                                    id: 3
+                                    id: 20
                                 },
                                 {
                                     text: "户口簿号",
-                                    id: 4
+                                    id: 21
                                 },
                                 {
                                     text: "护照号",
-                                    id: 4
+                                    id: 22
                                 },
                                 {
                                     text: "军官证号",
-                                    id: 4
+                                    id: 23
                                 },
                                 {
                                     text: "驾驶证号",
-                                    id: 4
+                                    id: 24
                                 },
                                 {
                                     text: "港澳通行证号",
-                                    id: 4
+                                    id: 25
                                 },
                                 {
                                     text: "台湾通行证号",
-                                    id: 4
+                                    id: 26
                                 }
                             ]
                         }
@@ -187,117 +258,117 @@
                 },
                 {
                     text: "首页 信息",
-                    id: 2,
+                    id: 27,
                     nodes: [
                         {
                             text: "主要诊断",
-                            id: 3
+                            id: 28
                         },
                         {
                             text: "门(急)诊诊断",
-                            id: 4
+                            id: 29
                         },
                         {
                             text: "入院方式",
-                            id: 4
+                            id: 30
                         },
                         {
                             text: "入院时间",
-                            id: 4
+                            id: 31
                         },
                         {
                             text: "入院科室",
-                            id: 4
+                            id: 32
                         },
                         {
                             text: "入院诊断",
-                            id: 4
+                            id: 33
                         },
                         {
                             text: "入院医生",
-                            id: 4
+                            id: 34
                         },
                         {
                             text: "主治医生",
-                            id: 4
+                            id: 35
                         },
                         {
                             text: "出院时间",
-                            id: 4
+                            id: 36
                         },
                         {
                             text: "出院科室",
-                            id: 4
+                            id: 37
                         },
                         {
                             text: "出院状态",
-                            id: 4
+                            id: 38
                         },
                         {
                             text: "出院诊断",
-                            id: 4
+                            id: 39
                         },
                         {
                             text: "出院天数",
-                            id: 4
+                            id: 40
                         },
                         {
                             text: "离院方式",
-                            id: 4
+                            id: 41
                         },
                         {
                             text: "是否死亡",
-                            id: 4
+                            id: 42
                         }
                     ]
                 },
                 {
                     text: "手术信息",
-                    id: 5,
+                    id: 43,
                     nodes: [
                         {
                             text: "手术名称",
-                            id: 3
+                            id: 44
                         },
                         {
                             text: "手术日期",
-                            id: 4
+                            id: 45
                         },
                         {
                             text: "手术执行科室",
-                            id: 4
+                            id: 46
                         },
                         {
                             text: "手术开始时间",
-                            id: 4
+                            id: 47
                         },
                         {
                             text: "手术结束时间",
-                            id: 4
+                            id: 48
                         },
                         {
                             text: "手术工作量",
-                            id: 4
+                            id: 49
                         },
                         {
                             text: "手术部位",
-                            id: 4
+                            id: 50
                         },
                         {
                             text: "麻醉信息",
-                            id: 4,
+                            id: 51,
                             nodes: [
                                 {
                                     text: "麻醉方式",
-                                    id: 3
+                                    id: 52
                                 },
                                 {
                                     text: "麻醉科室",
-                                    id: 4
+                                    id: 53
                                 },
                                 {
                                     text: "麻醉准备时间",
-                                    id: 4
+                                    id: 54
                                 },
                                 {
                                     text: "麻醉开始时间",
@@ -305,11 +376,11 @@
                                 },
                                 {
                                     text: "麻醉结束时间",
-                                    id: 4
+                                    id: 55
                                 },
                                 {
                                     text: "麻醉工作量",
-                                    id: 4
+                                    id: 56
                                 }
                             ]
                         }
@@ -322,9 +393,9 @@
         data: tree,         // 数据源
         showCheckbox: true,   //是否显示复选框
         highlightSelected: true,    //是否高亮选中
-        nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
-        //nodeIcon: 'glyphicon glyphicon-globe',
-        emptyIcon: '',    //没有子节点的节点图标
+        /*  nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+          //nodeIcon: 'glyphicon glyphicon-globe',
+          emptyIcon: '',    //没有子节点的节点图标*/
         multiSelect: false,    //多选
         onNodeChecked: function (event, data) {
             console.log("nodeId = " + data.nodeId);
@@ -335,6 +406,89 @@
             console.log("id = " + data.id);
         }
     });
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/termApproval/selectClassification/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#classification1').append(datas);
+            }
+        })
+    })
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/termApproval/selectType/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#type1').append(datas);
+            }
+        })
+    })
+
+    function btn() {
+
+        var param = $("#tree").treeview('getChecked');
+        if (param == "") {
+            history.go(0);
+        }
+        var name = param[0].text;
+        $.ajax({
+            type: 'post',
+            url: '/termApproval/selectOne?name=' + name,
+            success: function (data) {
+                if (data !== "") {
+                    console.log(data);
+                    $("#id").val(data.id);
+                    $("#name").val(data.name);
+                    $("#type").val(data.type);
+                    $("#classification").val(data.classification);
+                    $("#departmentsName").val(data.departments.departmentsName);
+                    $("#submitter").val(data.submitter);
+                    $("#time").val(data.createTime);
+                    /*$("#time").val(data.submitter);*/
+                } else {
+                    alert("找不到此术语");
+                }
+
+            }
+
+        });
+
+    }
+
+    function confirm() {
+        var param = $("#form").serializeArray();
+        $.ajax({
+            url: '/termApproval/update',
+            method: 'post',
+            data: param,
+            dataType: 'json',
+            success: function (result) {
+                if (result == 1) {
+                    alert("修改成功");
+                    history.go(0)
+                } else {
+                    alert("修改失败");
+                    history.go(0)
+                }
+            }
+        })
+    }
+ function cancel() {
+     history.go(0);
+ }
 </script>
 </body>
 </html>

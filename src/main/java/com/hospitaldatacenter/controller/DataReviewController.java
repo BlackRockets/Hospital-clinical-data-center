@@ -42,7 +42,7 @@ public class DataReviewController {
         dataReview.setFugm(fugm);
         Date reviewerTime2 = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        if (reviewerTime1 == null) {
+        if (reviewerTime1 == "") {
             reviewerTime2 = null;
         } else {
             try {

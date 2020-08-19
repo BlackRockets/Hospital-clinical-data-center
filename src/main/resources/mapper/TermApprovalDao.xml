@@ -8,9 +8,16 @@
         <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
         <result property="classification" column="classification" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
         <result property="submitter" column="submitter" jdbcType="VARCHAR"/>
         <result property="submissionTime" column="submission_time" jdbcType="TIMESTAMP"/>
         <result property="state" column="state" jdbcType="INTEGER"/>
+        <association property="fugm" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
+            <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="departments" javaType="com.hospitaldatacenter.entity.Departments">
+            <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
@@ -20,7 +27,13 @@
         from hospital.term_approval
         where id = #{id}
     </select>
+    <select id="selectClassification" resultType="java.lang.String">
+        select distinct classification from term_approval
+    </select>
 
+    <select id="selectType" resultType="java.lang.String">
+        select distinct type from term_approval
+    </select>
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TermApprovalMap">
         select
@@ -31,37 +44,15 @@
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="TermApprovalMap">
-        select
-        id, follow_up_group_id, department_id, classification, name, submitter, submission_time, state
-        from hospital.term_approval
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="followUpGroupId != null">
-                and follow_up_group_id = #{followUpGroupId}
-            </if>
-            <if test="departmentId != null">
-                and department_id = #{departmentId}
-            </if>
-            <if test="classification != null and classification != ''">
-                and classification = #{classification}
-            </if>
-            <if test="name != null and name != ''">
-                and name = #{name}
-            </if>
-            <if test="submitter != null and submitter != ''">
-                and submitter = #{submitter}
-            </if>
-            <if test="submissionTime != null">
-                and submission_time = #{submissionTime}
-            </if>
-            <if test="state != null">
-                and state = #{state}
-            </if>
-        </where>
+        select  t.*,d.departments_name,f.group_name
+        from hospital.term_approval t,departments d,follow_up_group_management f
+        where t.department_id=d.id and f.id=t.follow_up_group_id
     </select>
-
+    <select id="queryOne" resultMap="TermApprovalMap">
+        select  t.*,d.departments_name,f.group_name
+        from hospital.term_approval t,departments d,follow_up_group_management f
+        where t.department_id=d.id and f.id=t.follow_up_group_id and  t.name =#{name}
+    </select>
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into hospital.term_approval(follow_up_group_id, department_id, classification, name, submitter, submission_time, state)
@@ -72,9 +63,7 @@
     <update id="update">
         update hospital.term_approval
         <set>
-            <if test="followUpGroupId != null">
-                follow_up_group_id = #{followUpGroupId},
-            </if>
+
             <if test="departmentId != null">
                 department_id = #{departmentId},
             </if>
@@ -84,15 +73,7 @@
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
-            <if test="submitter != null and submitter != ''">
-                submitter = #{submitter},
-            </if>
-            <if test="submissionTime != null">
-                submission_time = #{submissionTime},
-            </if>
-            <if test="state != null">
-                state = #{state},
-            </if>
+
         </set>
         where id = #{id}
     </update>
