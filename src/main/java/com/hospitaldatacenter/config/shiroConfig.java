@@ -38,13 +38,17 @@ public class shiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-         /* 过滤链定义，从上向下顺序执行，一般将 / ** 放在最为下边:这是一个坑呢，一不小心代码就不好使了;
-          authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
-        /*filterChainDefinitionMap.put("/", "anon");
+
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");*/
-        // 错误页面，认证不通过跳转
-        //shiroFilterFactoryBean.setUnauthorizedUrl("/err");
+        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/*/login", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
+
+        //直接访问http://localhost:9090/  shiro会进行验证有没有登录，没有登录跳转到login.html 登录页面
+        shiroFilterFactoryBean.setLoginUrl("/login");
+        // 登录成功后要跳转的链接
+        shiroFilterFactoryBean.setSuccessUrl("/index");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

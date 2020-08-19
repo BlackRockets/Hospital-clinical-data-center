@@ -54,8 +54,10 @@
 
     <select id="selectAllNoCondition" resultMap="TemplateMap">
         select t.*,f.group_name
-        from template t,follow_up_group_management f
-        where t.follow_up_group_id=f.id
+        from template t
+        join follow_up_group_management f
+        on t.follow_up_group_id=f.id
+        where t.follow_up_group_id = #{groupId}
     </select>
 
     <!--新增所有列-->

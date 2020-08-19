@@ -72,24 +72,34 @@ public class UserController {
         return map;
     }
 
-    @ResponseBody
     @RequestMapping("login")
+    @ResponseBody
     public String login(User user, HttpServletRequest request) {
         // 根据用户名和密码创建 Token
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getName(), user.getPassword());
+        String name = user.getName();
+        String password = user.getPassword();
+        UsernamePasswordToken token;
+        if(name != null && password!=null){
+            token = new UsernamePasswordToken(user.getName(), user.getPassword());
+        }else {
+            return "信息不能为空";
+        }
+
         // 获取 subject 认证主体
 
         Subject subject = SecurityUtils.getSubject();
         try{
             // 开始认证，这一步会跳到我们自定义的 Realm 中
             subject.login(token);
+
+            System.out.println(subject.isPermitted("user:addUser"));
             request.getSession().setAttribute("user", user);
-            return "index";
+            return "success";
         }catch(Exception e){
             e.printStackTrace();
             request.getSession().setAttribute("user", user);
             request.setAttribute("error", "用户名或密码错误！");
-            return "login";
+            return "error";
         }
     }
 }

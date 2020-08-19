@@ -58,6 +58,6 @@ public interface TemplateService {
      *
      * @return 影响行数
      */
-    List<Template> selectAllNoCondition();
+    List<Template> selectAllNoCondition(Integer groupId);
 
 }

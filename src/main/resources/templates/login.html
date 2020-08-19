@@ -15,19 +15,19 @@
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
 </head>
-<body style=" background: url(http://global.bing.com/az/hprichbg/rb/RavenWolf_EN-US4433795745_1920x1080.jpg) no-repeat center center fixed; background-size: 100%;">
+<body style="background-size: 100%;">
 <div class="container">
     <div class="form-horizontal col-md-offset-3">
-        <form action="/login" method="post" id="myform">
+        <form id="myform">
             <h3 class="form-title">请输入账户密码</h3>
             <div class="col-sm-9 col-md-9">
                 <div class="form-group">
                     <i class="fa fa-user fa-lg"></i>用户名
-                    <input class="form-control required" type="text" placeholder="Username" name="name" autofocus="autofocus" maxlength="20"/>
+                    <input class="form-control required" type="text" placeholder="Username" id="name" autofocus="autofocus" maxlength="20"/>
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock fa-lg"></i>密码
-                    <input class="form-control required" type="password" placeholder="Password" name="password" maxlength="8"/>
+                    <input class="form-control required" type="password" placeholder="Password" id="password" maxlength="8"/>
                 </div>
                 <div class="form-group">
                     <label class="checkbox">
@@ -37,98 +37,36 @@
                     <a href="javascript:;" id="register_btn" class="">注册</a>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success pull-right" value="登录 " onclick="login()"/>
+                    <input type="button" class="btn btn-success pull-right" value="登录 " onclick="login()"/>
                 </div>
             </div>
         </form>
     </div>
-
-   <!-- <div class="form-horizontal col-md-offset-3">
-        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
-            <h3 class="form-title">Login to your account</h3>
-            <div class="col-sm-9 col-md-9">
-                <div class="form-group">
-                    <i class="fa fa-user fa-lg"></i>
-                    <input class="form-control required" type="text" placeholder="Username" name="username" autofocus="autofocus"/>
-                </div>
-                <div class="form-group">
-                    <i class="fa fa-lock fa-lg"></i>
-                    <input class="form-control required" type="password" placeholder="Password" id="register_password" name="password"/>
-                </div>
-                <div class="form-group">
-                    <i class="fa fa-check fa-lg"></i>
-                    <input class="form-control required" type="password" placeholder="Re-type Your Password" name="rpassword"/>
-                </div>
-                <div class="form-group">
-                    <i class="fa fa-envelope fa-lg"></i>
-                    <input class="form-control eamil" type="text" placeholder="Email" name="email"/>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-success pull-right" value="Sign Up "/>
-                    <input type="submit" class="btn btn-info pull-left" id="back_btn" value="Back"/>
-                </div>
-            </div>
-        </form>
-    </div>-->
 </div>
 <script type="text/javascript">
     function login() {
        var name=$("#name").val();
-       var password=$("#passwprd").val();
+       var password=$("#password").val();
        $.ajax({
            type: "post",
-           url: "/login",
+           url: '/user/login',
            async: false,
            data:{
                name: name,
                password: password
            },
+           success:function (res) {
+               if(res == "success"){
+                   window.location.href="/index";
+               }else{
+                   window.location.href="/login";
+               }
+
+           }
 
        })
-           }
+    }
     </script>
 </body>
 </html>
 
-<!--
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>love</title>
-    <link href="favicon.ico" rel="shortcut icon" />
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body style=" background: url(http://global.bing.com/az/hprichbg/rb/RavenWolf_EN-US4433795745_1920x1080.jpg) no-repeat center center fixed; background-size: 100%;">
-
-
-<div class="modal-dialog" style="margin-top: 10%;">
-    <div class="modal-content">
-        <div class="modal-header">
-
-            <h4 class="modal-title text-center" id="myModalLabel">登录</h4>
-        </div>
-        <div class="modal-body" id = "model-body">
-            <div class="form-group">
-
-                <input type="text" class="form-control"placeholder="用户名" autocomplete="off">
-            </div>
-            <div class="form-group">
-
-                <input type="password" class="form-control" placeholder="密码" autocomplete="off">
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="form-group">
-                <button type="button" class="btn btn-primary form-control">登录</button>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default form-control">注册</button>
-            </div>
-
-        </div>
-    </div>&lt;!&ndash; /.modal-content &ndash;&gt;
-</div>&lt;!&ndash; /.modal &ndash;&gt;
-
-</body>
-</html>-->

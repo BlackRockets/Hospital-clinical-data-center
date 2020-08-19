@@ -72,8 +72,8 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public List<Template> selectAllNoCondition() {
-        List<Template> templates = templateDao.selectAllNoCondition();
+    public List<Template> selectAllNoCondition(Integer groupId) {
+        List<Template> templates = templateDao.selectAllNoCondition(groupId);
         return templates;
     }
 }
