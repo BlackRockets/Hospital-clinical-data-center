@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +40,6 @@ public class TermApprovalController {
             return null;
         } else {
             String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            System.out.println(now);
             TermApproval termApprovals = termApprovalService.queryOne(name);
             termApprovals.setCreateTime(now);
             return termApprovals;
@@ -69,6 +71,18 @@ public class TermApprovalController {
     @RequestMapping("update")
     public String update(TermApproval termApproval) {
         int i = termApprovalService.update(termApproval);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("approval")
+    public String approval(Integer id) {
+        int i = termApprovalService.approval(id);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("refuse")
+    public String refuse(Integer id) {
+        int i = termApprovalService.refuse(id);
         return JSON.toJSONString(i);
     }
 }

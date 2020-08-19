@@ -2,6 +2,7 @@ package com.hospitaldatacenter.service;
 
 import com.hospitaldatacenter.entity.TermApproval;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +46,10 @@ public interface TermApprovalService {
      * @return 实例对象
      */
     int update(TermApproval termApproval);
+
+    int approval(Integer id);
+
+    int refuse(Integer id);
 
     /**
      * 通过主键删除数据

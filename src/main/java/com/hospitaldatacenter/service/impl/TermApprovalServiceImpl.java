@@ -6,6 +6,7 @@ import com.hospitaldatacenter.service.TermApprovalService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,7 +62,18 @@ public class TermApprovalServiceImpl implements TermApprovalService {
     @Override
     public int update(TermApproval termApproval) {
 
-       return termApprovalDao.update(termApproval);
+        return termApprovalDao.update(termApproval);
+    }
+
+    @Override
+    public int approval(Integer id) {
+
+        return termApprovalDao.approval(id);
+    }
+
+    @Override
+    public int refuse(Integer id) {
+        return termApprovalDao.refuse(id);
     }
 
     /**

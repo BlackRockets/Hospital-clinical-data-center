@@ -3,6 +3,7 @@ package com.hospitaldatacenter.dao;
 import com.hospitaldatacenter.entity.TermApproval;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,6 +56,10 @@ public interface TermApprovalDao {
      * @return 影响行数
      */
     int update(TermApproval termApproval);
+
+    int approval(Integer id);
+
+    int refuse(Integer id);
 
     /**
      * 通过主键删除数据

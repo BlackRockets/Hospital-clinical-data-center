@@ -58,7 +58,14 @@
         insert into hospital.term_approval(follow_up_group_id, department_id, classification, name, submitter, submission_time, state)
         values (#{followUpGroupId}, #{departmentId}, #{classification}, #{name}, #{submitter}, #{submissionTime}, #{state})
     </insert>
-
+    <!--审批通过-->
+    <update id="approval">
+        update term_approval set state = 1 and submission_time =now() where id=#{id}
+    </update>
+    <!--审批不通过-->
+    <update id="refuse">
+        update term_approval set state = 2  where id=#{id}
+    </update>
     <!--通过主键修改数据-->
     <update id="update">
         update hospital.term_approval
