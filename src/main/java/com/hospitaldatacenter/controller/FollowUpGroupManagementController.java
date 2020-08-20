@@ -1,6 +1,7 @@
 package com.hospitaldatacenter.controller;
 
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
+import com.hospitaldatacenter.entity.FollowUpGroupMember;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
 import org.springframework.web.bind.annotation.*;
 
@@ -116,5 +117,18 @@ public class FollowUpGroupManagementController {
     @RequestMapping("updateById")
     public int updateById(@RequestBody String followUpGroupManagement){
         return  followUpGroupManagementService.update(followUpGroupManagement);
+    }
+
+    /**
+     *
+     *
+     *@description: 根据随访组id所有（非患者）成员
+     *@author: zyl
+     *
+     */
+    @RequestMapping("findByFollowUpGroupId")
+    public List<FollowUpGroupMember> findByFollowUpGroupId(@RequestBody String followUpGroupMember){
+
+        return followUpGroupManagementService.queryByfollowUpGroupId(followUpGroupMember);
     }
 }

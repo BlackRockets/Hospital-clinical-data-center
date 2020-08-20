@@ -64,5 +64,13 @@ public interface UserService {
      */
     HashMap<String, ArrayList<User>> selectAllPeopleByOccupation();
 
+    /**
+     * @description: 根据名字查询所有对应的角色
+     * @author: zyl
+     */
+    List<String> queryUserRoleByName(String name);
+
+
+
     User queryUserByUserName(String name);
 }

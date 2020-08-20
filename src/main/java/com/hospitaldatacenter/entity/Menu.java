@@ -15,7 +15,7 @@ public class Menu implements Serializable {
     /**
      * 名称
      */
-    private String name;
+    private String mname;
     /**
      * 资源类型
      */
@@ -47,12 +47,12 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMname() {
+        return mname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMname(String mname) {
+        this.mname = mname;
     }
 
     public String getResourceType() {

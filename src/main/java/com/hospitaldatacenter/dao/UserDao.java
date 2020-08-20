@@ -94,5 +94,11 @@ public interface UserDao {
      */
     List<User> selectUserByPharmacist();
 
+    /**
+     * @description: 根据名字查询所有对应的角色
+     * @author: zyl
+     */
+    User selectUserRoleByName(String name);
+
     User getUserByName(String name);
 }

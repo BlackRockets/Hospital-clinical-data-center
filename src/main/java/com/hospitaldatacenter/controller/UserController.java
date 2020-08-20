@@ -11,8 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (User)表控制层
@@ -48,21 +53,6 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("selectName")
-    public List<User> selectName() {
-        List<User> users = userService.selectName();
-        return users;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "distribution", produces = {"application/json;charset=utf-8"})
-    public int distribution(String[] names,Integer departmentId) {
-        System.out.println(names);
-        System.out.println(departmentId);
-        return userService.distribution(names,departmentId);
-    }
-
-    @ResponseBody
     @RequestMapping(value = "update", produces = {"application/json;charset=utf-8"})
     public int update(@RequestBody String user) {
         return userService.update(user);
@@ -84,30 +74,31 @@ public class UserController {
 
     @RequestMapping("login")
     @ResponseBody
-    public String login(User user, HttpServletRequest request) {
+    public String login(User user, HttpServletRequest request, HttpServletResponse response) {
         // 根据用户名和密码创建 Token
         String name = user.getName();
         String password = user.getPassword();
         UsernamePasswordToken token;
-        if (name != null && password != null) {
+        if(name != null && password!=null){
             token = new UsernamePasswordToken(user.getName(), user.getPassword());
-        } else {
+        }else {
             return "信息不能为空";
         }
 
         // 获取 subject 认证主体
 
         Subject subject = SecurityUtils.getSubject();
-        try {
+        try{
             // 开始认证，这一步会跳到我们自定义的 Realm 中
             subject.login(token);
-
-            System.out.println(subject.isPermitted("user:addUser"));
-            request.getSession().setAttribute("user", user);
+            Cookie cookie = new Cookie("userName",user.getName());
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            //request.getSession().setAttribute("user", user);
             return "success";
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
-            request.getSession().setAttribute("user", user);
+            //request.getSession().setAttribute("user", user);
             request.setAttribute("error", "用户名或密码错误！");
             return "error";
         }

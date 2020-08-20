@@ -63,6 +63,18 @@ public interface RoleDao {
      */
     int deleteById(Integer id);
 
+    /**
+     *@description: 根据角色查询所有权限
+     *@author: zyl
+     */
+    Role selectMenuByRoleId(Integer id);
+
+    /**
+     *@description: 根据随访组id查询组内角色，成员以及权限
+     *@author: zyl
+     */
+    List<Role> selectMenuByFollowUpGroupId(Integer followUpGroupId);
+
     List<String> queryRoleNameByUsername(@Param("name") String name);
 
 }

@@ -27,30 +27,7 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="MenuMap">
-        select *
 
-        from menu m,follow_up_group_member f,role r,role_menu rm,user u,user_role ur
-        where f.user_id=u.user_id and f.role_id=r.id and m.id=rm.menu_id and rm.role_id =r.id and
-        ur.user_id = u.user_id
-       <!-- <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="name != null and name != ''">
-                and name = #{name}
-            </if>
-            <if test="resourceType != null and resourceType != ''">
-                and resource_type = #{resourceType}
-            </if>
-            <if test="url != null and url != ''">
-                and url = #{url}
-            </if>
-            <if test="permission != null and permission != ''">
-                and permission = #{permission}
-            </if>
-        </where>-->
-    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
