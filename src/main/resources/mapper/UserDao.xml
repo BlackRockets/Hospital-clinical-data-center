@@ -19,6 +19,9 @@
     <select id="getUserByName" resultMap="UserMap">
         select * from user where name=#{name}
     </select>
+    <select id="selectName" resultMap="UserMap">
+        select name,user_id from user
+    </select>
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
@@ -138,5 +141,11 @@
             #{ids}
         </foreach>
     </delete>
-
+    <update id="distribution" parameterType="java.util.List">
+        update user set department_id = #{departmentId}
+        where  name  in
+        <foreach collection="list" item="list" open="{" separator="," close="}">
+            #{list}
+        </foreach>
+    </update>
 </mapper>

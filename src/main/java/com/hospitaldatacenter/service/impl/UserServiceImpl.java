@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
         return this.userDao.queryAll(user);
     }
 
+    @Override
+    public List<User> selectName() {
+        return userDao.selectName();
+    }
+
 
     /**
      * 新增数据
@@ -73,6 +78,11 @@ public class UserServiceImpl implements UserService {
         JSON parse = (JSON) JSON.parse(user);
         User user1 = JSON.toJavaObject(parse, User.class);
         return this.userDao.update(user1);
+    }
+
+    @Override
+    public int distribution(String[] names, Integer departmentsId) {
+        return userDao.distribution(names,departmentsId);
     }
 
     /**

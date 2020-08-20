@@ -1,23 +1,18 @@
 package com.hospitaldatacenter.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hospitaldatacenter.config.EnchiladasShirRealm;
 import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (User)表控制层
@@ -53,6 +48,21 @@ public class UserController {
     }
 
     @ResponseBody
+    @RequestMapping("selectName")
+    public List<User> selectName() {
+        List<User> users = userService.selectName();
+        return users;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "distribution", produces = {"application/json;charset=utf-8"})
+    public int distribution(String[] names,Integer departmentId) {
+        System.out.println(names);
+        System.out.println(departmentId);
+        return userService.distribution(names,departmentId);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "update", produces = {"application/json;charset=utf-8"})
     public int update(@RequestBody String user) {
         return userService.update(user);
@@ -79,23 +89,23 @@ public class UserController {
         String name = user.getName();
         String password = user.getPassword();
         UsernamePasswordToken token;
-        if(name != null && password!=null){
+        if (name != null && password != null) {
             token = new UsernamePasswordToken(user.getName(), user.getPassword());
-        }else {
+        } else {
             return "信息不能为空";
         }
 
         // 获取 subject 认证主体
 
         Subject subject = SecurityUtils.getSubject();
-        try{
+        try {
             // 开始认证，这一步会跳到我们自定义的 Realm 中
             subject.login(token);
 
             System.out.println(subject.isPermitted("user:addUser"));
             request.getSession().setAttribute("user", user);
             return "success";
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             request.getSession().setAttribute("user", user);
             request.setAttribute("error", "用户名或密码错误！");
