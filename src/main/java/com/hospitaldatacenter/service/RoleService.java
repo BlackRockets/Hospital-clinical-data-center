@@ -53,6 +53,13 @@ public interface RoleService {
      */
     boolean deleteById(Integer id);
 
+    /**
+     *@description: 根据角色查询所有权限
+     *@author: zyl
+     */
+    List<String> selectMenuByRoleId(String name);
+
+
     List<String> queryRoleNameByUsername(String name);
 
 }

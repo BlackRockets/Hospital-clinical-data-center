@@ -1,6 +1,7 @@
 package com.hospitaldatacenter.service;
 
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
+import com.hospitaldatacenter.entity.FollowUpGroupMember;
 
 import java.util.List;
 
@@ -92,4 +93,9 @@ public interface FollowUpGroupManagementService {
      *
      */
     List<FollowUpGroupManagement> queryAllGroupName();
+    /**
+     *@description: 根据随访组id所有（非患者）成员
+     *@author: zyl
+     */
+    List<FollowUpGroupMember> queryByfollowUpGroupId(String followUpGroupMember);
 }

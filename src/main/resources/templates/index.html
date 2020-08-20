@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -28,13 +28,9 @@
                                     系统设置 <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <shiro:hasPermission name="user:addUser">
-                                            <a href="../templates/AuthorityManagementOfWholehospital.html">权限管理</a>
-                                        </shiro:hasPermission>>
+                                    <li shiro:hasPermission="user:permission">
+                                        <a href="../templates/AuthorityManagementOfWholehospital.html">权限管理</a>
                                     </li>
-                                    <li class="divider"></li>
-                                    <li><a href="../templates/StandardizedTemplateMaintenance.html">标椎化模板维护</a></li>
                                     <li class="divider"></li>
                                     <li><a href="../templates/FormOverview.html">表单总览</a></li>
                                     <li class="divider"></li>
