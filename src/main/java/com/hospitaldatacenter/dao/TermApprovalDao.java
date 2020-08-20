@@ -3,6 +3,7 @@ package com.hospitaldatacenter.dao;
 import com.hospitaldatacenter.entity.TermApproval;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,10 +18,10 @@ public interface TermApprovalDao {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param name
      * @return 实例对象
      */
-    TermApproval queryById(Integer id);
+    TermApproval queryOne(String name);
 
     /**
      * 查询指定行数据
@@ -38,7 +39,7 @@ public interface TermApprovalDao {
      * @param termApproval 实例对象
      * @return 对象列表
      */
-    List<TermApproval> queryAll(TermApproval termApproval);
+    List<TermApproval> queryAll();
 
     /**
      * 新增数据
@@ -56,6 +57,10 @@ public interface TermApprovalDao {
      */
     int update(TermApproval termApproval);
 
+    int approval(Integer id);
+
+    int refuse(Integer id);
+
     /**
      * 通过主键删除数据
      *
@@ -63,5 +68,9 @@ public interface TermApprovalDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
+    List<TermApproval> selectClassification();
+    List<TermApproval> selectType();
+
 
 }

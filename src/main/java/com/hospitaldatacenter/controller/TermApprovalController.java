@@ -1,12 +1,20 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.hospitaldatacenter.entity.DataReview;
+import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.TermApproval;
 import com.hospitaldatacenter.service.TermApprovalService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 术语审批
@@ -15,7 +23,7 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2020-08-18 15:40:28
  */
-@RestController
+@Controller
 @RequestMapping("termApproval")
 public class TermApprovalController {
     /**
@@ -24,15 +32,57 @@ public class TermApprovalController {
     @Resource
     private TermApprovalService termApprovalService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public TermApproval selectOne(Integer id) {
-        return this.termApprovalService.queryById(id);
+
+    @ResponseBody
+    @RequestMapping("selectOne")
+    public TermApproval selectOne(String name) {
+        if (name == "") {
+            return null;
+        } else {
+            String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            TermApproval termApprovals = termApprovalService.queryOne(name);
+            termApprovals.setCreateTime(now);
+            return termApprovals;
+        }
     }
 
+    @ResponseBody
+    @RequestMapping("selectAll")
+    public List<TermApproval> selectAll() {
+        List<TermApproval> termApprovals = termApprovalService.queryAll();
+        return termApprovals;
+    }
+
+    @ResponseBody
+    @RequestMapping("selectClassification")
+    public List<TermApproval> selectClassification() {
+        List<TermApproval> termApprovals = termApprovalService.selectClassification();
+        return termApprovals;
+    }
+
+    @ResponseBody
+    @RequestMapping("selectType")
+    public List<TermApproval> selectType() {
+        List<TermApproval> termApprovals = termApprovalService.selectType();
+        return termApprovals;
+    }
+
+    @ResponseBody
+    @RequestMapping("update")
+    public String update(TermApproval termApproval) {
+        int i = termApprovalService.update(termApproval);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("approval")
+    public String approval(Integer id) {
+        int i = termApprovalService.approval(id);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("refuse")
+    public String refuse(Integer id) {
+        int i = termApprovalService.refuse(id);
+        return JSON.toJSONString(i);
+    }
 }

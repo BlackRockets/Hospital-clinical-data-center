@@ -2,6 +2,7 @@ package com.hospitaldatacenter.service;
 
 import com.hospitaldatacenter.entity.TermApproval;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface TermApprovalService {
      * @param id 主键
      * @return 实例对象
      */
-    TermApproval queryById(Integer id);
+    TermApproval queryOne(String name);
 
     /**
      * 查询多条数据
@@ -28,7 +29,7 @@ public interface TermApprovalService {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<TermApproval> queryAllByLimit(int offset, int limit);
+    List<TermApproval> queryAll();
 
     /**
      * 新增数据
@@ -44,7 +45,11 @@ public interface TermApprovalService {
      * @param termApproval 实例对象
      * @return 实例对象
      */
-    TermApproval update(TermApproval termApproval);
+    int update(TermApproval termApproval);
+
+    int approval(Integer id);
+
+    int refuse(Integer id);
 
     /**
      * 通过主键删除数据
@@ -53,5 +58,9 @@ public interface TermApprovalService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+
+    List<TermApproval> selectClassification();
+
+    List<TermApproval> selectType();
 
 }
