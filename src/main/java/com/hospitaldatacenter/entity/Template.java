@@ -56,6 +56,33 @@ public class Template implements Serializable {
 
     private FollowUpGroupManagement fm;
 
+    private String context;
+
+    @Override
+    public String toString() {
+        return "Template{" +
+                "templateId=" + templateId +
+                ", followUpGroupId=" + followUpGroupId +
+                ", templateName='" + templateName + '\'' +
+                ", creationDate=" + creationDate +
+                ", creator='" + creator + '\'' +
+                ", updateDate=" + updateDate +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", versionNumber='" + versionNumber + '\'' +
+                ", patientDetailsId=" + patientDetailsId +
+                ", templateState=" + templateState +
+                ", fm=" + fm +
+                ", context='" + context + '\'' +
+                '}';
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
 
     public Integer getTemplateId() {
         return templateId;
@@ -141,22 +168,6 @@ public class Template implements Serializable {
 
     public void setPatientDetailsId(Integer patientDetailsId) {
         this.patientDetailsId = patientDetailsId;
-    }
-
-    @Override
-    public String toString() {
-        return "Template{" +
-                "templateId=" + templateId +
-                ", followUpGroupId=" + followUpGroupId +
-                ", templateName='" + templateName + '\'' +
-                ", creationDate=" + creationDate +
-                ", creator='" + creator + '\'' +
-                ", updateDate=" + updateDate +
-                ", updatedBy='" + updatedBy + '\'' +
-                ", versionNumber='" + versionNumber + '\'' +
-                ", templateState=" + templateState +
-                ", fm=" + fm +
-                '}';
     }
 
     public FollowUpGroupManagement getFm() {

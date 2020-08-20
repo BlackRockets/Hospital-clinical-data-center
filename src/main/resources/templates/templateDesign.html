@@ -16,10 +16,11 @@
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
     <script src="../static/js/bootstrap-treeview.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <!--创建模板-->
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
         <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="../templates/templateSettings.html">返回模板列表</a>
     </div>
@@ -27,7 +28,7 @@
         <h3 style="color: #28a4c9">模板设计</h3>
     </div>
     <div class="row" style="margin: 1%">
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa3">
+        <button type="button" v-on:click="quoteTrem" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa3">
             引用模板
         </button>
     </div>
@@ -35,7 +36,7 @@
         <div class="col-lg-2">
             <div id="d1" class="row" style="margin: 1%;display:block;">
                 <table id="tree"></table>
-                <button onclick="btn()" class="btn-info">确认选择</button>
+                <button v-on:click="btn" class="btn-info">确认选择</button>
             </div>
             <div id="d2" class="row" style="display: none">
                 <form role="form">
@@ -102,25 +103,13 @@
                             选择术语
                         </button>
                     </div>
+                    <div id="totalTrem" class="form-group">
+
+                    </div>
                     <div class="form-group">
-                        <div>
-                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-                            <input type="text" value="头痛">
-                        </div>
-                        <div>
-                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-                            <input type="text" value="发热">
-                        </div>
-                        <div>
-                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-                            <input type="text" value="胸闷">
-                        </div>
-                        <div>
-                            <a onclick="jian('j2')"><span class="glyphicon glyphicon-plus-sign" style="color: red"></span></a>
-                            <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
-                                合并术语
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-info btn-sm" v-on:click="tremMerge">
+                            合并术语
+                        </button>
                     </div>
                     <div class="form-group">
                         来源
@@ -149,100 +138,94 @@
         </div>
         <div class="col-lg-10" style="border-left: 1px solid #ccc;">
             <div class="row" style="margin: 1%">
-                <button type="button" class="btn btn-info btn-sm" onclick="">
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
                     规则设定
                 </button>
-                <button type="button" class="btn btn-info btn-sm" onclick="">
+                <button type="button" class="btn btn-info btn-sm" onclick="save(saveHtml)">
                     保存
                 </button>
-                <button type="button" class="btn btn-info btn-sm" onclick="">
+                <button type="button" class="btn btn-info btn-sm" onclick="releases(saveHtml)">
                     发布
                 </button>
                 <button type="button" class="btn btn-info btn-sm" onclick="">
                     取消
                 </button>
             </div>
-            <div class="row">
-                <form id="forms" role="form" style="margin: 1%">
-                    <div id="p1" class="page-header" style="text-align: center;margin-top: 5%;">
-                        <p style="color: #28a4c9"><a onclick="inform()">基本信息</a></p>
-                    </div>
-                    <div id="r1" style="padding-bottom: 2%">
-                        <div class="col-sm-3">
-                            性别：<select>
-                            <option value="请选择">请选择</option>
-                            <option value="男">男</option>
-                            <option value="女">女</option>
-                        </select>
+            <div id="total">
+                <div class="row" id="saveHtml">
+                    <form id="forms" role="form" style="margin: 1%">
+                        <div id="p1" class="page-header" style="text-align: center;margin-top: 5%;">
+                            <p style="color: #28a4c9"><a onclick="inform()">基本信息</a></p>
                         </div>
-                        <div class="col-sm-3">
-                            民族：<select>
-                            <option value="请选择">请选择</option>
-                            <option value="汉族">汉族</option>
-                            <option value="满族">满族</option>
-                            <option value="朝鲜族">朝鲜族</option>
-                        </select>
+                        <div id="r1" style="padding-bottom: 2%">
+                            <div class="col-sm-3">
+                                性别：<select>
+                                <option value="请选择">请选择</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                            </div>
+                            <div class="col-sm-3">
+                                民族：<select>
+                                <option value="请选择">请选择</option>
+                                <option value="汉族">汉族</option>
+                                <option value="满族">满族</option>
+                                <option value="朝鲜族">朝鲜族</option>
+                            </select>
+                            </div>
+                            <div class="col-sm-3">
+                                姓名：<input type="text">
+                            </div>
+                            <div class="col-sm-3">
+                                出生日期：<input type="text">
+                            </div>
                         </div>
-                        <div class="col-sm-3">
-                            姓名：<input type="text">
+                        <div id="p5" class="page-header" style="text-align: center;margin-top: 5%;display: none">
+                            <p style="color: #28a4c9"><a v-on:click="inform">首页信息</a></p>
                         </div>
-                        <div class="col-sm-3">
-                            出生日期：<input type="text">
+                        <div id="r5" style="padding-bottom: 2%">
                         </div>
-                    </div>
-                    <div id="p5" class="page-header" style="text-align: center;margin-top: 5%;display: none">
-                        <p style="color: #28a4c9"><a onclick="inform()">首页信息</a></p>
-                    </div>
-                    <div id="r5" style="padding-bottom: 2%">
-                    </div>
-                    <div id="p6" class="page-header" style="text-align: center;margin-top: 5%;display: none">
-                        <p style="color: #28a4c9"><a onclick="inform()">手术信息</a></p>
-                    </div>
-                    <div id="r6" style="padding-bottom: 2%"></div>
-                    <div id="p2" class="page-header" style="text-align: center;margin-top: 5%;">
-                        <p style="color: #28a4c9">体格检查</p>
-                    </div>
-                    <div id="r2" style="padding-bottom: 2%">
-                        <div class="col-sm-3">
-                            身高：<input type="text">cm
+                        <div id="p6" class="page-header" style="text-align: center;margin-top: 5%;display: none">
+                            <p style="color: #28a4c9"><a v-on:click="inform">手术信息</a></p>
                         </div>
-                        <div class="col-sm-3">
-                            体重：<input type="text">kg
+                        <div id="r6" style="padding-bottom: 2%"></div>
+                        <div id="p2" class="page-header" style="text-align: center;margin-top: 5%;">
+                            <p style="color: #28a4c9">体格检查</p>
                         </div>
-                        <div class="col-sm-3">
-                            BMI：<input type="text">
+                        <div id="r2" style="padding-bottom: 2%">
+                            <div class="col-sm-3">
+                                身高：<input type="text">cm
+                            </div>
+                            <div class="col-sm-3">
+                                体重：<input type="text">kg
+                            </div>
+                            <div class="col-sm-3">
+                                BMI：<input type="text">
+                            </div>
                         </div>
-                    </div>
-                    <div id="p3" class="page-header" style="text-align: center;margin-top: 5%;">
-                        <p style="color: #28a4c9"><a onclick="inspect()">实验室检查</a></p>
-                    </div>
-                    <div id="r3" style="padding-bottom: 2%">
-                        <div class="col-sm-3">
-                            白细胞：<input type="text">mmol/L
+                        <div id="p3" class="page-header" style="text-align: center;margin-top: 5%;">
+                            <p style="color: #28a4c9"><a v-on:click="inspect">实验室检查</a></p>
                         </div>
-                        <div class="col-sm-3">
-                            血糖：<input type="text">mmol/L
+                        <div id="r3" style="padding-bottom: 2%">
+                            <div class="col-sm-3">
+                                白细胞：<input type="text">mmol/L
+                            </div>
+                            <div class="col-sm-3">
+                                血糖：<input type="text">mmol/L
+                            </div>
                         </div>
-                    </div>
-                    <div id="p4" class="page-header" style="text-align: center;margin-top: 7%;">
-                        <p style="color: #28a4c9"><a onclick="symptoms()">症状</a></p>
-                    </div>
-                    <div id="r4" style="padding-bottom: 2%">
-                        <div class="col-sm-3">
-                            症状：<select>
-                            <option value="">请选择</option>
-                            <option value="头痛">头痛</option>
-                            <option value="发热">发热</option>
-                            <option value="头晕">头晕</option>
-                            <option value="咳嗽">咳嗽</option>
-                            <option value="胸闷">胸闷</option>
-                            <option value="胸痛">胸痛</option>
-                            <option value="呕吐">呕吐</option>
-                            <option value="心衰">心衰</option>
-                        </select>
+                        <div id="p4" class="page-header" style="text-align: center;margin-top: 7%;">
+                            <p style="color: #28a4c9"><a v-on:click="symptoms">症状</a></p>
                         </div>
-                    </div>
-                </form>
+                        <div id="r4" style="padding-bottom: 2%">
+                            <div class="col-sm-3">
+                                症状：<select id="termSymptom">
+                                <option value="">请选择</option>
+                            </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -250,6 +233,54 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="page-header" style="text-align: center;margin-top: 0">
+                <h3 style="color: blue">术语字典选择</h3>
+            </div>
+            <div style="text-align: center">
+                <select>
+                    <option value="">请选择</option>
+                    <option value="">症状</option>
+                </select>
+            </div>
+            <div id="trem" class="form-group" style="text-align: center">
+                <div>
+                    <input type="checkbox" value="头痛">头痛&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" value="发热">发热
+                </div>
+                <div>
+                    <input type="checkbox" value="头晕">头晕&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" value="咳嗽">咳嗽
+                </div>
+                <div>
+                    <input type="checkbox" value="胸闷">胸闷&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" value="胸痛">胸痛
+                </div>
+                <div>
+                    <input type="checkbox" value="呕吐">呕吐&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" value="心衰">心衰
+                </div>
+                <div>
+                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" v-on:click="sureTerm">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="page-header" style="text-align: center;margin-top: 0">
+                <h3 style="color: #28a4c9">规则设定</h3>
+            </div>
+            <div style="margin-left: 25%;padding-bottom: 5%">
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">显示/隐藏</div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">赋值/计算</div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">置灰/激活</div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">勾选/取消</div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">分值计算</div>
+            </div>
         </div>
     </div>
 </div>
@@ -260,36 +291,12 @@
                 <h3 style="color: blue">通用模板选择</h3>
             </div>
             <form role="form" id="testForm">
-                <div class="form-group" style="text-align: center">
-                    <input type="checkbox" value="1">基本信息
-                    <div id="infroms" class="form-group" style="margin-top: 1%;display: none">
-
-                    </div>
-                </div>
-                <div class="form-group" style="text-align: center">
-                    <input type="checkbox" value="2">体格检查
-                    <div id="physique" class="form-group" style="margin-top: 7%;display: none">
-
-                    </div>
-                </div>
-                <div class="form-group" style="text-align: center">
-                    <input type="checkbox" value="3">实验室检查
-                    <div id="laboratory" class="form-group" style="margin-top: 7%;display: none">
-
-                    </div>
-                </div>
-                <div class="form-group" style="text-align: center">
-                    <input type="checkbox" value="4">症状
-                    <div id="zheng" class="form-group" style="margin-top: 7%;display: none">
-
-                    </div>
-                </div>
-                <div class="form-group" style="text-align: center">
-                    <button type="button" class="btn btn-info btn-sm"  data-dismiss="modal" aria-hidden="true" onclick="merge()">
-                        确定合并
-                    </button>
-                </div>
             </form>
+            <div class="form-group" style="text-align: center">
+                <button type="button" class="btn btn-info btn-sm"  data-dismiss="modal" aria-hidden="true" onclick="merge()">
+                    确定
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -299,8 +306,114 @@
     var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
     var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
     var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-    var  newsid=newsids[1];//得到参数值
-    console.log(newsid);
+    var ss=newsids[1].split("&&");
+    var tempid=ss[0]; //模板id
+    var  newsid=newsids[2];//随访组id
+    console.log("模板id"+tempid);
+    console.log("随访组id"+newsid);
+    //;//得到参数值
+    //console.log(newsid);
+
+        if(tempid != null){
+            $.ajax({
+                url: '/template/selectById?id='+tempid,
+                method: 'get',
+                success:function (res) {
+                    $("#total").html(res.context);
+                }
+            })
+        }
+
+
+
+    new Vue({
+        el: '#myModal',
+        data:{
+        },
+        methods:{
+            sureTerm:function () {
+                var inps=$("#trem input[type='checkbox']:checked");
+                var result="";
+                for(var i=0;i<inps.length;i++){
+                    result+="<div id="+inps[i].value+">\n" +
+                        "                            <a onclick='jian("+inps[i].value+")'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
+                        "                            <input type=\"text\" value="+inps[i].value+">\n" +
+                        "                        </div>";
+                }
+                $("#totalTrem").html(result);
+            }
+        }
+    })
+
+    function jian(tag) {
+        tag.remove();
+    }
+    new Vue({
+        el: '#box',
+        data:{
+        },
+        methods:{
+            tremMerge:function () {
+                var val = $("#totalTrem input");
+                var result="";
+                for(var i=0;i<val.length;i++){
+                    result+="<option value="+val[i].value+">"+val[i].value+"</option>";
+                }
+                $("#termSymptom").append(result);
+            },
+            btn:function () {
+                var treeview = $('#tree').treeview('getChecked');
+                var html1 = document.getElementById("r1").innerHTML;
+                var html5 = "";
+                var html6 = "";
+                for(var i=0;i<treeview.length;i++){
+                    if(treeview[i].id==12){
+                        html1+="";
+                        $("#r1").html(html1);
+                    }else if(treeview[i].id==2){
+                        document.getElementById("p1").style.display="block";
+                        html1+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                        $("#r1").html(html1);
+                    }else if(treeview[i].id==3){
+                        document.getElementById("p5").style.display="block";
+                        html5+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                        $("#r5").html(html5);
+                    }else if(treeview[i].id==4){
+                        document.getElementById("p6").style.display="block";
+                        html6+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                        $("#r6").html(html6);
+                    }
+                }
+            },
+            inform:function () {
+                document.getElementById("d1").style.display="block";
+                document.getElementById("d2").style.display="none";
+                document.getElementById("d3").style.display="none";
+            },
+            inspect:function () {
+                document.getElementById("d1").style.display="none";
+                document.getElementById("d2").style.display="block";
+                document.getElementById("d3").style.display="none";
+            },
+            symptoms:function () {
+                document.getElementById("d1").style.display="none";
+                document.getElementById("d2").style.display="none";
+                document.getElementById("d3").style.display="block";
+            },
+            quoteTrem:function () {
+                axios.post('/template/selectNamesByGroupId?groupId='+newsid)
+                    .then(function (response) {
+                        var result="";
+                        for(var i=0;i<response.data.length;i++){
+                            result+="<div class=\"form-group\" style=\"text-align: center\">\n" +
+                                "                    <input name='name' type=\"radio\" value="+response.data[i].templateId+">"+response.data[i].templateName+"</div>";
+                            $("#testForm").html(result);
+                        }
+                    }).catch(function () {});
+            }
+        }
+
+    })
 
     var tree = [
         {
@@ -547,79 +660,77 @@
         highlightSelected: true,    //是否高亮选中
         multiSelect: false,    //多选
         onNodeChecked: function (event, data) {
-            console.log("nodeId = " + data.nodeId);
-            console.log("id = " + data.id);
+            /*console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);*/
         },
         onNodeSelected: function (event, data) {
-            console.log("nodeId = " + data.nodeId);
-            console.log("id = " + data.id);
+            /*console.log("nodeId = " + data.nodeId);
+            console.log("id = " + data.id);*/
         }
     });
 
-    function inform() {
-        document.getElementById("d1").style.display="block";
-        document.getElementById("d2").style.display="none";
-        document.getElementById("d3").style.display="none";
-    }
-    function inspect() {
-        document.getElementById("d1").style.display="none";
-        document.getElementById("d2").style.display="block";
-        document.getElementById("d3").style.display="none";
-    }
-    function symptoms() {
-        document.getElementById("d1").style.display="none";
-        document.getElementById("d2").style.display="none";
-        document.getElementById("d3").style.display="block";
-    }
-    
+
     function merge() {
-        $.each($('#testForm input:checkbox'),function(){
-            if(this.checked){
-               if($(this).val()==1){
-                   document.getElementById("p1").style.display="block";
-                   var html = $("#infroms").html();
-                   $("#r1").html(html)
-               }else if($(this).val()==2){
-                   document.getElementById("p2").style.display="block";
-                   var html = $("#physique").html();
-                   $("#r2").html(html)
-               }else if($(this).val()==3){
-                   document.getElementById("p3").style.display="block";
-                   var html = $("#laboratory").html();
-                   $("#r3").html(html)
-               }else if($(this).val()==4){
-                   document.getElementById("p4").style.display="block";
-                   var html = $("#zheng").html();
-                   $("#r4").html(html)
-               }
+        var value = $("#testForm input[name='name']:checked").val();
+        console.log(value);
+        $.ajax({
+            url: '/template/selectById?id='+value,
+            method: 'get',
+            success:function (res) {
+                $("#total").html(res.context);
             }
         })
-
     }
-    function btn() {
-        var treeview = $('#tree').treeview('getChecked');
-        var html1 = document.getElementById("r1").innerHTML;
-        var html5 = "";
-        var html6 = "";
-        for(var i=0;i<treeview.length;i++){
-            if(treeview[i].id==12){
-                html1+="";
-                $("#r1").html(html1);
-            }else if(treeview[i].id==2){
-                document.getElementById("p1").style.display="block";
-                html1+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
-                $("#r1").html(html1);
-            }else if(treeview[i].id==3){
-                document.getElementById("p5").style.display="block";
-                html5+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
-                $("#r5").html(html5);
-            }else if(treeview[i].id==4){
-                document.getElementById("p6").style.display="block";
-                html6+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
-                $("#r6").html(html6);
+    function save(id) {
+        var  strHTML   =   id.outerHTML;
+        var context="";
+        context=strHTML;
+        $.ajax({
+            url: '/template/save',
+            method: 'post',
+            data: {
+                "text":context,
+                "id":newsid,
+                "tempId":tempid
+            },
+            success:function (res) {
+                if(res == 1){
+                   alert("保存成功");
+                }else if(res == 2){
+                    alert("该版本已存在");
+                }else {
+                    alert("保存失败");
+                }
             }
-        }
+            
+        })
     }
+    function releases(id) {
+        var  strHTML   =   id.outerHTML;
+        var context="";
+        context=strHTML;
+        $.ajax({
+            url: '/template/releases',
+            method: 'post',
+            data: {
+                "text":context,
+                "id":newsid,
+                "tempId":tempid
+            },
+            success:function (res) {
+                if(res == 1){
+                    alert("发布成功");
+                }else if(res == 2){
+                    alert("该版本已发布");
+                }else {
+                    alert("发布失败");
+                }
+            }
+
+        })
+    }
+
+
 </script>
 </body>
 </html>

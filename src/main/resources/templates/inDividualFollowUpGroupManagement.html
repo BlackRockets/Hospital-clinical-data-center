@@ -32,7 +32,7 @@
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="template()">模板设置</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="ruleSetting()">随访规定设定</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="diag()">诊疗方案</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">节假日管理</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="holiday()">节假日管理</button>
     </div>
     <div class="row">
         <div class="col-sm-2">
@@ -382,7 +382,6 @@
     var num2 = newHref.indexOf('&');
     var idVal = newHref.substring(num1, num2);
     var id = idVal;
-
     var num3 = newHref.indexOf('groupName=') + 10;
     var len = newHref.length;
     var groupName = newHref.substring(num3, len);
@@ -470,6 +469,9 @@
     }
     function template() {
         window.location.href="templateSettings.html?id="+id;
+    }
+    function holiday() {
+        window.location.href="holiday.html?id="+id;
     }
 
     function ruleSetting() {
