@@ -36,7 +36,7 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        /*// 获取登录用户名
+        // 获取登录用户名
         String name = (String)principalCollection.getPrimaryPrincipal();
         // 查询用户的角色信息
         Set<String> roles = getRolesByUsername(name);
@@ -44,16 +44,19 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
         Set<String> permissions = getPermissionsByUserName(name);
         // 设置用户的角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.setRoles(roles);
-        simpleAuthorizationInfo.setStringPermissions(permissions);*/
-        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-       /* simpleAuthorizationInfo.addStringPermission("user:addUser");*/
+        if(roles.size() > 0){
+            simpleAuthorizationInfo.setRoles(roles);
+        }
+
+        if(permissions.size() > 0){
+            simpleAuthorizationInfo.setStringPermissions(permissions);
+        }
         return simpleAuthorizationInfo;
     }
 
     // 根据用户名字从数据库中获取当前用户的权限数据
     public Set<String> getPermissionsByUserName(String name) {
-        List<String> list = permissionService.queryPermissionNameByUserName(name);
+        List<String> list = roleService.selectMenuByRoleId(name);
         if( list != null ){
             Set<String> sets = new HashSet<>(list);
             return sets;
@@ -64,7 +67,7 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
 
     // 根据用户名字从数据库中获取当前用户的角色数据
     public Set<String> getRolesByUsername(String name) {
-        List<String> list = roleService.queryRoleNameByUsername(name);
+        List<String> list = userService.queryUserRoleByName(name);
         if( list != null ){
             Set<String> sets = new HashSet<>(list);
             return sets;

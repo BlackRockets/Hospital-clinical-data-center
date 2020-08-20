@@ -1,19 +1,19 @@
 package com.hospitaldatacenter.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hospitaldatacenter.config.EnchiladasShirRealm;
 import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +74,7 @@ public class UserController {
 
     @RequestMapping("login")
     @ResponseBody
-    public String login(User user, HttpServletRequest request) {
+    public String login(User user, HttpServletRequest request, HttpServletResponse response) {
         // 根据用户名和密码创建 Token
         String name = user.getName();
         String password = user.getPassword();
@@ -91,13 +91,14 @@ public class UserController {
         try{
             // 开始认证，这一步会跳到我们自定义的 Realm 中
             subject.login(token);
-
-            System.out.println(subject.isPermitted("user:addUser"));
-            request.getSession().setAttribute("user", user);
+            Cookie cookie = new Cookie("userName",user.getName());
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            //request.getSession().setAttribute("user", user);
             return "success";
         }catch(Exception e){
             e.printStackTrace();
-            request.getSession().setAttribute("user", user);
+            //request.getSession().setAttribute("user", user);
             request.setAttribute("error", "用户名或密码错误！");
             return "error";
         }

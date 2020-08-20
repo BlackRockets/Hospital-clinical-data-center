@@ -1,6 +1,7 @@
 package com.hospitaldatacenter.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,6 +20,54 @@ public class Role implements Serializable {
      * 角色名
      */
     private String roleName;
+    /**
+     * 角色描述
+     */
+    private String description;
+    /**
+     * 角色等级
+     */
+    private String roleLevel;
+    /**
+     * 所有对应权限
+     */
+    private List<Menu> menus;
+    /**
+     * 所有用户
+     */
+    private List<User> users;
+
+    public String getRoleLevel() {
+        return roleLevel;
+    }
+
+    public void setRoleLevel(String roleLevel) {
+        this.roleLevel = roleLevel;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     private Set<Permission> permission;
 

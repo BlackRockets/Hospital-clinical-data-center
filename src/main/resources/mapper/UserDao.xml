@@ -15,9 +15,30 @@
         <association property="departments" javaType="com.hospitaldatacenter.entity.Departments">
             <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
         </association>
+        <collection property="role" ofType="com.hospitaldatacenter.entity.Role">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+        </collection>
     </resultMap>
     <select id="getUserByName" resultMap="UserMap">
         select * from user where name=#{name}
+    </select>
+    <!--根据名字查询所有角色-->
+    <select id="selectUserRoleByName" parameterType="java.lang.String" resultMap="UserMap">
+        SELECT
+            u.user_id user_id,
+            u.name name,
+            r.id id,
+            r.role_name role_name
+        FROM
+            USER u,
+            role r,
+            user_role ur
+        WHERE
+            u.user_id = ur.user_id
+            AND ur.role_id = r.id
+            AND u.NAME = #{name}
     </select>
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">

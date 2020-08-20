@@ -1,10 +1,14 @@
 package com.hospitaldatacenter.service.impl;
 import com.hospitaldatacenter.dao.RoleDao;
+import com.hospitaldatacenter.dao.UserDao;
+import com.hospitaldatacenter.entity.Menu;
 import com.hospitaldatacenter.entity.Role;
+import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +21,8 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleDao roleDao;
+    @Resource
+    private UserDao userDao;
 
     /**
      * 通过ID查询单条数据
@@ -79,5 +85,26 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<String> queryRoleNameByUsername(String name) {
         return roleDao.queryRoleNameByUsername(name);
+    }
+
+    /**
+     *@description: 根据角色查询所有权限
+     *@author: zyl
+     */
+    @Override
+    public List<String> selectMenuByRoleId(String name) {
+        User user = userDao.selectUserRoleByName(name);
+        List<Role> role = user.getRole();
+        ArrayList<String> list = new ArrayList<>();
+        for (Role role1 : role) {
+            Role rolemenu = roleDao.selectMenuByRoleId(role1.getId());
+            if(rolemenu!=null){
+                List<Menu> menus = rolemenu.getMenus();
+                for (Menu menu : menus) {
+                    list.add(menu.getPermission());
+                }
+            }
+        }
+        return list;
     }
 }

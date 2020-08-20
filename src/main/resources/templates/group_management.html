@@ -205,8 +205,10 @@
         ],
     });
 
-    function openDetails(value, row, index){;
+    function openDetails(value, row, index){
         return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'&groupName='+row.groupName+'">'+value+'</a>'].join("");
+        /*return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'&groupName='
+        +row.groupName+'&personInCharge='+row.personInCharge+'">'+value+'</a>'].join("");*/
     }
 
  /*   function flush() {

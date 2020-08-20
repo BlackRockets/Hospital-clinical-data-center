@@ -1,14 +1,13 @@
 package com.hospitaldatacenter.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -67,5 +66,11 @@ public class shiroConfig {
         DefaultAdvisorAutoProxyCreator app = new DefaultAdvisorAutoProxyCreator();
         app.setProxyTargetClass(true);
         return app;
+    }
+
+
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 }

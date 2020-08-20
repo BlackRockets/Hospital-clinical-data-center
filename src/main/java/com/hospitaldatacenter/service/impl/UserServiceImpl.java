@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.DepartmentsDao;
 import com.hospitaldatacenter.dao.UserDao;
+import com.hospitaldatacenter.entity.Role;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
@@ -104,5 +105,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User queryUserByUserName(String name) {
         return userDao.getUserByName(name);
+    }
+
+    /**
+     * @description: 根据名字查询所有对应的角色
+     * @author: zyl
+     */
+    @Override
+    public List<String> queryUserRoleByName(String name){
+        User user = userDao.selectUserRoleByName(name);
+        List<Role> role = user.getRole();
+        List<String> list = new ArrayList<String>();
+        for (Role role1 : role) {
+            list.add(role1.getRoleName());
+        }
+        return list;
     }
 }
