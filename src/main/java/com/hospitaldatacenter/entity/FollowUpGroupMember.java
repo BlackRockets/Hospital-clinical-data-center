@@ -6,10 +6,10 @@ import java.io.Serializable;
  * 随访组组员(FollowUpGroupMember)实体类
  *
  * @author makejava
- * @since 2020-08-20 14:04:06
+ * @since 2020-08-20 16:03:25
  */
 public class FollowUpGroupMember implements Serializable {
-    private static final long serialVersionUID = -80806540217074710L;
+    private static final long serialVersionUID = -83444102836745064L;
 
     private Integer id;
     /**
@@ -24,18 +24,7 @@ public class FollowUpGroupMember implements Serializable {
      * 角色id
      */
     private String roleId;
-    /**
-     * 姓名
-     */
-    private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Integer getId() {
         return id;

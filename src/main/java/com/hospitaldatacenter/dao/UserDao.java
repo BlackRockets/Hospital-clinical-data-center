@@ -2,6 +2,7 @@ package com.hospitaldatacenter.dao;
 
 import com.hospitaldatacenter.entity.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -49,6 +50,9 @@ public interface UserDao {
      */
     int insert(User user);
 
+
+    List<User> selectName();
+
     /**
      * 修改数据
      *
@@ -56,6 +60,8 @@ public interface UserDao {
      * @return 影响行数
      */
     int update(User user);
+
+    int distribution(String[] list,@Param("departmentId") Integer departmentId);
 
     /**
      * 通过主键删除数据

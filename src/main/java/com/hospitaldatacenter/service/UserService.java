@@ -29,6 +29,7 @@ public interface UserService {
      */
     List<User> queryAll(User user);
 
+    List<User> selectName();
 
     /**
      * 新增数据
@@ -45,6 +46,8 @@ public interface UserService {
      * @return 实例对象
      */
     int update(String user);
+
+    int distribution(String[] list,Integer departmentsId);
 
     /**
      * 通过主键删除数据
