@@ -65,15 +65,26 @@
     </div>
 </div>
 <script type="text/javascript">
+    var newHref = window.location.href;
+    var num1 = newHref.indexOf('id=') + 3;
+    var num2 = newHref.length;
+    var idVal = newHref.substring(num1, num2);
+    var id = idVal;
+
     $("#testTable").bootstrapTable({
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
-        //search : "true",
+        url:'/role/findMenuByFollowUpGroupId',
         uniqueId: "ID",
         pageSize: "5",
         pageList: [5, 10],
         pagination: true, // 是否分页
+        queryParams: function(params) {
+            var param = {};
+            param['followUpGroupId'] = id; // 页码
+            return param;
+        },
         //sortable: true, // 是否启用排序
         columns: [{
             checkbox: true
@@ -82,7 +93,7 @@
             title: '角色级别',
             align: 'center',
         }, {
-            field: 'price',
+            field: 'description',
             title: '角色名称',
             align: 'center',
         },{
@@ -93,37 +104,20 @@
             field: 'age',
             title: '用户',
             align: 'center',
+            formatter:function (value,row,index) {
+                var user = row.users;
+                var ss="";
+                for(var i=0;i<user.length;i++){
+                    ss+=user[i].name+",";
+                }
+                return ss;
+            }
         },{
             field: 'price',
             title: '权限',
             align: 'center',
         }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 5,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }]
+        ],
     });
 </script>
 </body>

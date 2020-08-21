@@ -59,6 +59,11 @@ public interface RoleService {
      */
     List<String> selectMenuByRoleId(String name);
 
+    /**
+     *@description:
+     *@author: zyl
+     */
+    List<Role> queryMenuByFollowUpGroupId(Integer followUpGroupId);
 
     List<String> queryRoleNameByUsername(String name);
 
