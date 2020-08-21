@@ -72,6 +72,12 @@ public class UserController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping("findAllUserName")
+    public List<User> findAllUserName() {
+        return userService.selectName();
+    }
+
     @RequestMapping("login")
     @ResponseBody
     public String login(User user, HttpServletRequest request, HttpServletResponse response) {

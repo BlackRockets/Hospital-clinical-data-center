@@ -1,7 +1,7 @@
 (function($){
 	$.fn.initList = function(){
 		var selectTitle = $(this);
-		selectTitle.draggable({handle:'.list-title'}); // 添加拖拽事件
+		/*selectTitle.draggable({handle:'.list-title'}); */// 添加拖拽事件
 
 		/**
 		 * 单击列表单击: 改变样式

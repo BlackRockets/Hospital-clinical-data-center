@@ -19,10 +19,12 @@
     <script src="../static/js/vue.js"></script>
     <script src="../static/js/bootstrap-table.js"></script>
     <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <style>
+    </style>
     <!--组内权限管理-->
 </head>
 <body>
-<div class="container-fluid" id="app">
+<div class="container-fluid" >
     <div class="row" style="margin-top: 1%;margin-left: 2%">
         <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a
             href="inDividualFollowUpGroupManagement.html">返回随访组</a>
@@ -30,28 +32,27 @@
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">权限管理</h3>
     </div>
-    <div class="page-header" style="margin-left: 1%;margin-top: 0">
+    <div class="page-header" style="margin-left: 1%;margin-top: 0" id="app">
         <form id="form">
             <div class="row">
                 <div class="col-sm-4" style="color: blue">
                     <div class="col-sm-6">
-                        角色名称：<span style="color: red">*</span><input type="text" class="form-control input-sm"
-                                                                     name="name" >
+                        角色名称：<span style="color: red">*</span><input type="text" class="form-control input-sm"   >
                     </div>
                 </div>
                 <div class="col-sm-4" style="color: blue">
                     <div class="col-sm-6">
-                        备注： <input type="text" class="form-control input-sm" name="name2">
+                        备注： <input type="text" class="form-control input-sm" >
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="col-sm-2" style="margin-top: 2%">
-                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="find">
+                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" >
                             检索
                         </button>
                     </div>
                     <div class="col-sm-2" style="margin-top: 2%">
-                        <button type="reset" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="clear">
+                        <button type="reset" class="btn btn-info btn-sm" data-dismiss="modal">
                             清空
                         </button>
                     </div>
@@ -64,22 +65,19 @@
             新增
         </button>
         <button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
-                data-toggle="modal" data-target="#myModalEdit" v-on:click="edit">编辑
+                data-toggle="modal" data-target="#myModalEdit">编辑
         </button>
         <button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
-                data-toggle="modal" v-on:click="edit">删除
+                data-toggle="modal" >删除
         </button>
     </div>
     <div class="row" style="margin-left: 1%;margin-right: 1%">
         <table id="testTable"></table>
     </div>
 </div>
-<!--<div class="modal-dialog" STYLE="width: 780px">
+<div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" STYLE="width: 780px;margin-left: 350px">
     <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                &times;
-            </button>
+        <div class="modal-header" style="width: 300px">
             <h4 class="modal-title" id="myModalLabel">
                 <ul class="nav nav-tabs">
                     <li role="presentation"><a href="#t1" data-toggle="tab">设定用户</a></li>
@@ -118,7 +116,7 @@
                         </div>
                         <div class="list-body">
                             <div class="item-box left-box" id="userName">
-                                &lt;!&ndash; 左边框初始化待选项 &ndash;&gt;
+                                <!-- 左边框初始化待选项 -->
                                 <span class="item" data-id="name">西瓜</span>
                         </div>
                             <div class="center-box">
@@ -128,12 +126,12 @@
                                 <button class="remove-all" title="移除全部"><<</button>
                             </div>
                             <div class="item-box right-box">
-                                &lt;!&ndash; 右边框存放已选项 &ndash;&gt;
+                                <!-- 右边框存放已选项 -->
                             </div>
                         </div>
                         <div class="list-footer">
                             <div class="col-md-6" style="text-align: right">
-                                <button type="button" class="selected-val" >
+                                <button type="button"  class="btn btn-success btn-sm" data-dismiss="modal" >
                                     确认
                                 </button>
                             </div>
@@ -151,7 +149,7 @@
             </div>
         </div>
     </div>
-</div>-->
+</div>
 <script type="text/javascript">
     var newHref = window.location.href;
     var num1 = newHref.indexOf('id=') + 3;
@@ -160,7 +158,6 @@
     var id = idVal;
 
     $("#testTable").bootstrapTable({
-        toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
         url:'/role/findMenuByFollowUpGroupId',
@@ -173,7 +170,6 @@
             param['followUpGroupId'] = id; // 页码
             return param;
         },
-        //sortable: true, // 是否启用排序
         columns: [{
             checkbox: true
         }, {
@@ -181,7 +177,6 @@
             title: '角色级别',
             align: 'center',
         }, {
-            field: 'roleName',
             field: 'description',
             title: '角色名称',
             align: 'center',
@@ -189,31 +184,52 @@
             field: '123',
             title: '权限及用户设定',
             align: 'center',
+            formatter:function (value,row) {
+                result="";
+                result += "<a href='javascript:;'  data-toggle=\"modal\" data-target=\"#myModalAdd\">设定权限&用户</a>";
+
+                return result;
+            }
         }, {
             field: 'name',
             title: '用户',
             align: 'center',
-        }, {
-            field: 'mName',
-            formatter:function (value,row,index) {
+            formatter:function (value,row) {
                 var user = row.users;
                 var ss="";
                 for(var i=0;i<user.length;i++){
-                    ss+=user[i].name+",";
+                    if(i==user.length-1){
+                        ss+=user[i].name;
+                    }else{
+                        ss+=user[i].name+",";
+                    }
+
                 }
                 return ss;
             }
-        },{
-            field: 'price',
+        }, {
+            field: 'mName',
             title: '权限',
             align: 'center',
+            formatter:function (value,row) {
+                var menu = row.menus;
+                var ss="";
+                for(var i=0;i<menu.length;i++){
+                    if(i==menu.length-1){
+                        ss+=menu[i].mname;
+                    }else{
+                        ss+=menu[i].mname+",";
+                    }
+                }
+                return ss;
+            }
         }
         ],
     });
     $(function () {
         $.ajax({
             type: 'post',
-            url: '/user/selectName/',
+            url: '/user/findAllUserName/',
             data: null,
             dataType: 'json',
             success: function (data) {
@@ -237,10 +253,8 @@
         data: {
             item: {
                 name: '',
-
+                remark:'',
             },
-            ruleSets: [{"things": ""}],
-            singleRule: [{"things": ""}],
         },
         methods: {
             find: function () {
