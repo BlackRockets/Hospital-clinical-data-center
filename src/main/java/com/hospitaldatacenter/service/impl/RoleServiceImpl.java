@@ -1,6 +1,8 @@
 package com.hospitaldatacenter.service.impl;
+import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.RoleDao;
 import com.hospitaldatacenter.dao.UserDao;
+import com.hospitaldatacenter.entity.FollowUpGroupMember;
 import com.hospitaldatacenter.entity.Menu;
 import com.hospitaldatacenter.entity.Role;
 import com.hospitaldatacenter.entity.User;
@@ -106,5 +108,14 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         return list;
+    }
+
+    /**
+     *@description: 根据随访组id查询组内角色，成员以及权限
+     *@author: zyl
+     */
+    @Override
+    public List<Role> queryMenuByFollowUpGroupId(Integer followUpGroupId) {
+        return roleDao.selectMenuByFollowUpGroupId(followUpGroupId);
     }
 }

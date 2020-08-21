@@ -60,7 +60,7 @@
     </insert>
     <!--审批通过-->
     <update id="approval">
-        update term_approval set state = 1 and submission_time =now() where id=#{id}
+        update term_approval set state = 1  where id=#{id}
     </update>
     <!--审批不通过-->
     <update id="refuse">

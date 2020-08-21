@@ -40,6 +40,9 @@
             AND ur.role_id = r.id
             AND u.NAME = #{name}
     </select>
+    <select id="selectName" resultMap="UserMap">
+        select name,user_id from user
+    </select>
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select

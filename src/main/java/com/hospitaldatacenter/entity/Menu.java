@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Menu)实体类
  *
  * @author makejava
- * @since 2020-08-19 14:35:07
+ * @since 2020-08-20 16:03:47
  */
 public class Menu implements Serializable {
-    private static final long serialVersionUID = 167942357030851965L;
+    private static final long serialVersionUID = -97740323537255119L;
 
     private Integer id;
     /**
@@ -29,6 +29,15 @@ public class Menu implements Serializable {
      */
     private String permission;
 
+    private FollowUpGroupManagement fugm;
+
+    private Role role;
+
+    private RoleMenu rm;
+
+    private User user;
+
+    private User ur;
 
     public Integer getId() {
         return id;
@@ -70,4 +79,47 @@ public class Menu implements Serializable {
         this.permission = permission;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public FollowUpGroupManagement getFugm() {
+        return fugm;
+    }
+
+    public void setFugm(FollowUpGroupManagement fugm) {
+        this.fugm = fugm;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public RoleMenu getRm() {
+        return rm;
+    }
+
+    public void setRm(RoleMenu rm) {
+        this.rm = rm;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUr() {
+        return ur;
+    }
+
+    public void setUr(User ur) {
+        this.ur = ur;
+    }
 }

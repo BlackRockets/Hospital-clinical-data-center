@@ -6,10 +6,10 @@ import java.io.Serializable;
  * 角色权限表(RoleMenu)实体类
  *
  * @author makejava
- * @since 2020-08-19 14:35:07
+ * @since 2020-08-20 16:04:22
  */
 public class RoleMenu implements Serializable {
-    private static final long serialVersionUID = 314156500477918262L;
+    private static final long serialVersionUID = -55586936430291100L;
 
     private Integer id;
     /**
