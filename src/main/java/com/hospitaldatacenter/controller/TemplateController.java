@@ -1,15 +1,15 @@
 package com.hospitaldatacenter.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.entity.DataReview;
 import com.hospitaldatacenter.entity.Template;
+import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.TemplateService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,6 +55,36 @@ public class TemplateController {
     @RequestMapping("selectAllNoCondition")
     public List<Template> selectAllNoCondition(Integer groupId){
         List<Template> templates = templateService.selectAllNoCondition(groupId);
+        return templates;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "save",produces = {"application/json;charset=utf-8"})
+    public int save(@RequestParam("text")String text, @RequestParam("id")Integer id,@RequestParam("tempId")Integer tempId, HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        int save = templateService.save(text,id,tempId,user);
+        return save;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "releases",produces = {"application/json;charset=utf-8"})
+    public int releases(@RequestParam("text")String text, @RequestParam("id")Integer id,@RequestParam("tempId")Integer tempId, HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        int save = templateService.releases(text, id,tempId,user);
+        return save;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "selectById")
+    public Template  selectById(Integer id){
+        Template template = templateService.queryById(id);
+        return template;
+    }
+    @ResponseBody
+    @RequestMapping("selectNamesByGroupId")
+    public List<Template> selectNamesByGroupId(Integer groupId){
+        System.out.println(groupId);
+        List<Template> templates = templateService.selectNamesByGroupId(groupId);
         return templates;
     }
 

@@ -33,7 +33,7 @@
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="template()">模板设置</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="ruleSetting()">随访规定设定</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="diag()">诊疗方案</button>
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="screen()">节假日管理</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="holiday()">节假日管理</button>
     </div>
     <div class="row">
         <div class="col-sm-2">
@@ -343,11 +343,17 @@
             },
         },
         mounted:function(){
-            var newHref = window.location.href;
+           /* var newHref = window.location.href;
             var num1 = newHref.indexOf('id=') + 3;
             var num2 = newHref.indexOf('&');
             var idVal = newHref.substring(num1, num2);
-            var id = idVal;
+            var id = idVal;*/
+            var urlinfo=window.location.href; //获取当前页面的url
+            len=urlinfo.length;//获取url的长度
+            var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+            var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+            var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+            var  id=newsids[1];
             var formData = {};
             formData.followUpGroupId=id;
             axios.post('/followUpGroupManagement/findByFollowUpGroupId',formData)
@@ -407,17 +413,16 @@
     $(function () {
         var username1 = $.cookie("userName");
     })
+    var urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var  id=newsids[1];
 
-    var newHref = window.location.href;
-    var num1 = newHref.indexOf('id=') + 3;
-    var num2 = newHref.indexOf('&');
-    var idVal = newHref.substring(num1, num2);
-    var id = idVal;
+    var cook= document.cookie;
+    var s = cook.split("=")[1].split(";")[0];
 
-    var num3 = newHref.indexOf('groupName=') + 10;
-    var len = newHref.length;
-    var groupName = newHref.substring(num3, len);
-    var s = decodeURI(groupName);
     $('h3').html(s);
     $("#testTable").bootstrapTable({
         method: 'get',
@@ -465,32 +470,7 @@
             formatter: operateFormatter,
             align: 'center',
         }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 9,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 8,
-            name: 'ww',
-            price: 55
-        }]
+        ]
     });
     function groupEntry() {
         window.location.href="theGroupManagement.html?id="+id;
@@ -501,6 +481,9 @@
     }
     function template() {
         window.location.href="templateSettings.html?id="+id;
+    }
+    function holiday() {
+        window.location.href="holiday.html?id="+id;
     }
 
     function ruleSetting() {

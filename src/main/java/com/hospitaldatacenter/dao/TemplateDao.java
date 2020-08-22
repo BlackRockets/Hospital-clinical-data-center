@@ -19,7 +19,7 @@ public interface TemplateDao {
      *
      * @return 实例对象
      */
-    Template queryById();
+    Template queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -70,5 +70,16 @@ public interface TemplateDao {
      * @return 影响行数
      */
     List<Template> selectAllNoCondition(Integer groupId);
+    /**
+     * 保存
+     */
+   int save(Template template);
 
+   String seelctVersion(Integer id);
+
+    List<Template> selectByName(String name);
+
+    int updateState(Template template);
+
+    List<Template> selectNamesByGroupId(Integer groupId);
 }

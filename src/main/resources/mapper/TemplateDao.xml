@@ -13,18 +13,18 @@
         <result property="versionNumber" column="version_number" jdbcType="VARCHAR"/>
         <result property="templateState" column="template_state" jdbcType="INTEGER"/>
         <result property="patientDetailsId" column="patient_details_id" jdbcType="INTEGER"/>
+        <result property="context" column="context" jdbcType="VARCHAR"/>
         <association property="fm" javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
 
     <!--查询单个-->
-   <!-- <select id="queryById" resultMap="TemplateMap">
-        select
-          template_id, follow_up_group_id, template_name, creation_date, creator, update_date, updated_by, version_number, template_state
+    <select id="queryById" resultMap="TemplateMap">
+        select *
         from hospital.template
-        where  = #{}
-    </select>-->
+        where  template_id = #{id}
+    </select>
 
     <!--查询指定行数据-->
     <!--<select id="queryAllByLimit" resultMap="TemplateMap">
@@ -67,12 +67,9 @@
     </insert>
 
     <!--通过主键修改数据-->
-   <!-- <update id="update">
+    <update id="update">
         update hospital.template
         <set>
-            <if test="templateId != null">
-                template_id = #{templateId},
-            </if>
             <if test="followUpGroupId != null">
                 follow_up_group_id = #{followUpGroupId},
             </if>
@@ -98,12 +95,106 @@
                 template_state = #{templateState},
             </if>
         </set>
-        where = #{}
-    </update>-->
+        where template_id = #{templateId}
+    </update>
 
     <!--&lt;!&ndash;通过主键删除&ndash;&gt;
     <delete id="deleteById">
         delete from hospital.template where  = #{}
     </delete>-->
+    <insert id="save">
+        insert into hospital.template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="templateId != null">
+            template_id,
+        </if>
+        <if test="followUpGroupId != null">
+            follow_up_group_id,
+        </if>
+        <if test="templateName != null">
+            template_name,
+        </if>
+        <if test="creationDate != null">
+            creation_date,
+        </if>
+        <if test="creator != null">
+            creator,
+        </if>
+        <if test="updateDate != null">
+            update_date,
+        </if>
+        <if test="updatedBy != null">
+            updated_by,
+        </if>
+        <if test="versionNumber != null">
+            version_number,
+        </if>
+        <if test="templateState != null">
+            template_state,
+        </if>
+        <if test="patientDetailsId != null">
+            patient_details_id,
+        </if>
+        <if test="context != null">
+            context,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="templateId != null">
+            #{templateId,jdbcType=INTEGER},
+        </if>
+        <if test="followUpGroupId != null">
+            #{followUpGroupId,jdbcType=INTEGER},
+        </if>
+        <if test="templateName != null">
+            #{templateName,jdbcType=VARCHAR},
+        </if>
+        <if test="creationDate != null">
+            #{creationDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="creator != null">
+            #{creator,jdbcType=VARCHAR},
+        </if>
+        <if test="updateDate != null">
+            #{updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updatedBy != null">
+            #{updatedBy,jdbcType=INTEGER},
+        </if>
+        <if test="versionNumber != null">
+            #{versionNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="templateState != null">
+            #{templateState,jdbcType=INTEGER},
+        </if>
+        <if test="patientDetailsId != null">
+            #{patientDetailsId,jdbcType=INTEGER},
+        </if>
+        <if test="context != null">
+            #{context,jdbcType=VARCHAR},
+        </if>
+        </trim>
+    </insert>
 
+    <select id="seelctVersion" resultType="java.lang.String">
+        select version_number from template
+        where follow_up_group_id = #{id}
+        order by version_number desc
+        limit 1
+    </select>
+
+    <select id="selectByName" resultMap="TemplateMap">
+        select * from template
+        where template_name = #{name}
+    </select>
+
+    <update id="updateState">
+        update template set template_state = #{templateState}
+        where template_id = #{templateId}
+    </update>
+
+    <select id="selectNamesByGroupId" resultMap="TemplateMap">
+        select * from template
+        where follow_up_group_id = #{id} and template_state != 3
+    </select>
 </mapper>

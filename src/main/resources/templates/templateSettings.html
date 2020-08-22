@@ -21,7 +21,7 @@
 <body>
 <div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returns()">返回随访组</a>
     </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">模板设置</h3>
@@ -34,6 +34,7 @@
     <div class="row" style="margin: 1%">
         <table id="testTable"></table>
     </div>
+
 </div>
 <script type="text/html" id="barDemo">
 </script>
@@ -44,6 +45,9 @@
     var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
     var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
     var  newsid=newsids[1];//得到参数值
+    console.log("newsid"+newsid);
+
+
     new Vue({
         el: '#box',
         data:{
@@ -51,14 +55,13 @@
         mounted:function(){
             axios.post('/template/selectAllNoCondition?groupId='+newsid)
                 .then(function (response) {
-                    console.log(response.data);
                     $("#testTable").bootstrapTable("load",response.data);
                 }).catch(function () {});
         }
         })
 
     function createTemp(){
-        window.location.href="templateDesign.html?id="+newsid;
+        window.location.href="templateDesign.html?tempid=0&&id="+newsid;
     }
     $("#testTable").bootstrapTable({
         sidePagination: "true",
@@ -100,7 +103,14 @@
             title: '状态',
             align: 'center',
             formatter: function (value, row, index) {
-                return value;
+                console.log(value);
+                if(value == 1){
+                    return "当前版本";
+                }else if(value == 2){
+                    return "历史版本";
+                }else {
+                    return "未发布";
+                }
             }
         }, {
             title: '操作',
@@ -112,13 +122,17 @@
     function operateFormatter(value, row, index) {
         //添加按钮
         var rows = JSON.stringify(row);
-        var id = row.id;
-        console.log(id);
+        var id = row.templateId;
         var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='修改'><span class='glyphicon glyphicon-zoom-in'></span></a>";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='删除'><span class='glyphicon glyphicon-remove-circle'></span></a>";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "',newsid)\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
+    }
+    function EditViewById(id,fid) {
+        window.location.href="templateDesign.html?tempid="+id+"&&id="+fid;
+    }
+
+    function returns() {
+        window.location.href="inDividualFollowUpGroupManagement.html?id="+newsid;
     }
 </script>
 
