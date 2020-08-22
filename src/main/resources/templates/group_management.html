@@ -205,11 +205,16 @@
         ],
     });
 
-    function openDetails(value, row, index){
-        return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'&groupName='+row.groupName+'">'+value+'</a>'].join("");
+    function openDetails(value,row, index){
+        return ['<a onclick=checks("' + row.id + '","' + row.groupName + '")>'+value+'</a>'].join("");
         /*return ['<a href="../templates/inDividualFollowUpGroupManagement.html?id='+row.id+'&groupName='
         +row.groupName+'&personInCharge='+row.personInCharge+'">'+value+'</a>'].join("");*/
     }
+    function checks(id,name){
+        document.cookie = "groupName="+name+"";
+        window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
+    }
+
 
  /*   function flush() {
         document.getElementById("form").reset();

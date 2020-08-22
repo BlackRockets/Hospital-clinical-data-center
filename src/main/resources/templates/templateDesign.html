@@ -22,7 +22,7 @@
 <body>
 <div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="../templates/templateSettings.html">返回模板列表</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returns()">返回模板列表</a>
     </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">模板设计</h3>
@@ -33,6 +33,7 @@
         </button>
     </div>
     <div>
+
         <div class="col-lg-2">
             <div id="d1" class="row" style="margin: 1%;display:block;">
                 <table id="tree"></table>
@@ -730,6 +731,9 @@
         })
     }
 
+    function returns() {
+        window.location.href="templateSettings.html?id="+newsid;
+    }
 
 </script>
 </body>

@@ -26,8 +26,7 @@
 <body>
 <div class="container-fluid" >
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a
-            href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="">返回随访组</a>
     </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">权限管理</h3>
@@ -117,8 +116,8 @@
                         <div class="list-body">
                             <div class="item-box left-box" id="userName">
                                 <!-- 左边框初始化待选项 -->
-                                <span class="item" data-id="name">西瓜</span>
-                        </div>
+                                <span class="item" data-id="name"></span>
+                            </div>
                             <div class="center-box">
                                 <button class="add-one" title="添加选中项">></button>
                                 <button class="add-all" title="添加全部">>></button>
@@ -186,7 +185,7 @@
             align: 'center',
             formatter:function (value,row) {
                 result="";
-                result += "<a href='javascript:;'  data-toggle=\"modal\" data-target=\"#myModalAdd\">设定权限&用户</a>";
+                result += "<a onclick='show()' data-toggle=\"modal\" data-target=\"#myModalAdd\">设定权限&用户</a>";
 
                 return result;
             }
@@ -226,21 +225,23 @@
         }
         ],
     });
-    $(function () {
-        $.ajax({
-            type: 'post',
-            url: '/user/findAllUserName/',
-            data: null,
-            dataType: 'json',
-            success: function (data) {
-                var datas = "";
-                for (var i = 0; i < data.length; i++) {
-                    datas += "<span class='item' data-id='name'>" + data[i].name + "</span>";
-                }
-                $('#userName').append(datas);
-            }
-        })
-    })
+   function show(){
+       $.ajax({
+           type: 'post',
+           url: '/user/findAllUserName/',
+           data: null,
+           dataType: 'json',
+           success: function (data) {
+               var datas = "";
+               for (var i = 0; i < data.length; i++) {
+                   datas += "<span class='item' data-id='name'>" + data[i].name + "</span>";
+               }
+               $('#userName').append(datas);
+           }
+       })
+   }
+
+
 
 </script>
 <script>
