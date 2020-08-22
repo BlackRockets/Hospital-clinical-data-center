@@ -5,8 +5,9 @@
     <resultMap type="com.hospitaldatacenter.entity.FollowUpGroupMember" id="FollowUpGroupMemberMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="followUpGroupId" column="follow_up_group_id" jdbcType="INTEGER"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
-        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="menuId" column="menu_id" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -29,6 +30,14 @@
           id, follow_up_group_id, user_id, role_id
         from hospital.follow_up_group_member
         limit #{offset}, #{limit}
+    </select>
+
+    <!--根据随访组id查询-->
+    <select id="queryAllByFollowUpGroupId" resultMap="FollowUpGroupMemberMap">
+        select
+          id, follow_up_group_id, user_id, role_id ,menu_id
+        from hospital.follow_up_group_member
+        where follow_up_group_id = #{followUpGroupId}
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -56,6 +65,56 @@
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into hospital.follow_up_group_member(follow_up_group_id, user_id, role_id)
         values (#{followUpGroupId}, #{userId}, #{roleId})
+    </insert>
+
+    <!--新增-->
+    <insert id="insertMember">
+        update hospital.follow_up_group_member
+        <set>
+            <if test="followUpGroupId != null and followUpGroupId != ''">
+                follow_up_group_id= #{followUpGroupId},
+            </if>
+            <if test="nameIdStr != null and nameIdStr != ''">
+                user_id=#{nameIdStr},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                role_id= #{roleId},
+            </if>
+            <if test="menuIdStr != null and menuIdStr != ''">
+                menu_id=#{menuIdStr}
+            </if>
+        </set>
+        where id = #{teamDataId}
+
+        <!--insert into hospital.follow_up_group_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="followUpGroupId != null and followUpGroupId != ''">
+                follow_up_group_id,
+            </if>
+            <if test="nameIdStr != null and nameIdStr != ''">
+                user_id,
+            </if>
+            <if test="roleId != null and roleId != ''">
+                role_id,
+            </if>
+            <if test="menuIdStr != null and menuIdStr != ''">
+                menu_id
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="followUpGroupId != null and followUpGroupId != ''">
+                #{followUpGroupId},
+            </if>
+            <if test="nameIdStr != null and nameIdStr != ''">
+                #{nameIdStr},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                #{roleId},
+            </if>
+            <if test="menuIdStr != null and menuIdStr != ''">
+                #{menuIdStr}
+            </if>
+        </trim>-->
     </insert>
 
     <!--通过主键修改数据-->

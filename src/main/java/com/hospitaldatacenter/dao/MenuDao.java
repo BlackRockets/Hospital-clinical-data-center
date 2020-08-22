@@ -63,4 +63,17 @@ public interface MenuDao {
      */
     int deleteById(Integer id);
 
+    /**
+     *@description: 根据权限名查询id
+     *@author: zyl
+     */
+    List<Menu> selectMenuIdByName(String[] permissionName);
+
+    /**
+     *@description: 根据权限ID查询权限名
+     *@author: zyl
+     */
+    List<Menu> selectMenuByMenuId(String[] menuIdArr);
+
+
 }

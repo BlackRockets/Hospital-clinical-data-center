@@ -40,6 +40,7 @@
     <!--根据随访组id查询组内角色，成员以及权限-->
     <select id="selectMenuByFollowUpGroupId" parameterType="java.lang.Integer" resultMap="RoleMap">
         SELECT
+            r.id id,
             r.role_level role_level,
             r.role_name role_name,
             r.description description,

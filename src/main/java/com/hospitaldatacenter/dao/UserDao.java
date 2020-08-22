@@ -100,5 +100,17 @@ public interface UserDao {
      */
     User selectUserRoleByName(String name);
 
+    /**
+     * @description: 根据用户名查询用户Id
+     * @author: zyl
+     */
+    List<User> selectUserIdByName(String[] names);
+
+    /**
+     * @description: 根据用户id查询用户
+     * @author: zyl
+     */
+    List<User> selectUserByUserId(String[] userIdArr);
+
     User getUserByName(String name);
 }

@@ -19,15 +19,27 @@ public class FollowUpGroupMember implements Serializable {
     /**
      * 成员id
      */
-    private Integer userId;
+    private String userId;
     /**
      * 角色id
      */
-    private String roleId;
+    private Integer roleId;
+    /**
+     * 权限id集合
+     */
+    private String menuId;
     /**
      * 用户名
      */
     private String name;
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 
     public String getName() {
         return name;
@@ -53,20 +65,19 @@ public class FollowUpGroupMember implements Serializable {
         this.followUpGroupId = followUpGroupId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
-
 }

@@ -70,6 +70,12 @@ public interface RoleDao {
     Role selectMenuByRoleId(Integer id);
 
     /**
+     *@description: 根据角色id查询
+     *@author: zyl
+     */
+    Role selectByRoleId(Integer id);
+
+    /**
      *@description: 根据随访组id查询组内角色，成员以及权限
      *@author: zyl
      */

@@ -40,6 +40,29 @@
             AND ur.role_id = r.id
             AND u.NAME = #{name}
     </select>
+
+    <!--根据用户名查询用户Id-->
+    <select id="selectUserIdByName" resultMap="UserMap">
+        select user_id
+        from hospital.user
+        where name in 
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--根据用户id查询用户-->
+    <select id="selectUserByUserId" resultMap="UserMap">
+        select name
+        from hospital.user
+        where user_id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+
     <select id="selectName" resultMap="UserMap">
         select name,user_id from user
     </select>

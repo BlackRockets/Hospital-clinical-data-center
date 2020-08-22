@@ -70,6 +70,12 @@ public interface UserService {
      */
     List<String> queryUserRoleByName(String name);
 
+    /**
+     * @description: 设定组内用户或权限
+     * @author: zyl
+     */
+    void insertTeamInUserOrPer(String[] names,String[] permissionName,Integer roleId,Integer groupId,Integer teamDataId);
+
 
 
     User queryUserByUserName(String name);
