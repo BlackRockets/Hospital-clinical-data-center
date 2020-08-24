@@ -73,4 +73,6 @@ public interface UserService {
 
 
     User queryUserByUserName(String name);
+
+    int updatePassword(User user);
 }

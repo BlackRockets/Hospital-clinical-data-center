@@ -117,6 +117,12 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserByName(name);
     }
 
+    @Override
+    public int updatePassword(User user) {
+        int update = userDao.update(user);
+        return update;
+    }
+
     /**
      * @description: 根据名字查询所有对应的角色
      * @author: zyl

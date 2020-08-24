@@ -141,7 +141,6 @@
                 dataItem.startTime=starttime;
                 var endtime=$("#d2").val();
                 dataItem.endTime=endtime;
-                console.log(dataItem);
                 axios
                     .post('/scheduleOfFollowUpGroup/selectAllByCondition',dataItem)
                     .then(function (response) {

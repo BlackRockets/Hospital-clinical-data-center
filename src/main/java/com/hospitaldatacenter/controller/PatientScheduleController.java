@@ -58,6 +58,11 @@ public class PatientScheduleController {
         return patientScheduleService.queryAllDepartments();
     }
 
+    @RequestMapping("save")
+    public Integer save(@RequestBody(required = false) String dataItem){
+        int save = patientScheduleService.save(dataItem);
+        return save;
+    }
 
 
 }

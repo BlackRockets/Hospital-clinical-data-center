@@ -67,7 +67,7 @@
         </div>
         <div class="col-lg-8" style="margin-top: 0">
             <div class="row" style="margin: 1%">
-                <button type="button" class="btn btn-info btn-sm" onclick="">
+                <button type="button" class="btn btn-info btn-sm" v-on:click="save">
                     保存
                 </button>
                <!-- <button type="button" class="btn btn-info btn-sm" onclick="">
@@ -100,6 +100,7 @@
                             民族：<select id="nation1">
                             <option value="">请选择</option>
                             <option value="汉">汉</option>
+                            <option value="满">满</option>
                         </select>
                         </div>
                     </div>
@@ -114,7 +115,7 @@
                             体重：<input type="text" v-model="item.weight"/>kg
                         </div>
                         <div class="col-sm-3">
-                            BMI：<input type="text"/>
+                            BMI：<input type="text" v-model="item.bodyMassCoefficient"/>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 7%">
@@ -134,10 +135,14 @@
                         </div>
                         <div class="col-sm-3">
                             症状：<select v-model="item.symptom">
-                            <option value="">请选择</option>
-                            <option value="头疼">头疼</option>
-                            <option value="发热">发热</option>
-                            <option value="肾疼">肾疼</option>
+                            <option>头痛</option>
+                            <option>发热</option>
+                            <option>头晕</option>
+                            <option>咳嗽</option>
+                            <option>胸闷</option>
+                            <option>胸痛</option>
+                            <option>呕吐</option>
+                            <option>心衰</option>
                         </select>
                         </div>
                     </div>
@@ -296,7 +301,8 @@
                     condition: '',
                     height: '',
                     weight: '',
-                    symptom: ''
+                    symptom: '',
+                    bodyMassCoefficient: ''
                 }
             }
         },
@@ -349,7 +355,6 @@
             },
             searchRest:function () {
                 var dataName=this.item.name;
-                console.log(dataName);
                 axios.get('/patientSchedule/selectById?name='+dataName)
                     .then(function (response) {
                         $("#tables").bootstrapTable("load",response.data);
@@ -367,6 +372,27 @@
                     .then(function (response) {
                         $("#tableA").bootstrapTable("load",response.data);
                     }).catch(function () {});
+            },
+            save:function () {
+                this.item.name= $("#name1").val();
+                this.item.sex=$("#sex1").val();
+                this.item.birth=$("#birth1").val();
+                this.item.nation=$("#nation1").val();
+                this.item.whitebloodcell=$("#bai").val();
+                this.item.bloodsugar=$("#xue").val();
+                var dataItem=this.item;
+                axios
+                    .post('/patientSchedule/save',dataItem)
+                    .then(function (response) {
+                        if(response.data == 1){
+                            alert("保存成功")
+                        }else {
+                            alert("保存失败")
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
             }
         }
     })

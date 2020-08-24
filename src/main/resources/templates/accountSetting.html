@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-table.css">
+    <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/jQuery/jquery.cookie.js"></script>
+    <script src="../static/js/moment-with-locales.min.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+<body>
+<div class="container" id="box" style="padding: 50px">
+    <div class="form-group">
+        <label>旧密码</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" required="required" id="oldPassword" v-model="oldPassword">
+        <label>请输入旧密码</label>
+    </div>
+    <div class="form-group">
+        <label>新密码</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" required="required" id="newPassword" v-model="newPassword">
+        <label>6-16位字母，数字，符号</label>
+    </div>
+    <div class="form-group">
+        <label>确认新密码</label>
+        <input type="text" required="required" id="newPasswordTrue" v-model="newPasswordTrue">
+        <label>请再次确认新密码</label>
+    </div>
+    <div>
+        <button type="button" class="btn-info" v-on:click="betrue">确认</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var username1;
+    var oldPassword1;
+    $(function () {
+        username1 = $.cookie("userName");
+        $.ajax({
+            url: '/user/selectByName?username='+username1,
+            method: '',
+            success:function (res) {
+                oldPassword1=res.oldPassword;
+            }
+        })
+    })
+    new Vue({
+        el: '#box',
+        data:{
+                oldPassword: '',
+                newPassword: '',
+                newPasswordTrue: ''
+        },
+        methods:{
+            betrue:function () {
+                var regex = new RegExp('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,30}');
+                if($("#oldPassword").val() != oldPassword1){
+                    alert("旧密码不正确");
+                }else if(!regex.test($("#newPassword").val())){
+                    alert("您的密码复杂度太低（密码中必须包含字母、数字、特殊字符），请及时改密码！");
+                }else if(($("#newPassword").val()) != ($("#newPasswordTrue").val())){
+                    alert("两次输入的密码不一致！");
+                }else {
+                    axios
+                        .post('/user/updatePassword?username='+username1+'&&newPasswordTrue='+this.newPasswordTrue)
+                        .then(function (response) {
+                            if(response.data == 1){
+                                alert("密码设置成功！")
+                            }else {
+                                alert("密码设置失败！")
+                            }
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        });
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

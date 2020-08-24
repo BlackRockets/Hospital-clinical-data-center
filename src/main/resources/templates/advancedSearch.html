@@ -20,7 +20,7 @@
 <body>
 <div class="container-fluid">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returns()">返回随访组</a>
     </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
@@ -97,29 +97,29 @@
             <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
         </div>
         <div class="form-group">
-            结果：<select>
+            <!--结果：<select>
                         <option>1</option>
                         <option>1</option>
                     </select>
-            <a href="">设置检索结果模板</a>
+            <a href="">设置检索结果模板</a>-->
             <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
                     data-dismiss="modal" v-on:click="">检索
             </button>
         </div>
     </form>
-    <div class="row" style="margin: 2%">
-        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
-                v-on:click="haveBeenFollowedUp()">编辑
-        </button>
-        <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                data-dismiss="modal" v-on:click="noFollowedUp()">删除
-        </button>
-    </div>
+
     <div class="row" style="margin: 2%">
         <table id="testTable"></table>
     </div>
 </div>
 <script type="text/javascript">
+    var urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var  id=newsids[1];
+
     function jian(tag) {
         var form1=document.getElementById("form1");
         var form2=document.getElementById("form2");
@@ -150,82 +150,50 @@
         }
     }
     $("#testTable").bootstrapTable({
+        method: 'get',
+        url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',
         toolbar: "#toolbar",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
-        //search : "true",
         uniqueId: "ID",
         pageSize: "5",
-        pageList: [10, 20],
+        pageList: [5, 10],
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
+        queryParams: function(params) {
+            var param = {};
+            param['followUpGroupId'] = id; // 页码
+            return param;
+        },
         columns: [{
-            field: 'id',
-            title: '门诊号/住院号',
-            align: 'center',
-        }, {
-            field: 'price',
-            title: '姓名',
-            align: 'center',
-        },{
-            field: 'name',
-            title: '性别',
-            align: 'center',
-        },{
-            field: 'age',
-            title: '年龄',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '入组时期',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '下次入组时期',
-            align: 'center',
-        }, {
-            field: 'price',
-            title: '手术日期',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '手术术士',
-            align: 'center',
-        },{
-            field: 'price',
-            title: '手术操作者',
-            align: 'center',
-        },{
-            title: '操作',
-            formatter: operateFormatter,
-            align: 'center',
-        }
-        ], //数据
-        data: [{
-            id: 1,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 2,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 3,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 4,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 5,
-            name: 'ww',
-            price: 55
-        }, {
-            id: 6,
-            name: 'ww',
-            price: 55
-        }]
+                field: 'id',
+                title: '门诊号/住院号',
+                align: 'center',
+                formatter: function(value, row, index) {
+                    return row.outpatientNumber+"/"+row.inpatientNumber;
+                }
+            }, {
+                field: 'name',
+                title: '姓名',
+                align: 'center',
+            },{
+                field: 'sex',
+                title: '性别',
+                align: 'center',
+            },{
+                field: 'age',
+                title: '年龄',
+                align: 'center',
+            },{
+                field: 'groupEntryTime',
+                title: '入组时期',
+                align: 'center',
+            },{
+                title: '操作',
+                formatter: operateFormatter,
+                align: 'center',
+            }
+        ]
     });
     function operateFormatter(value, row, index){
         //添加按钮
@@ -235,6 +203,10 @@
         var result = "";
         result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
+    }
+
+    function returns() {
+        window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
     }
 </script>
 </body>

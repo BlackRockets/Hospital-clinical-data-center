@@ -113,4 +113,5 @@ public interface PatientScheduleDao {
      */
     List<PatientSchedule> selectAllDepartmentsByDepartmentsId(PatientSchedule patientSchedule);
 
+
 }

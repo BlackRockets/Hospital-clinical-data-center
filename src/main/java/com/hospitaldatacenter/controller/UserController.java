@@ -109,4 +109,22 @@ public class UserController {
             return "error";
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "updatePassword")
+    public int updatePassword(@RequestParam("username") String username,@RequestParam("newPasswordTrue") String newPasswordTrue){
+        System.out.println(username);
+        User user = userService.queryUserByUserName(username);
+        user.setPassword(newPasswordTrue);
+        int update = userService.updatePassword(user);
+        return update;
+    }
+
+    @ResponseBody
+    @RequestMapping("selectByName")
+    public User selectByName(@RequestBody String username){
+        User user = userService.queryUserByUserName(username);
+        return user;
+    }
+
 }
