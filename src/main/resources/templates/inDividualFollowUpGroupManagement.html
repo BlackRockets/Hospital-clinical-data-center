@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -110,7 +110,7 @@
                 <button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
                         data-toggle="modal" data-target="#myModalEdit" v-on:click="edit">编辑
                 </button>
-                <button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
+                <button shiro:hasPermission="group:patientDel" type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
                         data-dismiss="modal" v-on:click="deleteRow">删除
                 </button>
             </div>

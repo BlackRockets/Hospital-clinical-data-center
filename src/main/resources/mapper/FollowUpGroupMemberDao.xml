@@ -63,8 +63,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into hospital.follow_up_group_member(follow_up_group_id, user_id, role_id)
-        values (#{followUpGroupId}, #{userId}, #{roleId})
+        insert into hospital.follow_up_group_member(follow_up_group_id, role_id)
+        values (#{followUpGroupId}, #{roleId})
     </insert>
 
     <!--新增-->
@@ -137,6 +137,15 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from hospital.follow_up_group_member where id = #{id}
+    </delete>
+
+    <!--通过主键批量删除-->
+    <delete id="delById">
+        delete from hospital.follow_up_group_member
+        where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
 </mapper>

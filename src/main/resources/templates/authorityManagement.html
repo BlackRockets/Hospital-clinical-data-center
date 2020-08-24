@@ -25,12 +25,12 @@
 <div class="container-fluid" >
     <div class="row" style="margin-top: 1%;margin-left: 2%">
         <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a
-            href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+              onclick="backGroup()">返回随访组</a>
     </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: #28a4c9">权限管理</h3>
     </div>
-    <div class="page-header" style="margin-left: 1%;margin-top: 0" id="app">
+    <!--<div class="page-header" style="margin-left: 1%;margin-top: 0" id="app">
         <form id="form">
             <div class="row">
                 <div class="col-sm-4" style="color: blue">
@@ -58,20 +58,64 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div class="row" style="margin-left: 1%;">
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalAdd">
+    </div>-->
+    <div class="row" style="margin-left: 1%;" id="box">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addGroupPermissions">
             新增
         </button>
+        <!--<button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
+                data-toggle="modal" data-target="#myModalEdit" >编辑
+        </button>-->
         <button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
-                data-toggle="modal" data-target="#myModalEdit" v-on:click="edit">编辑
-        </button>
-        <button type="button" style="margin-left: 2%" class="btn btn-info btn-sm"
-                data-toggle="modal" v-on:click="edit">删除
+                data-toggle="modal" v-on:click="deleteData">删除
         </button>
     </div>
     <div class="row" style="margin-left: 1%;margin-right: 1%">
         <table id="testTable"></table>
+    </div>
+</div>
+<div class="modal fade" id="addGroupPermissions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="#t1" data-toggle="tab">自定义患者</a></li>
+            </ul>
+            <div class="tab-content" style="margin-right: 2%;margin-left: 2%">
+                <div id="t1" class="tab-pane fade in active">
+                    <form style="margin-top: 2%">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-sm-4" style="margin-top: 5px">
+                                    角色名称：
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control input-sm"  v-model="item.roleName">
+                                        <option>-请选择-</option>
+                                        <option>组长</option>
+                                        <option>随访员</option>
+                                        <option>医生</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-sm-4" style="margin-top: 5px">
+                                    备注：
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control input-sm" >
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="margin-top:5%;margin-bottom:2%;text-align: center">
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="add">
+                    确定
+                </button>
+            </div>
+
+        </div>
     </div>
 </div>
 <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" STYLE="width: 780px;margin-left: 350px">
@@ -171,7 +215,7 @@
                         </button>
                     </div>
                     <div class="col-md-6" style="text-align: left">
-                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" onclick="">
+                        <button type="button" class="btn-success btn-sm" data-dismiss="modal" onclick="">
                             取消
                         </button>
                     </div>
@@ -187,6 +231,9 @@
     var idVal = newHref.substring(num1, num2);
     var id = idVal;
 
+    function backGroup() {
+        window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
+    }
 
 
     $("#testTable").bootstrapTable({
@@ -286,57 +333,56 @@
 
 </script>
 <script>
+    var newHref = window.location.href;
+    var num1 = newHref.indexOf('id=') + 3;
+    var num2 = newHref.length;
+    var idVal = newHref.substring(num1, num2);
+    var id = idVal
     $(function () {
         $('#selectTitle').initList();
     })
 
     var vm = new Vue({
-        el: '#app',
-        data: {
-            item: {
-                name: '',
-
-            },
-            ruleSets: [{"things": ""}],
-            singleRule: [{"things": ""}],
-        },
+        el: '#box',
         methods: {
-            find: function () {
-                var formData = $("#form").serialize();
-                alert(formData);
-                axios.post('/menu/selectAll', formData)
-                    .then(function (response) {
-                        var data = response.data;
-                        $("#testTable").bootstrapTable('load', data);
-                    })
-                    .catch(function (error) {
-
-                    });
-            },
-            clear: function () {
-                var formData = $("#form");
-                formData.find('input:text').val('');
-            },
-            edit: function () {
-                var formData = $("#form");
-                formData.find('input:text').val('');
-            },
-            delete: function () {
+            deleteData: function () {
                 var row=$("#testTable").bootstrapTable('getSelections');
                 var ids = new Array();
                 for (var i=0;i<row.length;i++){
-                    ids.push(row[i].id);
+                    ids.push(row[i].teamDataId);
                 };
-                axios.post('/followUpGroupManagement/deleteById',ids)
+                axios.post('/followUpGroupManagement/delById',ids)
                     .then(function () {
                         $('#testTable').bootstrapTable('refresh');
                     })
                     .catch(function (err) {
 
                     })
-            }
+            },
         }
     })
+
+    var vm = new Vue({
+        el: '#addGroupPermissions',
+        data:{
+            item:{
+                roleName:"",
+            }
+        },
+        methods: {
+            add: function () {
+                var item = this.item;
+                item.followUpGroupId=id;
+                console.log(item);
+                axios.post('/followUpGroupManagement/addGroupRole',item)
+                    .then(function () {
+                        $('#testTable').bootstrapTable('refresh');
+
+                    }).catch(function () {});
+            },
+        }
+    })
+
 
     var vm = new Vue({
         el: '#myModalAdd',
