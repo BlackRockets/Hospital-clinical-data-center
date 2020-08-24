@@ -214,10 +214,21 @@
 
 
     function openDetails(value, row, index) {
-        console.log(row);
-        return ['<a href="../templates/templateDesign.html?id=' + row.patientDetailsId + '">' + value + '</a>'].join("");
+        if (row.templateState == "1") {
+            value = "当前版本"
+        } else if (row.templateState == "2") {
+            value = "历史版本"
+        } else {
+            value = "已发布"
+        }
+        console.log(row.fm.groupName);
+        return ['<a onclick=findTemp("' + row.templateId + '","' + row.followUpGroupId + '","' + row.fm.groupName + '")>'+value+'</a>'].join("");
     }
 
+    function findTemp(tempId,id,name){
+        document.cookie = "groupName="+name+"";
+        window.location.href="templateDesign.html?tempid="+tempId+"&&id="+id;
+    }
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',

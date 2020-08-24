@@ -35,8 +35,6 @@ public class DiagnosisAndTreatmentSchemeController {
      */
     @GetMapping("selectOne")
     public List<DiagnosisAndTreatmentScheme> selectOne(@RequestParam("id") Integer id,@RequestParam("groupId")Integer groupId) {
-        System.out.println(id+"=============="+groupId);
-
         DiagnosisAndTreatmentScheme diagnosisAndTreatmentScheme = diagnosisAndTreatmentSchemeService.queryById(id,groupId);
         String s = JSON.toJSONString(diagnosisAndTreatmentScheme);
         ArrayList<DiagnosisAndTreatmentScheme> list = new ArrayList<>();
@@ -45,7 +43,6 @@ public class DiagnosisAndTreatmentSchemeController {
     }
     @RequestMapping("selectAllId")
     public List<DiagnosisAndTreatmentScheme> selectAllId(Integer groupId){
-        System.out.println(groupId);
         List<DiagnosisAndTreatmentScheme> diagnosisAndTreatmentSchemes = diagnosisAndTreatmentSchemeService.queryAllId(groupId);
         return diagnosisAndTreatmentSchemes;
     }

@@ -1,7 +1,9 @@
 package com.hospitaldatacenter.service;
 
 import com.hospitaldatacenter.entity.Template;
+import com.hospitaldatacenter.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -16,16 +18,13 @@ public interface TemplateService {
     /**
      * 通过ID查询单条数据
      *
-     * @param 主键
      * @return 实例对象
      */
-    Template queryById();
+    Template queryById(Integer id);
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
     List<Template> queryAll(String groupName, Date creationDate1, Date creationDate2, String templateName, String creator);
@@ -49,7 +48,6 @@ public interface TemplateService {
     /**
      * 通过主键删除数据
      *
-     * @param 主键
      * @return 是否成功
      */
     boolean deleteById();
@@ -59,5 +57,12 @@ public interface TemplateService {
      * @return 影响行数
      */
     List<Template> selectAllNoCondition(Integer groupId);
+    /**
+     * 保存
+     */
+    int save(String text, Integer id,Integer tempId, User user);
 
+    int releases(String text, Integer id,Integer tempId, User user);
+
+    List<Template> selectNamesByGroupId(Integer groupId);
 }

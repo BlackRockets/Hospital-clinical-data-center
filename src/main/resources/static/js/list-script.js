@@ -1,7 +1,7 @@
 (function($){
 	$.fn.initList = function(){
 		var selectTitle = $(this);
-		selectTitle.draggable({handle:'.list-title'}); // 添加拖拽事件
+		/*selectTitle.draggable({handle:'.list-title'}); */// 添加拖拽事件
 
 		/**
 		 * 单击列表单击: 改变样式
@@ -53,35 +53,51 @@
 		 * @return json数组
 		 */
 		function getSelectedValue(){
+
+			var leftBox = selectTitle.find('.list-body .left-box');
+			//角色id
+			var roleId = "";
+			leftBox.find('#id').each(function(){
+				roleId=$(this).text();
+			});
+			var teamDataId="";
+			leftBox.find('#teamDataId').each(function(){
+				teamDataId=$(this).text();
+			});
+
+			//用户数据
 			var rightBox = selectTitle.find('.list-body .right-box');
 			var names = new Array();
-			var itemValue;
-
 			rightBox.find('.item').each(function(){
 				departmentId = $("#departmentId").val();
-				itemValue = {};
-				itemValue[$(this).attr('data-id')] = $(this).text();
-				names.push(itemValue);
+				/*itemValue = {};
+				itemValue[$(this).attr('data-id')] = $(this).text();*/
+				names.push($(this).text());
 				names.join(",")
 			});
-			console.log(names);
+			var nameData = names.toString();
+
+			//权限数据
+			var checked=[];
+			$('#t2 input[name="menu"]:checked').each(function(){
+				checked.push($(this).val());
+			});
+			var permissionName = checked.toString();
+
 			$.ajax({
-				url: '/user/distribution/',
+				url: '/user/addTeamInUserOrPer/',
 				method: 'post',
 				data:{
-					names:names,
-					departmentId:departmentId
+					names:nameData,
+					permissionName:permissionName,
+					roleId:roleId,
+					groupId:id,
+					teamDataId:teamDataId,
 				},
-				contentType: 'application/json; charset=UTF-8',
 				async:false,
 				success: function (result) {
-					if (result == 1) {
 						alert("操作成功");
 						history.go(0)
-					} else {
-						alert("操作失败");
-						history.go(0)
-					}
 				}
 			})
 		}
@@ -111,7 +127,7 @@
 				rightBox.find('.item').trigger('dblclick');
 			});
 
-			selectTitle.find('.list-footer').find('.selected-val').on('click',getSelectedValue);
+			selectTitle.find('.list-footer').find('.btn').on('click',getSelectedValue);
 		}
 
 		initItemEvent();

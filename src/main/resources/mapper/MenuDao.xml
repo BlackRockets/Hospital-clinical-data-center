@@ -4,7 +4,7 @@
 
     <resultMap type="com.hospitaldatacenter.entity.Menu" id="MenuMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="mname" column="m_name" jdbcType="VARCHAR"/>
         <result property="resourceType" column="resource_type" jdbcType="VARCHAR"/>
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="permission" column="permission" jdbcType="VARCHAR"/>
@@ -13,7 +13,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="MenuMap">
         select
-          id, name, resource_type, url, permission
+          id, m_name, resource_type, url, permission
         from hospital.menu
         where id = #{id}
     </select>
@@ -21,13 +21,38 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MenuMap">
         select
-          id, name, resource_type, url, permission
+          id, m_name, resource_type, url, permission
         from hospital.menu
         limit #{offset}, #{limit}
     </select>
 
-    <!--通过实体作为筛选条件查询-->
+    <!--根据权限名查询id-->
+    <select id="selectMenuIdByName" resultMap="MenuMap">
+        select id
+        from hospital.menu
+        where m_name in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
+
+    <!--根据权限ID查询权限名-->
+    <select id="selectMenuByMenuId" resultMap="MenuMap">
+        select m_name
+        from hospital.menu
+        where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MenuMap">
+        select
+          id, m_name
+        from hospital.menu
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">

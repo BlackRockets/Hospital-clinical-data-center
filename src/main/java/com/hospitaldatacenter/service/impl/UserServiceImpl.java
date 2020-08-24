@@ -1,11 +1,12 @@
 package com.hospitaldatacenter.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.DepartmentsDao;
+import com.hospitaldatacenter.dao.FollowUpGroupMemberDao;
+import com.hospitaldatacenter.dao.MenuDao;
 import com.hospitaldatacenter.dao.UserDao;
+import com.hospitaldatacenter.entity.Menu;
 import com.hospitaldatacenter.entity.Role;
-import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
-
     @Resource
-    private DepartmentsDao departmentsDao;
+    private MenuDao menuDao;
+    @Resource
+    private FollowUpGroupMemberDao followUpGroupMemberDao;
 
     /**
      * 通过ID查询单条数据
@@ -130,5 +132,43 @@ public class UserServiceImpl implements UserService {
             list.add(role1.getRoleName());
         }
         return list;
+    }
+
+    /**
+     *@description: 设定组内用户或权限
+     *@author: zyl
+     */
+    @Override
+    public void insertTeamInUserOrPer(String[] names, String[] permissionName, Integer roleId, Integer groupId,Integer teamDataId) {
+        String menuIdStr = "";
+        if(permissionName.length>0){
+            List<Menu> menus = menuDao.selectMenuIdByName(permissionName);
+
+            int size = menus.size();
+            for (int i = 0; i < size; i++) {
+                if(i != size-1){
+                    menuIdStr+=menus.get(i).getId()+",";
+                }else{
+                    menuIdStr+=menus.get(i).getId();
+                }
+            }
+        }
+        String nameIdStr="";
+        if(names.length>0){
+            List<User> users = userDao.selectUserIdByName(names);
+            int usersSize = users.size();
+            for (int i = 0; i < usersSize; i++) {
+                if(i != usersSize-1){
+                    nameIdStr+=users.get(i).getUserId()+",";
+                }else{
+                    nameIdStr+=users.get(i).getUserId();
+                }
+            }
+            followUpGroupMemberDao.insertMember(groupId,nameIdStr,roleId,menuIdStr,teamDataId);
+        }else{
+            followUpGroupMemberDao.insertMember(groupId,nameIdStr,roleId,menuIdStr,teamDataId);
+        }
+
+
     }
 }

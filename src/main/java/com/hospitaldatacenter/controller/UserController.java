@@ -72,6 +72,22 @@ public class UserController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping("findAllUserName")
+    public List<User> findAllUserName() {
+        return userService.selectName();
+    }
+
+    /**
+     *@description: 设定组内用户或权限
+     *@author: zyl
+     */
+    @ResponseBody
+    @RequestMapping("addTeamInUserOrPer")
+    public void   addTeamInUserOrPer(String[] names,String[] permissionName,Integer roleId,Integer groupId,Integer teamDataId) {
+        userService.insertTeamInUserOrPer(names,permissionName,roleId,groupId,teamDataId);
+    }
+
     @RequestMapping("login")
     @ResponseBody
     public String login(User user, HttpServletRequest request, HttpServletResponse response) {

@@ -4,15 +4,20 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.FollowUpGroupManagementDao;
 import com.hospitaldatacenter.dao.FollowUpGroupMemberDao;
+import com.hospitaldatacenter.dao.UserDao;
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.FollowUpGroupMember;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
+import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 随访组管理表(FollowUpGroupManagement)表服务实现类
@@ -26,6 +31,8 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
     private FollowUpGroupManagementDao followUpGroupManagementDao;
     @Autowired
     private FollowUpGroupMemberDao followUpGroupMemberDao;
+    @Autowired
+    private UserDao userDao;
 
     /**
      * 通过ID查询单条数据
@@ -136,9 +143,20 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
      *@author: zyl
      */
     @Override
-    public List<FollowUpGroupMember> queryByfollowUpGroupId(String followUpGroupMember) {
+    public Set<User> queryByfollowUpGroupId(String followUpGroupMember) {
         FollowUpGroupMember fol = JSONObject.parseObject(followUpGroupMember, FollowUpGroupMember.class);
         Integer followUpGroupId = fol.getFollowUpGroupId();
-        return followUpGroupMemberDao.queryByfollowUpGroupId(followUpGroupId);
+        List<FollowUpGroupMember> followUpGroupMembers = followUpGroupMemberDao.queryAllByFollowUpGroupId(followUpGroupId);
+        List<User> users = new ArrayList<>();
+        for (FollowUpGroupMember upGroupMember : followUpGroupMembers) {
+            String userId = upGroupMember.getUserId();
+            String[] split = userId.split(",");
+            if(split.length>0){
+                List<User> users1 = userDao.selectUserByUserId(split);
+                users.addAll(users1);
+            }
+        }
+        Set<User> users2 = new HashSet<>(users);
+        return users2;
     }
 }

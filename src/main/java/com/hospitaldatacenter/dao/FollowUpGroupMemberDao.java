@@ -48,6 +48,14 @@ public interface FollowUpGroupMemberDao {
     int insert(FollowUpGroupMember followUpGroupMember);
 
     /**
+     * 新增数据
+     * @return 影响行数
+     */
+    int insertMember(@Param("followUpGroupId")Integer followUpGroupId,@Param("nameIdStr")String nameIdStr,
+                     @Param("roleId") Integer roleId,@Param("menuIdStr")String menuIdStr,@Param("teamDataId") Integer teamDataId);
+
+
+    /**
      * 修改数据
      *
      * @param followUpGroupMember 实例对象
@@ -63,4 +71,9 @@ public interface FollowUpGroupMemberDao {
      */
     int deleteById(Integer id);
 
+    /**
+     *@description: 根据随访组id查询
+     *@author: zyl
+     */
+    List<FollowUpGroupMember> queryAllByFollowUpGroupId(Integer followUpGroupId);
 }
