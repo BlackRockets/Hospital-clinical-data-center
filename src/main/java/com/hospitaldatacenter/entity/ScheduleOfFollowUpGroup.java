@@ -63,6 +63,10 @@ public class ScheduleOfFollowUpGroup implements Serializable {
      */
     private FollowUpGroupManagement followUpGroupManagement;
 
+    private HospitalPerson hp;
+
+    private PatientSchedule ps;
+
     @Override
     public String toString() {
         return "ScheduleOfFollowUpGroup{" +
@@ -184,5 +188,21 @@ public class ScheduleOfFollowUpGroup implements Serializable {
 
     public void setFollowUpState(String followUpState) {
         this.followUpState = followUpState;
+    }
+
+    public HospitalPerson getHp() {
+        return hp;
+    }
+
+    public void setHp(HospitalPerson hp) {
+        this.hp = hp;
+    }
+
+    public PatientSchedule getPs() {
+        return ps;
+    }
+
+    public void setPs(PatientSchedule ps) {
+        this.ps = ps;
     }
 }

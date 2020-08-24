@@ -48,7 +48,12 @@ public class ScheduleOfFollowUpGroupController {
         List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.queryAll(null);
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
-
+    @ResponseBody
+    @RequestMapping(value = "selectAllByAdvanced")
+    public String selectAllByAdvanced(){
+        List<ScheduleOfFollowUpGroup> scheduleOfFollowUpGroups = scheduleOfFollowUpGroupService.queryAllAdvanced(null);
+        return JSON.toJSONString(scheduleOfFollowUpGroups);
+    }
     /**
      *@description: 通过随访组id查询数据
      *@author: zyl
@@ -130,5 +135,21 @@ public class ScheduleOfFollowUpGroupController {
     @RequestMapping("findAllDepartmentsByDepartmentsId")
     public void findAllDepartmentsByDepartmentsId(@RequestBody String patientSchedule) {
         scheduleOfFollowUpGroupService.addQueryAllDepartmentsByDepartmentsId(patientSchedule);
+    }
+    /**
+     *@description: 高级检索批量删除
+     *@author: zyl
+     */
+    @ResponseBody
+    @RequestMapping("deleteAll")
+    public String deleteAll(Integer[] ids) {
+        int i = scheduleOfFollowUpGroupService.deleteAll(ids);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping("updateByAdvanced")
+    public String updateByAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup){
+        int i=scheduleOfFollowUpGroupService.updateByAdvanced(scheduleOfFollowUpGroup);
+        return JSON.toJSONString(i);
     }
 }

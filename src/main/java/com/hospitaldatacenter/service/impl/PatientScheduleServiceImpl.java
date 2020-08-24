@@ -121,4 +121,6 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
     public List<Departments> queryAllDepartments() {
         return patientScheduleDao.selectAllDepartments();
     }
+
+
 }

@@ -94,6 +94,7 @@
             <if test="revisionComments != null and revisionComments!= ''">
                 revision_comments = #{revisionComments},
             </if>
+            review_state = 2
         </set>
         where id = #{id}
     </update>

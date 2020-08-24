@@ -105,5 +105,21 @@ public interface ScheduleOfFollowUpGroupDao {
      *@author: zyl
      */
     int insertPatientSchedule(PatientSchedule patientSchedule);
+    /**
+     *@description: 高级检索查询
+     *@author: zyl
+     */
+
+    List<ScheduleOfFollowUpGroup> selectAllByAdvanced();
+    /**
+     *@description: 高级检索删除
+     *@author: zyl
+     */
+    int deleteAll(Integer[] list);
+    /**
+     *@description: 高级检索修改
+     *@author: zyl
+     */
+    int updateByAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
 
 }

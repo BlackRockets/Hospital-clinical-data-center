@@ -18,6 +18,9 @@
             <result property="id" column="id" jdbcType="INTEGER"/>
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
         </association>
+        <association property="hp" javaType="com.hospitaldatacenter.entity.HospitalPerson">
+            <result property="personName" column="person_name" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
@@ -86,6 +89,9 @@
     <select id="queryByCondition" resultMap="ScheduleOfFollowUpGroupMap">
         select * from schedule_of_follow_up_group
         <where>
+            <if test="outpatientNumber != null and outpatientNumber != ''">
+                outpatient_number like CONCAT("%",#{outpatientNumber},"%")
+            </if>
             <if test="inpatientNumber != null and inpatientNumber != ''">
                 inpatient_number like CONCAT("%",#{inpatientNumber},"%")
             </if>
@@ -101,6 +107,9 @@
             <if test="sex != null and sex != ''">
                 and sex = #{sex}
             </if>
+            <if test="personName != null and personName != ''">
+                and personName = #{personName}
+            </if>
         </where>
     </select>
     <!--新增所有列-->
@@ -114,7 +123,26 @@
         insert into hospital.schedule_of_follow_up_group(follow_up_group_id, inpatient_number, name, sex, group_entry_time, outpatient_number, follow_up_state)
         values (#{followUpGroupId}, #{inpatientNumber}, #{name}, #{sex}, #{groupEntryTime}, #{outpatientNumber}, #{followUpState})
     </insert>
-
+    <!--<update id="updateByAdvanced">
+        update schedule_of_follow_up_group
+        <set>
+            <if test="inpatientNumber != null and inpatientNumber != ''">
+                inpatient_number = #{inpatientNumber},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="groupEntryTime != null and groupEntryTime != ''">
+                group_entry_time = #{groupEntryTime},
+            </if>
+        </set>
+    </update>-->
     <!--通过主键修改数据-->
     <update id="update">
         update hospital.schedule_of_follow_up_group
@@ -170,5 +198,15 @@
         on s.follow_up_group_id = f.id
         where s.follow_up_state = '未随访'
     </select>
-
+    <select id="selectAllByAdvanced" resultMap="ScheduleOfFollowUpGroupMap">
+    select s.*,h.person_name
+    from schedule_of_follow_up_group s,follow_up_group_management f,hospital_person h,patient_schedule p
+    where s.follow_up_group_id=f.id and p.group_detail_id=s.id and p.doctor_Id=h.id
+    </select>
+    <delete id="deleteAll" parameterType="java.util.List">
+        delete from hospital.schedule_of_follow_up_group where id in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

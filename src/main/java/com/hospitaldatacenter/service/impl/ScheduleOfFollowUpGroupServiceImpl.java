@@ -153,4 +153,19 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
             scheduleOfFollowUpGroupDao.insertPatientSchedule(patientSchedule2);
         }
     }
+
+    @Override
+    public List<ScheduleOfFollowUpGroup> queryAllAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
+        return scheduleOfFollowUpGroupDao.selectAllByAdvanced();
+    }
+
+    @Override
+    public int deleteAll(Integer[] ids) {
+        return scheduleOfFollowUpGroupDao.deleteAll(ids);
+    }
+
+    @Override
+    public int updateByAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
+        return scheduleOfFollowUpGroupDao.updateByAdvanced(scheduleOfFollowUpGroup);
+    }
 }

@@ -92,6 +92,19 @@ public interface ScheduleOfFollowUpGroupService {
      *@author: zyl
      */
     void addQueryAllDepartmentsByDepartmentsId(String patientSchedule);
-
-
+    /**
+     *@description: 高级检索查询
+     *@author: zyl
+     */
+    List<ScheduleOfFollowUpGroup> queryAllAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
+    /**
+     *@description: 高级检索批量删除
+     *@author: zyl
+     */
+    int deleteAll(Integer[] ids);
+    /**
+     *@description: 高级检索修改
+     *@author: zyl
+     */
+    int updateByAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
 }
