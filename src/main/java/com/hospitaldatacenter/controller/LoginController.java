@@ -15,4 +15,9 @@ public class LoginController {
         return "/index";
     }
 
+    @RequestMapping(value = "/logout")
+    public String logout() {
+        return "forward:/login";
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.hospitaldatacenter.service.impl;
 import com.alibaba.fastjson.JSONObject;
+import com.hospitaldatacenter.dao.FollowUpGroupMemberDao;
+import com.hospitaldatacenter.dao.MenuDao;
 import com.hospitaldatacenter.dao.RoleDao;
 import com.hospitaldatacenter.dao.UserDao;
 import com.hospitaldatacenter.entity.FollowUpGroupMember;
@@ -25,6 +27,10 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDao;
     @Resource
     private UserDao userDao;
+    @Resource
+    private MenuDao menuDao;
+    @Resource
+    private FollowUpGroupMemberDao followUpGroupMemberDao;
 
     /**
      * 通过ID查询单条数据
@@ -116,6 +122,38 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> queryMenuByFollowUpGroupId(Integer followUpGroupId) {
-        return roleDao.selectMenuByFollowUpGroupId(followUpGroupId);
+        List<Role> roles = new ArrayList<>();
+        List<FollowUpGroupMember> followUpGroupMembers = followUpGroupMemberDao.queryAllByFollowUpGroupId(followUpGroupId);
+        for (FollowUpGroupMember followUpGroupMember : followUpGroupMembers) {
+            Role role = roleDao.queryById(followUpGroupMember.getRoleId());
+            String userId = followUpGroupMember.getUserId();
+            String menuId = followUpGroupMember.getMenuId();
+            String[] userIdArr = {};
+            String[] menuIdArr = {};
+            if(userId!=null && userId!=""){
+                userIdArr = userId.split(",");
+            }
+            if(menuId!=null && menuId!=""){
+                menuIdArr = menuId.split(",");
+            }
+
+            List<User> users = null;
+            List<Menu> menus = null;
+            if(userIdArr.length>0){
+                users = userDao.selectUserByUserId(userIdArr);
+            }
+            if(menuIdArr.length>0){
+                menus = menuDao.selectMenuByMenuId(menuIdArr);
+            }
+
+
+            role.setUsers(users);
+            role.setMenus(menus);
+            role.setTeamDataId(followUpGroupMember.getId());
+            roles.add(role);
+        }
+        
+
+        return roles;
     }
 }

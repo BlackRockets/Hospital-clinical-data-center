@@ -17,6 +17,10 @@ public class Role implements Serializable {
      */
     private Integer id;
     /**
+     * 随访组组内每条数据id
+     */
+    private Integer teamDataId;
+    /**
      * 角色名
      */
     private String roleName;
@@ -43,6 +47,14 @@ public class Role implements Serializable {
 
     public void setRoleLevel(String roleLevel) {
         this.roleLevel = roleLevel;
+    }
+
+    public Integer getTeamDataId() {
+        return teamDataId;
+    }
+
+    public void setTeamDataId(Integer teamDataId) {
+        this.teamDataId = teamDataId;
     }
 
     public List<User> getUsers() {

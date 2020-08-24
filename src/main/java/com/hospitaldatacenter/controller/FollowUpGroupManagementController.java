@@ -2,11 +2,13 @@ package com.hospitaldatacenter.controller;
 
 import com.hospitaldatacenter.entity.FollowUpGroupManagement;
 import com.hospitaldatacenter.entity.FollowUpGroupMember;
+import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 随访组管理表(FollowUpGroupManagement)表控制层
@@ -127,8 +129,7 @@ public class FollowUpGroupManagementController {
      *
      */
     @RequestMapping("findByFollowUpGroupId")
-    public List<FollowUpGroupMember> findByFollowUpGroupId(@RequestBody String followUpGroupMember){
-
+    public Set<User> findByFollowUpGroupId(@RequestBody String followUpGroupMember){
         return followUpGroupManagementService.queryByfollowUpGroupId(followUpGroupMember);
     }
 }
