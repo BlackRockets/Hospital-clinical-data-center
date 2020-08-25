@@ -98,7 +98,7 @@
                 </div>
                 <div class="row" style="margin-top: 10%;text-align: center">
                     <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="retrieval">检索</button>
-                    <a href="../templates/advancedSearch.html">高级检索</a>
+                    <a onclick="advancedSearch()">高级检索</a>
                 </div>
             </form>
         </div>
@@ -486,6 +486,9 @@
     }
     function holiday() {
         window.location.href="toHoliday?id="+id;
+    }
+    function advancedSearch() {
+        window.location.href="advancedSearch.html?id="+id;
     }
 
     function ruleSetting() {

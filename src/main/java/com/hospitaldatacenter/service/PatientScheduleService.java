@@ -75,4 +75,6 @@ public interface PatientScheduleService {
 
     List<Departments> queryAllDepartments();
 
+    int save(String patientSchedule);
+
 }

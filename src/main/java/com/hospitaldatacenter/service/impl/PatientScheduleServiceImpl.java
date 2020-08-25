@@ -103,7 +103,6 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
         FollowUpGroupManagement fol = JSONObject.parseObject(dataItem, FollowUpGroupManagement.class);
         pat.setFollowUpGroupManagement(fol);
         pat.setScheduleOfFollowUpGroup(sch);
-        System.out.println(pat);
         if ("1".equals(pat.getCondition())){
             patientSchedules = patientScheduleDao.selectAllByCondition(pat);
         }else if ("2".equals(pat.getCondition())){
@@ -113,12 +112,23 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
         }else if ("4".equals(pat.getCondition())){
             patientSchedules = patientScheduleDao.selectAllByConditionMin(pat);
         }
-        System.out.println("--------------------"+patientSchedules);
         return patientSchedules;
     }
 
     @Override
     public List<Departments> queryAllDepartments() {
         return patientScheduleDao.selectAllDepartments();
+    }
+
+    @Override
+    public int save(String dataItem) {
+        List<PatientSchedule> patientSchedules=null;
+        PatientSchedule pat = JSONObject.parseObject(dataItem, PatientSchedule.class);
+        ScheduleOfFollowUpGroup sch = JSONObject.parseObject(dataItem, ScheduleOfFollowUpGroup.class);
+        FollowUpGroupManagement fol = JSONObject.parseObject(dataItem, FollowUpGroupManagement.class);
+        pat.setFollowUpGroupManagement(fol);
+        pat.setScheduleOfFollowUpGroup(sch);
+        int update = patientScheduleDao.update(pat);
+        return update;
     }
 }
