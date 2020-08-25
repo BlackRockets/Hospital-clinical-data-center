@@ -25,89 +25,53 @@
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
     </div>
-    <form role="form" style="text-align: center">
+    <form id="forms" role="form" style="text-align: center">
         <p>条件：</p>
-        <div class="form-group" id="form1">
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <select style="width: 5%">
-                <option value="">大于</option>
-                <option value="">小于</option>
-                <option value="">等于</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <a style="display: none" id="jia1" onclick="jia('j1')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
-        </div>
-        <div class="form-group" id="form2">
-            <select style="width: 5%">
-                <option value="">并且</option>
-                <option value="">或者</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <select style="width: 5%">
-                <option value="">大于</option>
-                <option value="">小于</option>
-                <option value="">等于</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-            <a style="display: none" id="jia2" onclick="jia('j2')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
-        </div>
-        <div class="form-group" id="form3">
-            <select style="width: 5%">
-                <option value="">并且</option>
-                <option value="">或者</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <select style="width: 5%">
-                <option value="">大于</option>
-                <option value="">小于</option>
-                <option value="">等于</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-        </div>
         <div class="form-group">
-            <!--结果：<select>
-                        <option>1</option>
-                        <option>1</option>
-                    </select>
-            <a href="">设置检索结果模板</a>-->
-            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                    data-dismiss="modal" v-on:click="">检索
+            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm" onclick="greater()">添加等于条件
+            </button>
+            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm" onclick="includes()">添加包含条件
             </button>
         </div>
+        <!--<div class="form-group" id="form1">
+            <select style="width: 10%">
+                <option>白细胞</option>
+                <option>血糖</option>
+            </select>
+            <select style="width: 5%">
+                <option value=">">大于</option>
+                <option value="<">小于</option>
+                <option value="=">等于</option>
+            </select>
+            <input type="number" placeholder="数字">
+        </div>-->
     </form>
-
+    <!--<div class="form-group" id="form2">
+        <select style="width: 10%">
+            <option value="and">并且</option>
+            <option value="or">或者</option>
+        </select>
+        <select style="width: 10%">
+            <option>症状</option>
+            <option>疾病名称</option>
+        </select>
+        <select style="width: 5%">
+            <option value="U">包含</option>
+            <option value="=">等于</option>
+        </select>
+        <input type="text">
+    </div>-->
+    </form>
+    <div class="form-group">
+        <!--结果：<select>
+                    <option>1</option>
+                    <option>1</option>
+                </select>
+        <a href="">设置检索结果模板</a>-->
+        <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                data-dismiss="modal" onclick="search()">检索
+        </button>
+    </div>
     <div class="row" style="margin: 2%">
         <table id="testTable"></table>
     </div>
@@ -120,35 +84,79 @@
     var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
     var  id=newsids[1];
 
-    function jian(tag) {
-        var form1=document.getElementById("form1");
-        var form2=document.getElementById("form2");
-        var form3=document.getElementById("form3");
-        var jia1=document.getElementById("jia1");
-        var jia2=document.getElementById("jia2");
-        if(tag=='j3'){
-            form3.style.display='none';
-            jia2.style.display='block';
-        }else if(tag=='j2'){
-            form2.style.display='none';
-            jia1.style.display='block';
-        }
+    function greater() {
+        var result="<div class=\"form-group\" id=\"form1\">\n" +
+            "            <select class='select1' style=\"width: 5%\">\n" +
+            "                <option value=\"and\">并且</option>\n" +
+            "                <option value=\"or\">或者</option>\n" +
+            "            </select>\n" +
+            "            <select class='select2' style=\"width: 10%\">\n" +
+            "                <option value='whiteBloodCell'>白细胞</option>\n" +
+            "                <option value='bloodSugar'>血糖</option>\n" +
+            "            </select>\n" +
+            "            <select class='select3' style=\"width: 5%\">\n" +
+            "                <option value=\">\">大于</option>\n" +
+            "                <option value=\"<\">小于</option>\n" +
+            "                <option value=\"=\">等于</option>\n" +
+            "            </select>\n" +
+            "            <input class='inp' type=\"number\" placeholder=\"数字\">\n" +
+            "            <a id='remo'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
+            "        </div>";
+        $result =$(result);
+        $result.find("#remo").click(function () {
+           $(this)[0].parentNode.remove();
+        })
+        $("#forms").append($result);
     }
-    function jia(tag) {
-        var form1=document.getElementById("form1");
-        var form2=document.getElementById("form2");
-        var form3=document.getElementById("form3");
-        var jia1=document.getElementById("jia1");
-        var jia2=document.getElementById("jia2");
 
-        if(tag=='j2'){
-            jia2.style.display='none';
-            form3.style.display='block';
-        }else if(tag=='j1'){
-            jia1.style.display='none';
-            form2.style.display='block';
-        }
+    function includes() {
+
+        var result="<div class=\"form-group\" id=\"form2\">\n" +
+            "        <select class='select1' style=\"width: 5%\">\n" +
+            "            <option value=\"and\">并且</option>\n" +
+            "            <option value=\"or\">或者</option>\n" +
+            "        </select>\n" +
+            "        <select class='select2' style=\"width: 10%\">\n" +
+            "            <option value='symptom'>症状</option>\n" +
+            "            <option value='diseaseName'>疾病名称</option>\n" +
+            "        </select>\n" +
+            "        <select class='select3' style=\"width: 5%\">\n" +
+            "            <option value=\"U\">包含</option>\n" +
+            "            <option value=\"=\">等于</option>\n" +
+            "        </select>\n" +
+            "        <input class='inp' type=\"text\">\n" +
+            "        <a id='remo'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
+            "    </div>";
+        $result =$(result);
+        $result.find("#remo").click(function () {
+            $(this)[0].parentNode.remove();
+        })
+        $("#forms").append($result);
     }
+
+    function search() {
+        var element1 = document.getElementsByClassName("select1");
+        var element2 = document.getElementsByClassName("select2");
+        var element3 = document.getElementsByClassName("select3");
+        var inp = document.getElementsByClassName("inp");
+        var list = [];
+        for(var i=0;i<element2.length;i++){
+            var array={"conjunction":element1[i].value,"conditionName":element2[i].value,"comparisonOperators":element3[i].value,"conditionContent":inp[i].value};
+           list.push(array)
+        }
+        $.ajax({
+            url: '/user/advanceSearch',
+            method: 'post',
+            data: JSON.stringify(list),
+            dataType:'json',
+            contentType: 'application/json;charset=utf-8',
+            success:function (res) {
+
+            }
+        })
+        console.log(JSON.stringify(list));
+    }
+
     $("#testTable").bootstrapTable({
         method: 'get',
         url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',

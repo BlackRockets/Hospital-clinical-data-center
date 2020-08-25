@@ -48,7 +48,9 @@
             url: '/user/selectByName?username='+username1,
             method: '',
             success:function (res) {
-                oldPassword1=res.oldPassword;
+                console.log(res)
+                oldPassword1=res.password;
+                console.log(oldPassword1)
             }
         })
     })
@@ -61,11 +63,11 @@
         },
         methods:{
             betrue:function () {
-                var regex = new RegExp('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,30}');
+                var regex=/^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$)^.{6,16}$/;
                 if($("#oldPassword").val() != oldPassword1){
                     alert("旧密码不正确");
                 }else if(!regex.test($("#newPassword").val())){
-                    alert("您的密码复杂度太低（密码中必须包含字母、数字、特殊字符），请及时改密码！");
+                    alert("您的密码复杂度太低（密码中必须包含字母、数字、特殊字符至少两种），请及时改密码！");
                 }else if(($("#newPassword").val()) != ($("#newPasswordTrue").val())){
                     alert("两次输入的密码不一致！");
                 }else {
@@ -77,6 +79,7 @@
                             }else {
                                 alert("密码设置失败！")
                             }
+                            window.location.href="/logout"
                         })
                         .catch(function (error) { // 请求失败处理
                             console.log(error);
