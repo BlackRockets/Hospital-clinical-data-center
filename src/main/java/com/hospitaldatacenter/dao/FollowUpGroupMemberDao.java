@@ -76,4 +76,10 @@ public interface FollowUpGroupMemberDao {
      *@author: zyl
      */
     List<FollowUpGroupMember> queryAllByFollowUpGroupId(Integer followUpGroupId);
+
+    /**
+     *@description: 批量删除
+     *@author: zyl
+     */
+    void delById(Integer[] ids);
 }

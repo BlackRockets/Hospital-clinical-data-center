@@ -69,6 +69,15 @@
         where id = #{id}
     </select>
 
+    <!--查询单个-->
+    <select id="queryByDescription" resultMap="RoleMap">
+        select
+          id
+        from hospital.role
+        where description = #{description}
+    </select>
+
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="RoleMap">
         select

@@ -25,6 +25,10 @@ public class FollowUpGroupMember implements Serializable {
      */
     private Integer roleId;
     /**
+     * 角色名称
+     */
+    private String roleName;
+    /**
      * 权限id集合
      */
     private String menuId;
@@ -32,6 +36,14 @@ public class FollowUpGroupMember implements Serializable {
      * 用户名
      */
     private String name;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public String getMenuId() {
         return menuId;
