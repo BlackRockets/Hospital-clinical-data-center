@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -28,7 +28,7 @@
         <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
     </div>
     <div class="page-header" style="margin-left: 1%;margin-top: 0" v-if="isGroupMember.is === 'yes'">
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="permission()">权限管理</button>
+        <button shiro:hasPermission="group:permission" type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="permission()">权限管理</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="groupEntry()">入组管理</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="template()">模板设置</button>
         <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="ruleSetting()">随访规定设定</button>
@@ -420,10 +420,12 @@
     var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
     var  id=newsids[1];
 
-    var cook= document.cookie;
-    var s = cook.split("=")[1].split(";")[0];
+    /*var cook= document.cookie;
+    console.log(cook);
+    var s = cook.split("=")[1].split(";")[0];*/
 
-    $('h3').html(s);
+    var item = localStorage.getItem("groupName");
+    $('h3').html(item);
     $("#testTable").bootstrapTable({
         method: 'get',
         url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',
@@ -473,33 +475,33 @@
         ]
     });
     function groupEntry() {
-        window.location.href="theGroupManagement.html?id="+id;
+        window.location.href="theGroupManagement?id="+id;
     }
 
     function diag() {
-        window.location.href="diagnosisAndTreatmentScheme.html?id="+id;
+        window.location.href="diagnosisAndTreatmentScheme?id="+id;
     }
     function template() {
-        window.location.href="templateSettings.html?id="+id;
+        window.location.href="templateSettings?id="+id;
     }
     function holiday() {
-        window.location.href="holiday.html?id="+id;
+        window.location.href="toHoliday?id="+id;
     }
 
     function ruleSetting() {
-        window.location.href="followUpRuleSetting.html?id="+id;
+        window.location.href="/templates/followUpRuleSetting.html?id="+id;
     }
 
     function permission() {
-        window.location.href="authorityManagement.html?id="+id;
+        window.location.href="toAuthorityManagement?id="+id;
     }
 
     function operateFormatter(value, row, index){
         //添加按钮
         var rows = JSON.stringify(row);
-        var id = row.id;
+        var ids = row.id;
         var result = "";
-        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
+        result += "<a href='toPatientDetailsPage?id="+ids+"&mark="+id+"' class='btn btn-xs green'  title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
     }
     $(function () {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>分组管理</title>
@@ -91,8 +91,8 @@
 
         <div class="row" style="margin-top: 20px">
             <div class="col-md-4">
-                <button type="button" style="margin-left: 50px" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="edit">编辑</button>
-                <button type="button" style="margin-left: 10px" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="deleteData">删除</button>
+                <button shiro:hasRole="departAdmin" type="button" style="margin-left: 50px" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="edit">编辑</button>
+                <button shiro:hasPermission="group:management" type="button" style="margin-left: 10px" class="btn btn-success btn-sm" data-dismiss="modal" v-on:click="deleteData">删除</button>
             </div>
             <table id="table"></table>
         </div>
@@ -211,8 +211,8 @@
         +row.groupName+'&personInCharge='+row.personInCharge+'">'+value+'</a>'].join("");*/
     }
     function checks(id,name){
-        document.cookie = "groupName="+name+"";
-        window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
+        localStorage.setItem("groupName", name);
+        window.location.href="http://localhost:9090/inDividualFollowUpGroupManagement?id="+id;
     }
 
 
