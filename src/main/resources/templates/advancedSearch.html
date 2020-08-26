@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="../static/jQuery/jquery-form.js"></script>
-    <script src="../static/jQuery/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../static/js/baiduTemplate.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 
     <script src="../static/js/moment-with-locales.min.js"></script>
@@ -23,99 +20,56 @@
 <body>
 <div class="container-fluid">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returns()">返回随访组</a>
     </div>
     <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
     </div>
-    <form role="form" style="text-align: center">
+    <form id="forms" role="form" style="text-align: center">
         <p>条件：</p>
-        <div class="form-group" id="form1">
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <select style="width: 5%">
-                <option value="">大于</option>
-                <option value="">小于</option>
-                <option value="">等于</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <a style="display: none" id="jia1" onclick="jia('j1')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
-        </div>
-        <div class="form-group" id="form2">
-            <select style="width: 5%">
-                <option value="">并且</option>
-                <option value="">或者</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <select style="width: 5%">
-                <option value="">大于</option>
-                <option value="">小于</option>
-                <option value="">等于</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-            <a style="display: none" id="jia2" onclick="jia('j2')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
-        </div>
-        <div class="form-group" id="form3">
-            <select style="width: 5%">
-                <option value="">并且</option>
-                <option value="">或者</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <select style="width: 5%">
-                <option value="">大于</option>
-                <option value="">小于</option>
-                <option value="">等于</option>
-            </select>
-            <select style="width: 10%">
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-            <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-        </div>
         <div class="form-group">
-            结果：<select>
-                        <option>1</option>
-                        <option>1</option>
-                    </select>
-            <a href="">设置检索结果模板</a>
-            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                    data-dismiss="modal" v-on:click="">检索
+            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm" onclick="greater()">添加等于条件
+            </button>
+            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm" onclick="includes()">添加包含条件
             </button>
         </div>
+        <!--<div class="form-group" id="form1">
+            <select style="width: 10%">
+                <option>白细胞</option>
+                <option>血糖</option>
+            </select>
+            <select style="width: 5%">
+                <option value=">">大于</option>
+                <option value="<">小于</option>
+                <option value="=">等于</option>
+            </select>
+            <input type="number" placeholder="数字">
+        </div>-->
     </form>
-    <div class="row" style="margin: 2%">
-        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
-                v-on:click="haveBeenFollowedUp()">编辑
-        </button>
+    <!--<div class="form-group" id="form2">
+        <select style="width: 10%">
+            <option value="and">并且</option>
+            <option value="or">或者</option>
+        </select>
+        <select style="width: 10%">
+            <option>症状</option>
+            <option>疾病名称</option>
+        </select>
+        <select style="width: 5%">
+            <option value="U">包含</option>
+            <option value="=">等于</option>
+        </select>
+        <input type="text">
+    </div>-->
+    </form>
+    <div class="form-group">
+        <!--结果：<select>
+                    <option>1</option>
+                    <option>1</option>
+                </select>
+        <a href="">设置检索结果模板</a>-->
         <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                data-dismiss="modal" v-on:click="noFollowedUp()">删除
+                data-dismiss="modal" onclick="search()">检索
         </button>
     </div>
     <div class="row" style="margin: 2%">
@@ -123,39 +77,89 @@
     </div>
 </div>
 <script type="text/javascript">
-    function jian(tag) {
-        var form1=document.getElementById("form1");
-        var form2=document.getElementById("form2");
-        var form3=document.getElementById("form3");
-        var jia1=document.getElementById("jia1");
-        var jia2=document.getElementById("jia2");
-        if(tag=='j3'){
-            form3.style.display='none';
-            jia2.style.display='block';
-        }else if(tag=='j2'){
-            form2.style.display='none';
-            jia1.style.display='block';
-        }
-    }
-    function jia(tag) {
-        var form1=document.getElementById("form1");
-        var form2=document.getElementById("form2");
-        var form3=document.getElementById("form3");
-        var jia1=document.getElementById("jia1");
-        var jia2=document.getElementById("jia2");
+    var urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var  id=newsids[1];
 
-        if(tag=='j2'){
-            jia2.style.display='none';
-            form3.style.display='block';
-        }else if(tag=='j1'){
-            jia1.style.display='none';
-            form2.style.display='block';
+    function greater() {
+        var result="<div class=\"form-group\" id=\"form1\">\n" +
+            "            <select class='select1' style=\"width: 5%\">\n" +
+            "                <option value=\"and\">并且</option>\n" +
+            "                <option value=\"or\">或者</option>\n" +
+            "            </select>\n" +
+            "            <select class='select2' style=\"width: 10%\">\n" +
+            "                <option value='whiteBloodCell'>白细胞</option>\n" +
+            "                <option value='bloodSugar'>血糖</option>\n" +
+            "            </select>\n" +
+            "            <select class='select3' style=\"width: 5%\">\n" +
+            "                <option value=\">\">大于</option>\n" +
+            "                <option value=\"<\">小于</option>\n" +
+            "                <option value=\"=\">等于</option>\n" +
+            "            </select>\n" +
+            "            <input class='inp' type=\"number\" placeholder=\"数字\">\n" +
+            "            <a id='remo'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
+            "        </div>";
+        $result =$(result);
+        $result.find("#remo").click(function () {
+           $(this)[0].parentNode.remove();
+        })
+        $("#forms").append($result);
+    }
+
+    function includes() {
+
+        var result="<div class=\"form-group\" id=\"form2\">\n" +
+            "        <select class='select1' style=\"width: 5%\">\n" +
+            "            <option value=\"and\">并且</option>\n" +
+            "            <option value=\"or\">或者</option>\n" +
+            "        </select>\n" +
+            "        <select class='select2' style=\"width: 10%\">\n" +
+            "            <option value='symptom'>症状</option>\n" +
+            "            <option value='diseaseName'>疾病名称</option>\n" +
+            "        </select>\n" +
+            "        <select class='select3' style=\"width: 5%\">\n" +
+            "            <option value=\"=\">等于</option>\n" +
+            "        </select>\n" +
+            "        <input class='inp' type=\"text\">\n" +
+            "        <a id='remo'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
+            "    </div>";
+        $result =$(result);
+        $result.find("#remo").click(function () {
+            $(this)[0].parentNode.remove();
+        })
+        $("#forms").append($result);
+    }
+
+    function search() {
+        var element1 = document.getElementsByClassName("select1");
+        var element2 = document.getElementsByClassName("select2");
+        var element3 = document.getElementsByClassName("select3");
+        var inp = document.getElementsByClassName("inp");
+        var list = [];
+        for(var i=0;i<element2.length;i++){
+            var array={"conjunction":element1[i].value,"conditionName":element2[i].value,"comparisonOperators":element3[i].value,"conditionContent":inp[i].value,"groupId":id};
+           list.push(array)
         }
+        $.ajax({
+            url: '/user/advanceSearch',
+            type: 'post',
+            data: JSON.stringify(list),
+            dataType: 'json',
+            contentType: 'application/json',
+            success:function (res) {
+                $("#testTable").bootstrapTable("load",res);
+            }
+        })
+        console.log(JSON.stringify(list));
     }
 
     $("#testTable").bootstrapTable({
+        method: 'get',
+        url:'/scheduleOfFollowUpGroup/selectByFollowUpGroupId',
         toolbar: "#toolbar",
-        url: "/scheduleOfFollowUpGroup/selectAllByAdvanced",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
         uniqueId: "ID",
@@ -169,270 +173,44 @@
             return param;
         },
         columns: [{
-            checkbox: true,
-        }, {
-            field: 'outpatientNumber/inpatientNumber',
-            title: '门诊号/住院号',
-            formatter: function (value, row) {
-                return row.outpatientNumber + "/" + row.inpatientNumber
+                field: 'id',
+                title: '门诊号/住院号',
+                align: 'center',
+                formatter: function(value, row, index) {
+                    return row.outpatientNumber+"/"+row.inpatientNumber;
+                }
+            }, {
+                field: 'name',
+                title: '姓名',
+                align: 'center',
+            },{
+                field: 'sex',
+                title: '性别',
+                align: 'center',
+            },{
+                field: 'age',
+                title: '年龄',
+                align: 'center',
+            },{
+                field: 'groupEntryTime',
+                title: '入组时期',
+                align: 'center',
             }
-        }, {
-            field: 'name',
-            title: '姓名',
-            align: 'center',
-        }, {
-            field: 'sex',
-            title: '性别',
-            align: 'center',
-        }, {
-            field: 'age',
-            title: '年龄',
-            align: 'center',
-        }, {
-            field: 'groupEntryTime',
-            title: '入组时期',
-            align: 'center',
-        }, {
-            field: 'operationTime',
-            title: '手术日期',
-            align: 'center',
-        }, {
-            field: 'surgicalProcedures',
-            title: '手术术式',
-            align: 'center',
-        }, {
-            field: 'operator',
-            title: '手术操作者',
-            align: 'center',
-        }, {
-            title: '操作',
-            formatter: operateFormatter,
-            align: 'center',
-        }]
-
+        ]
     });
-
-    function operateFormatter(value, row, index) {
-        var id = index;
-        var data = JSON.stringify(row);
+    /*function operateFormatter(value, row, index){
+        //添加按钮
+        var rows = JSON.stringify(row);
+        var id = row.id;
+        console.log(id);
         var result = "";
-        result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改'>" +
-            "<span class='glyphicon glyphicon-zoom-in'></span></button>";
+        result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
     }*/
 
     function returns() {
         window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
     }
-
-    function del() {
-        // $("#table").bootstrapTable('getSelections');为bootstrapTable自带的，所以说一定要使用bootstrapTable显示表格,#table：为table的id
-        var rows = $("#testTable").bootstrapTable('getSelections');
-        if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
-            alert("请先选择要删除的记录!");
-            return;
-        } else {
-            var arrays = new Array();// 声明一个数组
-            $(rows).each(function () {// 通过获得别选中的来进行遍历
-                arrays.push(this.id);// cid为获得到的整条数据中的一列
-            });
-            ids = arrays.join(','); // 获得要删除的id
-
-        }
-        $.ajax({
-            url: '/scheduleOfFollowUpGroup/deleteAll',
-            method: 'post',
-            data: {
-                ids: ids
-            },
-            dataType: 'json',
-            success: function (result) {
-                if (result == 1) {
-                    alert("删除成功");
-                    history.go(0)
-                } else {
-                    alert("删除失败");
-                    history.go(0)
-                }
-            }
-        })
-    }
-
-    $(function () {
-        $.ajax({
-            type: 'post',
-            url: '/hospitalPerson/selectOneByName/',
-            data: null,
-            dataType: 'json',
-            success: function (data) {
-                var datas = "";
-                for (var i = 0; i < data.length; i++) {
-                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
-                }
-                $('#personName').append(datas);
-            }
-        })
-    });
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn')
-        });
-        $('#datetimepicker2').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn')
-        });
-    })
-
-    function EditViewById(row, index) {
-        var data = JSON.stringify($("#testTable").bootstrapTable('getData'));//获取全部数据
-        var data1 = JSON.parse(data);//转Json 对象
-        $("#id").val(data1[index].id);
-        $("#inpatientNumber").val(data1[index].inpatientNumber);
-        $("#name").val(data1[index].name);
-        $("#sex").val(data1[index].sex);
-        $("#age").val(data1[index].age);
-        $("#groupEntryTime").val(data1[index].groupEntryTime);
-        $("#operationTime").val(data1[index].operationTime);
-        $("#surgicalProcedures").val(data1[index].surgicalProcedures);
-        $("#operator").val(data1[index].operator);
-        $("#outpatientNumber").val(data1[index].outpatientNumber)
-        $("#myModal").modal('show')
-    }
-
-    function update() {
-        var data = $("#myform3").serialize();
-        console.log(data);
-        $.ajax({
-            url: "/scheduleOfFollowUpGroup/updateByAdvanced",
-            method: "post",
-            data: data,
-            dataType: 'json',
-            success: function (result) {
-                if (result == 1) {
-                    alert("修改成功");
-                    history.go(0)
-                } else {
-                    alert("修改失败");
-                    history.go(0)
-                }
-            }
-        })
-    }
 </script>
-<script>
-    function closeAdvanceSearch() {
-        $('#advanceDialog').dialog('close');
-    }
-</script>
-<script>
-
-    var indexType = {};
-
-    var advnaceIsInit = false;
-
-    var filter_index = 0;
-
-    function addFilter() {
-        var _html = baidu.template('rowTemplate', {filterIndex: filter_index});
-        $('#advanceFormDiv').append(_html);
-        $.parser.parse('#filter' + filter_index);
-        filter_index = filter_index + 1;
-    }
-
-    /* function filterFieldChange(_tempIndex, _record) {
-         var _tempHtml = '';
-         indexType[_tempIndex] = _record;
-         var _needSetFilterTypeReadonly = false;
-         if (_record.type == 'input' || _record.type == 'number') {
-             _tempHtml = '<input type="text" id="advanceFilterVal' + _tempIndex + '"/>';
-         } else if (_record.type == 'date') {
-             if (!_record.formart) {
-                 _record.formart = 'yyyy-MM-dd';
-             }
-             console.log(_record.formart);
-             _tempHtml = '<input type="text" id="advanceFilterVal' + _tempIndex + '" readonly onclick="WdatePicker({dateFmt:\'' + _record.formart + '\'})"/>';
-         } else if (_record.type == 'book') {
-             _tempHtml = '<input type="text" id="advanceFilterVal' + _tempIndex + '"  class="easyui-combobox"' +
-                 ' url="${fhs_basics_url}/webApi/wordbook/getData?wordbookGroupCode=' + _record.code + '&jsonpCallback=?" valueField="wordbookCode"  textField="wordbookDesc"/>';
-             _needSetFilterTypeReadonly = true;
-         } else if (_record.type == 'select') {
-             _tempHtml = '<input type="text" id="advanceFilterVal' + _tempIndex + '"  class="easyui-combobox"' +
-                 ' url="' + _record.url + '" valueField="' + _record.valueField + '"  textField="' + _record.textField + '"/>';
-             _needSetFilterTypeReadonly = true;
-         }
-         if (_record.name == 'searchKey') {
-             _needSetFilterTypeReadonly = true;
-         }
-         if (_needSetFilterTypeReadonly) {
-             $('#advanceFilterType' + _tempIndex).combobox('setValue', '0');
-             $('#advanceFilterType' + _tempIndex).combobox('readonly', true);
-         } else {
-             $('#advanceFilterType' + _tempIndex).combobox('readonly', false);
-         }
-         if (_record.searchKeyType == 'str') {
-             $('#advanceFilterType' + _tempIndex).combobox('setValue', '1');
-         }
-         $('#advanceFilterValLable' + _tempIndex).html(_tempHtml);
-         $.parser.parse('#advanceFilterValLable' + _tempIndex);
-     }
-
-
-     var extAdvanceFilterParam = [];
-
-     function execAdvanceSearch() {
-
-         extAdvanceFilterParam = [];
-         for (i = 0; i < filter_index; i++) {
-             if ($('#advanceFilterField' + i).length > 0 && $('#advanceFilterField' + i).combobox('getValue')) {
-                 var _val = '';
-                 if (indexType[i].type !== 'book' && indexType[i].type !== 'select') {
-                     _val = $('#advanceFilterVal' + i).val();
-                 } else {
-                     _val = $('#advanceFilterVal' + i).combobox('getValue');
-                 }
-                 if (_val) {
-                     extAdvanceFilterParam.push({
-                         name: indexType[i].name, val: _val,
-                         filterType: $('#advanceFilterType' + i).combobox('getValue'),
-                         searchKeyType: indexType[i].searchKeyType,
-                         fieldName: indexType[i].fieldName
-                     });
-                 }
-             }
-         }
-         $('#listGrid').datagrid('load', {
-             extAdvanceFilterParam: JSON.stringify({
-                 filterType: $('#advanceFilterType').combobox('getValue'),
-                 extAdvanceFilterParamArray: extAdvanceFilterParam
-             })
-         });
-         //reload();
-         console.log(extAdvanceFilterParam);
-     }*/
-    function find() {
-        var data = new Array();
-        $("#advanceFormDiv input[type=text],select[type=text]").each(function () {
-
-            data.push(this.value);
-        })
-        console.log(data);
-        $.ajax({
-           url: '/scheduleOfFollowUpGroup/findAdvanced',
-           method: 'post',
-           data: {
-               list: JSON.stringify(data)
-           },
-           dataType: 'json',
-           success: function (result) {
-               if (result == 0) {
-                   alert("请输入搜索条件");
-                   history.go(0)
-               }
-           }
-       })
-    }
-</script>
-
 </body>
 </html>
