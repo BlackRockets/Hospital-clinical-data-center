@@ -1,12 +1,16 @@
 package com.hospitaldatacenter.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hospitaldatacenter.entity.Condition;
 import com.hospitaldatacenter.entity.Departments;
+import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
+import com.hospitaldatacenter.service.impl.ConditionServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (User)表控制层
@@ -33,6 +34,9 @@ public class UserController {
      */
     @Resource
     private UserService userService;
+
+    @Autowired
+    private ConditionServiceImpl conditionService;
 
     /**
      * 添加单条数据
@@ -119,4 +123,29 @@ public class UserController {
             return "error";
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "updatePassword")
+    public int updatePassword(@RequestParam("username") String username,@RequestParam("newPasswordTrue") String newPasswordTrue){
+        System.out.println(username);
+        User user = userService.queryUserByUserName(username);
+        user.setPassword(newPasswordTrue);
+        int update = userService.updatePassword(user);
+        return update;
+    }
+
+    @ResponseBody
+    @RequestMapping("selectByName")
+    public User selectByName(String username){
+        User user = userService.queryUserByUserName(username);
+        return user;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "advanceSearch",produces = {"application/json;charset=utf-8"})
+    public  List<ScheduleOfFollowUpGroup> advanceSearch(@RequestBody List<Condition> list){
+        List<ScheduleOfFollowUpGroup> lists = conditionService.insert(list);
+        return lists;
+    }
+
 }

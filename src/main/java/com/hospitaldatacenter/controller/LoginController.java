@@ -12,7 +12,7 @@ public class LoginController {
 
     @RequestMapping(value = "/index")
     public String err() {
-        return "/index";
+        return "index";
     }
 
     @RequestMapping(value = "/logout")

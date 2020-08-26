@@ -44,17 +44,17 @@ public class PatientScheduleController {
 
     @ResponseBody
     @RequestMapping(value = "selectAllByCondition")
-    public String selectAllByCondition(@RequestBody(required = false) String dataItem) {
+    public String selectAllByCondition(@RequestBody(required = false) String dataItem){
         List<PatientSchedule> scheduleOfFollowUpGroups = patientScheduleService.selectAllByCondition(dataItem);
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
     /**
-     * @description:查询所有科室
-     * @author: zyl
+     *@description:查询所有科室
+     *@author: zyl
      */
     @RequestMapping(value = "findAllDepartments")
-    public List<Departments> findAllDepartments() {
+    public List<Departments>  findAllDepartments(){
         return patientScheduleService.queryAllDepartments();
     }
 

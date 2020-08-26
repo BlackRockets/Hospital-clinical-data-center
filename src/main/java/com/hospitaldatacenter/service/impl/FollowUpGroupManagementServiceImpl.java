@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hospitaldatacenter.dao.FollowUpGroupManagementDao;
 import com.hospitaldatacenter.dao.FollowUpGroupMemberDao;
+import com.hospitaldatacenter.dao.RoleDao;
 import com.hospitaldatacenter.dao.UserDao;
-import com.hospitaldatacenter.entity.FollowUpGroupManagement;
-import com.hospitaldatacenter.entity.FollowUpGroupMember;
-import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
-import com.hospitaldatacenter.entity.User;
+import com.hospitaldatacenter.entity.*;
 import com.hospitaldatacenter.service.FollowUpGroupManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +31,8 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
     private FollowUpGroupMemberDao followUpGroupMemberDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
 
     /**
      * 通过ID查询单条数据
@@ -69,6 +69,15 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
         FollowUpGroupManagement followUpGroupManagement1 = JSON.toJavaObject(parse, FollowUpGroupManagement.class);
         int insertRow = this.followUpGroupManagementDao.insert(followUpGroupManagement1);
         return insertRow;
+    }
+
+    @Override
+    public int newGroupRole(String followUpGroupMember) {
+        FollowUpGroupMember followUpGroupMember1 = JSONObject.parseObject(followUpGroupMember, FollowUpGroupMember.class);
+        Role role = roleDao.queryByDescription(followUpGroupMember1.getRoleName());
+        followUpGroupMember1.setRoleId(role.getId());
+        followUpGroupMemberDao.insert(followUpGroupMember1);
+        return 0;
     }
 
     /**
@@ -158,5 +167,10 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
         }
         Set<User> users2 = new HashSet<>(users);
         return users2;
+    }
+
+    @Override
+    public void delById(Integer[] ids) {
+        followUpGroupMemberDao.delById(ids);
     }
 }

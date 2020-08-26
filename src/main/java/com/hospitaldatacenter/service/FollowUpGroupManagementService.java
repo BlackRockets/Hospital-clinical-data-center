@@ -41,6 +41,12 @@ public interface FollowUpGroupManagementService {
     int insert(String followUpGroupManagement);
 
     /**
+     *@description: 新增数据
+     *@author: zyl
+     */
+    int newGroupRole(String followUpGroupMember);
+
+    /**
      * 修改数据
      *
      * @param followUpGroupManagement 实例对象
@@ -100,4 +106,9 @@ public interface FollowUpGroupManagementService {
      *@author: zyl
      */
     Set<User> queryByfollowUpGroupId(String followUpGroupMember);
+    /**
+     *@description: 删除某个随访组中的某个角色权限
+     *@author: zyl
+     */
+    void delById(Integer[] ids);
 }

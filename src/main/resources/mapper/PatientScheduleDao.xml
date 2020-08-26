@@ -15,6 +15,7 @@
         <result property="bloodsugar" column="bloodSugar" jdbcType="OTHER"/>
         <result property="symptom" column="symptom" jdbcType="VARCHAR"/>
         <result property="patientInfoId" column="patient_info_id" jdbcType="INTEGER"/>
+        <result property="bodyMassCoefficient" column="body_mass_coefficient" jdbcType="DOUBLE"/>
         <result property="diseaseName" column="disease_name" jdbcType="VARCHAR"/>
         <result property="diseaseCode" column="disease_code" jdbcType="VARCHAR"/>
         <result property="departmentsId" column="departments_id" jdbcType="INTEGER"/>
@@ -152,10 +153,7 @@
     <update id="update">
         update hospital.patient_schedule
         <set>
-            <if test="groupDetailId != null">
-                group_detail_id = #{groupDetailId},
-            </if>
-            <if test="name != null and name != ''">
+            <if test="name != null">
                 name = #{name},
             </if>
             <if test="sex != null and sex != ''">
@@ -167,17 +165,20 @@
             <if test="nation != null and nation != ''">
                 nation = #{nation},
             </if>
-            <if test="height != null">
-                height = #{height},
+            <if test="whitebloodcell != null and whitebloodcell != ''">
+                whitebloodcell = #{whitebloodcell},
             </if>
-            <if test="weight != null">
+            <if test="bloodsugar != null and bloodsugar != ''">
+                bloodsugar = #{bloodsugar},
+            </if>
+            <if test="weight != null and weight != ''">
                 weight = #{weight},
             </if>
-            <if test="whitebloodcell != null">
-                whiteBloodCell = #{whitebloodcell},
+            <if test="height != null and height != ''">
+                height = #{height},
             </if>
-            <if test="bloodsugar != null">
-                bloodSugar = #{bloodsugar},
+            <if test="bodyMassCoefficient != null and bodyMassCoefficient != ''">
+                body_mass_coefficient = #{bodyMassCoefficient},
             </if>
             <if test="symptom != null and symptom != ''">
                 symptom = #{symptom},

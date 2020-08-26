@@ -22,355 +22,134 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a
-            href="inDividualFollowUpGroupManagement.html">返回随访组</a>
+    <div class="row" style="margin-top: 1%;margin-left: 2%">
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="inDividualFollowUpGroupManagement.html">返回随访组</a>
     </div>
-    <div class="modal-dialog" id="advanceDialog" style="text-align: center;margin-top: 0">
+    <div class="page-header" style="text-align: center;margin-top: 0">
         <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
     </div>
-
-    <div id="advanceFormDiv">
-        <div class="row">
-            <div class='col-md-1'>
-            </div>
-            <div class='col-md-2'>
-                <select class="form-control input-sm" type="text" name="advanceFilterField"
-                        id="advanceFilterField" >
-                    <option>--选择字段--</option>
-                    <option>白细胞</option>
-                    <option>身高</option>
-                    <option>体重</option>
-                    <option>血糖</option>
-                    <option>症状</option>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <select class="form-control input-sm" type="text" name="advanceFilterType"
-                        id="advanceFilterType2">
-                    <option value="0" checked="checked">等于</option>
-                    <option value="1">包含</option>
-                    <option value="2">不等于</option>
-                    <option value="3">大于等于</option>
-                    <option value="4">小于等于</option>
-                    <option value="5">大于</option>
-                    <option value="6">小于</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" placeholder="" name="advanceFilterValLable"
-                       id="advanceFilterValLable">
-            </div>
-            <div class="col-md-4">
-            <button href="javascript:void(0)" class="btn btn-success btn-sm" onclick="addFilter()">添加</button>
-            </div>
+    <form role="form" style="text-align: center">
+        <p>条件：</p>
+        <div class="form-group" id="form1">
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select style="width: 5%">
+                <option value="">大于</option>
+                <option value="">小于</option>
+                <option value="">等于</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <a style="display: none" id="jia1" onclick="jia('j1')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
         </div>
-
-    </div>
-</div>
-</div>
-
-<div class="row">
-    <div class="col-md-2">
-        <a href="">设置检索结果模板</a>
-    </div>
-    <center>
-        <button href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="find()">搜索</button>
-    </center>
-</div>
-<!--<form role="form" style="text-align: center">
-    <p>条件：</p>
-    <div class="form-group" id="form1">
-        <select style="width: 10%">
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <select style="width: 5%">
-            <option value="">大于</option>
-            <option value="">小于</option>
-            <option value="">等于</option>
-        </select>
-        <select style="width: 10%">
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <a style="display: none" id="jia1" onclick="jia('j1')"><span class="glyphicon glyphicon-plus-sign"
-                                                                     style="color: lawngreen"></span></a>
-    </div>
-    <div class="form-group" id="form2">
-        <select style="width: 5%">
-            <option value="">并且</option>
-            <option value="">或者</option>
-        </select>
-        <select style="width: 10%">
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <select style="width: 5%">
-            <option value="">大于</option>
-            <option value="">小于</option>
-            <option value="">等于</option>
-        </select>
-        <select style="width: 10%">
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-        <a style="display: none" id="jia2" onclick="jia('j2')"><span class="glyphicon glyphicon-plus-sign"
-                                                                     style="color: lawngreen"></span></a>
-    </div>
-    <div class="form-group" id="form3">
-        <select style="width: 5%">
-            <option value="">并且</option>
-            <option value="">或者</option>
-        </select>
-        <select style="width: 10%">
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <select style="width: 5%">
-            <option value="">大于</option>
-            <option value="">小于</option>
-            <option value="">等于</option>
-        </select>
-        <select style="width: 10%">
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
-    </div>
-    <div class="form-group">
-        结果：<select>
-        <option>1</option>
-        <option>1</option>
-    </select>
-        <a href="">设置检索结果模板</a>
+        <div class="form-group" id="form2">
+            <select style="width: 5%">
+                <option value="">并且</option>
+                <option value="">或者</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select style="width: 5%">
+                <option value="">大于</option>
+                <option value="">小于</option>
+                <option value="">等于</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <a onclick="jian('j2')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+            <a style="display: none" id="jia2" onclick="jia('j2')"><span class="glyphicon glyphicon-plus-sign" style="color: lawngreen"></span></a>
+        </div>
+        <div class="form-group" id="form3">
+            <select style="width: 5%">
+                <option value="">并且</option>
+                <option value="">或者</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select style="width: 5%">
+                <option value="">大于</option>
+                <option value="">小于</option>
+                <option value="">等于</option>
+            </select>
+            <select style="width: 10%">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <a onclick="jian('j3')"><span class="glyphicon glyphicon-minus-sign" style="color: red"></span></a>
+        </div>
+        <div class="form-group">
+            结果：<select>
+                        <option>1</option>
+                        <option>1</option>
+                    </select>
+            <a href="">设置检索结果模板</a>
+            <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
+                    data-dismiss="modal" v-on:click="">检索
+            </button>
+        </div>
+    </form>
+    <div class="row" style="margin: 2%">
+        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"
+                v-on:click="haveBeenFollowedUp()">编辑
+        </button>
         <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-                data-dismiss="modal" v-on:click="">检索
+                data-dismiss="modal" v-on:click="noFollowedUp()">删除
         </button>
     </div>
-</form>-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    修改
-                </h4>
-            </div>
-            <div class="modal-body" style="height: 300px">
-                <form id="myform3">
-                    <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>入组时期：</label>
-                            </div>
-                            <div class='input-group date col-sm-8' id='datetimepicker1'>
-                                <input type='text' id="groupEntryTime" name="groupEntryTime"
-                                       class="form-control input-sm"/>
-                                <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar">
-                                </span>
-                            </span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>手术日期：</label>
-                            </div>
-                            <div class='input-group date col-sm-8' id='datetimepicker2'>
-                                <input type='text' id="operationTime" name="operationTime"
-                                       class="form-control input-sm"/>
-                                <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar">
-                                </span>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6" style="display: none">
-                            <div class="col-sm-4">
-                                <label>id：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="id" id="id">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>住院号：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="inpatientNumber"
-                                       id="inpatientNumber">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>姓名：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="name" id="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>性别：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="sex" id="sex">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-4">
-                                <label>年龄：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="age" id="age">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>手术操作人者：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="operator" id="operator">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>手术术式：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="surgicalProcedures"
-                                       id="surgicalProcedures">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>门诊号：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="outpatientNumber"
-                                       id="outpatientNumber">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer" style="text-align: center">
-        <button type="button" class="btn btn-primary" onclick="update()">
-            保存
-        </button>
+    <div class="row" style="margin: 2%">
+        <table id="testTable"></table>
     </div>
 </div>
-<div class="row" style="margin: 2%">
-    <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
-            data-dismiss="modal" onclick="del()">删除
-    </button>
-</div>
-<div class="row" style="margin: 2%">
-    <table id="testTable"></table>
-</div>
-</div>
-<script id="rowTemplate" type="text/html">
-    <div id="filter" style="text-align: center">
-        <div class="row">
-            <div class="col-md-1">
-                <select type="text" class="form-control input-sm" id="advanceFilterType">
-                    <option value="and" checked="checked">并且</option>
-                    <option value="or">或者</option>
-                </select>
-            </div>
-            <div class='col-md-2'>
-                <select class="form-control input-sm" type="text" name="advanceFilterField"
-                        id="advanceFilterField<@=filterIndex@>">
-                    <option value="">--选择字段--</option>
-                    <option>白细胞</option>
-                    <option>身高</option>
-                    <option>体重</option>
-                    <option>血糖</option>
-                    <option>症状</option>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <select class="form-control input-sm" type="text" name="advanceFilterType"
-                        id="advanceFilterType<@=filterIndex@>">
-                    <option value="0" checked="checked">等于</option>
-                    <option value="1">包含</option>
-                    <option value="2">不等于</option>
-                    <option value="3">大于等于</option>
-                    <option value="4">小于等于</option>
-                    <option value="5">大于</option>
-                    <option value="6">小于</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" placeholder="" name="advanceFilterValLable"
-                       id="advanceFilterValLable<@=filterIndex@>">
-            </div>
-            <div class='col-md-4' style="text-align: left">
-                <button href="javascript:void(0)" class="btn btn-success btn-sm" onclick="$('#filter').remove()">删除
-                </button>
-            </div>
-        </div>
-        <lable id="advanceFilterValLable">
-        </lable>
-    </div>
-</script>
 <script type="text/javascript">
     function jian(tag) {
-        var form1 = document.getElementById("form1");
-        var form2 = document.getElementById("form2");
-        var form3 = document.getElementById("form3");
-        var jia1 = document.getElementById("jia1");
-        var jia2 = document.getElementById("jia2");
-        if (tag == 'j3') {
-            form3.style.display = 'none';
-            jia2.style.display = 'block';
-        } else if (tag == 'j2') {
-            form2.style.display = 'none';
-            jia1.style.display = 'block';
+        var form1=document.getElementById("form1");
+        var form2=document.getElementById("form2");
+        var form3=document.getElementById("form3");
+        var jia1=document.getElementById("jia1");
+        var jia2=document.getElementById("jia2");
+        if(tag=='j3'){
+            form3.style.display='none';
+            jia2.style.display='block';
+        }else if(tag=='j2'){
+            form2.style.display='none';
+            jia1.style.display='block';
         }
     }
-
     function jia(tag) {
-        var form1 = document.getElementById("form1");
-        var form2 = document.getElementById("form2");
-        var form3 = document.getElementById("form3");
-        var jia1 = document.getElementById("jia1");
-        var jia2 = document.getElementById("jia2");
+        var form1=document.getElementById("form1");
+        var form2=document.getElementById("form2");
+        var form3=document.getElementById("form3");
+        var jia1=document.getElementById("jia1");
+        var jia2=document.getElementById("jia2");
 
-        if (tag == 'j2') {
-            jia2.style.display = 'none';
-            form3.style.display = 'block';
-        } else if (tag == 'j1') {
-            jia1.style.display = 'none';
-            form2.style.display = 'block';
+        if(tag=='j2'){
+            jia2.style.display='none';
+            form3.style.display='block';
+        }else if(tag=='j1'){
+            jia1.style.display='none';
+            form2.style.display='block';
         }
     }
 
@@ -379,12 +158,16 @@
         url: "/scheduleOfFollowUpGroup/selectAllByAdvanced",
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
-        //search : "true",
         uniqueId: "ID",
         pageSize: "5",
-        pageList: [10, 20],
+        pageList: [5, 10],
         pagination: true, // 是否分页
         //sortable: true, // 是否启用排序
+        queryParams: function(params) {
+            var param = {};
+            param['followUpGroupId'] = id; // 页码
+            return param;
+        },
         columns: [{
             checkbox: true,
         }, {
@@ -436,6 +219,10 @@
         result += "<button data-toggle='modal'  class='btn btn-xs green' onclick=\"EditViewById('" + row + "','" + id + "')\" title='修改'>" +
             "<span class='glyphicon glyphicon-zoom-in'></span></button>";
         return result;
+    }*/
+
+    function returns() {
+        window.location.href="inDividualFollowUpGroupManagement.html?id="+id;
     }
 
     function del() {

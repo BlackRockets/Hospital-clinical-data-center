@@ -61,6 +61,10 @@ public class PatientSchedule implements Serializable {
      */
     private Integer patientInfoId;
 
+    private Double bodyMassCoefficient;
+
+
+
     private String  condition;
     /**
      * 疾病名称
@@ -120,6 +124,13 @@ public class PatientSchedule implements Serializable {
      */
     private Double whiteBloodCell;
 
+    public Double getBodyMassCoefficient() {
+        return bodyMassCoefficient;
+    }
+
+    public void setBodyMassCoefficient(Double bodyMassCoefficient) {
+        this.bodyMassCoefficient = bodyMassCoefficient;
+    }
     public Integer getDoctorId() {
         return doctorId;
     }
@@ -216,6 +227,43 @@ public class PatientSchedule implements Serializable {
         this.diseaseName = diseaseName;
     }
 
+    @Override
+    public String toString() {
+        return "PatientSchedule{" +
+                "id=" + id +
+                ", groupDetailId=" + groupDetailId +
+                ", followUpGroupId=" + followUpGroupId +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birth='" + birth + '\'' +
+                ", nation='" + nation + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", whitebloodcell=" + whitebloodcell +
+                ", bloodsugar=" + bloodsugar +
+                ", symptom='" + symptom + '\'' +
+                ", patientInfoId=" + patientInfoId +
+                ", bodyMassCoefficient=" + bodyMassCoefficient +
+                ", condition='" + condition + '\'' +
+                ", diseaseName='" + diseaseName + '\'' +
+                ", diseaseCode='" + diseaseCode + '\'' +
+                ", diseaseCode1='" + diseaseCode1 + '\'' +
+                ", diseaseCode2='" + diseaseCode2 + '\'' +
+                ", departmentsId=" + departmentsId +
+                ", inpatientNumber=" + inpatientNumber +
+                ", outpatientNumber=" + outpatientNumber +
+                ", groupEntryTime='" + groupEntryTime + '\'' +
+                ", followUpState='" + followUpState + '\'' +
+                ", doctorId=" + doctorId +
+                ", nurseId=" + nurseId +
+                ", technicianId=" + technicianId +
+                ", pharmacistId=" + pharmacistId +
+                ", whiteBloodCell=" + whiteBloodCell +
+                ", followUpGroupManagement=" + followUpGroupManagement +
+                ", scheduleOfFollowUpGroup=" + scheduleOfFollowUpGroup +
+                '}';
+    }
+
     public String getDiseaseCode() {
         return diseaseCode;
     }
@@ -230,27 +278,6 @@ public class PatientSchedule implements Serializable {
 
     public void setDepartmentsId(Integer departmentsId) {
         this.departmentsId = departmentsId;
-    }
-
-    @Override
-    public String toString() {
-        return "PatientSchedule{" +
-                "id=" + id +
-                ", groupDetailId=" + groupDetailId +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", birth='" + birth + '\'' +
-                ", nation='" + nation + '\'' +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", whitebloodcell=" + whitebloodcell +
-                ", bloodsugar=" + bloodsugar +
-                ", symptom='" + symptom + '\'' +
-                ", patientInfoId=" + patientInfoId +
-                ", condition='" + condition + '\'' +
-                ", followUpGroupManagement=" + followUpGroupManagement +
-                ", scheduleOfFollowUpGroup=" + scheduleOfFollowUpGroup +
-                '}';
     }
 
     public String getCondition() {

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
+
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
@@ -20,8 +21,7 @@
 <body>
 <div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a
-            href="../templates/followUpScheduleManagement.html">返回</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="../templates/followUpScheduleManagement.html">返回</a>
     </div>
     <div class="col-lg-2">
         <div>
@@ -39,8 +39,7 @@
             <a v-on:click="searchRest" data-dismiss="modal" data-toggle="modal" data-target="#myModal2">展开其他随访组</a>
         </div>
         <div>
-            <button class="btn-info">选择诊疗方案</button>
-            <br/>
+            <button class="btn-info">选择诊疗方案</button><br/>
             <!--<a onclick="searchOne()" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>-->
             <a v-on:click="searchOne" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>
             <a v-on:click="searchTwo" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案2</a>
@@ -86,7 +85,7 @@
                             <a style="color: #28a4c9" onclick="info()">基本信息(点击)</a>
                         </div>
                         <div class="col-sm-3">
-                            姓名：<input id="name1" type="text"/>
+                            姓名：<input id="name1" type="text" />
                         </div>
                         <div class="col-sm-3">
                             性别：<select id="sex1">
@@ -190,7 +189,7 @@
                             <div class="col-sm-3" style="margin-top: 5px">
                                 时间
                             </div>
-                            <div class='input-group date col-sm-3' id='datetimepicker1'>
+                            <div class='input-group date col-sm-3'  id='datetimepicker1'>
                                 <input type='text' id="d1" class="form-control"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
@@ -199,7 +198,7 @@
                             </div>
                             <div class="col-sm-3" style="text-align: right">~</div>
                             <div class='input-group date col-sm-3' id='datetimepicker2'>
-                                <input type='text' id="d2" class="form-control"/>
+                                <input type='text'id="d2" class="form-control"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -434,10 +433,6 @@
         uniqueId: "ID",
         url: '',
         method: 'post',
-        showColumns: "true",
-        showExport: true,// 显示导出按钮
-        buttonsAlign: "right", //按钮位置
-        exportTypes: ['excel'], //导出文件类型
         columns: [{
             checkbox: true,
         }, {
@@ -507,18 +502,6 @@
         }
         ]
     });
-    function exportData(){
-        $('#searchTable').tableExport({
-            type: 'excel',
-            exportDataType: "all",
-            ignoreColumn: [0],//忽略某一列的索引
-            fileName: 'Tablexxx',//下载文件名称
-            onCellHtmlData: function (cell, row, col, data){//处理导出内容,自定义某一行、某一列、某个单元格的内容
-                console.info(data);
-                return data;
-            },
-        });
-    }
     $("#tables").bootstrapTable({
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
@@ -534,7 +517,7 @@
             field: 'dateOfNextFollowUp',
             title: '申请科室',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 return row.followUpGroupManagement.responsibilityDepartments;
             }
         }, {
@@ -567,40 +550,38 @@
             field: 'treat',
             title: '治疗',
             align: 'center'
-        }, {
+        },{
             field: 'operation',
             title: '手术',
             align: 'center'
-        }, {
+        },{
             field: 'inform',
             title: '通知',
             align: 'center'
         }
         ]
     });
-
-    /* function getParams(param) {
-         return 1;
-     }
-     function searchOne() {
-         $("#diagTable").bootstrapTable("refresh")
-     }*/
-    function info() {
-        var tou1 = document.getElementById("tou");
-        var xinxi1 = document.getElementById("xinxi");
-        var shiyanshi = document.getElementById("shiyanshi");
-        tou1.style.display = "none";
-        xinxi1.style.display = "block";
-        shiyanshi.style.display = "none";
+   /* function getParams(param) {
+        return 1;
     }
-
+    function searchOne() {
+        $("#diagTable").bootstrapTable("refresh")
+    }*/
+    function info() {
+        var tou1=document.getElementById("tou");
+        var xinxi1=document.getElementById("xinxi");
+        var shiyanshi=document.getElementById("shiyanshi");
+        tou1.style.display="none";
+        xinxi1.style.display="block";
+        shiyanshi.style.display="none";
+    }
     function inspect() {
-        var tou1 = document.getElementById("tou");
-        var xinxi1 = document.getElementById("xinxi");
-        var shiyanshi = document.getElementById("shiyanshi");
-        tou1.style.display = "none";
-        xinxi1.style.display = "none";
-        shiyanshi.style.display = "block";
+        var tou1=document.getElementById("tou");
+        var xinxi1=document.getElementById("xinxi");
+        var shiyanshi=document.getElementById("shiyanshi");
+        tou1.style.display="none";
+        xinxi1.style.display="none";
+        shiyanshi.style.display="block";
     }
 
     function Export() {

@@ -3,7 +3,6 @@ package com.hospitaldatacenter.service;
 import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.PatientSchedule;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

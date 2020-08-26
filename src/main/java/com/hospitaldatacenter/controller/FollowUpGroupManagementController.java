@@ -132,4 +132,25 @@ public class FollowUpGroupManagementController {
     public Set<User> findByFollowUpGroupId(@RequestBody String followUpGroupMember){
         return followUpGroupManagementService.queryByfollowUpGroupId(followUpGroupMember);
     }
+
+    /**
+     *
+     *
+     *@description: 删除某个随访组中的某个角色权限
+     *@author: zyl
+     *
+     */
+    @RequestMapping("delById")
+    public void delById(@RequestBody Integer[] ids){
+        followUpGroupManagementService.delById(ids);
+    }
+
+    /**
+     *@description: 新增组内角色
+     *@author: zyl
+     */
+    @RequestMapping("addGroupRole")
+    public void addGroupRole(@RequestBody String followUpGroupMember){
+        followUpGroupManagementService.newGroupRole(followUpGroupMember);
+    }
 }
