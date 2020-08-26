@@ -79,7 +79,7 @@
                             }else {
                                 alert("密码设置失败！")
                             }
-                            window.location.href="/logout"
+                            window.parent.frames.location.href="/logout"
                         })
                         .catch(function (error) { // 请求失败处理
                             console.log(error);

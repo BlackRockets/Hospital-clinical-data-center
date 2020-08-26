@@ -61,7 +61,7 @@
         })
 
     function createTemp(){
-        window.location.href="templateDesign?tempid=0&&id="+newsid;
+        window.location.href="templateDesign?tempid=0&&id="+newsid+"&&mank="+1;
     }
     $("#testTable").bootstrapTable({
         sidePagination: "true",
@@ -128,7 +128,7 @@
         return result;
     }
     function EditViewById(id,fid) {
-        window.location.href="templateDesign?tempid="+id+"&&id="+fid;
+        window.location.href="templateDesign?tempid="+id+"&&id="+fid+"&&mank="+1;
     }
 
     function returns() {

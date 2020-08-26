@@ -221,13 +221,12 @@
         } else {
             value = "已发布"
         }
-        console.log(row.fm.groupName);
         return ['<a onclick=findTemp("' + row.templateId + '","' + row.followUpGroupId + '","' + row.fm.groupName + '")>'+value+'</a>'].join("");
     }
 
     function findTemp(tempId,id,name){
         document.cookie = "groupName="+name+"";
-        window.location.href="templateDesign.html?tempid="+tempId+"&&id="+id;
+        window.location.href="templateDesign.html?tempid="+tempId+"&&id="+id+"&&mank="+2;
     }
     $(function () {
         $('#datetimepicker1').datetimepicker({

@@ -309,7 +309,9 @@
     var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
     var ss=newsids[1].split("&&");
     var tempid=ss[0]; //模板id
-    var  newsid=newsids[2];//随访组id
+    var  newsid=newsids[2].split("&&")[0];//随访组id
+    var  mank=newsids[3];//随访组id
+
     console.log("模板id"+tempid);
     console.log("随访组id"+newsid);
     //;//得到参数值
@@ -732,7 +734,12 @@
     }
 
     function returns() {
-        window.location.href="templateSettings?id="+newsid;
+        if(mank == 1){
+            window.location.href="templateSettings?id="+newsid;
+        }else {
+            window.location.href="../templates/FormOverview.html";
+        }
+
     }
 
 </script>
