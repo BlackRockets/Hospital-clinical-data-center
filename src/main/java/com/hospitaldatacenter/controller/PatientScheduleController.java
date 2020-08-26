@@ -73,4 +73,9 @@ public class PatientScheduleController {
         return JSON.toJSONString("1");
 
     }
+    @RequestMapping("save")
+    public Integer save(@RequestBody(required = false) String dataItem){
+        int save = patientScheduleService.save(dataItem);
+        return save;
+    }
 }

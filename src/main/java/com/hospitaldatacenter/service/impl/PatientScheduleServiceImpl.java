@@ -132,6 +132,18 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
         exportExcel.exportExcel(hender, exports , new FileOutputStream("D://" + name + ".xls"));
         return null;
     }
+
+    @Override
+    public int save(String dataItem) {
+        List<PatientSchedule> patientSchedules=null;
+        PatientSchedule pat = JSONObject.parseObject(dataItem, PatientSchedule.class);
+        ScheduleOfFollowUpGroup sch = JSONObject.parseObject(dataItem, ScheduleOfFollowUpGroup.class);
+        FollowUpGroupManagement fol = JSONObject.parseObject(dataItem, FollowUpGroupManagement.class);
+        pat.setFollowUpGroupManagement(fol);
+        pat.setScheduleOfFollowUpGroup(sch);
+        int update = patientScheduleDao.update(pat);
+        return update;
+    }
     }
 
 

@@ -78,4 +78,6 @@ public interface PatientScheduleService {
 
     List findPatientScheduleIds(Integer[] ids,String name) throws IOException;
 
+    int save(String patientSchedule);
+
 }

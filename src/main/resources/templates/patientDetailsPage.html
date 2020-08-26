@@ -242,7 +242,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-success btn-sm"
+                        onclick="Export() ">
                     导出excel
                 </button>
             </div>
@@ -388,6 +389,7 @@
                 this.item.whitebloodcell=$("#bai").val();
                 this.item.bloodsugar=$("#xue").val();
                 var dataItem=this.item;
+                console.log(dataItem);
                 axios
                     .post('/patientSchedule/save',dataItem)
                     .then(function (response) {
@@ -429,6 +431,8 @@
         url: '',
         method: 'post',
         columns: [{
+            checkbox: true,
+        },{
             field: 'id',
             title: '序号',
             align: 'center',
@@ -575,6 +579,41 @@
         tou1.style.display="none";
         xinxi1.style.display="none";
         shiyanshi.style.display="block";
+    }
+    function Export() {
+        var ids = [];
+        var bool = false;
+        var rows = $("#searchTable").bootstrapTable('getSelections');
+        if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+            alert("请先选择导出的数据!");
+            return;
+        } else {
+            var arrays = new Array();// 声明一个数组
+            $(rows).each(function () {// 通过获得别选中的来进行遍历
+                arrays.push(this.id);// cid为获得到的整条数据中的一列
+            });
+            ids = arrays.join(','); // 获得要导出的id
+        }
+        var name = prompt("请输入导出文件名称");
+        $.ajax({
+            url: '/patientSchedule/PatientScheduleExport/',//地址
+            dataType: 'json',//数据类型
+            type: 'post',//类型
+            data: {
+                "ids": ids,
+                "name": name
+            },
+            traditional: true, //默认false  传递数组专用
+            success: function (response) {
+                if (response == "1") {
+                    alert('操作成功!!!');
+                    history.go(0);
+                } else {
+                    alert('操作失败!!!');
+                    history.go(0);
+                }
+            }
+        })
     }
 </script>
 </body>

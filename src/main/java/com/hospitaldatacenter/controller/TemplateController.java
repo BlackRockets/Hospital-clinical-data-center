@@ -85,6 +85,7 @@ public class TemplateController {
     public List<Template> selectNamesByGroupId(Integer groupId){
         System.out.println(groupId);
         List<Template> templates = templateService.selectNamesByGroupId(groupId);
+        System.out.println(templates);
         return templates;
     }
 
