@@ -13,6 +13,8 @@ public class Condition implements Serializable {
 
     private String conditionContent;
 
+    private Integer groupId;
+
     @Override
     public String toString() {
         return "Condition{" +
@@ -21,7 +23,16 @@ public class Condition implements Serializable {
                 ", conditionName='" + conditionName + '\'' +
                 ", comparisonOperators='" + comparisonOperators + '\'' +
                 ", conditionContent='" + conditionContent + '\'' +
+                ", groupId=" + groupId +
                 '}';
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public Integer getId() {

@@ -10,8 +10,8 @@
         <result property="conditionContent" column="conditionContent" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <insert id="insert">
-        insert into condition
+    <insert id="insert" >
+        insert into hospital.condition
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -47,6 +47,16 @@
             </if>
         </trim>
     </insert>
+
+    <delete id="delete">
+        delete from hospital.condition
+    </delete>
+
+    <select id="selectAll" resultMap="ConditionMap">
+        select * from hospital.condition
+        order by conjunction
+    </select>
+
 
 
 </mapper>

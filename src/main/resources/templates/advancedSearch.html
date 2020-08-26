@@ -121,7 +121,6 @@
             "            <option value='diseaseName'>疾病名称</option>\n" +
             "        </select>\n" +
             "        <select class='select3' style=\"width: 5%\">\n" +
-            "            <option value=\"U\">包含</option>\n" +
             "            <option value=\"=\">等于</option>\n" +
             "        </select>\n" +
             "        <input class='inp' type=\"text\">\n" +
@@ -141,17 +140,17 @@
         var inp = document.getElementsByClassName("inp");
         var list = [];
         for(var i=0;i<element2.length;i++){
-            var array={"conjunction":element1[i].value,"conditionName":element2[i].value,"comparisonOperators":element3[i].value,"conditionContent":inp[i].value};
+            var array={"conjunction":element1[i].value,"conditionName":element2[i].value,"comparisonOperators":element3[i].value,"conditionContent":inp[i].value,"groupId":id};
            list.push(array)
         }
         $.ajax({
             url: '/user/advanceSearch',
-            method: 'post',
+            type: 'post',
             data: JSON.stringify(list),
-            dataType:'json',
-            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            contentType: 'application/json',
             success:function (res) {
-
+                $("#testTable").bootstrapTable("load",res);
             }
         })
         console.log(JSON.stringify(list));
@@ -196,14 +195,10 @@
                 field: 'groupEntryTime',
                 title: '入组时期',
                 align: 'center',
-            },{
-                title: '操作',
-                formatter: operateFormatter,
-                align: 'center',
             }
         ]
     });
-    function operateFormatter(value, row, index){
+    /*function operateFormatter(value, row, index){
         //添加按钮
         var rows = JSON.stringify(row);
         var id = row.id;
@@ -211,7 +206,7 @@
         var result = "";
         result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-zoom-in'></span></a>";
         return result;
-    }
+    }*/
 
     function returns() {
         window.location.href="inDividualFollowUpGroupManagement.html?id="+id;

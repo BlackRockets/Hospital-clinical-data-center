@@ -3,6 +3,7 @@ package com.hospitaldatacenter.controller;
 import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.entity.Condition;
 import com.hospitaldatacenter.entity.Departments;
+import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.entity.User;
 import com.hospitaldatacenter.service.UserService;
 import com.hospitaldatacenter.service.impl.ConditionServiceImpl;
@@ -17,10 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (User)表控制层
@@ -145,10 +143,9 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "advanceSearch",produces = {"application/json;charset=utf-8"})
-    public  String advanceSearch(@RequestBody List<Condition> list){
-        int insert = conditionService.insert(list);
-        System.out.println(insert);
-        return null;
+    public  List<ScheduleOfFollowUpGroup> advanceSearch(@RequestBody List<Condition> list){
+        List<ScheduleOfFollowUpGroup> lists = conditionService.insert(list);
+        return lists;
     }
 
 }

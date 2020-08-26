@@ -1,5 +1,6 @@
 package com.hospitaldatacenter.dao;
 
+import com.hospitaldatacenter.entity.Condition;
 import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import org.apache.ibatis.annotations.Param;
@@ -105,5 +106,7 @@ public interface ScheduleOfFollowUpGroupDao {
      *@author: zyl
      */
     int insertPatientSchedule(PatientSchedule patientSchedule);
+
+    List<ScheduleOfFollowUpGroup> queryAllByConditions(@Param("list") List<Condition> list,@Param("groupId") Integer groupId);
 
 }
