@@ -22,9 +22,7 @@
     <div class="row" style="margin-top: 1%;margin-left: 2%">
         <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returns()">返回随访组</a>
     </div>
-    <div class="page-header" style="text-align: center;margin-top: 0">
-        <h3 style="color: blue">随访组标题<a><span class="glyphicon glyphicon-exclamation-sign"></span></a></h3>
-    </div>
+
     <form id="forms" role="form" style="text-align: center">
         <p>条件：</p>
         <div class="form-group">
@@ -141,7 +139,6 @@
         var a="ok";
         for(var i=0;i<inp.length;i++){
             if(inp[i].value == null || inp[i].value == ""){
-                alert("所有条件不能为空！");
                 a="flase";
             }
         }
@@ -159,9 +156,10 @@
                 contentType: 'application/json',
                 success:function (res) {
                     $("#testTable").bootstrapTable("load",res);
-                    console.log(JSON.stringify(list));
                 }
             })
+        }else {
+            alert("所有条件不能为空!")
         }
 
 
