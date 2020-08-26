@@ -1,15 +1,17 @@
 package com.hospitaldatacenter.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hospitaldatacenter.config.ExportExcel;
 import com.hospitaldatacenter.dao.PatientScheduleDao;
-import com.hospitaldatacenter.entity.Departments;
-import com.hospitaldatacenter.entity.FollowUpGroupManagement;
-import com.hospitaldatacenter.entity.PatientSchedule;
-import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
+import com.hospitaldatacenter.entity.*;
 import com.hospitaldatacenter.service.PatientScheduleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -122,5 +124,14 @@ public class PatientScheduleServiceImpl implements PatientScheduleService {
         return patientScheduleDao.selectAllDepartments();
     }
 
+    @Override
+    public List<Export> findPatientScheduleIds(Integer[] ids, String name) throws IOException {
+        List<Export> exports= patientScheduleDao.queryAllExport(ids);
+        String[] hender = {"序号", "随访时间", "随访组", "科室","随访状态"};
+        ExportExcel<Export> exportExcel = new ExportExcel<>();
+        exportExcel.exportExcel(hender, exports , new FileOutputStream("D://" + name + ".xls"));
+        return null;
+    }
+    }
 
-}
+

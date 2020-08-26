@@ -3,6 +3,7 @@ package com.hospitaldatacenter.service;
 import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.PatientSchedule;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -75,6 +76,6 @@ public interface PatientScheduleService {
 
     List<Departments> queryAllDepartments();
 
-
+    List findPatientScheduleIds(Integer[] ids,String name) throws IOException;
 
 }

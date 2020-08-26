@@ -28,7 +28,8 @@
         <h3 style="color: #28a4c9">模板设计</h3>
     </div>
     <div class="row" style="margin: 1%">
-        <button type="button" v-on:click="quoteTrem" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa3">
+        <button type="button" v-on:click="quoteTrem" class="btn btn-info btn-sm" data-dismiss="modal"
+                data-toggle="modal" data-target="#myModa3">
             引用模板
         </button>
     </div>
@@ -41,10 +42,10 @@
             </div>
             <div id="d2" class="row" style="display: none">
                 <form role="form">
-                   <div class="form-group">
-                       名称
-                       <input type="text">
-                   </div>
+                    <div class="form-group">
+                        名称
+                        <input type="text">
+                    </div>
                     <div class="form-group">
                         <input type="checkbox">是否可重复
                     </div>
@@ -100,7 +101,8 @@
                     </div>
                     <div class="form-group">
                         内容
-                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal"
+                                data-target="#myModal">
                             选择术语
                         </button>
                     </div>
@@ -130,7 +132,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="button"  data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
+                        <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
                             添加至树节点
                         </button>
                     </div>
@@ -139,7 +141,8 @@
         </div>
         <div class="col-lg-10" style="border-left: 1px solid #ccc;">
             <div class="row" style="margin: 1%">
-                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#myModa2">
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal"
+                        data-target="#myModa2">
                     规则设定
                 </button>
                 <button type="button" class="btn btn-info btn-sm" onclick="save(saveHtml)">
@@ -261,7 +264,8 @@
                     <input type="checkbox" value="心衰">心衰
                 </div>
                 <div>
-                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal" v-on:click="sureTerm">
+                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" data-toggle="modal"
+                            v-on:click="sureTerm">
                         确定
                     </button>
                 </div>
@@ -276,11 +280,21 @@
                 <h3 style="color: #28a4c9">规则设定</h3>
             </div>
             <div style="margin-left: 25%;padding-bottom: 5%">
-                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">显示/隐藏</div>
-                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">赋值/计算</div>
-                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">置灰/激活</div>
-                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">勾选/取消</div>
-                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">分值计算</div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">
+                    显示/隐藏
+                </div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">
+                    赋值/计算
+                </div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">
+                    置灰/激活
+                </div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">
+                    勾选/取消
+                </div>
+                <div style="color:dodgerblue;background-color: #cccccc;width: 300px;height: 40px;text-align: center;padding-top: 10px;margin-top: 10px">
+                    分值计算
+                </div>
             </div>
         </div>
     </div>
@@ -294,7 +308,8 @@
             <form role="form" id="testForm">
             </form>
             <div class="form-group" style="text-align: center">
-                <button type="button" class="btn btn-info btn-sm"  data-dismiss="modal" aria-hidden="true" onclick="merge()">
+                <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" aria-hidden="true"
+                        onclick="merge()">
                     确定
                 </button>
             </div>
@@ -302,43 +317,41 @@
     </div>
 </div>
 <script type="text/javascript">
-    var urlinfo=window.location.href; //获取当前页面的url
-    len=urlinfo.length;//获取url的长度
-    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
-    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
-    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-    var ss=newsids[1].split("&&");
-    var tempid=ss[0]; //模板id
-    var  newsid=newsids[2];//随访组id
-    console.log("模板id"+tempid);
-    console.log("随访组id"+newsid);
+    var urlinfo = window.location.href; //获取当前页面的url
+    len = urlinfo.length;//获取url的长度
+    var offset = urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var newsidinfo = urlinfo.substr(offset, len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids = newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var ss = newsids[1].split("&&");
+    var tempid = ss[0]; //模板id
+    var newsid = newsids[2];//随访组id
+    console.log("模板id" + tempid);
+    console.log("随访组id" + newsid);
     //;//得到参数值
     //console.log(newsid);
 
-        if(tempid != null){
-            $.ajax({
-                url: '/template/selectById?id='+tempid,
-                method: 'get',
-                success:function (res) {
-                    $("#total").html(res.context);
-                }
-            })
-        }
-
+    if (tempid != null) {
+        $.ajax({
+            url: '/template/selectById?id=' + tempid,
+            method: 'get',
+            success: function (res) {
+                $("#total").html(res.context);
+            }
+        })
+    }
 
 
     new Vue({
         el: '#myModal',
-        data:{
-        },
-        methods:{
-            sureTerm:function () {
-                var inps=$("#trem input[type='checkbox']:checked");
-                var result="";
-                for(var i=0;i<inps.length;i++){
-                    result+="<div id="+inps[i].value+">\n" +
-                        "                            <a onclick='jian("+inps[i].value+")'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
-                        "                            <input type=\"text\" value="+inps[i].value+">\n" +
+        data: {},
+        methods: {
+            sureTerm: function () {
+                var inps = $("#trem input[type='checkbox']:checked");
+                var result = "";
+                for (var i = 0; i < inps.length; i++) {
+                    result += "<div id=" + inps[i].value + ">\n" +
+                        "                            <a onclick='jian(" + inps[i].value + ")'><span class=\"glyphicon glyphicon-minus-sign\" style=\"color: red\"></span></a>\n" +
+                        "                            <input type=\"text\" value=" + inps[i].value + ">\n" +
                         "                        </div>";
                 }
                 $("#totalTrem").html(result);
@@ -349,68 +362,69 @@
     function jian(tag) {
         tag.remove();
     }
+
     new Vue({
         el: '#box',
-        data:{
-        },
-        methods:{
-            tremMerge:function () {
+        data: {},
+        methods: {
+            tremMerge: function () {
                 var val = $("#totalTrem input");
-                var result="";
-                for(var i=0;i<val.length;i++){
-                    result+="<option value="+val[i].value+">"+val[i].value+"</option>";
+                var result = "";
+                for (var i = 0; i < val.length; i++) {
+                    result += "<option value=" + val[i].value + ">" + val[i].value + "</option>";
                 }
                 $("#termSymptom").append(result);
             },
-            btn:function () {
+            btn: function () {
                 var treeview = $('#tree').treeview('getChecked');
                 var html1 = document.getElementById("r1").innerHTML;
                 var html5 = "";
                 var html6 = "";
-                for(var i=0;i<treeview.length;i++){
-                    if(treeview[i].id==12){
-                        html1+="";
+                for (var i = 0; i < treeview.length; i++) {
+                    if (treeview[i].id == 12) {
+                        html1 += "";
                         $("#r1").html(html1);
-                    }else if(treeview[i].id==2){
-                        document.getElementById("p1").style.display="block";
-                        html1+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                    } else if (treeview[i].id == 2) {
+                        document.getElementById("p1").style.display = "block";
+                        html1 += "<div class=\"col-sm-3\" style='margin-top: 1%'>" + treeview[i].text + "<input type=\"text\"></div>";
                         $("#r1").html(html1);
-                    }else if(treeview[i].id==3){
-                        document.getElementById("p5").style.display="block";
-                        html5+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                    } else if (treeview[i].id == 3) {
+                        document.getElementById("p5").style.display = "block";
+                        html5 += "<div class=\"col-sm-3\" style='margin-top: 1%'>" + treeview[i].text + "<input type=\"text\"></div>";
                         $("#r5").html(html5);
-                    }else if(treeview[i].id==4){
-                        document.getElementById("p6").style.display="block";
-                        html6+="<div class=\"col-sm-3\" style='margin-top: 1%'>"+treeview[i].text+"<input type=\"text\"></div>";
+                    } else if (treeview[i].id == 4) {
+                        document.getElementById("p6").style.display = "block";
+                        html6 += "<div class=\"col-sm-3\" style='margin-top: 1%'>" + treeview[i].text + "<input type=\"text\"></div>";
                         $("#r6").html(html6);
                     }
                 }
             },
-            inform:function () {
-                document.getElementById("d1").style.display="block";
-                document.getElementById("d2").style.display="none";
-                document.getElementById("d3").style.display="none";
+            inform: function () {
+                document.getElementById("d1").style.display = "block";
+                document.getElementById("d2").style.display = "none";
+                document.getElementById("d3").style.display = "none";
             },
-            inspect:function () {
-                document.getElementById("d1").style.display="none";
-                document.getElementById("d2").style.display="block";
-                document.getElementById("d3").style.display="none";
+            inspect: function () {
+                document.getElementById("d1").style.display = "none";
+                document.getElementById("d2").style.display = "block";
+                document.getElementById("d3").style.display = "none";
             },
-            symptoms:function () {
-                document.getElementById("d1").style.display="none";
-                document.getElementById("d2").style.display="none";
-                document.getElementById("d3").style.display="block";
+            symptoms: function () {
+                document.getElementById("d1").style.display = "none";
+                document.getElementById("d2").style.display = "none";
+                document.getElementById("d3").style.display = "block";
             },
-            quoteTrem:function () {
-                axios.post('/template/selectNamesByGroupId?groupId='+newsid)
+            quoteTrem: function () {
+                axios.post('/template/selectNamesByGroupId?groupId=' + newsid)
                     .then(function (response) {
-                        var result="";
-                        for(var i=0;i<response.data.length;i++){
-                            result+="<div class=\"form-group\" style=\"text-align: center\">\n" +
-                                "                    <input name='name' type=\"radio\" value="+response.data[i].templateId+">"+response.data[i].templateName+"</div>";
+                        var result = "";
+                        for (var i = 0; i < response.data.length; i++) {
+                            result += "<div class=\"form-group\" style=\"text-align: center\">\n" +
+                                "                    <input name='name' type=\"radio\" value=" + response.data[i].templateId + ">" + response.data[i].templateName + "</div>";
                             $("#testForm").html(result);
                         }
-                    }).catch(function () {});
+                    }).catch(function () {
+                });
             }
         }
 
@@ -675,55 +689,57 @@
         var value = $("#testForm input[name='name']:checked").val();
         console.log(value);
         $.ajax({
-            url: '/template/selectById?id='+value,
+            url: '/template/selectById?id=' + value,
             method: 'get',
-            success:function (res) {
+            success: function (res) {
                 $("#total").html(res.context);
             }
         })
     }
+
     function save(id) {
-        var  strHTML   =   id.outerHTML;
-        var context="";
-        context=strHTML;
+        var strHTML = id.outerHTML;
+        var context = "";
+        context = strHTML;
         $.ajax({
             url: '/template/save',
             method: 'post',
             data: {
-                "text":context,
-                "id":newsid,
-                "tempId":tempid
+                "text": context,
+                "id": newsid,
+                "tempId": tempid
             },
-            success:function (res) {
-                if(res == 1){
-                   alert("保存成功");
-                }else if(res == 2){
+            success: function (res) {
+                if (res == 1) {
+                    alert("保存成功");
+                } else if (res == 2) {
                     alert("该版本已存在");
-                }else {
+                } else {
                     alert("保存失败");
                 }
             }
-            
+
         })
     }
+
     function releases(id) {
-        var  strHTML   =   id.outerHTML;
-        var context="";
-        context=strHTML;
+        var strHTML = id.outerHTML;
+        var context = "";
+        context = strHTML;
         $.ajax({
             url: '/template/releases',
             method: 'post',
             data: {
-                "text":context,
-                "id":newsid,
-                "tempId":tempid
+                "text": context,
+                "id": newsid,
+                "tempId": tempid
             },
-            success:function (res) {
-                if(res == 1){
+            success: function (res) {
+                if (res == 1) {
                     alert("发布成功");
-                }else if(res == 2){
+                } else if (res == 2) {
                     alert("该版本已发布");
-                }else {
+                } else {
                     alert("发布失败");
                 }
             }
@@ -732,7 +748,7 @@
     }
 
     function returns() {
-        window.location.href="templateSettings.html?id="+newsid;
+        window.location.href = "templateSettings.html?id=" + newsid;
     }
 
 </script>

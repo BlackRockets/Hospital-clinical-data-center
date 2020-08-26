@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../static/css/bootstrap-table.css">
     <script src="../static/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-
     <script src="../static/js/moment-with-locales.min.js"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../static/js/vue.js"></script>
@@ -21,7 +20,8 @@
 <body>
 <div class="container-fluid" id="box">
     <div class="row" style="margin-top: 1%;margin-left: 2%">
-        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a href="../templates/followUpScheduleManagement.html">返回</a>
+        <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a
+            href="../templates/followUpScheduleManagement.html">返回</a>
     </div>
     <div class="col-lg-2">
         <div>
@@ -39,7 +39,8 @@
             <a v-on:click="searchRest" data-dismiss="modal" data-toggle="modal" data-target="#myModal2">展开其他随访组</a>
         </div>
         <div>
-            <button class="btn-info">选择诊疗方案</button><br/>
+            <button class="btn-info">选择诊疗方案</button>
+            <br/>
             <!--<a onclick="searchOne()" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>-->
             <a v-on:click="searchOne" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案1</a>
             <a v-on:click="searchTwo" data-dismiss="modal" data-toggle="modal" data-target="#myModal3">诊疗方案2</a>
@@ -61,7 +62,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><a v-on:click="search" data-dismiss="modal" data-toggle="modal" data-target="#myModal"><span class='glyphicon glyphicon-zoom-in'></span></a></td>
+                    <td><a v-on:click="search" data-dismiss="modal" data-toggle="modal" data-target="#myModal"><span
+                            class='glyphicon glyphicon-zoom-in'></span></a></td>
                 </tr>
             </table>
         </div>
@@ -70,12 +72,12 @@
                 <button type="button" class="btn btn-info btn-sm" onclick="">
                     保存
                 </button>
-               <!-- <button type="button" class="btn btn-info btn-sm" onclick="">
-                    删除
-                </button>
-                <button type="button" class="btn btn-info btn-sm" onclick="">
-                    履历
-                </button>-->
+                <!-- <button type="button" class="btn btn-info btn-sm" onclick="">
+                     删除
+                 </button>
+                 <button type="button" class="btn btn-info btn-sm" onclick="">
+                     履历
+                 </button>-->
             </div>
             <div class="row">
                 <form role="form" style="margin: 1%">
@@ -84,7 +86,7 @@
                             <a style="color: #28a4c9" onclick="info()">基本信息(点击)</a>
                         </div>
                         <div class="col-sm-3">
-                            姓名：<input id="name1" type="text" />
+                            姓名：<input id="name1" type="text"/>
                         </div>
                         <div class="col-sm-3">
                             性别：<select id="sex1">
@@ -188,7 +190,7 @@
                             <div class="col-sm-3" style="margin-top: 5px">
                                 时间
                             </div>
-                            <div class='input-group date col-sm-3'  id='datetimepicker1'>
+                            <div class='input-group date col-sm-3' id='datetimepicker1'>
                                 <input type='text' id="d1" class="form-control"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
@@ -197,7 +199,7 @@
                             </div>
                             <div class="col-sm-3" style="text-align: right">~</div>
                             <div class='input-group date col-sm-3' id='datetimepicker2'>
-                                <input type='text'id="d2" class="form-control"/>
+                                <input type='text' id="d2" class="form-control"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -237,7 +239,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-success btn-sm"
+                        onclick="Export() ">
                     导出excel
                 </button>
             </div>
@@ -275,18 +278,25 @@
     </div><!-- /.modal -->
 </div>
 </div>
+<script type="text/html" id="barDemo">
+    <a v-on:click="preview()">
+        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+    </a>
+</script>
+
 <script type="text/javascript">
-    var urlinfo=window.location.href; //获取当前页面的url
-    len=urlinfo.length;//获取url的长度
-    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
-    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
-    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-    var  newsid=newsids[1];//得到参数值
+    var urlinfo = window.location.href; //获取当前页面的url
+    len = urlinfo.length;//获取url的长度
+    var offset = urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var newsidinfo = urlinfo.substr(offset, len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids = newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var newsid = newsids[1];//得到参数值
+
     var vm = new Vue({
         el: '#box',
-        data(){
+        data() {
             return {
-                item:{
+                item: {
                     name: '',
                     sex: '',
                     scheduleOfFollowUpGroup: '',
@@ -300,76 +310,111 @@
                 }
             }
         },
-        mounted:function(){
-            axios.get('/patientSchedule/selectOne?id='+newsid)
+        mounted: function () {
+            axios.get('/patientSchedule/selectOne?id=' + newsid)
                 .then(function (response) {
                     vm.item = response.data;
-                    console.log(response.data)
-                }).catch(function () {});
+                }).catch(function () {
+            });
         },
-        methods:{
-            search:function () {
-                var dataName=this.item.name;
-                axios.get('/patientSchedule/selectById?name='+dataName)
+        methods: {
+            search: function () {
+                var dataName = this.item.name;
+                axios.get('/patientSchedule/selectById?name=' + dataName)
                     .then(function (response) {
-                        $("#searchTable").bootstrapTable("load",response.data);
-                    }).catch(function () {});
+                        $("#searchTable").bootstrapTable("load", response.data);
+                    }).catch(function () {
+                });
             },
-            sure:function () {
-                var name=document.getElementById("name").innerHTML;
-                var sex=document.getElementById("sex").innerHTML;
-                var birth=document.getElementById("birth").innerHTML;
-                var nation=document.getElementById("nation").innerHTML;
-                document.getElementById("name1").value=name;
-                document.getElementById("sex1").value=sex;
-                document.getElementById("birth1").value=birth;
-                document.getElementById("nation1").value=nation;
+            sure: function () {
+                var name = document.getElementById("name").innerHTML;
+                var sex = document.getElementById("sex").innerHTML;
+                var birth = document.getElementById("birth").innerHTML;
+                var nation = document.getElementById("nation").innerHTML;
+                document.getElementById("name1").value = name;
+                document.getElementById("sex1").value = sex;
+                document.getElementById("birth1").value = birth;
+                document.getElementById("nation1").value = nation;
             },
-            sureSearch:function () {
-                var dataItem=this.item;
-                var starttime=$("#d1").val();
-                dataItem.scheduleOfFollowUpGroup.startTime=starttime;
-                var endtime=$("#d2").val();
-                dataItem.scheduleOfFollowUpGroup.endTime=endtime;
+            sureSearch: function () {
+                var dataItem = this.item;
+                var starttime = $("#d1").val();
+                dataItem.scheduleOfFollowUpGroup.startTime = starttime;
+                var endtime = $("#d2").val();
+                dataItem.scheduleOfFollowUpGroup.endTime = endtime;
                 axios
-                    .post('/patientSchedule/selectAllByCondition',dataItem)
+                    .post('/patientSchedule/selectAllByCondition', dataItem)
                     .then(function (response) {
-                       $("#formTable").bootstrapTable("load",response.data);
+                        $("#formTable").bootstrapTable("load", response.data);
                     })
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
             },
-            confirm:function () {
-                var dataItem=this.item;
-                var bai=dataItem.whitebloodcell;
-                var xue=dataItem.bloodsugar;
-                document.getElementById("bai").value=bai;
-                document.getElementById("xue").value=xue;
+            confirm: function () {
+                var dataItem = this.item;
+                var bai = dataItem.whitebloodcell;
+                var xue = dataItem.bloodsugar;
+                document.getElementById("bai").value = bai;
+                document.getElementById("xue").value = xue;
             },
-            searchRest:function () {
-                var dataName=this.item.name;
+            searchRest: function () {
+                var dataName = this.item.name;
                 console.log(dataName);
-                axios.get('/patientSchedule/selectById?name='+dataName)
+                axios.get('/patientSchedule/selectById?name=' + dataName)
                     .then(function (response) {
-                        $("#tables").bootstrapTable("load",response.data);
-                    }).catch(function () {});
+                        $("#tables").bootstrapTable("load", response.data);
+                    }).catch(function () {
+                });
             },
-            searchOne:function () {
-                axios.get('/diagnosisAndTreatmentScheme/selectOne?id='+1+'&&groupId='+newsid)
+            searchOne: function () {
+                axios.get('/diagnosisAndTreatmentScheme/selectOne?id=' + 1 + '&&groupId=' + newsid)
                     .then(function (response) {
                         console.log(response.data);
-                        $("#tableA").bootstrapTable("load",response.data);
-                    }).catch(function () {});
+                        $("#tableA").bootstrapTable("load", response.data);
+                    }).catch(function () {
+                });
             },
-            searchTwo:function () {
-                axios.get('/diagnosisAndTreatmentScheme/selectOne?id='+2+'&&groupId='+newsid)
+            searchTwo: function () {
+                axios.get('/diagnosisAndTreatmentScheme/selectOne?id=' + 2 + '&&groupId=' + newsid)
                     .then(function (response) {
-                        $("#tableA").bootstrapTable("load",response.data);
-                    }).catch(function () {});
-            }
+                        $("#tableA").bootstrapTable("load", response.data);
+                    }).catch(function () {
+                });
+            },
+
         }
     })
+   /* var vn = new Vue({
+            el: '#myModal',
+            methods: {
+                Export: function () {
+                    var ids = [];
+                    var rows = $("#searchTable").bootstrapTable('getSelections');
+                    if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+                        alert("请先选择导出的数据!");
+                        return;
+                    } else {
+                        var arrays = new Array();// 声明一个数组
+                        $(rows).each(function () {// 通过获得别选中的来进行遍历
+                            arrays.push(this.id);// cid为获得到的整条数据中的一列
+                        });
+                        ids = arrays.join(','); // 获得要导出的id
+                    }
+                    var name = prompt("请输入导出文件名称");
+                    axios.get('/patientSchedule/PatientScheduleExport?ids=' + ids + '&&name=' + name)
+                        .then(function (response) {
+                            if (response == "1") {
+                                alert('操作成功!!!');
+                                history.go(0);
+                            } else {
+                                alert('操作失败!!!');
+                                history.go(0);
+                            }
+                        });
+                }
+            }
+        }*/
 
     $(function () {
         $('#datetimepicker1').datetimepicker({
@@ -384,11 +429,18 @@
     $("#searchTable").bootstrapTable({
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
+        toolbar: "#toolbar",
         //search : "true",
         uniqueId: "ID",
         url: '',
         method: 'post',
+        showColumns: "true",
+        showExport: true,// 显示导出按钮
+        buttonsAlign: "right", //按钮位置
+        exportTypes: ['excel'], //导出文件类型
         columns: [{
+            checkbox: true,
+        }, {
             field: 'id',
             title: '序号',
             align: 'center',
@@ -396,28 +448,28 @@
             field: 'dateOfNextFollowUp',
             title: '随访时间',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.scheduleOfFollowUpGroup.groupEntryTime;
             }
         }, {
             field: 'groupName',
             title: '随访组',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.followUpGroupManagement.groupName;
             }
         }, {
             field: 'responsibilityDepartments',
             title: '科室',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.followUpGroupManagement.responsibilityDepartments;
             }
-        },{
+        }, {
             field: 'followUpState',
             title: '随访状态',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.scheduleOfFollowUpGroup.followUpState;
             }
         }
@@ -434,14 +486,14 @@
             field: 'id',
             title: '检查时间',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.scheduleOfFollowUpGroup.groupEntryTime;
             }
         }, {
             field: 'dateOfNextFollowUp',
             title: '申请科室',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.followUpGroupManagement.responsibilityDepartments;
             }
         }, {
@@ -455,6 +507,18 @@
         }
         ]
     });
+    function exportData(){
+        $('#searchTable').tableExport({
+            type: 'excel',
+            exportDataType: "all",
+            ignoreColumn: [0],//忽略某一列的索引
+            fileName: 'Tablexxx',//下载文件名称
+            onCellHtmlData: function (cell, row, col, data){//处理导出内容,自定义某一行、某一列、某个单元格的内容
+                console.info(data);
+                return data;
+            },
+        });
+    }
     $("#tables").bootstrapTable({
         sidePagination: "true",
         striped: true, // 是否显示行间隔色
@@ -470,7 +534,7 @@
             field: 'dateOfNextFollowUp',
             title: '申请科室',
             align: 'center',
-            formatter: function(value, row, index) {
+            formatter: function (value, row, index) {
                 return row.followUpGroupManagement.responsibilityDepartments;
             }
         }, {
@@ -503,38 +567,76 @@
             field: 'treat',
             title: '治疗',
             align: 'center'
-        },{
+        }, {
             field: 'operation',
             title: '手术',
             align: 'center'
-        },{
+        }, {
             field: 'inform',
             title: '通知',
             align: 'center'
         }
         ]
     });
-   /* function getParams(param) {
-        return 1;
-    }
-    function searchOne() {
-        $("#diagTable").bootstrapTable("refresh")
-    }*/
+
+    /* function getParams(param) {
+         return 1;
+     }
+     function searchOne() {
+         $("#diagTable").bootstrapTable("refresh")
+     }*/
     function info() {
-        var tou1=document.getElementById("tou");
-        var xinxi1=document.getElementById("xinxi");
-        var shiyanshi=document.getElementById("shiyanshi");
-        tou1.style.display="none";
-        xinxi1.style.display="block";
-        shiyanshi.style.display="none";
+        var tou1 = document.getElementById("tou");
+        var xinxi1 = document.getElementById("xinxi");
+        var shiyanshi = document.getElementById("shiyanshi");
+        tou1.style.display = "none";
+        xinxi1.style.display = "block";
+        shiyanshi.style.display = "none";
     }
+
     function inspect() {
-        var tou1=document.getElementById("tou");
-        var xinxi1=document.getElementById("xinxi");
-        var shiyanshi=document.getElementById("shiyanshi");
-        tou1.style.display="none";
-        xinxi1.style.display="none";
-        shiyanshi.style.display="block";
+        var tou1 = document.getElementById("tou");
+        var xinxi1 = document.getElementById("xinxi");
+        var shiyanshi = document.getElementById("shiyanshi");
+        tou1.style.display = "none";
+        xinxi1.style.display = "none";
+        shiyanshi.style.display = "block";
+    }
+
+    function Export() {
+        var ids = [];
+        var bool = false;
+        var rows = $("#searchTable").bootstrapTable('getSelections');
+        if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+            alert("请先选择导出的数据!");
+            return;
+        } else {
+            var arrays = new Array();// 声明一个数组
+            $(rows).each(function () {// 通过获得别选中的来进行遍历
+                arrays.push(this.id);// cid为获得到的整条数据中的一列
+            });
+            ids = arrays.join(','); // 获得要导出的id
+        }
+        var name = prompt("请输入导出文件名称");
+            $.ajax({
+                url: '/patientSchedule/PatientScheduleExport/',//地址
+                dataType: 'json',//数据类型
+                type: 'post',//类型
+                data: {
+                    "ids": ids,
+                    "name": name
+                },
+                traditional: true, //默认false  传递数组专用
+                success: function (response) {
+                    if (response == "1") {
+                        alert('操作成功!!!');
+                        history.go(0);
+                    } else {
+                        alert('操作失败!!!');
+                        history.go(0);
+                    }
+                }
+            })
     }
 </script>
 </body>

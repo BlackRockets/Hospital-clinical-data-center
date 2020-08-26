@@ -10,6 +10,9 @@
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="age" column="age" jdbcType="OTHER"/>
         <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
+        <result property="operationTime" column="operation_time" jdbcType="VARCHAR"/>
+        <result property="surgicalProcedures" column="surgical_procedures" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
         <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
         <result property="dateOfNextFollowUp" column="date_of_next_follow_up" jdbcType="VARCHAR"/>
         <result property="followUpState" column="follow_up_state" jdbcType="VARCHAR"/>
@@ -123,7 +126,7 @@
         insert into hospital.schedule_of_follow_up_group(follow_up_group_id, inpatient_number, name, sex, group_entry_time, outpatient_number, follow_up_state)
         values (#{followUpGroupId}, #{inpatientNumber}, #{name}, #{sex}, #{groupEntryTime}, #{outpatientNumber}, #{followUpState})
     </insert>
-    <!--<update id="updateByAdvanced">
+    <update id="updateByAdvanced">
         update schedule_of_follow_up_group
         <set>
             <if test="inpatientNumber != null and inpatientNumber != ''">
@@ -141,8 +144,18 @@
             <if test="groupEntryTime != null and groupEntryTime != ''">
                 group_entry_time = #{groupEntryTime},
             </if>
+            <if test="operationTime != null and operationTime != ''">
+                operation_time = #{operationTime},
+            </if>
+            <if test="surgicalProcedures != null and surgicalProcedures != ''">
+                surgical_procedures = #{surgicalProcedures},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
         </set>
-    </update>-->
+        where id=#{id}
+    </update>
     <!--通过主键修改数据-->
     <update id="update">
         update hospital.schedule_of_follow_up_group
@@ -199,9 +212,9 @@
         where s.follow_up_state = '未随访'
     </select>
     <select id="selectAllByAdvanced" resultMap="ScheduleOfFollowUpGroupMap">
-    select s.*,h.person_name
-    from schedule_of_follow_up_group s,follow_up_group_management f,hospital_person h,patient_schedule p
-    where s.follow_up_group_id=f.id and p.group_detail_id=s.id and p.doctor_Id=h.id
+    select *
+    from schedule_of_follow_up_group s,follow_up_group_management f,patient_schedule p
+    where s.follow_up_group_id=f.id and p.group_detail_id=s.id
     </select>
     <delete id="deleteAll" parameterType="java.util.List">
         delete from hospital.schedule_of_follow_up_group where id in

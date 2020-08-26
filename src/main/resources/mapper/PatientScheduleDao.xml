@@ -39,7 +39,13 @@
         <result property="departmentsName" column="departments_name" jdbcType="VARCHAR"/>
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
     </resultMap>
-
+    <resultMap type="com.hospitaldatacenter.entity.Export" id="ExportMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
+        <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        <result property="responsibilityDepartments" column="responsibility_departments" jdbcType="VARCHAR"/>
+        <result property="followUpState" column="follow_up_state" jdbcType="VARCHAR"/>
+    </resultMap>
     <!--查询单个-->
     <select id="queryById" resultMap="PatientScheduleMap">
         select *
@@ -269,7 +275,13 @@
     <select id="selectAllDepartments" resultMap="departmentsMap">
         select * from  departments
     </select>
-
-
-
+    <select id="queryAllExport" resultMap="ExportMap">
+        select p.id,s.group_entry_time,f.group_name,f.responsibility_departments,s.follow_up_state from patient_schedule p
+        join schedule_of_follow_up_group s on p.patient_info_id = s.id
+        join follow_up_group_management f on p.group_detail_id = f.id  and   p.id in
+        <foreach collection="array" item="item" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

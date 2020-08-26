@@ -152,4 +152,22 @@ public class ScheduleOfFollowUpGroupController {
         int i=scheduleOfFollowUpGroupService.updateByAdvanced(scheduleOfFollowUpGroup);
         return JSON.toJSONString(i);
     }
+    @ResponseBody
+    @RequestMapping("findAdvanced")
+    protected String findAdvanced(String[] list){
+        String fieldName="";
+        String symbol="";
+        String value="";
+        if (list.length==0){
+            return JSON.toJSONString(0);
+        }else if (list.length>3){
+            fieldName.equals(list[0]);
+            symbol.equals(list[1]);
+            value.equals(list[2]);
+            System.out.println(fieldName);
+            System.out.println(symbol);
+            System.out.println(value);
+        }
+        return JSON.toJSONString(0);
+    }
 }

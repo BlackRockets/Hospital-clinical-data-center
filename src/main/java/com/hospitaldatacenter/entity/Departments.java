@@ -48,4 +48,7 @@ public class Departments implements Serializable {
         this.parentId = parentId;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 }

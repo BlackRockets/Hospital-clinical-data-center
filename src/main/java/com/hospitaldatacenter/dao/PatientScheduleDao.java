@@ -1,6 +1,7 @@
 package com.hospitaldatacenter.dao;
 
 import com.hospitaldatacenter.entity.Departments;
+import com.hospitaldatacenter.entity.Export;
 import com.hospitaldatacenter.entity.PatientSchedule;
 import org.apache.ibatis.annotations.Param;
 
@@ -39,6 +40,8 @@ public interface PatientScheduleDao {
      * @return 对象列表
      */
     List<PatientSchedule> queryAll(PatientSchedule patientSchedule);
+
+    List<Export> queryAllExport(Integer[] id);
 
     /**
      * 新增数据

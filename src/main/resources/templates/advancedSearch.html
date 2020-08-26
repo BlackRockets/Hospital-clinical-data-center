@@ -32,13 +32,38 @@
 
     <div id="advanceFormDiv">
         <div class="row">
-            <div class="col-md-2">
-                <select class="form-control input-sm" id="advanceFilterType">
-                    <option value="and" checked="checked">AND(满足所有)</option>
-                    <option value="or">OR(满足一个)</option>
+            <div class='col-md-1'>
+            </div>
+            <div class='col-md-2'>
+                <select class="form-control input-sm" type="text" name="advanceFilterField"
+                        id="advanceFilterField" >
+                    <option>--选择字段--</option>
+                    <option>白细胞</option>
+                    <option>身高</option>
+                    <option>体重</option>
+                    <option>血糖</option>
+                    <option>症状</option>
                 </select>
             </div>
+            <div class="col-md-1">
+                <select class="form-control input-sm" type="text" name="advanceFilterType"
+                        id="advanceFilterType2">
+                    <option value="0" checked="checked">等于</option>
+                    <option value="1">包含</option>
+                    <option value="2">不等于</option>
+                    <option value="3">大于等于</option>
+                    <option value="4">小于等于</option>
+                    <option value="5">大于</option>
+                    <option value="6">小于</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="" name="advanceFilterValLable"
+                       id="advanceFilterValLable">
+            </div>
+            <div class="col-md-4">
             <button href="javascript:void(0)" class="btn btn-success btn-sm" onclick="addFilter()">添加</button>
+            </div>
         </div>
 
     </div>
@@ -53,7 +78,6 @@
         <button href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="find()">搜索</button>
     </center>
 </div>
-
 <!--<form role="form" style="text-align: center">
     <p>条件：</p>
     <div class="form-group" id="form1">
@@ -152,56 +176,13 @@
             <div class="modal-body" style="height: 300px">
                 <form id="myform3">
                     <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6" style="display: none">
-                            <div class="col-sm-4">
-                                <label>id：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="id">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>门诊号/住院号：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="inpatientNumber">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>姓名：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 5px">
-                        <div class="col-md-6">
-                            <div class="col-sm-4">
-                                <label>性别：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="sex">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-4">
-                                <label>年龄：</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="age">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 5px">
                         <div class="col-md-6">
                             <div class="col-sm-4">
                                 <label>入组时期：</label>
                             </div>
                             <div class='input-group date col-sm-8' id='datetimepicker1'>
-                                <input type='text' id="groupEntryTime" class="form-control"/>
+                                <input type='text' id="groupEntryTime" name="groupEntryTime"
+                                       class="form-control input-sm"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -213,11 +194,57 @@
                                 <label>手术日期：</label>
                             </div>
                             <div class='input-group date col-sm-8' id='datetimepicker2'>
-                                <input type='text' id="operationTime" class="form-control"/>
+                                <input type='text' id="operationTime" name="operationTime"
+                                       class="form-control input-sm"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
                             </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-6" style="display: none">
+                            <div class="col-sm-4">
+                                <label>id：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" name="id" id="id">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-sm-4">
+                                <label>住院号：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" name="inpatientNumber"
+                                       id="inpatientNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-sm-4">
+                                <label>姓名：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" name="name" id="name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-6">
+                            <div class="col-sm-4">
+                                <label>性别：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" name="sex" id="sex">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label>年龄：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" name="age" id="age">
                             </div>
                         </div>
                     </div>
@@ -227,7 +254,7 @@
                                 <label>手术操作人者：</label>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="operator">
+                                <input type="text" class="form-control input-sm" name="operator" id="operator">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -235,7 +262,19 @@
                                 <label>手术术式：</label>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" id="surgicalProcedures">
+                                <input type="text" class="form-control input-sm" name="surgicalProcedures"
+                                       id="surgicalProcedures">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-md-6">
+                            <div class="col-sm-4">
+                                <label>门诊号：</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control input-sm" name="outpatientNumber"
+                                       id="outpatientNumber">
                             </div>
                         </div>
                     </div>
@@ -244,14 +283,12 @@
         </div>
     </div>
     <div class="modal-footer" style="text-align: center">
-        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick="update">
-            确定
+        <button type="button" class="btn btn-primary" onclick="update()">
+            保存
         </button>
     </div>
 </div>
 <div class="row" style="margin: 2%">
-    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">编辑
-    </button>
     <button type="button" style="margin-left: 2%" class="btn btn-success btn-sm"
             data-dismiss="modal" onclick="del()">删除
     </button>
@@ -260,6 +297,51 @@
     <table id="testTable"></table>
 </div>
 </div>
+<script id="rowTemplate" type="text/html">
+    <div id="filter" style="text-align: center">
+        <div class="row">
+            <div class="col-md-1">
+                <select type="text" class="form-control input-sm" id="advanceFilterType">
+                    <option value="and" checked="checked">并且</option>
+                    <option value="or">或者</option>
+                </select>
+            </div>
+            <div class='col-md-2'>
+                <select class="form-control input-sm" type="text" name="advanceFilterField"
+                        id="advanceFilterField<@=filterIndex@>">
+                    <option value="">--选择字段--</option>
+                    <option>白细胞</option>
+                    <option>身高</option>
+                    <option>体重</option>
+                    <option>血糖</option>
+                    <option>症状</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <select class="form-control input-sm" type="text" name="advanceFilterType"
+                        id="advanceFilterType<@=filterIndex@>">
+                    <option value="0" checked="checked">等于</option>
+                    <option value="1">包含</option>
+                    <option value="2">不等于</option>
+                    <option value="3">大于等于</option>
+                    <option value="4">小于等于</option>
+                    <option value="5">大于</option>
+                    <option value="6">小于</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="" name="advanceFilterValLable"
+                       id="advanceFilterValLable<@=filterIndex@>">
+            </div>
+            <div class='col-md-4' style="text-align: left">
+                <button href="javascript:void(0)" class="btn btn-success btn-sm" onclick="$('#filter').remove()">删除
+                </button>
+            </div>
+        </div>
+        <lable id="advanceFilterValLable">
+        </lable>
+    </div>
+</script>
 <script type="text/javascript">
     function jian(tag) {
         var form1 = document.getElementById("form1");
@@ -306,9 +388,11 @@
         columns: [{
             checkbox: true,
         }, {
-            field: 'inpatientNumber',
+            field: 'outpatientNumber/inpatientNumber',
             title: '门诊号/住院号',
-            align: 'center',
+            formatter: function (value, row) {
+                return row.outpatientNumber + "/" + row.inpatientNumber
+            }
         }, {
             field: 'name',
             title: '姓名',
@@ -326,20 +410,17 @@
             title: '入组时期',
             align: 'center',
         }, {
-            field: 'price',
+            field: 'operationTime',
             title: '手术日期',
             align: 'center',
         }, {
-            field: 'price',
+            field: 'surgicalProcedures',
             title: '手术术式',
             align: 'center',
         }, {
-            field: 'personName',
+            field: 'operator',
             title: '手术操作者',
             align: 'center',
-            formatter: function (value, row) {
-                return row.hp.personName;
-            }
         }, {
             title: '操作',
             formatter: operateFormatter,
@@ -375,7 +456,7 @@
             url: '/scheduleOfFollowUpGroup/deleteAll',
             method: 'post',
             data: {
-                ids: ids,
+                ids: ids
             },
             dataType: 'json',
             success: function (result) {
@@ -419,22 +500,28 @@
     function EditViewById(row, index) {
         var data = JSON.stringify($("#testTable").bootstrapTable('getData'));//获取全部数据
         var data1 = JSON.parse(data);//转Json 对象
+        $("#id").val(data1[index].id);
         $("#inpatientNumber").val(data1[index].inpatientNumber);
         $("#name").val(data1[index].name);
         $("#sex").val(data1[index].sex);
         $("#age").val(data1[index].age);
         $("#groupEntryTime").val(data1[index].groupEntryTime);
-        $("#surgicalProcedures").value(data1[index].surgicalProcedures);
+        $("#operationTime").val(data1[index].operationTime);
+        $("#surgicalProcedures").val(data1[index].surgicalProcedures);
         $("#operator").val(data1[index].operator);
+        $("#outpatientNumber").val(data1[index].outpatientNumber)
         $("#myModal").modal('show')
     }
+
     function update() {
-        var data=$("#myform3").serialize();
+        var data = $("#myform3").serialize();
+        console.log(data);
         $.ajax({
-            url: "/scheduleOfFollowUpGroup/update",
-            type: "post",
-            data:data,
-            success:function (result) {
+            url: "/scheduleOfFollowUpGroup/updateByAdvanced",
+            method: "post",
+            data: data,
+            dataType: 'json',
+            success: function (result) {
                 if (result == 1) {
                     alert("修改成功");
                     history.go(0)
@@ -537,58 +624,28 @@
          console.log(extAdvanceFilterParam);
      }*/
     function find() {
-        var data = $("#myform").serialize();
-        alert(data);
+        var data = new Array();
+        $("#advanceFormDiv input[type=text],select[type=text]").each(function () {
+
+            data.push(this.value);
+        })
+        console.log(data);
+        $.ajax({
+           url: '/scheduleOfFollowUpGroup/findAdvanced',
+           method: 'post',
+           data: {
+               list: JSON.stringify(data)
+           },
+           dataType: 'json',
+           success: function (result) {
+               if (result == 0) {
+                   alert("请输入搜索条件");
+                   history.go(0)
+               }
+           }
+       })
     }
-
 </script>
-<script id="rowTemplate" type="text/html">
-    <div id="filter" style="text-align: center">
 
-        <div class="row">
-            <div class='col-md-2' style="text-align: right">
-                <label>选择字段</label>
-            </div>
-
-            <div class='col-md-2'>
-                <select class="form-control input-sm" id="advanceFilterField<@=filterIndex@>" data-options="
-                    onSelect:function(_record){
-                            var _tempIndex = <@=filterIndex@>;
-                            filterFieldChange(_tempIndex,_record);
-                    },
-                    data:advanceConfig,
-                    valueField:'index',
-                    textField:'title',">
-                    <option>--选择字段--</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <select class="form-control input-sm" id="advanceFilterType<@=filterIndex@>">
-                    <option value="0" checked="checked">等于</option>
-                    <option value="1">包含</option>
-                    <option value="2">不等于</option>
-                    <option value="3">大于等于</option>
-                    <option value="4">小于等于</option>
-                    <option value="5">大于</option>
-                    <option value="6">小于</option>
-                    <option value="7">以什么开始</option>
-                    <option value="8">以什么结尾</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" placeholder="" id="advanceFilterValLable<@=filterIndex@>">
-            </div>
-            <div class='col-md-4' style="text-align: left">
-                <button href="javascript:void(0)" class="btn btn-success btn-sm" onclick="$('#filter').remove()">删除
-                </button>
-            </div>
-        </div>
-        <lable id="advanceFilterValLable">
-        </lable>
-    </div>
-</script>
 </body>
 </html>

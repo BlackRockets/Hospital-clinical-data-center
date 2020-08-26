@@ -61,6 +61,21 @@ public class ScheduleOfFollowUpGroup implements Serializable {
     /**
      * 随访组对象
      */
+    private String operator;
+    /**
+     * 筛选条件
+     * 手术操作者
+     */
+    private String surgicalProcedures;
+    /**
+     * 筛选条件
+     * 手术术式
+     */
+    private String operationTime;
+    /**
+     * 筛选条件
+     * 手术时间
+     */
     private FollowUpGroupManagement followUpGroupManagement;
 
     private HospitalPerson hp;
@@ -204,5 +219,29 @@ public class ScheduleOfFollowUpGroup implements Serializable {
 
     public void setPs(PatientSchedule ps) {
         this.ps = ps;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getSurgicalProcedures() {
+        return surgicalProcedures;
+    }
+
+    public void setSurgicalProcedures(String surgicalProcedures) {
+        this.surgicalProcedures = surgicalProcedures;
+    }
+
+    public String getOperationTime() {
+        return operationTime;
+    }
+
+    public void setOperationTime(String operationTime) {
+        this.operationTime = operationTime;
     }
 }

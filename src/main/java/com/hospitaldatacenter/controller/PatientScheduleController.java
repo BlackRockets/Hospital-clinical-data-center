@@ -3,11 +3,11 @@ package com.hospitaldatacenter.controller;
 import com.alibaba.fastjson.JSON;
 import com.hospitaldatacenter.entity.Departments;
 import com.hospitaldatacenter.entity.PatientSchedule;
-import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 import com.hospitaldatacenter.service.PatientScheduleService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -44,20 +44,33 @@ public class PatientScheduleController {
 
     @ResponseBody
     @RequestMapping(value = "selectAllByCondition")
-    public String selectAllByCondition(@RequestBody(required = false) String dataItem){
+    public String selectAllByCondition(@RequestBody(required = false) String dataItem) {
         List<PatientSchedule> scheduleOfFollowUpGroups = patientScheduleService.selectAllByCondition(dataItem);
         return JSON.toJSONString(scheduleOfFollowUpGroups);
     }
 
     /**
-     *@description:查询所有科室
-     *@author: zyl
+     * @description:查询所有科室
+     * @author: zyl
      */
     @RequestMapping(value = "findAllDepartments")
-    public List<Departments>  findAllDepartments(){
+    public List<Departments> findAllDepartments() {
         return patientScheduleService.queryAllDepartments();
     }
 
+    /**
+     * @description:导出
+     * @author: zyl
+     */
+    @ResponseBody
+    @RequestMapping(value = "PatientScheduleExport", produces = {"application/json;charset=utf-8"})
+    public String Export(Integer[] ids, String name)  {
+        try {
+            List list = patientScheduleService.findPatientScheduleIds(ids, name);
+        } catch (IOException e) {
 
+        }
+        return JSON.toJSONString("1");
 
+    }
 }
