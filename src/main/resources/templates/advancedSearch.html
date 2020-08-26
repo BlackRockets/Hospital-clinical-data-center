@@ -138,22 +138,33 @@
         var element2 = document.getElementsByClassName("select2");
         var element3 = document.getElementsByClassName("select3");
         var inp = document.getElementsByClassName("inp");
-        var list = [];
-        for(var i=0;i<element2.length;i++){
-            var array={"conjunction":element1[i].value,"conditionName":element2[i].value,"comparisonOperators":element3[i].value,"conditionContent":inp[i].value,"groupId":id};
-           list.push(array)
-        }
-        $.ajax({
-            url: '/user/advanceSearch',
-            type: 'post',
-            data: JSON.stringify(list),
-            dataType: 'json',
-            contentType: 'application/json',
-            success:function (res) {
-                $("#testTable").bootstrapTable("load",res);
+        var a="ok";
+        for(var i=0;i<inp.length;i++){
+            if(inp[i].value == null || inp[i].value == ""){
+                alert("所有条件不能为空！");
+                a="flase";
             }
-        })
-        console.log(JSON.stringify(list));
+        }
+        if(a == "ok"){
+            var list = [];
+            for(var i=0;i<element2.length;i++){
+                var array={"conjunction":element1[i].value,"conditionName":element2[i].value,"comparisonOperators":element3[i].value,"conditionContent":inp[i].value,"groupId":id};
+                list.push(array)
+            }
+            $.ajax({
+                url: '/user/advanceSearch',
+                type: 'post',
+                data: JSON.stringify(list),
+                dataType: 'json',
+                contentType: 'application/json',
+                success:function (res) {
+                    $("#testTable").bootstrapTable("load",res);
+                    console.log(JSON.stringify(list));
+                }
+            })
+        }
+
+
     }
 
     $("#testTable").bootstrapTable({

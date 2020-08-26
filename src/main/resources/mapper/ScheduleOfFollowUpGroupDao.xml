@@ -180,7 +180,7 @@
         <where>
             s.follow_up_group_id = #{groupId}
             <foreach collection="list"  item="item">
-                ${item.conjunction} ${item.conditionName} ${item.comparisonOperators} ${item.conditionContent}
+                ${item.conjunction} ${item.conditionName} ${item.comparisonOperators} #{item.conditionContent}
             </foreach>
         </where>
     </select>
