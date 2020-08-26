@@ -93,7 +93,6 @@ public class FilterController {
         return "holiday";
     }
 
-
     /**
      *@description: 随访进度及计划明细
      *@author: zyl
@@ -102,4 +101,14 @@ public class FilterController {
     public String toPatientDetailsPage(){
         return "patientDetailsPage";
     }
+
+    /**
+     *@description:  高级检索
+     *@author: zyl
+     */
+    @RequestMapping("/toAdvancedSearch")
+    public String toAdvancedSearch(){
+        return "advancedSearch";
+    }
+
 }
