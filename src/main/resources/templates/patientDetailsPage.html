@@ -61,8 +61,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><a v-on:click="search" data-dismiss="modal" data-toggle="modal" data-target="#myModal"><span
-                            class='glyphicon glyphicon-zoom-in'></span></a></td>
+                    <td><a v-on:click="search" data-dismiss="modal" data-toggle="modal" data-target="#myModal"><span class='glyphicon glyphicon-zoom-in'></span></a></td>
                 </tr>
             </table>
         </div>
@@ -71,12 +70,12 @@
                 <button type="button" class="btn btn-info btn-sm" onclick="">
                     保存
                 </button>
-                <!-- <button type="button" class="btn btn-info btn-sm" onclick="">
-                     删除
-                 </button>
-                 <button type="button" class="btn btn-info btn-sm" onclick="">
-                     履历
-                 </button>-->
+               <!-- <button type="button" class="btn btn-info btn-sm" onclick="">
+                    删除
+                </button>
+                <button type="button" class="btn btn-info btn-sm" onclick="">
+                    履历
+                </button>-->
             </div>
             <div class="row">
                 <form role="form" style="margin: 1%">
@@ -135,10 +134,14 @@
                         </div>
                         <div class="col-sm-3">
                             症状：<select v-model="item.symptom">
-                            <option value="">请选择</option>
-                            <option value="头疼">头疼</option>
-                            <option value="发热">发热</option>
-                            <option value="肾疼">肾疼</option>
+                            <option>头痛</option>
+                            <option>发热</option>
+                            <option>头晕</option>
+                            <option>咳嗽</option>
+                            <option>胸闷</option>
+                            <option>胸痛</option>
+                            <option>呕吐</option>
+                            <option>心衰</option>
                         </select>
                         </div>
                     </div>
@@ -284,13 +287,12 @@
 </script>
 
 <script type="text/javascript">
-    var urlinfo = window.location.href; //获取当前页面的url
-    len = urlinfo.length;//获取url的长度
-    var offset = urlinfo.indexOf("?");//设置参数字符串开始的位置
-    var newsidinfo = urlinfo.substr(offset, len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
-    var newsids = newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-    var newsid = newsids[1];//得到参数值
-
+    var urlinfo=window.location.href; //获取当前页面的url
+    len=urlinfo.length;//获取url的长度
+    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+    var  newsid=newsids[1];//得到参数值
     var vm = new Vue({
         el: '#box',
         data() {

@@ -10,9 +10,6 @@
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="age" column="age" jdbcType="OTHER"/>
         <result property="groupEntryTime" column="group_entry_time" jdbcType="VARCHAR"/>
-        <result property="operationTime" column="operation_time" jdbcType="VARCHAR"/>
-        <result property="surgicalProcedures" column="surgical_procedures" jdbcType="VARCHAR"/>
-        <result property="operator" column="operator" jdbcType="VARCHAR"/>
         <result property="outpatientNumber" column="outpatient_number" jdbcType="VARCHAR"/>
         <result property="dateOfNextFollowUp" column="date_of_next_follow_up" jdbcType="VARCHAR"/>
         <result property="followUpState" column="follow_up_state" jdbcType="VARCHAR"/>
@@ -20,9 +17,6 @@
                      javaType="com.hospitaldatacenter.entity.FollowUpGroupManagement">
             <result property="id" column="id" jdbcType="INTEGER"/>
             <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
-        </association>
-        <association property="hp" javaType="com.hospitaldatacenter.entity.HospitalPerson">
-            <result property="personName" column="person_name" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
 
@@ -175,6 +169,20 @@
         join follow_up_group_management f
         on s.follow_up_group_id = f.id
         where s.follow_up_state = '未随访'
+    </select>
+
+
+    <select id="queryAllByConditions" resultMap="ScheduleOfFollowUpGroupMap">
+        select *
+        from patient_schedule p
+        join schedule_of_follow_up_group s
+        on p.group_detail_id = s.id
+        <where>
+            s.follow_up_group_id = #{groupId}
+            <foreach collection="list"  item="item">
+                ${item.conjunction} ${item.conditionName} ${item.comparisonOperators} ${item.conditionContent}
+            </foreach>
+        </where>
     </select>
 
 </mapper>
