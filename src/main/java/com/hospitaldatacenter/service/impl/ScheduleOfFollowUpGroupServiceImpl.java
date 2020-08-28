@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -167,5 +170,25 @@ public class ScheduleOfFollowUpGroupServiceImpl implements ScheduleOfFollowUpGro
     @Override
     public int updateByAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup) {
         return scheduleOfFollowUpGroupDao.updateByAdvanced(scheduleOfFollowUpGroup);
+    }
+
+    @Override
+    public HashMap<String,Object> selectByDate(String dat) {
+        HashMap<String, Object> map = new HashMap<>();
+        double i = scheduleOfFollowUpGroupDao.selectByDateAll(dat);
+        double i1 = scheduleOfFollowUpGroupDao.selectByDateAllTrue(dat);
+        DecimalFormat df = new DecimalFormat("0.00");
+        double i2 = i1 / i;
+        String format;
+        if (i == 0 && i1 == 0){
+            format = "0";
+        }else {
+            format = df.format(i2);
+        }
+        map.put("date",dat);
+        map.put("followAll",new Double(i).intValue());
+        map.put("followReady",new Double(i1).intValue());
+        map.put("followCount",format);
+        return map;
     }
 }

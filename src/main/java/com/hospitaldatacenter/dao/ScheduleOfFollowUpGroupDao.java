@@ -125,4 +125,8 @@ public interface ScheduleOfFollowUpGroupDao {
 
     List<ScheduleOfFollowUpGroup> queryAllByConditions(@Param("list") List<Condition> list,@Param("groupId") Integer groupId);
 
+    double selectByDateAll(String dat);
+
+    double selectByDateAllTrue(String dat);
+
 }
