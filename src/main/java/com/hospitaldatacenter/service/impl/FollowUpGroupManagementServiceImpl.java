@@ -157,14 +157,23 @@ public class FollowUpGroupManagementServiceImpl implements FollowUpGroupManageme
         Integer followUpGroupId = fol.getFollowUpGroupId();
         List<FollowUpGroupMember> followUpGroupMembers = followUpGroupMemberDao.queryAllByFollowUpGroupId(followUpGroupId);
         List<User> users = new ArrayList<>();
-        for (FollowUpGroupMember upGroupMember : followUpGroupMembers) {
+        /*Lambda表达式遍历*/
+        followUpGroupMembers.forEach(a -> {
+            String userId = a.getUserId();
+            String[] split = userId.split(",");
+            if(split.length>0){
+                List<User> users1 = userDao.selectUserByUserId(split);
+                users.addAll(users1);
+            }
+        });
+       /* for (FollowUpGroupMember upGroupMember : followUpGroupMembers) {
             String userId = upGroupMember.getUserId();
             String[] split = userId.split(",");
             if(split.length>0){
                 List<User> users1 = userDao.selectUserByUserId(split);
                 users.addAll(users1);
             }
-        }
+        }*/
         Set<User> users2 = new HashSet<>(users);
         return users2;
     }

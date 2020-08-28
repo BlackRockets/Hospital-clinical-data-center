@@ -18,6 +18,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.thymeleaf.util.StringUtils;
 
 
 import javax.annotation.Resource;
@@ -44,6 +45,14 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
         Set<String> permissions = getPermissionsByUserName(name);
         // 设置用户的角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        if (simpleAuthorizationInfo != null && simpleAuthorizationInfo.getStringPermissions() != null) {
+            for (String permission : permissions) {
+                if (StringUtils.isEmpty(permission)) {
+                    permissions.remove(permission);
+                }
+            }
+        }
+
         if(roles.size() > 0){
             simpleAuthorizationInfo.setRoles(roles);
         }
@@ -51,6 +60,7 @@ public class EnchiladasShirRealm extends AuthorizingRealm {
         if(permissions.size() > 0){
             simpleAuthorizationInfo.setStringPermissions(permissions);
         }
+
         return simpleAuthorizationInfo;
     }
 

@@ -1,6 +1,6 @@
 package com.hospitaldatacenter.entity;
 
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * 患者基本信息(PatientBasicInformation)实体类
@@ -118,4 +118,18 @@ public class PatientBasicInformation implements Serializable {
         this.bloodtype = bloodtype;
     }
 
+}
+
+class AA{
+    public static void main(String[] args) throws Exception{
+        /*PatientBasicInformation patientBasicInformation = new PatientBasicInformation();
+        patientBasicInformation.setId(1);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("D://a.txt"));
+        objectOutputStream.writeObject(patientBasicInformation);
+        objectOutputStream.flush();
+        objectOutputStream.close();*/
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("D://a.txt"));
+        PatientBasicInformation patientBasicInformation = (PatientBasicInformation) objectInputStream.readObject();
+        System.out.println(patientBasicInformation.getId());
+    }
 }
