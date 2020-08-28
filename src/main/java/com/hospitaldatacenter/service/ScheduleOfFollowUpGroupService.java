@@ -3,6 +3,7 @@ package com.hospitaldatacenter.service;
 import com.hospitaldatacenter.entity.PatientSchedule;
 import com.hospitaldatacenter.entity.ScheduleOfFollowUpGroup;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,7 +56,6 @@ public interface ScheduleOfFollowUpGroupService {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
      * @return 是否成功
      */
     void deleteById(Integer[] ids);
@@ -107,4 +107,6 @@ public interface ScheduleOfFollowUpGroupService {
      *@author: zyl
      */
     int updateByAdvanced(ScheduleOfFollowUpGroup scheduleOfFollowUpGroup);
+
+    HashMap<String,Object> selectByDate(String dat);
 }

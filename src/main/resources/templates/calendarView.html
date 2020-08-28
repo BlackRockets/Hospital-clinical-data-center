@@ -16,19 +16,16 @@
     <script type="text/javascript" src="../static/jquerycalendar/js/sys-calendar.js"></script>
     <title></title>
     <style type="text/css">
-       /* .pagescroll{position: relative; z-index: 1;padding: 15px;}
-        .pageModule:before{position: absolute; z-index: 0; content: '';width: 100%; height: 450px;background: #0885D1; top:0px; left: 0px;}
-        .calendar{background: #FFFFFF; margin: auto; box-shadow: 0px 3px 6px rgba(0,0,0,0.4);}
-        .pagetitle{color: #FFFFFF;font-size: 36px; font-weight: bold; text-align: center; width: 1200px;margin: 0 auto; margin-bottom: 50px;}
-        .content{width: 1200px;margin: 0 auto; margin-top: 50px; background: #FFFFFF;}
-        .title-name{ text-align: left;}*/
+        /* .pagescroll{position: relative; z-index: 1;padding: 15px;}
+         .pageModule:before{position: absolute; z-index: 0; content: '';width: 100%; height: 450px;background: #0885D1; top:0px; left: 0px;}
+         .calendar{background: #FFFFFF; margin: auto; box-shadow: 0px 3px 6px rgba(0,0,0,0.4);}
+         .pagetitle{color: #FFFFFF;font-size: 36px; font-weight: bold; text-align: center; width: 1200px;margin: 0 auto; margin-bottom: 50px;}
+         .content{width: 1200px;margin: 0 auto; margin-top: 50px; background: #FFFFFF;}
+         .title-name{ text-align: left;}*/
     </style>
 </head>
 
 <body id="pageModule" class="pageModule">
-<div class="row" style="margin-top: 1%;margin-left: 2%">
-    <span class="glyphicon glyphicon-arrow-left" style="color: yellow"></span><a onclick="returns()">返回随访组</a>
-</div>
 <div id="pagescroll" class="pagescroll">
     <div id="calendar" style="margin-left: 5%"></div>
 </div>
@@ -39,16 +36,6 @@
     SyntaxHighlighter.all();
 </script>
 <script type="text/javascript">
-    var urlinfo=window.location.href; //获取当前页面的url
-    len=urlinfo.length;//获取url的长度
-    var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
-    var  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
-    var newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-    var  newsid=newsids[1];//得到参数值
-
-    function returns() {
-        window.location.href="inDividualFollowUpGroupManagement?id="+newsid;
-    }
     new SYSUI({
         Module: '#pageModule',
         Method: [{'module': '#calendar',event: function(set, obj) {
@@ -135,36 +122,36 @@
                         /*var module = document.body.querySelector(".calendar-box");
                         module ? module.parentNode.removeChild(module) : "";*/
 
-                            /*var mun = data.length;
-                            var box = document.createElement("div");
-                            box.id = "calendar-box";
-                            lay.el[0].appendChild(box).className = "calendar-box";
-                            for(var i = 0; i < mun; i++) {
-                                var mousename = document.createElement("a");
-                                mousename.className = "record_info";
-                                mousename.href = "javascript:;";
-                                box.appendChild(mousename).innerHTML = data[i].name;
-                            }
-                            var laybox = $(lay.el[0]).outerWidth();
-                            var objTop = lay.getOffsetTop(set.$('#calendar-box')); //对象x位置
-                            var objLeft =lay.getOffsetLeft(set.$('#calendar-box')); //对象y位置
-                            var mouseX = me.clientX + document.body.scrollLeft; //鼠标x位置
-                            var mouseY = me.clientY + document.body.scrollTop; //鼠标y位置
-                            var objX = mouseX - objLeft;
-                            var objY = mouseY - objTop;
-                            box.style.cssText = "display:block" + "; left:" + objX + "px" + ";" + "top:" + objY + "px";
-                            var infoh = $(".record_info").outerHeight()+10 * mun;
-                            var boxh = $(".calendar-box").outerHeight();
-                            var boxgap = laybox - mouseX;
-                            var boxw = $(box).outerWidth();
-                            if(boxgap <= boxw) {
-                                box.style.cssText = "display:block" + "; left:" + (objX - boxw) + "px" + ";" + "top:" + objY + "px";
-                            }
-                            if(infoh < boxh) {
-                                box.style.cssText += 'height:' + infoh + 'px;';
-                            } else {
-                                box.style.cssText += 'bottom:15px';
-                            }*/
+                        /*var mun = data.length;
+                        var box = document.createElement("div");
+                        box.id = "calendar-box";
+                        lay.el[0].appendChild(box).className = "calendar-box";
+                        for(var i = 0; i < mun; i++) {
+                            var mousename = document.createElement("a");
+                            mousename.className = "record_info";
+                            mousename.href = "javascript:;";
+                            box.appendChild(mousename).innerHTML = data[i].name;
+                        }
+                        var laybox = $(lay.el[0]).outerWidth();
+                        var objTop = lay.getOffsetTop(set.$('#calendar-box')); //对象x位置
+                        var objLeft =lay.getOffsetLeft(set.$('#calendar-box')); //对象y位置
+                        var mouseX = me.clientX + document.body.scrollLeft; //鼠标x位置
+                        var mouseY = me.clientY + document.body.scrollTop; //鼠标y位置
+                        var objX = mouseX - objLeft;
+                        var objY = mouseY - objTop;
+                        box.style.cssText = "display:block" + "; left:" + objX + "px" + ";" + "top:" + objY + "px";
+                        var infoh = $(".record_info").outerHeight()+10 * mun;
+                        var boxh = $(".calendar-box").outerHeight();
+                        var boxgap = laybox - mouseX;
+                        var boxw = $(box).outerWidth();
+                        if(boxgap <= boxw) {
+                            box.style.cssText = "display:block" + "; left:" + (objX - boxw) + "px" + ";" + "top:" + objY + "px";
+                        }
+                        if(infoh < boxh) {
+                            box.style.cssText += 'height:' + infoh + 'px;';
+                        } else {
+                            box.style.cssText += 'bottom:15px';
+                        }*/
                     },
                     monthClick: function(e, nextMonth, opts, me) {
                         //开始月份第一天

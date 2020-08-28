@@ -26,22 +26,22 @@ Calendar.prototype = {
         datenate: [0, 21208, 43467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758],  
         period:"日一二三四五六七八九十",
         lunar:["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊"],  
-        lunarperiod:"初十廿卅",  
-        festival:{  
-            "0101": "*1元旦节",  
+        lunarperiod:"初十廿卅",
+        festival:{
+            "0101": "*1元旦节",
             "0214": "情人节",  
             "0305": "学雷锋纪念日",  
             "0308": "妇女节",  
             "0312": "植树节",  
             "0315": "消费者权益日",  
             "0401": "愚人节",  
-            "0501": "*1劳动节",  
+            "0501": "*1劳动节",
             "0504": "青年节",  
             "0601": "国际儿童节",  
             "0701": "中国共产党诞辰",  
             "0801": "建军节",  
             "0910": "中国教师节",  
-            "1001": "*3国庆节",  
+            "1001": "*3国庆节",
             "1224": "平安夜",  
             "1225": "圣诞节"  
         },  
@@ -57,7 +57,6 @@ Calendar.prototype = {
         newDate: new Date(),
         width: null,
         shwoLunar: true,
-        showModeBtn: true,
         showEvent: true,
         maxEvent: null
     },
@@ -74,12 +73,13 @@ Calendar.prototype = {
         me._createCalendar();
         //绑定事件
         //changeMode
-        el.on("click", ".calendar-mode-select .btn", function (e) {
+        /*el.on("click", ".calendar-mode-select .btn", function (e) {
+
             e.stopPropagation();
             var modeText = $(this).text();
             var mode = modeText == "月" ? "month" : "year";
             me.changeMode(mode);
-        })
+        })*/
         //calendar-cell日期点击事件
         el.on("click", ".calendar-cell", function (e) {
             e.stopPropagation();
@@ -93,13 +93,31 @@ Calendar.prototype = {
             var month = parseInt(cellDate.split("年")[1].split("月")[0]) - 1;
             var date = parseInt(cellDate.split("年")[1].split("月")[1].split("日")[0]);
 
-            if (opts.mode == "year") {
-                if (opts.cellClick) opts.cellClick.call(me, viewData[month],e,me)
+            if((month+1)>1 && (month+1) < 10){
+                month = "0"+(month+1);
+            }
+            if(date>1 && date < 10){
+                date = "0"+date;
+            }
+            var dat=year+"-"+month+"-"+date;
+            var s;
+            $.ajax({
+                url: '/scheduleOfFollowUpGroup/selectByDate?dat='+dat,
+                type: 'post',
+                success:function (res) {
+                    opts.cellClick(res,e,me)
+                }
+            })
+
+            /*if (opts.mode == "year") {
+                //if (opts.cellClick) opts.cellClick.call(me, viewData[month],e,me)
+                if (opts.cellClick) opts.cellClick.call(s, s,s,s)
             }
             else if (opts.mode == "month" && month == opts.newDate.getMonth()) {
 
-                if (opts.cellClick) opts.cellClick.call(me, viewData[date],e,me)
-            }
+               // if (opts.cellClick) opts.cellClick.call(me, viewData[date],e,me)
+                if (opts.cellClick) opts.cellClick.call(s, s,s,s)
+            }*/
         })
 
         //年份下拉

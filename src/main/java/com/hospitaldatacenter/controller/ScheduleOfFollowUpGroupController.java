@@ -9,6 +9,7 @@ import com.hospitaldatacenter.service.ScheduleOfFollowUpGroupService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -169,5 +170,13 @@ public class ScheduleOfFollowUpGroupController {
             System.out.println(value);
         }
         return JSON.toJSONString(0);
+    }
+
+    @RequestMapping("selectByDate")
+    public HashMap<String,Object> selectByDate(String dat){
+        System.out.println(dat);
+        HashMap<String, Object> map = scheduleOfFollowUpGroupService.selectByDate(dat);
+        System.out.println(map);
+        return map;
     }
 }

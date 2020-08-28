@@ -148,9 +148,9 @@
                 <button type="button" class="btn btn-info btn-sm" onclick="releases(saveHtml)">
                     发布
                 </button>
-                <button type="button" class="btn btn-info btn-sm" onclick="">
+                <!--<button type="button" class="btn btn-info btn-sm" onclick="">
                     取消
-                </button>
+                </button>-->
             </div>
             <div id="total">
                 <div class="row" id="saveHtml">
@@ -699,11 +699,14 @@
             success:function (res) {
                 if(res == 1){
                    alert("保存成功");
+                    returns();
                 }else if(res == 2){
                     alert("该版本已存在");
                 }else {
                     alert("保存失败");
                 }
+
+
             }
             
         })
@@ -723,11 +726,13 @@
             success:function (res) {
                 if(res == 1){
                     alert("发布成功");
+                    returns();
                 }else if(res == 2){
                     alert("该版本已发布");
                 }else {
                     alert("发布失败");
                 }
+
             }
 
         })

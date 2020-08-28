@@ -76,11 +76,7 @@ public class ScheduleOfFollowUpGroup implements Serializable {
      * 筛选条件
      * 手术时间
      */
-    private FollowUpGroupManagement followUpGroupManagement;
-
-    private HospitalPerson hp;
-
-    private PatientSchedule ps;
+    private Integer count;
 
     @Override
     public String toString() {
@@ -97,9 +93,29 @@ public class ScheduleOfFollowUpGroup implements Serializable {
                 ", followUpState='" + followUpState + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
+                ", operator='" + operator + '\'' +
+                ", surgicalProcedures='" + surgicalProcedures + '\'' +
+                ", operationTime='" + operationTime + '\'' +
+                ", count=" + count +
                 ", followUpGroupManagement=" + followUpGroupManagement +
+                ", hp=" + hp +
+                ", ps=" + ps +
                 '}';
     }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    private FollowUpGroupManagement followUpGroupManagement;
+
+    private HospitalPerson hp;
+
+    private PatientSchedule ps;
 
     public FollowUpGroupManagement getFollowUpGroupManagement() {
         return followUpGroupManagement;
